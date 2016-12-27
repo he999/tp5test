@@ -1,0 +1,138 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="tpshop" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>用户登录</title>
+<meta http-equiv="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/login.css"/>  
+<link rel="stylesheet" href="/static/waps/css/mui.min.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+<style type="text/css">
+.header, #header {
+    background-color: #E71F19;
+    width: 100%;
+    height: 45px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+        line-height: 45px;
+    color: #fff;
+}
+#tbh5v0{
+	    margin-top: 5px;
+    border-top: 1px solid #eee;
+}
+</style>
+</head>
+<body>
+{literal}
+<header id="header"> 
+	<a href="/index.php/wap/categorys/catelist" class="top_bt"></a>
+	<a href="/index.php/wap/cart/index" class='user_btn'></a>
+	<span href="javascript:void(0)" class="logo">登录</span> 
+</header>
+<div id="tbh5v0" >
+	<div class="log_reg_box">
+		<ul class="tab" id="logRegTab">
+			<li id="mob_log" class="curr" >
+				<span>
+					<font>用户登录</font>
+				</span>
+			</li>
+			<li id="email_log" class="curr currr" >
+				<span>
+					<a href="/index.php/wap/login/adminlogin">管理员登录</a>
+				</span>
+			</li>
+		</ul>
+		<div id="logRegTabCon">
+			<div class="log_reg_item" id="phonearea">
+				<div action="" id="mobileForm" >
+					<div class="Login">
+						<dl>
+			            <dt>账号：</dt>
+					    	<dd><input type="text" name="username" id="username" placeholder="请输入用户账号" value="{$infos.user}" /></dd>
+						</dl>
+		                <dl style=" margin-top:15px;">
+		                <dt>密码：</dt>
+							<dd><input type="password" name="password" id="password" placeholder="密码" value="{$infos.password}"/></dd>
+			            </dl>
+						<div class="field submit-btn">
+							<input type="button" class="btn_big1" onClick="checkSubmit()" value="登 录" />
+						</div>
+						<div class="ng-foot">
+				            <div class="ng-cookie-area" >
+				                <label class="bf1 login_ffri">
+									<input type="checkbox" name="remember" value="1" checked="" class="ck" > &nbsp;记住密码 
+								</label>
+				            </div>                           
+				        </div>			
+			    	</div>
+			</div>
+			</div>
+		</div>
+	</div>			
+		
+</div>
+<script type="text/javascript">
+
+
+function checkSubmit()
+{ 
+	var username = $('#username').val();
+	var password = $('#password').val();	
+	if (username == '') {
+        $('#username').css('border','1px solid #FF2233').attr('placeholder','账号不能为空');
+         return;
+	}
+	else{
+		 $('#username').css('border','1px solid #DFDFDF');
+	}
+
+    if (password == '') {
+        $('#password').css('border','1px solid #FF2233').attr('placeholder','密码不能为空');
+        return;
+	}
+	else{
+		 $('#password').css('border','1px solid #DFDFDF');
+	}
+     
+	$.ajax({
+		url:'/index.php/wap/login/ajaxlogin',
+		type:'post',
+		dataType:'json',
+		data:{username:username,password:password,remember:$('.login_ffri').find("input").val(),},
+		success:function(res){
+			console.log(res);
+			if(res.error_code==0){
+                window.location.href = "/index.php/wap/index/index";
+			}
+			else{
+				mui.toast(res.error_msg);
+			}
+		}
+	})	 
+}
+
+//是否记住密码
+$(".login_ffri").click(function(){
+	var vals = $(this).find("input").val();
+	if (vals == 1) {
+        $(this).find("input").val(2);
+	}
+	else{
+       $(this).find("input").val(1);
+	}
+})
+</script>
+</body>
+{/literal}
+</html>

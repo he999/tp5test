@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>   
+
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit">                      
+              <li  style="font-size: 20px;font-weight:600;color:#585858"> 添加配送方式</li>
+            </ul>    
+        <form action="" method="post" enctype="multipart/form-data" name="myform"  onsubmit="return check_submit();"><!--return(check_one()+check_price()+check_max())==3 || return(check_weight()+check_weight_in()+check_weight_out()+check_weight_price())==4 --> 
+              
+     <table width="900px" border="0" cellspacing="10" >
+    <tr>
+    <th width="200px" style="text-align: center;">配送名称：</th>
+    <th   align="left">  
+      <input type="text"name="shipping_name"  class="form-control" id="good"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left" required="required"><span style="float:left;color:red; margin-top:20px;">*</span>
+      <input type="hidden" value="{$shipping_com_id}" name="shipping_com_id">
+     </th>
+  </tr>
+  <tr>
+    <th width="200px" style="text-align: center;">费用计算方式：</th>
+    <th   align="left">  
+      <label><input name="type" type="radio" value="1"   id="num" required="required" checked="checked"/>按商品件数计算 </label> 
+<label><input name="type" type="radio" value="2"  id="weight" required="required"/>按重量计算 </label>
+     </th>
+  </tr>
+  <tbody id="weight2" class="wei wei1">
+  <tr>
+    <th width="200px" style="text-align: center;" >单件商品费用：</th>
+    <th   align="left">  
+      <input type="text" name="num_price" class="form-control" style="width: 300px;resize: none;margin: 10px 0px;width: 300px;float:left;"  id="one" />
+      <span style="float:left;margin-top:20px;">单位(￥)</span>
+     </th>
+  </tr>
+  <tr>
+    <th width="250px" style="text-align: center;">每增加一件费用：</th>
+    <th   align="left">  
+      <input type="text"  name="num_price_out" class="form-control" style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left;" id="price"/>
+      <span style="float:left;margin-top:20px;">单位(￥)</span>
+     </th>
+  </tr>  
+
+  <tr>
+    <th width="200px" style="text-align: center;">最大费用：</th>
+    <th   align="left">  
+      <input type="text" name="num_price_max" class="form-control" id="max"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px;float:left;" >
+      <span style="float:left;margin-top:20px;">单位(￥)</span>
+     </th>
+     
+  </tr>
+   </tbody> 
+   <tbody id="weight3" style="display:none" class="wei wei2">
+  <tr>
+    <th width="200px" style="text-align: center;" ><span style="float:left; line-height:35px; margin-left:18%">首重</span>
+           <input style="height:35px;width:55px;float:left" name="weight_in" class="form-control" id="weight_in"/>
+           <span style="float:left;line-height:35px">克以内费用:</span>
+    </th>
+    <th   align="left">  
+      <input type="text" name="weight_price_in" class="form-control" id="weight"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px;float:left;" >
+      <span style="float:left;margin-top:20px;">单位(￥)</span>
+     </th>
+  </tr>
+  <tr>
+    <th width="250px" style="text-align: center;" ><span style="float:left; line-height:35px; ">续重每</span>
+           <input style="height:35px;width:55px;float:left" name="weight_out" class="form-control" id="weight_out"/>
+           <span style="float:left;line-height:35px">克或其零数的费用:</span>
+    </th>
+    <th   align="left">  
+      <input type="text"  name="weight_price_out" class="form-control" id="weight_price"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left;" >
+      <span style="float:left;margin-top:20px;">单位(￥)</span>
+     </th>
+  </tr>  
+   </tbody> 
+  <tr>
+    <th width="200px" style="text-align: center;">配送描述：</th>
+    <th   align="left"> 
+      <textarea name="shipping_des" class="form-control" style="width:300px;height:70px; margin-top:10px" required="required"></textarea>
+     </th>
+  </tr>
+
+  <tr height=70 vertical-align="center" >
+    <th width="200px" style="text-align: center;">所辖地区：</th> 
+    <th style="display:block; width:100%;margin-top:25px" > 
+        <span style="float:left;margin-top:5px">省份：</span>
+        <select name="region_id[]" id="province" class="form-control"style="resize: none;width: 100px;float: left;" required="required">       
+        <option  value="">请选择</option>    
+        {volist name="data" id="vo"}             
+        <option  value="{$vo.id}">{$vo.name}</option>
+        {/volist}
+        </select>
+        <span style="float:left;margin:5px 0 0 5px">城市：</span>
+        <select name="region_id[]" id="city" class="form-control"style="resize: none;width: 100px;float: left;" >              
+        <option  value="" >请选择</option>
+        </select>
+        <span style="float:left;margin:5px 0 0 5px">区/县：</span>
+        <select name="region_id[]" id="district" class="form-control"style="resize: none;width: 100px;float: left;" >              
+        <option  value="" >请选择</option>
+        </select>
+        <a href="javascript:;" onclick="cityad(this);" style="margin:0 0 0 12px">[+]</a>
+    </th>   
+    <th style="display:block; width:100%;margin-top:25px"  id="ready">
+       已选地区:
+    </th>
+  </tr>     
+ <!-- $("button").click(function(){
+  $("li").each(function(){
+    alert($(this).text())
+  });
+ }); 
+$(".main_2_top_right li").each(function(index){
+    $(this).click(function(){
+    $(".main_2_bot ul").eq(index).show().siblings().hide();
+    $(this).addClass("main_2_top_right_li_1").siblings().removeClass("main_2_top_right_li_1")
+    })
+});-->
+     <script type="text/javascript">           
+            $("#province").change(function(){
+                var val = $(this).val();   
+                $.ajax({
+                      url:'/index.php/manager/Logistics/ajaxaddress',
+                      type:'post',//可选get
+                      data:{id:val} ,//传给PHP的数据，多个参数用&连接
+                      // dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                      success:function(data){
+                         $("#city option").remove();
+                         $("#district option").remove();
+                         $("#city").html('<option  value="" >请选择</option>');
+                         $("#district").html('<option  value="" >请选择</option>');
+                         $("#city").append(data);
+                      }
+                }) 
+            });
+          $("#city").change(function(){
+              var val = $(this).val();   
+              $.ajax({
+                    url:'/index.php/manager/Logistics/ajaxaddress',
+                    type:'post',//可选get
+                    data:{id:val} ,//传给PHP的数据，多个参数用&连接
+                    // dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                    success:function(data){
+                       $("#district option").remove();
+                       $("#district").html('<option  value="" >请选择</option>');
+                       $("#district").append(data);
+                    }
+              }) 
+          });
+          var c=1;
+          function cityad(i){
+            // var div=$(i).parent();
+            // if($(i).html()=="[+]"){
+            //   c++;
+            //   var newdiv=div.clone();
+            //   newdiv.find('a').html('[-]');
+            //   newdiv.find('select').attr('name','region_id['+c+'][]');
+            //   div.after(newdiv);
+            // }else{
+            //   div.remove();
+            // }
+           var ready;
+           $(i).parent().find('.form-control').each(function(){
+               v=$(this).val();
+               ready=v;
+            });
+            $.ajax({
+                    url:'/index.php/manager/Logistics/ajaxready',
+                    type:'post',//可选get
+                    data:{id:ready} ,//传给PHP的数据，多个参数用&连接
+                    // dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                    success:function(data){
+                       $("#ready").append(data);
+                    }
+              }) 
+          }
+    </script> 
+  <tr style=" height: 70px;">
+    <td colspan="2"><button type="submit" class="btn btn-default" onclick="checkSubmit()" style="width: 100px;margin-left:200px;">保存</button><span style="color:red" id="error_msg"></span> </td> 
+  </tr>
+</table></form> 
+        <!-- page-content end -->
+   
+    <!-- main-content end -->
+</div> </div>
+<!-- main-container end --> </div>
+
+</body>
+
+
+<script type="text/javascript">
+function check_submit(){
+  var err='';
+  //var reg = new RegExp("^[0-9]*$");
+  var v=$("form input[type='radio']:checked").val();
+  $(".wei"+v+" input[type='text']").each(function(){
+    var value=$.trim($(this).val());
+      if(isNaN(value.replace(".","")) || value=='' || value<0){
+        err='请填写数字且不能为空';
+        return ;
+      }
+  });
+  if(err!=''){
+    alert(err);
+    return false;
+  }
+}
+  //   function check_one(){
+  //     var reg = new RegExp("^[0-9]*$");
+  //     var obj = document.getElementById("one");
+  //     if(!reg.test(obj.value)){
+  //         if(!/^[0-9]+$/.test(obj.value)){
+  //         }
+  //         alert("请输入数字!");
+  //         return 0;
+  //     }else{
+  //         return 1;
+  //     }
+  //  }
+  //  function check_price() {
+  //     var reg = new RegExp("^[0-9]*$");
+  //     var obj = document.getElementById("price");
+  //     if(!reg.test(obj.value)){
+  //         if(!/^[0-9]+$/.test(obj.value)){
+  //         }
+  //         alert("请输入数字!");
+  //         return 0;
+  //     }else{
+  //         return 1;
+  //     }
+  //  }
+  // function check_max() {
+  //     var reg = new RegExp("^[0-9]*$");
+  //     var obj = document.getElementById("max");
+  //     if(!reg.test(obj.value)){
+  //         if(!/^[0-9]+$/.test(obj.value)){
+  //         }
+  //         alert("请输入数字!");
+  //         return 0;
+  //     }else{
+  //         return 1;
+  //     }
+  //  }
+  //  function check_weight_in() {
+  //     var reg = new RegExp("^[0-9]*$");
+  //     var obj = document.getElementById("weight_in");
+  //     if(!reg.test(obj.value)){
+  //         if(!/^[0-9]+$/.test(obj.value)){
+  //         }
+  //         alert("请输入数字!");
+  //         return 0;
+  //     }else{
+  //         return 1;
+  //     }
+  //  }
+  //  function check_weight_out() {
+  //     var reg = new RegExp("^[0-9]*$");
+  //     var obj = document.getElementById("weight_out");
+  //     if(!reg.test(obj.value)){
+  //         if(!/^[0-9]+$/.test(obj.value)){
+  //         }
+  //         alert("请输入数字!");
+  //         return 0;
+  //     }else{
+  //         return 1;
+  //     }
+  //  }
+  //  function check_weight() {
+  //     var reg = new RegExp("^[0-9]*$");
+  //     var obj = document.getElementById("weight");
+  //     if(!reg.test(obj.value)){
+  //         if(!/^[0-9]+$/.test(obj.value)){
+  //         }
+  //         alert("请输入数字!");
+  //         return 0;
+  //     }else{
+  //         return 1;
+  //     }
+  //  }
+  //  function check_weight_price() {
+  //     var reg = new RegExp("^[0-9]*$");
+  //     var obj = document.getElementById("weight_price");
+  //     if(!reg.test(obj.value)){
+  //         if(!/^[0-9]+$/.test(obj.value)){
+  //         }
+  //         alert("请输入数字!");
+  //         return 0;
+  //     }else{
+  //         return 1;
+  //     }
+  //  }
+
+$('#weight').click(function(){
+      $('#weight2').hide();
+      $('#weight3').show();
+});
+$('#num').click(function(){
+      $('#weight2').show();
+      $('#weight3').hide();
+});
+
+$('#create_timestamp').datetimepicker({
+    minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});
+</script>
+</html>    

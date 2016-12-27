@@ -1,0 +1,201 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="tpshop" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>添加地址</title>
+<meta http-equiv="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/flow.css">
+<link rel="stylesheet" href="/static/waps/css/style_jm.css">
+<link rel="stylesheet" type="text/css" href="/static/waps/css/mui.min.css"/>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/common.js"></script>
+<style type="text/css">
+.addressmone{ width:100%; overflow:hidden; background:#fff}
+.addressmone ul{ width:100%; overflow:hidden; margin:auto}
+.addressmone ul li{ width:100%; overflow:hidden; border-bottom:1px solid #CCC;}
+.addressmone ul li span{ display:block; float:left; padding-left:20px; width:100px; font-size:14px; line-height:45px; color:#666;}
+.addressmone ul li input{ display:block; float:left; width:60%; background:none; border:0px; font-size:14px; color:#333; line-height:45px;}
+.addressmone ul li select{ display:block; float:left;background:none; height:45px; border:1px solid #000; font-size:14px; color:#333; line-height:45px; padding-right:5px;-webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1;  -webkit-rtl-ordering:logical; -webkit-user-select: text;}
+.dotm_btn1{ display:block; float:left; width:30%; height:40px; background:#FF3300; font-size:14px; line-height:40px; color:#FFF; border:0; margin-top:5px;border-radius:3px; margin-left:3%;}
+.beett{ display:inline; float:inherit; width:60%; margin-left:inherit; padding:0 20px; }
+.dotm_btn{ width:100%; height:50px; background:#fff;position:fixed;text-align:center;min-width: 320px; max-width: 640px; }
+</style>
+</head>
+<body style="background: rgb(235, 236, 237);position:relative;">
+
+<div class="tab_nav">
+    <div class="header">
+      <div class="h-left">
+        <a class="sb-back" href="javascript:history.back(-1)" title="返回"></a>
+      </div>
+      <div class="h-mid">地址管理</div>
+    </div>
+</div>		  
+						
+<div class="addressmone">
+  <form action="" method="post">
+	<ul>
+       <li>
+    	<span>收货人姓名</span>  
+        <input name="consignee" id="consignee" type="text" value="" maxlength="12" >
+		</li>          
+       <li>
+          <span>地区</span>       
+          <input name="country" value="0" type="hidden">
+	             <select name="province" id="province" style="width:60px;" >
+                      <option value="">请选择</option>
+                      {volist name="data" id="v"}
+                      <option value="{$v.id}">{$v.name}</option>
+                      {/volist}
+                </select>
+                <select name="city" id="city" style="width:66px">
+                    <option value="">请选择</option>
+                </select>
+                <select name="district" id="district" style="width:60px">
+                    <option value="">请选择</option>
+                </select> 
+                <br>                
+                <select name="town" id="town" style="width:60px; margin-left:120px;">
+                    <option value="">请选择</option>
+                </select>          
+        	</li>
+           <li>
+    		 <span>详细地址</span> <input type="text" name="address" id="address" maxlength="100" value="">
+	       </li>
+           <li>
+			<span>手机</span> 
+            <input type="text" name="mobile" value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')" maxlength="11" >
+	        </li>
+            <li>
+	    		<span>邮政编码</span> 
+            <input type="text" name="zipcode" value="" onpaste="this.value=this.value.replace([1-9]\d{5}(?!\d),'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" maxlength="10">
+	        </li>
+    	</ul>
+        <div style=" height:50px"></div>
+		<div class="dotm_btn">
+        <input type="button" onclick="checkForm()" value="保存并使用该地址" class="dotm_btn1 beett" style="margin-top:-5%">
+        </div>		 
+</form>
+</div>
+<script type="text/javascript">
+$("#province").change(function(){
+    var val = $(this).val();   
+    $.ajax({
+          url:'/index.php/wap/user/ajaxaddress',
+          type:'post',//可选get
+          data:{id:val} ,//传给PHP的数据，多个参数用&连接
+          // dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+          success:function(data){
+            $("#city option").remove();
+            $("#district option").remove();
+            $("#town option").remove();
+            $("#city").append(data);
+          }
+    }) 
+});
+$("#city").change(function(){
+    var val = $(this).val();   
+    $.ajax({
+          url:'/index.php/wap/user/ajaxaddress',
+          type:'post',//可选get
+          data:{id:val} ,//传给PHP的数据，多个参数用&连接
+          // dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+          success:function(data){
+            $("#district option").remove();
+            $("#town option").remove();
+            $("#district").append(data);
+          }
+    }) 
+});
+$("#district").change(function(){
+    var val = $(this).val();   
+    $.ajax({
+          url:'/index.php/wap/user/ajaxaddress',
+          type:'post',//可选get
+          data:{id:val} ,//传给PHP的数据，多个参数用&连接
+          // dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+          success:function(data){
+            $("#town option").remove();
+            $("#town").append(data);
+          }
+    }) 
+});
+</script> 
+<script>
+    function checkForm(){
+        var country = $('input[name="country"]').val();
+        var consignee = $('input[name="consignee"]').val();
+        var province = $('select[name="province"]').find('option:selected').val();
+        var city = $('select[name="city"]').find('option:selected').val();
+        var district = $('select[name="district"]').find('option:selected').val();
+        var town = $('select[name="town"]').find('option:selected').val();
+        var address = $('input[name="address"]').val();
+        var mobile = $('input[name="mobile"]').val();
+        var zipcode = $('input[name="zipcode"]').val();
+        var error = '';
+        var key = <?php echo isset($_GET['key'])?$_GET['key']:0;?>;
+        if(consignee == ''){
+            mui.toast('收货人不能为空');
+            return;
+        }
+        if(province==0){
+            mui.toast('请选择省份');
+            return;
+        }
+        if(city==0){
+            mui.toast('请选择城市');
+            return;
+        }
+        if(district==0){
+            mui.toast('请选择区域');
+            return;
+        }
+        if(address == ''){
+            mui.toast('请填写地址');
+            return;
+        }
+        if(zipcode == ''){
+            mui.toast('请填写邮编');
+            return;
+        }
+        if(!checkMobile(mobile)){
+            mui.toast('手机号码格式有误');
+            return;
+		    }
+        $.ajax({
+        type : "POST",
+        url:"/index.php/wap/user/ajaxaddaddress",
+        data :{country:country,consignee:consignee,province:province,city:city,district:district,town:town,address:address,mobile:mobile,zipcode:zipcode},
+        dataType:'json',                       
+          success: function(data){    
+             if (data.error_code == 0) {
+                mui.toast('操作成功');
+                if (key == 0) {
+                  setTimeout("window.location.href = '/index.php/wap/user/mydatum?key'",1000);
+                }else{
+                  if (key == 2) {
+                    setTimeout("window.location.href = '/index.php/weixin/cart/index'",1000);
+                  }else{
+                    setTimeout("window.location.href = '/index.php/wap/cash/createorderlist'",1000);
+                  }
+                }
+             }
+             else{
+                mui.toast(data.error_msg);
+             }
+          }
+        }); 
+    }
+</script> 
+
+<audio controls="controls" style="display: none;"></audio>
+
+</body>
+</html>

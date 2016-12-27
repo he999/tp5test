@@ -1,0 +1,8 @@
+.idea
+composer.lock
+*.log
+.settings
+.buildpath
+.project
+*.txt
+

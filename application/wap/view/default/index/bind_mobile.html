@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link href="/static/css/mui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/mui.picker.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/erdong.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/static/js/jquery-1.8.3.min.js"></script>
+    <title>用户注册</title>
+</head>
+<body style="background:#fff;">
+<div class="large" style="background: #fff;">
+    <div class="in">
+        <div class="head">
+            <div class="tou"><img src="/static/images/jm-002.png" width="57" height="38"/></div>
+            <div class="logo"><img src="/static/images/jm-001.png" width="211" height="51"/></div>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="firstname" class="col-sm-2"><img src="/static/images/jm-003.png" width="23.5"
+                                                                 height="23.5"></label>
+                    <span></span>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="firstname"
+                               placeholder="请输入手机号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname" class="col-sm-2"><img src="/static/images/jm-004.png" width="23.5"
+                                                                height="23.5"></label>
+                    <div class="col-sm-10">
+                        <input type="text" style="width: 100px" class="form-control" id="lastname"
+                               placeholder="短信验证码">
+                        <!--<a href="#" id="send_code"><span class="duanxin">发送验证码</span></a>-->
+                        <input type="button" style="float: right;background: #89c434;color: white;" id="send_code" class="duanxin" value="发送验证码" name="phone"
+                               onclick="showtime(30)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname" class="col-sm-2"><img src="/static/images/jm-005.png" width="23.5"
+                                                                height="23.5"></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="lastname1"
+                               placeholder="请输入邀请码   没有则不填">
+                        <a href="#"><span></span></a>
+                    </div>
+                </div>
+                <div class="pinglun">
+                    <form action="" method="get">
+                        <p class="xla" style="font-size:14px;color: #474747;">
+                            总体而言，你如何评价中国移动的服务质量?
+                        </p>
+                        <p style="font-size:12px;color: #474747;">(1代表非常不满意，10代表非常满意，请选择)</p>
+                        <div>
+                            <p class="xialakuang"
+                               style="display: block;width:100px;height: 30px; border:1px solid #89c434;background: #fff;border-radius: 4px;margin-top: 10px;padding: 7px 5px;">
+                                <span id="drop_down">10</span><img style="float: right" src="/static/images/xiala.jpg"/>
+                            </p>
+                            <div class="bg"></div>
+                            <ul id="tanchu">
+                                <li value="10">10</li>
+                                <li value="9">9</li>
+                                <li value="8">8</li>
+                                <li value="7">7</li>
+                                <li value="6">6</li>
+                                <li value="5">5</li>
+                                <li value="4">4</li>
+                                <li value="3">3</li>
+                                <li value="2">2</li>
+                                <li value="1">1</li>
+                            </ul>
+                        </div>
+                    </form>
+                    <br/><br/>
+                    <form action="" method="get" class="xiala">
+                        最关注中国移动哪项服务<br/><br/>
+                        <div id="content"></div>
+                        <label style="width:50%;float:left;position: relative;height: 20px;line-height: 20px;"><p
+                                title="1" class="p1"
+                                style="position: absolute;top: 0px; line-height:20px;float: left;width: 20px;height: 20px;background: url('/static/images/jm-007.png');background-size: 20px 20px;"></p>
+                            <span style="margin-left: 20px">手机联网质量</span></label>
+                        <label style="width:50%;float:right;position: relative;height: 20px;line-height: 20px;"><p
+                                title="2" class="p1"
+                                style="position: absolute;top: 0px; line-height:20px;float: left;width: 20px;height: 20px;background: url('/static/images/jm-007.png');background-size: 20px 20px;"></p>
+                            <span style="margin-left: 20px">促销优惠</span></label><br/><br/>
+                        <label style="width:50%;float:left;position: relative;height: 20px;line-height: 20px;"><p
+                                title="3" class="p1"
+                                style="position: absolute;top: 0px; line-height:20px;float: left;width: 20px;height: 20px;background: url('/static/images/jm-007.png');background-size: 20px 20px;"></p>
+                            <span style="margin-left: 20px">家族宽带</span></label>
+                        <label style="width:50%;float:right;position: relative;height: 20px;line-height: 20px;"><p
+                                title="4" class="p1"
+                                style="position: absolute;top: 0px; line-height:20px;float: left;width: 20px;height: 20px;background: url('/static/images/jm-007.png');background-size: 20px 20px;"></p>
+                            <span style="margin-left: 20px">资费套餐</span></label>
+                    </form>
+                </div>
+                <div class="wenzi">
+                    <p>即日起关注江门移动新服务微信平台并成功注册会员江门移动的客户即可获赠15元话费和200积分赠送话费次月到账请保持两个月以上(活动截止日期*年*月*日)</p>
+                </div>
+                <div class="zhuce">
+                    <button type="submit" id="register" class="btn btn-default">注册</button>
+                </div>
+
+        </div>
+        </form>
+    </div>
+
+</div>
+</div>
+
+</body>
+<script type="text/javascript" src="/static/js/mui.min.js"></script>
+<script type="text/javascript" src="/static/js/mui.picker.min.js"></script>
+<script>
+    var count = 60;
+    var myCountDown;
+    function countDown() {
+        $("#send_code").attr("disabled", true);
+        $("#send_code").removeClass("btn_wsyhcz");
+        $("#send_code").addClass("btn_wsyhcz_2");
+        $("#send_code").val("请稍等 " + count + " 秒！");
+        count--;
+        if (count == 0) {
+            $("#send_code").val("发送到手机").removeAttr("disabled");
+            $("#send_code").removeClass("btn_wsyhcz_2");
+            $("#send_code").addClass("btn_wsyhcz");
+            clearInterval(myCountDown);
+            count = 60;
+
+
+        }
+
+
+    }
+    //发送手机验证码
+    $('#send_code').click(function () {
+        var mob = $("#firstname").val();
+        if (mob == '') {
+            mui.alert("请输入手机号码！");
+        } else if (!/^1[34578]\d{9}$/.test(mob)) {
+            mui.alert("请输入正确的手机号码！")
+        } else {
+            myCountDown = setInterval(countDown, 1000);
+            $.ajax({
+                type: 'POST',
+                url: '/index.php/wap/index/send_auth_codes',
+                data: {mobile: mob},
+                complete: function (data) {
+                    console.log(data);
+                    data = data.responseText;
+
+                }
+            });
+        }
+    });
+    $("#register").click(function () {
+        var mob = $("#firstname").val();    //用户手机号
+        var yqm = $("#lastname1").val();    //邀请码
+        var fen = $("#drop_down").html();    //评分
+        var guanzhu_k = $("p").hasClass("p2"); //是否存在P2
+        var code = $("#lastname").val();   //验证码
+        var guanzhu = $(".p2").nextAll().html();   //关注的服务
+        if (mob == '') {
+            mui.alert("请输入手机号码！");
+        } else if (code == '') {
+            mui.alert("请输入短信验证码！");
+        } else if (guanzhu_k == false) {
+            mui.alert("请勾选最关注的服务！");
+        } else if (!/^1\d{10}$/.test(mob)) {
+            //正则手机号
+            mui.alert("请输入正确的手机号!");
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: '/index.php/wap/index/resset',
+                data: 'mob=' + mob + "&yqm=" + yqm + "&fen=" + fen + "&code=" + code + "&guanzhu=" + guanzhu,
+                success: function (json) {
+                    if (json.result == 'error_code') {
+                        mui.alert("验证码不正确！")
+                    }else if(json.result == 'insert_ok'){
+                        window.location.href='http://www.jiangmen.com/index.php/wap/index/succeed';
+                    }else if(json.result == 'insert_error'){
+                        mui.alert("注册失败！");
+                    }else if(json.result == 'exsit_no_mob'){
+                        mui.alert("该手机号已注册！")
+                    }else if(json.result == 'invitation_error'){
+                        window.location.href='http://www.jiangmen.com/index.php/wap/index/be_defeated';
+                    }else if(json.result == 'error'){
+                        mui.alert("信息有误，请重新输入！")
+                    }
+                }
+            })
+        }
+    });
+    $(".xiala").each(function (i) {
+        var p = $(this).find('p');              //获取全部单选框p
+        p.each(function (j) {                   //循环遍历p
+            $(this).click(function () {        //添加点击事件
+
+//            取消全部单选框选中状态
+                $(".xiala").find('p').css("background-image", "url(/static/images/jm-007.png)");
+                $(".xiala").find('p').attr("class", "p1");
+//            添加当前选中单选框选中状态
+
+                $(this).css("background-image", "url(/static/images/jm-006.png)");
+                $(this).attr("class", "p2");
+            })
+        })
+    });
+    $('.xialakuang').click(function () {
+        $('.bg').fadeIn(100);
+        $('#tanchu').fadeIn(100);
+    });
+    $('.bg').click(function () {
+        $('.bg').fadeOut(100);
+        $('#tanchu').fadeOut(100);
+    });
+    $('#tanchu').each(function (i) {
+        var star = $(this).find('li');
+        star.each(function (j) {
+            $(this).click(function () {
+                var li = $(this).html();
+                $("#drop_down").html(li);
+                $('.bg').fadeOut(100);
+                $('#tanchu').fadeOut(100);
+            });
+        })
+    });
+</script>
+</html>

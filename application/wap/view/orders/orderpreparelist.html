@@ -1,0 +1,119 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="applicable-device" content="mobile">
+<title>我的订单</title>
+<meta http-equiv="keywords" content="" />
+<link rel="stylesheet" href="/static/waps/css/mui.min.css">
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/user.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+</head>
+<body>
+
+<header>
+<div class="tab_nav">
+   <div class="header">
+     <div class="h-left"><a class="sb-back" href="/index.php/wap/user/userInfo" title="返回"></a></div>
+     <div class="h-mid">我的订单</div>
+   </div>
+ </div>
+</header>
+<script type="text/javascript" src="/static/waps/js/mobile.js" ></script>
+
+<div id="tbh5v0">
+    <div class="Evaluation2" id="wddd-div">
+        <ul>
+          <li><a href="/index.php/wap/orders/orderalllist" class="tab_head ">待付款</a></li>
+          <li><a href="javascript:;" class="tab_head on">待发货</a></li>
+          <li><a href="/index.php/wap/orders/orderungetlist" class="tab_head ">已发货</a></li>
+          <li><a href="/index.php/wap/orders/orderendlist" class="tab_head ">已完成</a></li>
+        </ul>
+    </div>      
+  <div class="order ajax_return">
+{volist name="data" id="l"}
+        <div class="order_list">
+            <h2>
+                <a href="/index.php/wap/orders/orderinfo/order_id/{$l.order_id}">
+                     <span>订单号:{$l.order_sn}</span>
+                     <strong><img src="/static/waps/images/icojiantou1.png"></strong>
+                </a>
+            </h2>
+            <a href="/index.php/wap/orders/orderinfo/order_id/{$l.order_id}">
+                {volist name ="$l.data" id="g"}
+                <dl style="position: relative">  
+                    <dt><img src="{$g.cover_img}"></dt>
+                    <dd class="name"><strong>{$g.goods_name}</strong>
+                 <!--    <span style="position: absolute;">尺码:75C </span></dd> -->
+                    <dd class="pice">￥{$g.shop_price}元<em>x{$g.buy_num}</em></dd>
+                    <dd class="pice"> <em> </em> </dd>                  
+                </dl>
+                {/volist}</a>
+        </div> 
+       {/volist}
+    </div>
+</div>
+
+<script language="javascript">
+function cancel_order(id,ele){
+    if (ele == 1) {
+        var content = '是否确定取消订单';
+    }
+    else{
+        var content = '是否确认收货';
+    }
+    // layer.open({
+    //     content: content,
+    //     btn: ['否', '是'],
+    //     shadeClose: false,
+    //     yes: function(){
+    //         layer.closeAll();
+    //     }, 
+    //     no: function(){
+    //        orderStatusUp(id,ele);
+    //     }
+    // });
+      mui.confirm(content, function(e) {
+          if (e.index == 1) {
+             orderStatusUp(id,ele);
+          }
+         
+      })
+}
+
+function  orderStatusUp(id,ele){    
+    $.ajax({
+        type : "POST",
+        url:"/index.php/wap/orders/orderstatusup",
+        data :{id:id,type:ele} ,
+        dataType:'json',                       
+        success: function(data){    
+            // 加入购物车后再跳转到 购物车页面
+           if (data.error_code == 0) {
+                 mui.toast('操作成功');
+                 setTimeout("window.location.reload()",800);
+                
+           }
+           else{
+                 mui.toast('操作失败');
+                setTimeout("window.location.reload()",800);
+           }
+        }
+    });  
+}
+
+</script>
+</body>
+
+</html>

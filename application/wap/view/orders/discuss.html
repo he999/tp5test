@@ -1,0 +1,76 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="applicable-device" content="mobile">
+<title>发表评论</title>
+<meta http-equiv="keywords" content="" />
+<link rel="stylesheet" type="text/css" href="/static/waps/css/mui.min.css"/>
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/user.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+</head>
+<body style="background: rgb(235, 236, 237);">
+
+<header>
+<div class="tab_nav">
+   <div class="header">
+     <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+     <div class="h-mid">我的订单</div>
+   </div>
+</div>
+</header>
+<script type="text/javascript" src="/static/waps/js/mobile.js" ></script>
+<div id="tbh5v0">
+<form name='myform' method="post">
+<input type="hidden" name="goods_id" value='{$goods_id}'>
+<input type="hidden" name="order_id" value='{$order_id}'>
+<div class="grade" style="margin-bottom:15px;">
+<span style="margin-left:10%">好评<input type="radio" name='grade' checked="checked"; value="0"></span><img style="width:5%" src="\static\waps\images\haopin.png"/>
+<span style="margin-left:10%">中评<input type="radio" name='grade' value="1"></span><img style="width:5%" src="\static\waps\images\zhonpin.png"/>
+<span style="margin-left:10%">差评<input type="radio" name='grade' value="2"></span><img style="width:5%" src="\static\waps\images\chapin.png"/>
+</div>
+<textarea name="content" style="width:100%; height:250px; border:none;">
+</textarea>
+<span style="float:right; margin-right:15px; color:#696969;"><input type="checkbox" name="xun" value='1'>匿名评论</span>
+<input type='button' onclick="butsubmit()" value="发表评论" style="width:80px; height:30px;background:#DAA520;border:none; float:right; margin-right:15px; ">
+</form>
+</div>
+
+<script language="javascript">
+function butsubmit(){
+  var orderid = myform.order_id.value;
+	var goodsid = myform.goods_id.value;
+	var grade = myform.grade.value;
+	var content = myform.content.value;
+	var xun = myform.xun.value;
+	$.ajax({
+        type :'post',
+        url:"/index.php/wap/orders/ajaxcomment",
+        data :{order_id:orderid,goods_id:goodsid,grade:grade,content:content,xun:xun},
+        dataType:'json',                       
+        success: function(data){
+           if (data.error_code == 0) {
+                 mui.toast('操作成功');
+                 setTimeout("window.location.href = '/index.php/wap/orders/orderendlist'",800);
+           }
+           else{
+                 mui.toast(data.error_msg);
+                setTimeout("window.location.reload()",800);
+           }
+        }
+    });  
+}
+</script>
+</body>
+</html>

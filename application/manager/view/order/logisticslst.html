@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- datetimepicker css JS 文件 -->
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit tou" >       
+                 <a href="#"  style="font-size: 20px;font-weight:600;">发货订单列表</a>
+            </ul>     
+               <form name="from1"  method="get" action="" style="background-color: rgba(113, 22, 22, 0); margin-top:-8px">
+            选择时间： 
+                 <input id="start_time" name="time_start" type="text" value="{$timear}" style="width:100px;height:35px;margin-right:10px;display:inline-block;border: 1px solid #ccc;border-radius: 4px;">
+到
+<input id="end_time" name="time_end" type="text" value="{$timeed}" style="width:120px;height:35px;margin-left:10px;border: 1px solid #ccc;border-radius: 4px;">&nbsp;&nbsp;&nbsp; &nbsp; 
+                 订单号： 
+                 <input type="text" name="order_sn" value="{$order_sn}" class="form-control" id="company_name" style="width: 100px;display:inline-block;"    >&nbsp;&nbsp; &nbsp;                 
+                 收货人： 
+                    <input type="text" name="consignee" value="{$consignee}" class="form-control" style="width: 100px;display:inline-block;"    > &nbsp;&nbsp; &nbsp; 
+                   订单状态： 
+                      <select class="form-control"  name="status"  style="width: 100px;resize: none;margin: 10px 0px;display:inline-block;">  
+  <option value="5" <?php if ($stat==5) echo "selected";?>>全部</option>            
+      <option value="4" <?php if ($stat==4) echo "selected";?>>已完成</option>
+           <option value="3" <?php if ($stat==3) echo "selected";?>>已发货</option>
+            <option value="2" <?php if ($stat==2) echo "selected";?>>待发货</option>
+             <option value="1" <?php if ($stat==1) echo "selected";?>>待付款</option>
+          
+    </select>&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; 
+              <input type="submit" class="btn btn-search" style="border:none;margin-top:4px"   value="搜索"> 
+              
+              </form>
+                 <table class="table table-hover table-bordered" style="border: none;" >
+                <thead>
+                    <tr style="border-top:1px solid #ccc">
+                       <th>订单号</th>
+                      <th>下单时间</th>
+                        <th>收货人</th>
+                        <th>总金额</th>
+                         <th >订单状态</th>
+                              <th >操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+{volist name="data" id='d'}
+<tr> 
+<th>{$d.order_sn}</th>
+<th>{$d.create_time|date = 'Y-m-d H:i:s',###}</th>
+<th>{$d.consignee}</th>
+<th>{$d.order_amount}</th>
+<th>{$sta[$d.order_status]}</th>                 
+<th ><a href="/index.php/manager/order/orderdetails/id/{$d.order_id}">详情页</a></th>
+</tr>
+{/volist}
+                     </tbody>
+            </table>
+<table class="table"   >
+ <tr   ><td style="text-align: center;border-top: none;  "></td></tr>
+      </table>
+<div><center>{$page}</center></div>
+</div> </div>
+<!-- main-container end --> </div>
+
+</body>
+
+<script type="text/javascript">
+
+ 
+$('#start_time').datetimepicker({
+  minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});  
+$('#end_time').datetimepicker({
+  minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+}); 
+</script>
+</html>    

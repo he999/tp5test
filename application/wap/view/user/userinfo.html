@@ -1,0 +1,74 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="applicable-device" content="mobile">
+<title>用户中心</title>
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/user.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
+<script type="text/javascript" src="/static/waps/js/layer.js" ></script>
+<style type="text/css">
+.uer_topnav span{font-size: 15px; height:20px; text-align: center;}
+.wei{ background:#fff; position:absolute;right:20px;}
+.uer_topnav {height: 40px; line-height:40px;}
+.topl{margin-left: 15%;}
+.topr{margin-right: 15%; float: right;}
+</style>
+</head>
+<body> 
+     
+<div id="tbh5v0">
+<div class="user_com">
+<div class="com_top">
+<center style="padding-top:20px; position:relative;">
+	<a class="wei" href="/index.php/wap/user/distribution"></a>
+	<img src="{$data.face}" />
+	<span style="line-height:20px;">会员ID：{$data.uid}</span>
+	<span style="line-height:20px;">昵称：{$data.nickname}</span>
+</center>
+</div>
+<div class="uer_topnav">
+<span class="topl">余额:<font style="color:red;">￥{$data.balance}</font></span>
+
+<span class="topr">积分:<font style="color:red;">{$data.points}</font></span>
+</div>
+<div class="Wallet">
+	<a href="/index.php/wap/orders/orderalllist" ><em class="Icon Icon2"></em>
+		<dl class="b"><dt>全部订单</dt><dd></dd></dl>
+	</a>
+	<a href="/index.php/wap/user/myshare"><em class="Icon Icon6"></em>
+		<dl class="b"><dt>我的分享</dt><dd></dd></dl>
+	</a>
+	<a href="/index.php/wap/user/integralranking"><em class="Icon Icon12"></em>
+		<dl class="b"><dt>积分榜</dt><dd></dd></dl>
+	</a>
+	<a href="/index.php/wap/user/mydatum"><em class="Icon Icon5"></em>
+		<dl class="b"><dt>我的资料</dt><dd></dd></dl>
+	</a>
+	<a href="/index.php/wap/user/mymoney"><em class="Icon Icon1"></em>
+		<dl class="b"><dt>我的余额</dt><dd></dd></dl>
+	</a>
+	<a href="/index.php/wap/user/myintegral"><em class="Icon Icon11"></em>
+		<dl class="b"><dt>我的积分</dt><dd></dd></dl>
+	</a>
+</div>
+
+</div>
+
+</div>
+<!---+++++++++++++++++++++++++++++++++底部菜单栏++++++++++++++++++++++++++++++++++++++++++++-->
+{include file="common:nav" /}
+<!---+++++++++++++++++++++++++++++++++底部菜单栏++++++++++++++++++++++++++++++++++++++++++++-->
+</body>
+
+</html>

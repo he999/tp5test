@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+
+<title>后台管理系统</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <div style="margin-left:215px; margin-top:20px; margin-right:10px">
+           <div style="line-height:35px;border-bottom:1px solid #ccc;">
+                    <a href="#" style="font-size: 20px;font-weight:600;">添加菜单</a>
+                  
+           </div>
+           <div style="clear:both"></div>
+           <div>
+                   <form name="from"   method="post" action="" style="background-color: rgba(113, 22, 22, 0);">
+                    <table class="tb1">
+                 <tr  class="tr1">
+                <td class="td1" ><span>父级菜单：</span>
+                     </td>    
+                    <td class="td2" >
+                  <select class="form-control"  name="parent_id"  style="width: 120px;resize: none;margin-left:20px;;display:inline-block;height:30px;line-height:30px;">            
+                <option value="" >请选择菜单</option>
+                {volist name="diy_list" id="i"}
+                <option value="{$i.id}" >{$i.title}</option>                          
+                {/volist}
+                </select> 
+                </td> 
+                </tr>    
+                <tr  class="tr1">         
+                  <td class="td1" >
+                  <span>主菜单名称：</span>
+                 </td>
+                 <td class="td2" >
+                 <input type="text" name="title" style="height:28px;margin-left:20px;width:30%" class="form-control" >
+                 </td>
+               </tr>
+               <tr  class="tr1">  
+                 <td class="td1" >
+                <span>关键词：</span>
+                 </td>
+                 <td class="td2" >
+                <input type="text" name="keyword" style="height:28px;margin-left:20px;width:30%" class="form-control">
+                </td>
+               </tr>
+               <tr  class="tr1">
+                 <td class="td1" ><span>活动链接：</span>
+                 </td>
+                 <td class="td2" >
+                 <input type="text" name="url" style="height:28px;margin:10px 0 0 20px;width:30%;float:left;" class="form-control">&nbsp;&nbsp;<sapn>* 从活动管理页列表的相关活动中获得</sapn>
+                 </td>
+               </tr>
+                <!-- <p><span>显示：</span><input type="radio" name="" value="" style="margin-left:20px;">&nbsp;&nbsp;昰<input type="radio" name="" value="" style="margin-left:30px;">&nbsp;&nbsp;否<p> -->
+                <tr  class="tr1">
+                  <td class="td1" >
+                  <span>排序：</span>
+                  </td>
+                  <td class="td2" >
+                  <input type="text" name="sort" style="height:28px;margin-left:20px;width:30%" class="form-control">
+                 </td>
+                </tr>
+                <tr  class="tr1">
+                  <td class="td1" >
+                  <span></span>
+                  </td>
+                  <td class="td2" >
+                <button type="submit" class="btn btn-submit" style="width: 100px;margin-left:120px;margin-right:50px;background:#0093dd;height:30px;">提交
+                 </td>
+                </tr>
+               </table>
+            </form>
+               
+                  
+           </div>
+    </div>
+ </div>
+<script type="text/javascript">
+   $('.dian_kolh').click(function(){
+
+     $('.zhezhac_kpl').show();
+     })
+  
+</script>
+</body>
+</html>

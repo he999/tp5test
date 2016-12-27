@@ -1,0 +1,312 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="tpshop" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>购物车</title>
+<meta http-equiv="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/mui.min.css"/>
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/flow.css">
+<link rel="stylesheet" href="/static/waps/css/style_jm.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script src="/static/waps/js/common.js"></script>
+<style type="text/css">
+    .page-shopping .bottom-panel{display: flex;}
+    .page-shopping .bottom-panel .info{margin-top: 4px;width: 50%;}
+    .page-shopping .bottom-panel .right{margin-top: 10px;}
+    .page-shopping .item-list .attr span{overflow: hidden;display: -webkit-box; font-weight: normal; white-space: nowrap;}
+</style>
+</head>
+<body style="background: rgb(235, 236, 237);position:relative;">
+
+<div class="tab_nav">
+    <div class="header" style="background:#FF2233;">
+      <div class="h-left">
+        <a class="sb-back" href="/index.php/wap/index/index" title="返回"></a>
+      </div>
+      <div class="h-mid" style="color:#fff; font-size: 18px;">购物车</div>
+    </div>
+</div>
+<div class="screen-wrap fullscreen login">
+    <div class="page-shopping ">
+        <div class="cart_list">
+        {assign name="sum" value="0" /}
+            {volist name ="data" id="c" }
+            <?php $sum += $c['shop_price'] * $c['buy_num']; ?>
+            <div class="block" style="margin-top:0px;" id="b_{$c.id}">
+                <div class="item-list">
+                    <div class="item">
+                        <div class="inner">
+                            <div style="width:60%; float:left; height:98px;">
+                                <div class="check-wrapper">
+<span class="cart-checkbox same <?php if($c['selected'] == '1'){ echo 'checked';}?>" id="ck_{$c.id}" onclick="change_ck({$c.id});">
+                                         <input type="checkbox" autocomplete="off" name="cart_select[{$c.id}]" checked="checked" style="display:none;" value="1" >
+                                    </span>
+                                    <input type="hidden" class="als" value = "{$c.shop_price * $c.buy_num}">
+                                    <input type="hidden" id = "ids" value = "{$c.id}">
+                                     <input type="hidden" id = "idss" value = "{$c.goods_id}">
+                                </div>
+                                <div class="pic">
+                                    <a href="/index.php/wap/goods/goodsinfo/id/{$c.goods_id}">
+                                    <img src="{$c.cover_img}"></a>
+                                </div>
+                                <div class="name">
+                                   <span>{$c.goods_name}</span>
+                                </div>
+                                <div class="attr"><span></span></div>
+                                <div class="num">
+                                    <div class="xm-input-number">
+                                        <div class="act_wrap">
+                                            <a href="javascript:;" onclick="switch_num(-1,{$c.id},0,{$c.stock});" id="jiannum6" class="input-sub active"></a>
+                                            <input id="goods_num_{$c.id}" type="text" name="goods_num_{$c.id}" value="{$c.buy_num}" class="input-num" readonly="true">
+                                            <a href="javascript:;" onclick="switch_num(1,{$c.id},1,{$c.stock});" class="input-add active"></a>
+                                        </div>
+                                    </div>                 
+                                </div>
+                            </div>
+                            <div style=" position:absolute; right:0px; top:20px; width:100px; height:98px;">
+                                <div class="price">
+                                     <span class="mar_price" style=" text-decoration:none;  color: #f23015;">
+                                      ￥<span id="m_{$c.id}">{$c.shop_price}</span>元</span>
+                                </div>
+                                <div class="delete">
+                                <a href="javascript:void(0);" onclick="del_cart_goods({$c.id},{$c.shop_price})">
+                                         <div class="icon-shanchu"></div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div style="height:0px; line-height:0px; clear:both;"></div>
+                        </div>
+                        <div class="append"></div>
+                    </div>
+                </div>
+            </div>
+            {/volist}
+            <div class="bottom-panel">
+                <div class="quanxuan" style="width:0%;">
+                    <div class="check-wrapper">
+                        <span class="cart-checkbox checked" onclick="chkAll_onclick()"></span>
+                        <span class="cart-checktext">全选</span>
+                    </div>
+                </div>
+                <div class="info" style="margin-top: 18px; width: 100%;">
+                    <span class="hot" id="cart_amount_desc">总计：￥<em id="all">{$sum}</em>元</span>
+                    <input type="hidden" id="allm">
+                </div>
+                <div class="right">
+                <input type="hidden" id="cid">
+                    <input type="button" onclick="button()" id="sub" class="xm-button " value="去结算">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height:72px;"></div>
+</div>
+
+<script type="text/javascript">
+function button(){
+    var che = $('.checked').length;
+  // alert($('.item').length) ;
+   // alert(che);
+    if (che == 0) {
+        mui.toast('没有选择商品');
+    }else{
+        location.href = "/index.php/wap/cash/createorderlist";
+    }
+}
+/**
+ * 购买商品数量加加减减
+ * 购买数量 , 购物车id  加减类型 type
+ */
+function switch_num(num,cart_id,type,stock){  
+    if ($('#ck_'+cart_id).hasClass('checked')) {
+        var all = $("#all").text();
+        var num2 = parseFloat($("#goods_num_"+cart_id).val()); 
+        var m =  $("#m_"+cart_id).text();
+        if (type == 0) {
+            if(num2 >1 ){
+                 var z= (parseFloat(num2-1)*parseFloat(m)).toFixed(2);
+                 zongjia =(parseFloat(all)-parseFloat(m)).toFixed(2);
+                 $("#all").text(zongjia);  
+                 $('#ck_'+cart_id).siblings(".als").val(z);  
+            }
+        }
+        else{
+            if (num2+1 >stock) {
+                mui.toast('选择商品数量已经超过库存量');return;
+            }
+            else{
+                 var z= (parseFloat(num2+1)*parseFloat(m)).toFixed(2);
+                 zongjia =(parseFloat(all)+parseFloat(m)).toFixed(2);
+                 $("#all").text(zongjia);
+                 $('#ck_'+cart_id).siblings(".als").val(z);
+            }     
+        }
+        num2 += num;
+        if(num2 < 1){num2 = 1;mui.toast('不能为零，请点击删除');return; }// 保证购买数量不能少于 1
+        $.ajax({
+        type : "POST",
+        url:"/index.php/wap/cart/ajaxnum",
+        //购物车 id
+        data:{id:cart_id,buy_num:num2},
+        dataType:'json',
+        success: function(data){
+            if(data.error_code ==0){
+               $("#goods_num_"+cart_id).val(num2);
+            }
+            else{
+                mui.toast('操作频繁');
+                location.reload();
+            }               
+        }
+    });
+        
+    } 
+}
+
+// ajax 删除购物车的商品
+function del_cart_goods(ids,money){
+    
+    var qian = money* parseFloat($("#goods_num_"+ids).val());
+    var all = $("#all").text();
+    
+    $.ajax({
+        type : "POST",
+        url:"/index.php/wap/cart/ajaxdel",
+        //购物车 id
+        data:{id:ids},
+        dataType:'json',
+        success: function(data){
+            if(data.error_code ==0){
+                if ($('#ck_'+ids).hasClass('checked')) { 
+                    $("#all").text((parseFloat(all)-qian));
+                }
+                $("#b_"+ids).remove();
+        	}
+            else{
+                 mui.toast(data.error_msg);
+            }               
+        }
+    });
+}
+
+function change_ck(id){
+    var all = $("#all").text();//全部money
+    var m =  $("#m_"+id).text();//钱
+    var num = $("#goods_num_"+id).val();//数量
+    var money = parseFloat(m)*parseFloat(num).toFixed(2);
+    var sele = 1;
+     //已经全部勾选
+    if($('.quanxuan .cart-checkbox').hasClass('checked')){ 
+        //点击取消勾选一个 全选按钮消失 当前也消失
+        $('#ck_'+id).removeClass('checked');
+        $('.quanxuan .cart-checkbox').removeClass('checked');
+        $("#all").text((parseFloat(all)-parseFloat(money)).toFixed(2));
+        $('#ck_'+id).siblings(".als").val((parseFloat(money).toFixed(2)));
+        sele = 0;
+    }
+    else{
+        //未全部勾选
+        if ($('#ck_'+id).hasClass('checked')) {
+            $('#ck_'+id).removeClass('checked');
+            $("#all").text((parseFloat(all)-parseFloat(money)).toFixed(2)); 
+            $('#ck_'+id).siblings(".als").val((parseFloat(money).toFixed(2)));
+            sele = 0;  
+        }
+        else{ //勾选
+            $('#ck_'+id).addClass('checked');
+            $("#all").text((parseFloat(all)+parseFloat(money)).toFixed(2));
+            $('#ck_'+id).siblings(".als").val((parseFloat(money).toFixed(2)));
+            if ($('.item').length == $('.checked').length ) {
+                $('.quanxuan .cart-checkbox').addClass('checked');
+            }
+            sele = 1;
+        }
+    }
+    //select 取消0 添加1 购物车选择状态
+        $.ajax({
+            type : "POST",
+            url:"/index.php/wap/cart/ajaxselect",
+            //购物车 id
+            data:{id:id,select:sele},
+            dataType:'json',
+            success: function(data){
+                if(data.error_code ==0){
+                    mui.toast('操作成功');
+                }
+                else{
+                    mui.toast('操作频繁');
+                    location.reload();
+                }               
+            }
+        });
+}
+//++++++++++++++++ 勾选选项框++++++++++++++++++++++++++++++++
+var is_checked = true;
+$('.inner .cart-checkbox').each(function(){
+      if(!$(this).hasClass('checked'))
+      {
+           is_checked = false;
+           return false;
+      }
+});
+if(is_checked){
+    $('.quanxuan .cart-checkbox').addClass('checked'); 
+}else
+{
+    $('.quanxuan .cart-checkbox').removeClass('checked'); 
+} 
+    
+function chkAll_onclick() 
+{
+  if($('.quanxuan .cart-checkbox').hasClass('checked')){      
+    $('.quanxuan .cart-checkbox').removeClass('checked');
+    $('.inner .cart-checkbox').removeClass('checked');
+    $("input[name^='cart_select']").prop('checked',false);
+    is_checked = false;
+    $("#all").text(0);
+    var sele = 0;
+  }   
+  else{
+    $('.quanxuan .cart-checkbox').addClass('checked');
+    $('.inner .cart-checkbox').addClass('checked');
+    $("input[name^='cart_select']").prop('checked',true);
+    is_checked = true;
+    var len =$(".als").length;
+    var sum = 0;
+    for (var i = 0; i < len; i++) {
+        sum = sum +parseFloat($(".als").eq(i).val());
+    }
+    sum = sum.toFixed(2);
+     $("#all").text(sum);
+    var sele = 1;
+  }
+  //select 取消0 添加1 购物车选择状态
+        $.ajax({
+            type : "POST",
+            url:"/index.php/wap/cart/ajaxallselect",
+            //购物车 id
+            data:{select:sele},
+            dataType:'json',
+            success: function(data){
+                if(data.error_code ==0){
+                    mui.toast('操作成功');
+                }
+                else{
+                    mui.toast('操作频繁');
+                    location.reload();
+                }               
+            }
+        });
+}
+
+</script> 
+</body>
+</html>

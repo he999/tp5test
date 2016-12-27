@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>无标题文档</title>
+    <link href="/static/css/yemian3.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <script type="text/javascript" src="/static/js/jquery-1.8.2.min.js"></script>
+</head>
+<body style="background: #ccc;">
+<div class="da">
+    <div class="toubu">
+        <img src="/static/images/tou.png"/>
+    </div>
+    <div class="zhuti">
+        <div class="beijing">
+            <div class="kaishi">
+                <a href="#" id="ClickMe"><img src="/static/images/jm-018.png"/></a>
+            </div>
+            <div class="huodong">
+                <p class="biaoti"><img src="/static/images/huodongshuoming.png" alt=""/></p>
+                <p>江门移动心服务微信平台江门移动心服务微信平台并成功注册会员的江门移动的客户即可获赠15元话费和200积分，赠送话费次月到账</p>
+                <p class="biaoti"><img src="/static/images/huodongguize.png" alt=""/></p>
+                <p>时间：2016-02-22 12:20 至2016-02-22 12:20</p>
+                <p>获赠积分：10分/次 参与次数：2次</p>
+                <p>参与范围：关注用户并注册</p>
+            </div>
+            <div class="dibu"><img src="/static/images/jm-001.png"/></div>
+        </div>
+    </div>
+</div>
+<div id="goodcover"></div>
+<div id="code">
+    <div class="close1"><a href="javascript:void(0)" id="closebt"><img src="/static/images/jm-016.png"></a></div>
+    <div class="goodtxt">
+        <p>①长按识别以上二维码</p>
+        <p>②关注本公众号</p>
+        <p>③即可参与互动活动</p>
+    </div>
+</div>
+</body>
+<script>
+    $(function() {
+        //alert($(window).height());
+        $('#ClickMe').click(function() {
+            $('#code').center();
+            $('#goodcover').show();
+            $('#code').fadeIn();
+        });
+        $('#goodcover').click(function() {
+            $('#code').hide();
+            $('#goodcover').hide();
+        });
+        /*var val=$(window).height();
+         var codeheight=$("#code").height();
+         var topheight=(val-codeheight)/2;
+         $('#code').css('top',topheight);*/
+        jQuery.fn.center = function(loaded) {
+            var obj = this;
+            body_width = parseInt($(window).width());
+            body_height = parseInt($(window).height());
+            block_width = parseInt(obj.width());
+            block_height = parseInt(obj.height());
+
+            left_position = parseInt((body_width / 2) - (block_width / 2) + $(window).scrollLeft());
+            if (body_width < block_width) {
+                left_position = 0 + $(window).scrollLeft();
+            };
+
+            top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
+            if (body_height < block_height) {
+                top_position = 0 + $(window).scrollTop();
+            };
+
+            if (!loaded) {
+
+                obj.css({
+                    'position': 'absolute'
+                });
+                obj.css({
+                    'top': ($(window).height() - $('#code').height()) * 0.5,
+                    'left': left_position
+                });
+                $(window).bind('resize', function() {
+                    obj.center(!loaded);
+                });
+                $(window).bind('scroll', function() {
+                    obj.center(!loaded);
+                });
+
+            } else {
+                obj.stop();
+                obj.css({
+                    'position': 'absolute'
+                });
+                obj.animate({
+                    'top': top_position
+                }, 200, 'linear');
+            }
+        }
+
+    })
+</script>
+</html>

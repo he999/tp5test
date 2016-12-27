@@ -1,0 +1,103 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="tpshop" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>申请加盟</title>
+<meta http-equiv="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/flow.css">
+<link rel="stylesheet" href="/static/waps/css/style_jm.css">
+<link rel="stylesheet" type="text/css" href="/static/waps/css/mui.min.css"/>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/common.js"></script>
+<style type="text/css">
+.addressmone{ width:100%; overflow:hidden; background:#fff}
+.addressmone ul{ width:95%; overflow:hidden; margin:auto}
+.addressmone ul li{ width:100%; overflow:hidden; border-bottom:1px solid #CCC;}
+.addressmone ul li span{ display:block; float:left; padding-left:15%; width:15%; font-size:14px; line-height:45px; color:#666;}
+.addressmone ul li input{ display:block; float:left; width:60%; background:none; border:0px; font-size:16px; color:#333; line-height:45px;}
+.addressmone ul li select{ display:block; float:left;background:none; height:45px; border:0px; font-size:16px; color:#333; line-height:45px; padding-right:10px;-webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; border-radius: 0; -webkit-rtl-ordering: logical; -webkit-user-select: text;}
+.dotm_btn1{ display:block; float:left; width:30%; height:40px; background:#FF3300; font-size:14px; line-height:40px; color:#FFF; border:0; margin-top:5px;border-radius:3px; margin-left:3%;}
+.beett{ display:inline; float:inherit; width:60%; margin-left:inherit; padding:0 20px; }
+.dotm_btn{ width:100%; height:50px; background:#fff;position:fixed;text-align:center;min-width: 320px; max-width: 640px; }
+</style>
+</head>
+<body style="background: rgb(235, 236, 237);position:relative;">
+
+<div class="tab_nav">
+    <div class="header" style="background:#FF2233;">
+      <div class="h-left">
+        <a class="sb-back" href="javascript:history.back(-1)" title="返回"></a>
+      </div>
+      <div class="h-mid" style="color:#fff; font-size: 18px;">申请加盟</div>
+    </div>
+</div>		  
+						
+<div class="addressmone">
+  <form action="" method="post" name='myform' >
+	<ul>
+<li>
+<span>姓名</span>  
+<input name="name" id="name" type="text" value="" maxlength="20">
+</li>          
+<li>
+<span>手机</span> 
+<input type="text" name="mobile" value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')" maxlength="11">
+</li>   
+<li>
+<span>地址</span> <input type="text" name="address" id="address" maxlength="60" value="">
+</li>
+    	</ul>
+        <div style=" height:50px"></div>
+		<div class="dotm_btn">
+        <input type="button" onclick="buttonForm()" value="确定" class="dotm_btn1 beett" style="margin-top:-5%">
+        </div>		 
+</form>
+</div>
+<script type="text/javascript">
+function buttonForm(){
+    var name = myform.name.value;
+    var address = myform.address.value;
+    var mobile = myform.mobile.value;
+    if(name == ''){
+        mui.toast('请填写姓名');
+        return;
+    }
+    if(address == ''){
+        mui.toast('请填写地址');
+        return;
+    }
+    if(!checkMobile(mobile)){
+        mui.toast('手机号码格式有误');
+        return;
+    }
+    $.ajax({
+        type :'post',
+        url:"/index.php/wap/league/ajaxadd",
+        data :{name:name,address:address,mobile:mobile},
+        dataType:'json',                       
+        success: function(data){
+           if (data.error_code == 0) {
+                 mui.alert(data.error_msg);
+                 setTimeout("window.location.href = '/index.php/wap/user/userinfo'",3000);
+           }
+           else{
+                 mui.alert(data.error_msg);
+                setTimeout("window.location.reload()",3000);
+           }
+        }
+    });
+}
+</script>
+<!---+++++++++++++++++++++++++++++++++底部菜单栏++++++++++++++++++++++++++++++++++++++++++++-->
+{include file="common:nav" /}
+<!---+++++++++++++++++++++++++++++++++底部菜单栏++++++++++++++++++++++++++++++++++++++++++++-->
+ 
+</body>
+</html>

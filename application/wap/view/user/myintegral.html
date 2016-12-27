@@ -1,0 +1,86 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="applicable-device" content="mobile">
+<title>我的积分</title>
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/user.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
+<script type="text/javascript" src="/static/waps/js/layer.js" ></script>
+<style type="text/css">
+
+</style>
+</head>
+<body style="position:relative;"> 
+
+<header>
+<div class="tab_nav">
+  <div class="header">
+    <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+    <div class="h-mid">我的积分</div>
+  </div>
+</div>
+</header>
+<div id="tbh5v0">
+    <div class="pbox">
+        <ul class="il_title">
+            <li style="float:left; line-height:40px;">
+		<p style="text-align:left; margin-left:10px;">我的积分： <span class="cf22" id="wait_score">{$points}</span></p>
+            </li>
+        </ul>
+	    <ul class="il_list all_score" id="J_il_list_1">
+	    {volist name="data" id='v'}
+	    	<li class="list_add J_add">
+	            <div class="td_l">
+	                <p>积分:{$v.points}</p>                        
+	            </div>
+	            <div class="td_r">
+	            <p class="il_money">{$v.type}</p>
+	                <p class="time"><?php echo date('y-m-d h:i',$v['time']);?></p>
+	            </div>
+	        </li>
+	    {/volist}
+	    </ul>
+	<!-- 下滑加载无更多样式 S-->
+        <div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
+                <!-- <a href="javascript:void(0)" onClick="ajax_sourch_submit()">点击加载更多</a> -->
+        </div>
+        <!-- 下滑加载无更多样式 E-->          
+    </div>
+</div>
+<script>
+// var  page = 1;
+ /*** ajax 提交表单 查询订单列表结果*/  
+//  function ajax_sourch_submit()
+//  {	 	 	 
+//         page += 1;
+// 		$.ajax({
+// 			type : "GET",
+// 			url:"/index.php"+page,
+// //			data : $('#filter_form').serialize(),// 你的formid 搜索表单 序列化提交
+// 			success: function(data)
+// 			{
+// 				if($.trim(data) == ''){
+// 					$('#getmore').hide();
+// 				}
+// 				else{
+// 				    $("#J_il_list_1").append(data);
+// 				}
+// 			}
+// 		}); 
+//  } 
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,305 @@
+{include file="common:head" /}
+<style type="text/css">
+.all {
+    width: 1090px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.lmbt1 {
+    font-size: 30px;
+    font-weight: bold;
+    display: block;
+    height: 60px;
+    color: #646878;
+    border-right: 1px solid #646878;
+    margin-top: 25px;
+    line-height: 28px;
+    padding-right: 10px;
+    float: left;
+    text-align: left;
+}
+.lmbt2 {
+    font-size: 22px;
+    color: #646878;
+    float: left;
+    margin-left: 10px;
+    padding-top: 52px;
+    background: url(/static/images/jiantou.png) right 57px no-repeat;
+    padding-right: 30px;
+}
+
+.lmbt3 {
+    overflow: hidden;
+    height: auto;
+    width: auto;
+    margin-top: 69px;
+    float: right;
+}
+.lmbt3 li {
+    font-size: 16px;
+    color: #696969;
+    text-align: center;
+    height: 38px;
+    width: 90px;
+    display: block;
+    float: left;
+}
+.lmbt3 li a {
+    color: #696969;
+        font-size: 15px;
+}
+.cl {
+    clear: both;
+}
+.arc_all {
+    background: #fff;
+    border: 1px solid #AAA9B8;
+    margin-bottom: 20px;
+}
+.Arc_head {
+    background: url(/static/images/xiantiao.png) no-repeat left bottom #ffffff;
+    margin: 0 auto;
+    height: 18px;
+    width: 1030px;
+    padding-top: 56px;
+}
+.Arc_head b {
+    color: #1A1D2B;
+    display: block;
+    width: auto;
+    margin-left: 30px;
+    line-height: 19px;
+    font-size: 18px;
+    background: #ffffff;
+    font-weight: normal;
+    float: left;
+    padding-right: 8px;
+}
+.arc_bt {
+    padding-top: 40px;
+    text-align: center;
+    font-size: 23px;
+}
+.wzly {
+    display: none;
+    padding-top: 20px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    color: #999999;
+}
+.arc_con {
+    line-height: 26px;
+    width: 1030px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #8b0101;
+    padding: 20px 0;
+}
+.arc_all .arc_con {
+    width: 990px;
+}
+.arc_fy {
+    width: 92%;
+    height: auto;
+    overflow: hidden;
+    margin: 40px auto 0 auto;
+    padding: 20px 0;
+    border-top: dotted 1px #313131;
+    border-bottom: dotted 1px #313131;
+}
+.fy_l {
+    float: left;
+    line-height: 30px;
+    font-size: 14px;
+    color: #666666;
+}
+.fy_l a {
+    color: #666666;
+}
+.fy_r {
+    float: right;
+    padding-top: 10px;
+}
+.mzsm {
+    width: 88%;
+}
+.wzzy {
+    width: 86%;
+    overflow: hidden;
+    margin: 20px auto;
+    border: solid 1px #cccccc;
+    background: #ececec;
+    padding: 1% 2%;
+    line-height: 24px;
+    font-size: 12px;
+    color: #6b6b6b;
+}
+.wzzy b {
+    display: block;
+    width: 10%;
+    overflow: hidden;
+    float: left;
+    line-height: 24px;
+    font-size: 12px;
+    color: #d11313;
+    font-weight: bold;
+}
+.wzzy p {
+    float: right;
+    width: 90%;
+}
+.arc_tj {
+    width: 92%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+.ccxs {
+    width: 1032px;
+}
+.arc_tj .same {
+    float: left;
+    width: 314px;
+    margin-right: 30px;
+    background: #f4f4f4;
+}
+.arc_tj .same h3 {
+    background: #6D6673;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+}
+.same ul {
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+.same ul li {
+    display: block;
+    width: 95%;
+    padding-left: 5%;
+    background: url(/static/images/dd.png) no-repeat left center;
+    border-bottom: dotted 1px #313131;
+    line-height: 30px;
+    font-size: 14px;
+}
+.same li a {
+    color: #666666;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
+            <!--子栏目-->
+            <div class="subtopic">
+                <div class="all">
+                     <div class="lmbt1">{$english_name}</div>
+                     <div class="lmbt2">{$cate_info.catename}</div>
+                     <div class="lmbt3">
+                        <ul>
+                            <?php foreach($other_cates as $row) { ?>
+                                <li><a href="/index.php/index/article/artlist/cid/{$row.cateid}">{$row.catename}</a> </li>
+                            <?php } ?>
+                            </volist>
+                        </ul>
+                        <div class="cl"></div>
+                     </div>
+                     <div class="cl"></div>
+                </div>
+            </div>
+             <!--文章内容-->
+            <div class="Cover">
+                <div class="all">
+                    <div class="arc_all">
+                         <div class="Arc_head"><b>{$cate_info.catename}</b>
+                              <div class="cl"></div>
+                         </div>
+                         <div class="arc_bt"> {$article_info.title}</div>
+                         <div class="wzly">来源：{$article_info.source}　发布作者：{$article_info.author}　发布时间：<?=date("Y/m/d h:i:s",$article_info['create_timestamp']);?></div>
+                        <!--  <div class="arc_con"> 
+                             w文章详情
+                            <div class="cl"></div>
+                         </div> -->
+                         <div class="arc_con"> 
+
+                         {$article_info.content}　
+
+                         <div class="cl"></div>
+                   </div>
+                   <div class="arc_fy">
+                        <div class="fy_l">
+                            <div>上一篇： <?php if (empty($prev_article)) { ?>无任何记录 
+                            <?php }else{?>
+                                <a href="/index.php/index/article/content/aid/{$prev_article.artid}">{$prev_article.title}</a>
+                            <?php } ?>
+                            </div>
+                            <div>下一篇： <?php if (empty($next_article)) { ?>无任何记录 
+                            <?php }else{?>
+                                <a href="/index.php/index/article/content/aid/{$next_article.artid}">{$next_article.title}</a>
+                            <?php } ?>
+                            </div>
+                        <div class="fy_r">
+                            <div class="bshare-custom icon-medium-plus">
+                                <div class="bsPromo bsPromo2"></div>
+                                <div class="bsPromo bsPromo2"></div>
+                                 <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到腾讯微博" class="bshare-qqmb" href="javascript:void(0);"></a><a title="分享到人人网" class="bshare-renren"></a><a title="分享到微信" class="bshare-weixin" href="javascript:void(0);"></a>
+                            </div>
+                            <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh">
+                            </script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+                        </div>
+                            <div class="cl"></div>
+                    </div>
+                    <div class="wzzy mzsm"> 
+                         <b>免责声明：</b>
+                         <p>本网站所载文章、数据等内容纯属作者个人观点，发布本文之目的在于传播更多信息，仅供投资者参考，并不构成投资建议。<br> 投资者据此操作，风险自担。</p>
+                         <div class="cl"></div>
+                    </div>
+                    <div class="arc_tj">
+                        <div class="ccxs">
+                            <div class="same">
+                                <h3>市场动态</h3>
+                                <div>
+                                    <ul> 
+                                        <?php foreach($related_cate_list1 as $vo) { ?>
+                                        <li>
+                                            <a href="/index.php/index/article/content/aid/{$vo.artid}"> {$vo.title}</a></li>
+                                        <?php } ?>
+                                        <div class="cl"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="same">
+                                <h3>通知公告</h3>
+                                <div>
+                                    <ul> 
+                                        <?php foreach($related_cate_list2 as $vo) { ?>
+                                        <li>
+                                            <a href="/index.php/index/article/content/aid/{$vo.artid}"> {$vo.title}</a></li>
+                                        <?php } ?>
+                                         <div class="cl"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="same">
+                                <h3>行业新闻</h3>
+                                <div>
+                                  <ul> 
+                                        <?php foreach($related_cate_list3 as $vo) { ?>
+                                        <li>
+                                            <a href="/index.php/index/article/content/aid/{$vo.artid}"> {$vo.title}</a></li>
+                                        <?php } ?>
+                                    <div class="cl"></div>
+                                   </ul>
+                                </div>
+                            </div>
+                           <div class="cl"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        {include file="common:foot" /}

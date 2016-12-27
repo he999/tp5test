@@ -1,0 +1,245 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="applicable-device" content="mobile">
+<title>在线充值</title>
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/user.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
+<script type="text/javascript" src="/static/waps/js/layer.js" ></script>
+<style>
+body, button, input, select, textarea {
+    font-size: 14px;font-family: arial,微软雅黑;
+}
+.g-Total {
+    background: #F4F4F4;border-bottom: 1px solid #DCDCDC; line-height: 30px;
+    padding: 5px 10px 0; font-size: 14px;
+}
+a.gray9, .gray9 {color: #999;}
+.g-member {background: #F4F4F4;padding: 10px 5px;}
+.g-Recharge ul {zoom: 1;}
+.g-Recharge li a.z-sel {
+    border: 1px solid #F60; color: #666;
+}
+.g-Recharge li .z-initsel {
+    border: 1px solid #F60;
+}
+.g-Recharge li .z-init {
+    width: 90%;padding: 7px 0; text-align: center;border: none;
+}
+.g-Recharge li .z-initsel input {
+    color: #666;
+}
+.g-Recharge li a.z-sel s, .g-Recharge li .z-initsel s {
+    width: 18px;height: 18px;
+    position: absolute; right: -1px; bottom: -1px;
+    display: inline-block;background-position: 0 0;
+}
+.g-Recharge li:nth-child(3n-1) {
+    width: 34%;text-align: center;
+}
+.g-Recharge li:nth-child(3n-3) {
+    text-align: right;
+}
+.g-Recharge li {
+    width: 33%;float: left;margin-bottom: 10px;
+}
+.g-pay-ment {
+    overflow: hidden;
+}
+.m-round {
+    border: 1px solid #DCDCDC;border-radius: 5px;
+    background: #fff;box-shadow: 1px 1px 1px #e7e7e7;
+}
+.mt10 {
+    margin-top: 100px;
+}
+.g-Recharge li a, .g-Recharge li .z-initsel, .g-Recharge li b {
+    color: #959595;width: 90%;
+    line-height: 30px;display: inline-block;
+    background: #fff;border-radius: 5px;
+    text-align: center;border: 1px solid #EAEAEA;
+    box-shadow: 1px 1px 1px #EDEDED; position: relative;
+}
+.z-sel s, .z-initsel s, .z-Btn-Close b, .z-Btn-Rotation b, .z-Btn-del b, .z-Btn-ok b {
+    background: url(images/member-icon.png);background-size: 40px auto;
+}
+.z-bank-Round {
+    width: 16px;
+    height: 16px;border: 1px solid #bbb;
+    background: #fff;border-radius: 16px;
+    display: inline-block;margin-right: 8px;
+    box-shadow: 0 1px 1px #ccc inset;
+}
+.z-bank-Roundsel s {
+    width: 12px;height: 12px;border-radius: 12px;display: inline-block;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#ff8a00),color-stop(1,#f60));
+}
+.f-Recharge-btn {display: block;}
+a.orgBtn {background: #f60;border: 1px solid #ef6000;}
+.orgBtn {
+    display: block; width: 100%;
+    -webkit-box-sizing: border-box;
+    height: 43px;line-height: 43px;
+    text-align: center; color: #fff!important;
+    border-radius: 5px;font-size: 18px;
+}
+.clearfix { display: block;}
+.z-bank-Roundsel {
+    width: 16px;height: 16px;line-height: 20px;border: 1px solid #ccc;background: #F6F5F5;
+    border-radius: 16px;display: inline-block;text-align: center;margin-right: 8px;
+}
+.g-pay-ment li {
+    line-height: 36px;border-top: 1px dotted #CBCBCB;max-height: 40px;
+    padding: 0 10px;overflow: hidden;margin-top: -1px;
+}
+.clearfix:after {
+    content: ".";display: block;height: 0;clear: both;visibility: hidden;
+}
+.orange {color: #f60;}
+</style>
+</head>
+<body style="background: rgb(235, 236, 237);position:relative;"> 
+
+<header>
+  <div class="tab_nav">
+    <div class="header">
+      <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+      <div class="h-mid">在线充值</div>
+      <div class="h-right">
+      </div>
+    </div>
+  </div>
+</header>
+
+<div id="tbh5v0">
+	<!-- <div class="g-Total gray9">您的当前余额：<span class="orange arial">2.00</span>元</div> -->
+	<form method="post"  id="recharge_form" action="">
+	<section class="clearfix g-member">
+           <div class="g-Recharge">
+               <ul id="ulOption">
+                   <li money="10"><a href="javascript:;" class="z-sel">10元<s></s></a></li>
+                   <li money="50"><a href="javascript:;">50元<s></s></a></li>
+                   <li money="100"><a href="javascript:;">100元<s></s></a></li>
+                   <li money="500"><a href="javascript:;">500元<s></s></a></li>
+                   <li money="1000"><a href="javascript:;">1000元<s></s></a></li>
+                   <li><b>
+                       <input type="text" id="input_val" class="z-init" placeholder="输入金额" maxlength="8" value=""><s></s></b></li>
+               </ul>
+           </div>
+		
+           <div class="mt10 f-Recharge-btn">
+               <a id="btnSubmit" href="javascript:;" class="orgBtn" onclick="recharge_submit()">确认充值</a>
+           </div>
+           <input type="hidden" name="account" id="add_money" value="10">
+           <input type="hidden" name="order_id" value="">
+      </section>
+      </form>
+</div>
+<input type="hidden"  id="wx1"   />
+                   <input type="hidden"  id="wx2"  />
+                   <input type="hidden" id="wx3"/>
+                   <input type="hidden" id="wx4"   />
+                      <input type="hidden" id="wx5"   />
+<div id="wx" data-appid="" data-time="" data-nonce="" data-pack="" data-sign="" style="display:none"></div>
+</body>
+
+<script type="text/javascript">
+$(function () {
+	//$("input[name='pay_radio']").first().trigger('click');
+     $(".g-Recharge ul li").click(function () {
+        $(this).find('a').addClass('z-sel')
+        $(this).siblings().find('a').removeClass('z-sel');
+        $('.gray6').find('em').html($(this).attr('money'));
+        $('#add_money').val($(this).attr('money'));
+     });
+});
+
+function change_pay(obj)
+{
+    $(obj).parent().siblings('input[name="pay_radio"]').trigger('click');
+}
+
+function recharge_submit(){
+	var input_val = parseInt($('#input_val').val());
+	if(input_val>0){
+		$('#add_money').val(input_val);
+	}
+	var account = $('#add_money').val();
+	if(isNaN(account) || parseInt(account)<=0 || account==''){
+		alert('请输入正确的充值金额');
+		return false;
+	}
+
+var payurl = "/index.php/wap/user/ajaxrecharge";
+$.post(payurl,{money:account},function(data){
+  // alert(123);
+ var josnobj = eval("("+data+")");
+   // $.each(josnobj,function(name,value) {
+   //      alert(value);
+   // })
+   // alert(josnobj['appId']);
+   $('#wx1').val(josnobj['appId']);
+    $('#wx2').val(josnobj['timeStamp']);
+     $('#wx3').val(josnobj['nonceStr']);
+      $('#wx4').val(josnobj['package']);
+       $('#wx5').val(josnobj['paySign']);
+    callpay();
+ },'json');
+	// $('#recharge_form').submit();
+}
+
+//调用微信JS api 支付
+function jsApiCall()
+{  
+    WeixinJSBridge.invoke(
+      'getBrandWCPayRequest',
+    {
+    "appId":$('#wx1').val(),
+    "timeStamp":$('#wx2').val(),
+    "nonceStr":$('#wx3').val(),
+    "package":$('#wx4').val(),
+    "signType":"MD5",
+    "paySign":$('#wx5').val()
+    },
+        function(res){
+            WeixinJSBridge.log(res.err_msg);
+            //alert(res.err_code+res.err_desc+res.err_msg);
+            str = res.err_msg;
+            //alert(res.err_msg.split(':')[1]);
+            //alert(str);
+            if(str!=""){
+                rr = str.split(":");
+                if(rr[1]=='ok'){
+                // window.location.href="/index.php/wap/user/complete";
+                  window.history.go(-1);
+                }
+            }
+        }
+    );
+}
+function callpay()
+{
+    if (typeof WeixinJSBridge == "undefined"){
+        if( document.addEventListener ){
+            document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+        }else if (document.attachEvent){
+            document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+            document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+        }
+    }else{
+        jsApiCall();
+    }
+}
+</script>
+</html>

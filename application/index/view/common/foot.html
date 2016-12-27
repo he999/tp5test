@@ -1,0 +1,38 @@
+<style type="text/css">
+    .ju1 ul li:last-child span{display: none;}  
+</style>
+<div class="clear"></div>
+    <!--底部开始-->
+    <div class="foot_warp">
+        <div class="ju">
+            <div class="fot1">
+                <div class="flo w_l">
+                    <span style="margin-left:10px;"><img src="/static/images/erweima.png"></span>
+                    <p style="color:#8c6024;font-size:15px;">扫一扫，精彩全知道</p>
+                </div>
+                <div class="flowz w_l">
+                    <p style="letter-spacing:2px;font-size:15px;">服务热线：400-0730-929</p>
+                    <p style="letter-spacing:2px;font-size:15px;">地    址：湖南省岳阳市巴陵东路富兴大厦</p>
+                    <p style="letter-spacing:2px;font-size:15px;">投诉邮箱：complaint@hnhyjys.com</p>
+                    <p style="letter-spacing:2px;font-size:15px;">中华人民共和国增值电信业务经营许可证编号：湘B2-20160021</p>
+                    <p style="letter-spacing:2px;font-size:15px;">本站内容仅供参考，非操作建议，请您自行决策交易</p>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <!--底部结束-->
+ <div class="dibu" style="width:100%; height:auto;padding-bottom:10px;background: #fff;" >
+        <div class="ju1">
+                    <ul>
+                        <li><a href="/">首页</a><span>|</span></li>
+                        {volist name="menu" id="vo"}
+                        <li><a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/artlist/cid/{$vo.cateid} <?php } ?>">{$vo.catename}<span>|</span></a></li>
+                        {/volist}
+                    </ul>
+                </br>
+                    <p>Copyright©湖南华艺文化艺术品交易有限公司 版权所有&nbsp;<img src="/static/images/tubiao.png"/>&nbsp; 备案号：湘ICP备16001204号</p>
+        </div>
+</div>
+</body>
+</html>

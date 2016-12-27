@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+
+<title>管理后台</title>
+</head>
+<script type="text/javascript">
+     
+</script>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit tou" >       
+                 <a href="#"  style="font-size: 20px;font-weight:600;">会员关系</a>
+            </ul>     
+               <form name="from1"  method="get" action="" style="background-color: rgba(113, 22, 22, 0);">
+            <!--关键字 
+                 <input type="text" name="nickname" value="" class="form-control" style="width: 100px;display:inline-block; margin:10px 0"    >&nbsp;&nbsp; &nbsp; 
+                       <input type="submit" class="btn btn-search" style="border:none;"   value="搜索" > -->
+
+              
+              </form>
+                 <table class="table table-hover table-bordered" style="border: none;text-align:center" >
+                <thead>
+                    <tr style="border-top:1px solid #ccc; ">
+                      <th width="40%">昵称</th>
+                      <th width="20%">佣金</th>
+                      <th width="20%">是否关注</th>
+                      <th width="20%">加入时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {volist name="data" id="vo" key="k"}
+            <tr> 
+                      <th>
+                        {if condition="$counts[$k-1] neq 0"}<a href="javascript:;" onclick="numshow(this,{$vo.uid});">[+]</a>{/if}
+                      </span>{$vo.nickname}<span style="margin-left:5px; color:red">({$counts[$k-1]})</span></th>
+                      <th>{$vo.commission}</th>
+                      <th>{if condition="$vo['attention'] eq 1"}已经关注{else/}没有关注{/if}</th>       
+                      <th>{$vo.create_time|date="Y-m-d H:i",###}</th>
+            </tr>
+                {/volist}  
+                </tbody>
+            </table>
+            <div style="margin-top:-10px">{$data->render()}</div>
+<table class="table"   >
+ <tr   ><td style="text-align: center;border-top: none;  "></td></tr>
+      </table>
+        <!-- page-content end -->
+   
+    <!-- main-content end -->
+</div> </div>
+<!-- main-container end --> </div>
+
+</body>
+<!--下级关系-->
+<script type="text/javascript">
+      function numshow(i,uid){
+            var ready;
+            tr=$(i).parent().parent();
+            if($(i).html()=="[+]"){
+            $.ajax({
+                    url:'/index.php/manager/Member/numAjax',
+                    type:'post',//可选get
+                    data:{uid:uid} ,//传给PHP的数据，多个参数用&连接
+                    // dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                    success:function(data){
+                          var html='';
+                          $(data['data']).each(function(k,v){
+                             var date= new Date(v.create_time);
+                             Y = date.getFullYear() + '-';
+                             M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                             D = date.getDate() + ' ';
+                             h = date.getHours() + ':';
+                             m = date.getMinutes() + ':';
+                             s = date.getSeconds(); 
+                             if(v.attention==1){
+                               attention="已经关注";
+                             }else{
+                               attention="没有关注";
+                             }
+                             html+='<tr class="one"><th>-------'+v.nickname+'<span style="margin-left:5px; color:red">('+data['counts'][k]+')</span></th><th>'+v.commission+'</th><th>'+attention+'</th><th>'+Y+M+D+h+m+s+'</th></tr>';
+                          })
+                          tr.after(html);       
+                          tr.find('a').html('[-]');                 
+                    }
+              }) 
+              }else{
+                   $(".one").hide();
+                   tr.find('a').html('[+]');  
+              }            
+          }
+</script>
+
+<script type="text/javascript">
+
+$('#create_timestamp').datetimepicker({
+  minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});
+</script>
+</html>    

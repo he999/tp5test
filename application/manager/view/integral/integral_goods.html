@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+
+<title>后台管理系统</title>
+</head>
+<style>    
+    table th{
+        text-align: center;
+    }    
+</style>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit">
+            
+             <li  style="font-size: 20px;font-weight:600;"><a href='#'>积分商品 </a></li>
+            </ul>         
+               <form name="from1"   method="get" action="/index.php/manager/activity/activity_management" style="background-color: rgba(113, 22, 22, 0);">            
+            <input type="button" id="btnAdd" class="btn btn-add" style="background:#85c226;border:none;margin-bottom:20px;"   value="+添加商品">                        
+</br>
+     <table class="table table-hover table-bordered" style="border: 0;" >
+                <thead>
+                    <tr style="border-top:1px solid #ccc;background:#ececea;">
+                        <th align="center">编号</th>
+                        <th>商品主图</th>
+                        <th>商品名称</th>
+                        <th>兑换积分</th>
+                        <th>库存数量</th>
+                        <th>已兑数量</th>
+                        <th>下架时间</th>
+                        <th>操作</th>                                                     
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach($list as $k => $v){
+						?>
+                    <tr>
+                        <th align="center"><?php echo $v['id']?  $v['id'] : null ;?></th>
+                        <th><img src="<?php echo $v['img']?  $v['img'] : null ;?>" style="width:60px;height:60px;"></th>
+                        <th><?php echo $v['name']?  $v['name'] : null ;?></th>
+                        <th><?php echo $v['point']?  $v['point'] : 0 ;?></th>
+                        <th><?php echo $v['stock']?  $v['stock'] : 0 ;?></th>
+                        <th><a href="/index.php/manager/integral/for_record?id=<?php echo $v['id']?>" style="color:red"><?php echo $v['num']?  $v['num'] : 0 ;?></a></th>
+                        <th><?php echo $v['off_time']?  date('Y.m.d H:i',$v['off_time']) : null ;?></th>
+                        <th>                           
+                            <a href="/index.php/manager/integral/add_product?id=<?php echo $v['id'];?>" style="cursor: pointer;text-decoration:none;">编辑 </a>
+                            <a href="/index.php/manager/integral/del_product?id=<?php echo $v['id'];?>" style="cursor: pointer;text-decoration:none;">删除 </a>
+                        </th>
+                    </tr>
+                <?php }?>
+                     
+                     </tbody>
+            </table>
+ </form>
+ <table class="table"   >
+ <tr   ><td style="text-align: center;border-top: none;  "></td></tr>
+      </table>
+              <!-- page-content end -->
+   
+    <!-- main-content end -->
+</div> </div>
+<!-- main-container end --> </div>
+ 
+</body>
+<script type="text/javascript">
+$(function () {
+  
+     
+     $("#btnAdd").click(function(){
+ 
+   location.href = '/index.php/manager/integral/add_product';
+  
+ });
+});
+</script>
+</html>

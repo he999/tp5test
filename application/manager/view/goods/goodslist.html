@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- datetimepicker css JS 文件 -->
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+ 
+
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit">                          
+              <li style="font-size: 20px;font-weight:600;color:#585858" >商品列表</li>
+            </ul>   
+             <form   method="post" action="/index.php/manager/goods/goodsadd" style="float:right"  >
+               <input type="submit" id="pinglun" class="btn btn-search" style="border:none;" value="添加商品"> 
+                
+                </form>
+              <form  method="get" action="" id="form2" style="margin:0 0 0px 15px; float:left" onsubmit="">
+                <span style="float:left; line-height:35px"> 按商品编号： </span>
+                <input type="text" name="goods_sn" value="" class="form-control" id="one" style="width: 100px;float:left;margin-right:10px" >
+                <span style="float:left; line-height:35px"> 按商品名称： </span>
+                <input type="text" name="goods_name" value="" class="form-control" id="one" style="width: 100px;float:left;margin-right:10px" >
+                <span style="float:left; line-height:35px"> 按时间： </span>
+                 <input type="text" name="time_start" value="" class="form-control" id="start_time" style="width: 100px;float:left;" >         
+                <span style="float:left; line-height:35px"> 至： </span>
+                    <input type="text" name="time_end" value="" class="form-control" style="width: 100px;float:left;"  id="end_time"  > 
+                     &nbsp;&nbsp; 
+              <input type="submit" class="btn btn-search" style="border:none; margin:0 10px 10px 10px"   value="搜索" form="form2" formaction="/index.php/manager/goods/goodsList"/> 
+              </form></br>
+          <table class="table table-hover table-bordered" style="border: none;" >
+                <thead>
+                    <tr style="border-top:1px solid #ccc">
+                  
+                      <th>商品编号</th>
+                       <th>所在分类</th>
+                     <th>商品图</th>
+                       <th>名称</th>
+                         <th>市场价</th>
+                           <th>折扣价</th>
+                               <th>录入时间</th>
+                              <th >操作</th>
+                    </tr>
+                </thead>
+               
+                    <tbody>
+                         {volist name="list" id="i"}
+             
+                    <th  > {$i.goods_sn}</th>
+                         <th  > {$i.catename}</th>
+                           <th><img src="{$i.cover_img}" style="width: 50px;height: 40px" /></th>
+                       
+                           <th  > 
+                           <?php   if(strlen($i['goods_name'])>15){echo mb_substr(str_replace(",", "+￥", $i['goods_name']), 0, 15, 'utf-8') . "...";}else{echo $i['goods_name'];}?>
+                           </th>
+                                 <th  > {$i.market_price}</th>
+                                         <th  > {$i.shop_price}</th>
+                    <th>  {$i.last_update|default=time()|date='Y-m-d',###} </th>     
+                    <th  >
+                         <a href="/index.php/manager/goods/goodsedit/goods_id/{$i.goods_id}" style="cursor: pointer;" > 修改 </a>&nbsp;&nbsp;&nbsp;&nbsp;  
+                          <a onclick="return confirm('你确定要删除吗？')"  href="/index.php/manager/goods/goodsdel/goods_id/{$i.goods_id}" style="cursor: pointer;">删除</a></th>
+                </tr>
+                {/volist}
+                     </tbody>
+            </table>
+<table class="table"   >
+ <tr   ><td style="text-align: center;border-top: none;  ">{$list->render()}</td></tr>
+      </table>
+        <!-- page-content end -->
+   
+    <!-- main-content end -->
+</div> </div>
+<!-- main-container end --> </div>
+<div class="cheng" style="height: 100%;position: fixed;top: 0;display: none;filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5; background: #7d7d7d;"></div>
+<div class="tanchu" style="display:none;position: fixed;width: 20%;height: 120px;background: #ffffff;top: 35%;left:20%;border-radius:5px;text-align: center;margin-left: 20%">
+
+</br>
+是否删除？
+   <div style="width: 41%;margin-left: 30%"> </br><a class="quxiao" href="javascript:;" style="display:block;width: 30%;height:30px;line-height:30px;margin-left:20%;background: #f9cd36;border-radius:4px;color: #f9f9fb;float: right;  ">取消</a>
+     <a class="queding" href="javascript:;" style="display:block;width: 30%;height:30px;line-height:30px;margin-left:5%;background: #f9cd36;border-radius:4px;color: #f9f9fb;float: right; ">确定</a></div>
+ 
+ 
+</div>
+</body>
+
+
+<script type="text/javascript">
+   function caozuo(id){
+    $(".tanchu").css('display','block');
+   $(".cheng").css('display','block');
+  var yu= $('#'+id).val();
+  $('#yuming').val(yu);
+  $('#daili').val(id);
+   
+}
+$(".quxiao").click(function () {
+  $(".tanchu").css('display','none');
+  $(".cheng").css('display','none');
+});
+$(".queding").click(function () {
+  $(".tanchu").css('display','none');
+  $(".cheng").css('display','none');
+ 
+  var yuming=$('#yuming').val();
+   var daili=$('#daili').val();
+ $.ajax({
+            type: "post",
+            url: "/index.php/manager/index/yumingAjax",
+            data: {yuming:yuming, daili: daili},
+            success: function (json) {
+                if(json==1){
+                  location.reload();
+                }
+                
+            }
+        });
+});
+
+$('#create_timestamp').datetimepicker({
+  minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});
+$('#start_time').datetimepicker({
+  minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});  
+$('#end_time').datetimepicker({
+  minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+}); 
+ 
+</script>
+</html>    

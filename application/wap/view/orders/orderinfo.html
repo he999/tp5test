@@ -1,0 +1,117 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="applicable-device" content="mobile">
+<title>订单详情</title>
+<meta http-equiv="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/user.css">
+<link rel="stylesheet" href="/static/waps/css/mui.min.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+</head>
+<body>
+
+<header>
+<div class="tab_nav">
+  <div class="header">
+    <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+    <div class="h-mid">订单详情</div>
+  </div>
+</div>
+</header>
+<script type="text/javascript" src="/static/waps/js/mobile.js" ></script>
+ {volist name="data" id="g" }
+<div id="tbh5v0">						
+	<div class="order">	
+		<div class="ord_list1">
+			<h2>订单编号:{$g.order_sn}</h2>  
+		    <div class="order_list">
+             {volist name="g.data" id="a" } 
+		      <!--   <a href="/index.php/wap/goods/goodsinfo/id/{$a.goods_id}"> -->
+		            <dl>
+			            <dt><img src="{$a.cover_img}"></dt>
+			            <dd class="name" class="pice" style=" width:55%;">
+		                  <strong>{$a.goods_name}</strong>
+		                </dd>
+			            <dd class="pice" style=" font-size:13px; color:#F60; width:25%;">￥{$a.shop_price}元
+			            <em>x{$a.buy_num}</em></dd>
+			            <dd class="pice" style=" font-size:13px; color:#F60; width:25%;"> <em></em></dd>
+		            </dl>
+		       <!--  </a>   -->
+              {/volist}     
+			</div>	
+		</div>
+       
+		<div style=" height:50px;"></div>
+<div class="jiage">
+<p>下单时间&nbsp;:&nbsp;<span class="price" style="color: #bbb;">{$g.create_time|date ="Y-m-d H:i",###}</span></p>
+<p>商品总额&nbsp;:&nbsp;<span class="price">￥{$g.order_amount}元</span></p>
+<p>邮费总额&nbsp;:&nbsp;<span class="price">￥{$g.shipping_price}元</span></p>        
+<p>应付款金额&nbsp;:&nbsp;<span class="price1">￥{$g.order_amount+$g.shipping_price}元</span></p>				
+</div> 
+		<div class="detail_dowm">
+			<div class="anniu1">
+                {if condition="$g.order_status eq 0"}
+                    {if($g.pay_code == 2)}
+                    <a onClick="orderyuepay({$g.order_id})" class="on_comment" style="background-color: #E24615; color:#fff;width:100%;">去支付</a>
+                    {else}
+                     <a onClick="orderpay({$g.order_id})" class="on_comment" style="background-color: #E24615; color:#fff;width:100%;">去支付</a> 
+                    {/if}}
+                {elseif condition="$g.order_status eq 2"}
+                     <a onClick="cancel_order({$g.order_id},2)" class="on_comment" style="background-color: #E24615; color:#fff;width:100%;">确认取货</a> 
+                {/if}   
+            </div> 
+		</div>
+	</div>		
+</div>
+{/volist}     
+<script language="javascript">
+function orderpay(id){
+
+  var payurl = "/index.php/wap/orders/ajaxorderid";
+$.post(payurl,{order_id:id},function(data){
+  location.href="/orderpay.php";
+ },'json');
+
+}
+function orderyuepay(id){
+  location.href="/index.php/wap/orders/orderyuepay/order_id/"+id;
+}
+
+function  orderStatusUp(id,ele){   
+ 
+    $.ajax({
+        type : "POST",
+        url:"/index.php/wap/orders/ajaxcomment",
+        data :{id:id,type:ele} ,
+        dataType:'json',                       
+        success: function(data){
+           if (data.error_code == 0) {
+                 mui.toast('操作成功');
+                 setTimeout("window.location.href = '/index.php/wap/orders/orderalllist'",800);
+                
+           }
+           else{
+                 mui.toast('操作失败');
+                setTimeout("window.location.reload()",800);
+           }
+        }
+    });  
+}
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- 百度编辑器 核心 JavaScript 文件 -->
+<script type="text/javascript" charset="utf-8" src="/static/js/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/js/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/static/js/zh-cn.js"></script>
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+<!-- datetimepicker css JS 文件 -->
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit">
+            
+             <li class="active"><a href='#'>添加文章</a></li>
+            </ul>     
+        <form action="/index.php/manager/index/article_add" method="post" enctype="multipart/form-data" name="form1"  >
+              
+     <table width="900px" border="0" cellspacing="10" >
+  <tr>
+    <th width="200px" style="text-align: center;">文章分类：</th>
+    <th   align="left">  
+       <select name="cateid" class="form-control"    style="width: 300px;resize: none;margin: 10px 0px;width: 300px" >  
+                   {volist name="info" id="i"}  
+      <option  value="{$i.cateid}"     >{$i.prefix}{$i.catename}</option>
+          {/volist}
+    </select>
+     </th>
+  </tr>  
+     
+   <tr>
+    <th width="200px" style="text-align: center;">文章标题：</th>
+    <th   align="left">  
+      <input type="text"  maxlength="100"  name="title"  class="form-control" id="inputEmail3"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px" >
+     </th>
+  </tr>    
+  
+  <tr>
+    <th width="200px" style="text-align: center;">发文时间：</th>
+    <th   align="left">  
+                <input type="text" name="create_timestamp" class="form-control" id="create_timestamp"  style="width: 160px;display:inline-block;" >
+     </th> 
+  </tr>  
+ 
+  <tr>
+    <th width="200px" style="text-align: center;">文章主图：</th>
+    <th   align="left">  
+      <input type="file" name="image"  style="width: 300px;resize: none;margin: 10px 0px;width: 300px" /><font style="color: red;font-size: 14px">*添加藏品类、最新公告类 文章时请上传主图，用于首页显示</font>
+     </th> 
+  </tr>  
+ <tr>
+    <th width="200px" style="text-align: center;">描述：</th>
+    <th   align="left">  
+        <textarea cols="30" rows="3" name="intro" style="resize: none;margin: 10px 0px;width: 300px;height: 200px"    name="content" maxlength="9999"  class="form-control" id="inputEmail3"  > </textarea><font style="color: red;font-size: 14px">*添加最新公告类 文章时请输入描述，用于首页显示</font>
+     </th>
+  </tr>  
+ <tr>
+    <th width="200px" style="text-align: center;">文章编辑：</th>
+    <th   align="left">  
+    <div>
+     
+    <script id="editor" type="text/plain" name='content' style="width:700px;height:500px;"></script>
+</div>
+ 
+    
+<script type="text/javascript">
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor');
+
+
+    function isFocus(e){
+        alert(UE.getEditor('editor').isFocus());
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function setblur(e){
+        UE.getEditor('editor').blur();
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        UE.getEditor('editor').execCommand('insertHtml', value)
+    }
+    function createEditor() {
+        enableBtn();
+        UE.getEditor('editor');
+    }
+    function getAllHtml() {
+        alert(UE.getEditor('editor').getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        UE.getEditor('editor').setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        UE.getEditor('editor').setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = UE.getEditor('editor').selection.getRange();
+        range.select();
+        var txt = UE.getEditor('editor').selection.getText();
+        alert(txt)
+    }
+
+    function getContentTxt() {
+        var arr = [];
+        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+        arr.push("编辑器的纯文本内容为：");
+        arr.push(UE.getEditor('editor').getContentTxt());
+        alert(arr.join("\n"));
+    }
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(UE.getEditor('editor').hasContents());
+        alert(arr.join("\n"));
+    }
+    function setFocus() {
+        UE.getEditor('editor').focus();
+    }
+    function deleteEditor() {
+        disableBtn();
+        UE.getEditor('editor').destroy();
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+
+    function getLocalData () {
+        alert(UE.getEditor('editor').execCommand( "getlocaldata" ));
+    }
+
+    function clearLocalData () {
+        UE.getEditor('editor').execCommand( "clearlocaldata" );
+        alert("已清空草稿箱")
+    }
+</script>
+     </th>
+  </tr>  
+ 
+   
+  <tr style="text-align: center;
+    height: 70px;">
+    <td colspan="2"><button type="submit" class="btn btn-default" style="width: 100px">确定</button> </td> 
+  </tr>
+</table></form> 
+        <!-- page-content end -->
+   
+    <!-- main-content end -->
+</div> </div>
+<!-- main-container end --> </div>
+
+</body>
+<script type="text/javascript">
+$('#create_timestamp').datetimepicker({
+  minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});
+</script>
+</html>

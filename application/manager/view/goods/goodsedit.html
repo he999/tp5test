@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+ 
+<!-- 百度编辑器 核心 JavaScript 文件 -->
+<script type="text/javascript" charset="utf-8" src="/static/js/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/js/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/static/js/zh-cn.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+
+<style>
+      .dingwei{position: relative;}
+      .dingwei2{position: relative;}
+        #preview {width: 150px;float:left;height:150px;border:1px solid gray;background:url(/static/images/grzl_2.jpg);background-size:150px 150px;background-repeat:no-repeat;
+            overflow: hidden;margin: 30px 20px; 
+        }
+        #preview2 {width: 150px;float:left;height:150px;border:1px solid gray;background:url(/static/images/grzl_2.jpg);background-size:150px 150px;background-repeat:no-repeat;
+            overflow: hidden;margin: 30px 20px; 
+        }
+        #preview3 {width: 150px;float:left;height:150px;border:1px solid gray;background:url(/static/images/grzl_2.jpg);background-size:150px 150px;background-repeat:no-repeat;
+            overflow: hidden;margin: 30px 20px; 
+        }
+        #preview4 {width: 150px;float:left;height:150px;border:1px solid gray;background:url(/static/images/grzl_2.jpg);background-size:150px 150px;background-repeat:no-repeat;
+            overflow: hidden;margin: 30px 20px; 
+        }
+
+        #preview img {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 10;
+        }        
+        #preview2 img,#preview4 img {
+            width: 100%;
+            height: 100%;
+            z-index: 99999999;
+        }
+        #preview3 img {
+            width: 100%;
+            height: 100%;
+            z-index: 99999999;
+        }
+    </style>    
+<title>后台管理系统</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <div style="margin-left:215px; margin-top:20px; margin-right:10px">
+           <div style="line-height:35px;border-bottom:1px solid #ccc;">
+                    <a href="#" style="font-size: 20px;font-weight:600;">修改商品</a>
+                    <a style=" float:right; padding:5px 9px" href="/index.php/manager/goods/goodslst">返回列表</a>
+           </div>
+           <div style="clear:both"></div>
+           <div>
+                    <form action="" method="post" enctype="multipart/form-data" name="form1"  >  
+                            <table class="tb1" >
+                                     
+                                      <tr>
+                                             <td class="td1">商品名称:<input type="hidden"  name="goods_id" value="{$list['goods_id']}"  /></td>
+                                             <td class="td2">
+                                                       <input type="text" style="width:24%; float:left" class="form-control" name="goods_name" value="{$list['goods_name']}" />
+                                                       <span style="color:red;margin-left:15px; margin-right:15px;float:left">*</span>
+                                                       <span style="float:left">商品条形码:</span>
+                                                       <input type="text" style="width:24%;float:left" class="form-control"; name="goods_bar_code" value="{$list['goods_bar_code']}" />
+                                                       <span style="margin-left:15px;float:left">商品编号:</span>
+                                                       <input type="text" style="width:24%;float:left" class="form-control" name="goods_sn" value="{$list['goods_sn']}" />
+                                             </td>
+                                      </tr>
+                                      <tr class="tr1"  height="75px">
+                                             <td class="td1">短描述:</td>
+                                             <td class="td2"><input type="textarea" style="height:50px; width:77%; " name="intro" value="{$list['intro']}" class="form-control"/></td>
+                                      </tr>
+                                       <tr  class="tr1">
+                                             <td class="td1">商品单位:</td>
+                                              <td class="td2">
+                                                       <input type="text" style="width:24%; float:left; margin:10px 0;" name="goods_unit" value="{$list['goods_unit']}"  class="form-control"/>
+                                                       <span style="float:left; margin:10px 0 10px 15px">商品重量:</span>
+                                                       <input type="text" style="width:24%;float:left; margin:10px 0;" class="form-control"; name="weight"  value="{$list['weight']}"  />
+                                                       <span style="float:left; margin:10px 0 0 0;">(克)</span>
+                                                       <span style="float:left; margin:10px 0 0 15px;">销售:</span>
+                                                       <input type="text" style="width:24%;float:left; margin:10px 15px 0px 0px;" name="sales_sum"  value="{$list['sales_sum']}"  class="form-control"/>
+                                             </td>
+                                      </tr>
+                                         <tr class="tr1">
+                                             <td class="td1">商品库存数量:</td>
+                                             <td class="td2">
+                                                       <input type="text" style="width:24%; float:left" class="form-control" name="goods_stock"   value="{$list['stock']}"   />
+                                                       <span style="float:left; margin-left:15px">库存警告数量:</span>
+                                                       <input type="text" style="width:24%;float:left" class="form-control";  value="200"/>
+                                             </td>
+                                      </tr>
+                                      <tr class="tr1">
+                                             <td class="td1">大分类:</td>   
+                                             <td class="td2"><select style="height:30px" name="parentid" id="shengji"   >
+                                                                    <option  >请选择</option>
+        {volist name="fenlei" id="i"}  
+      <option value="{$i.cateid}" <?php if($i['cateid'] == $list['parentid']) echo ("selected");?> >{$i.catename}</option>
+          {/volist}
+                                                    </select> 
+     <script type="text/javascript">
+     $("#shengji").change(function(){
+      var val = $(this).val();
+
+      if(val=='请选择'){
+           $("#shiji option").remove();
+      }else{ 
+       $("#shiji option").remove();
+             $.ajax({
+                              url:'/index.php/manager/goods/childAajx',
+                              type:'get',//可选get
+                              data:'id='+val,//传给PHP的数据，多个参数用&连接
+                              // dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                              success:function(data){
+                                 $("#shiji option").remove();
+                            
+                                 $("#shiji").append(data);
+                              }
+
+                      })   }
+         })
+    
+              </script>
+                                                   
+&nbsp;&nbsp;&nbsp;&nbsp;<font style="color:red;">*</font>小分类:  <select style="height:30px" id='shiji' name="cateid" >
+                                             {volist name="xiaofenlei" id="i"}  
+      <option value="{$i.cateid}" <?php if($i['cateid'] == $list['cateid']) echo ("selected");?> >{$i.catename}</option>
+          {/volist}               
+                                                    </select> <input type="hidden"  name="catename"   />
+                                             </td>
+                                      </tr>
+                                      <tr class="tr1">
+                                             <td class="td1">是否为虚拟商品:</td>
+                                             <td class="td2">&nbsp; &nbsp; 
+                                               <input name="is_real" type="radio" value="0"    required="required"  {if condition="$list['is_real'] eq '0'"}checked="checked"{/if}/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <input name="is_real" type="radio" value="1"   required="required" {if condition="$list['is_real'] eq '1'"}checked="checked"{/if}  />否                                    </td>
+                                      </tr>
+                                            <tr class="tr1">
+                                             <td class="td1">是否包邮:</td>
+                                             <td class="td2">&nbsp; &nbsp; 
+                                               <input name="is_free_shipping" type="radio" value="1"    required="required"  {if condition="$list['is_free_shipping'] eq '1'"}checked="checked"{/if}/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <input name="is_free_shipping" type="radio" value="0"   required="required" {if condition="$list['is_free_shipping'] eq '0'"}checked="checked"{/if}  />否                                    </td>
+                                      </tr>
+                                             <tr class="tr1">
+                                             <td class="td1">销售价:</td>
+                                             <td class="td2">
+                                                       <input type="text" style="width:24%; float:left" class="form-control" name="shop_price"   value="{$list['shop_price']}"   />
+                                                       <span style="float:left; margin-left:15px">市场价:</span>
+                                                       <input type="text" style="width:24%;float:left" class="form-control"; name="market_price"   value="{$list['market_price']}"    />
+                                             </td>
+                                      </tr>
+                                      <tr class="tr1">
+                                             <td class="td1" style="color:red">总佣金:</td>
+                                             <td class="td2"><input type="text" style="height:28px;width:24%;float:left;margin-top:10px"  name="sum_brokerage" value="{$list['sum_brokerage']}"   class="form-control"/>元</td>
+                                      </tr>
+                                      <tr class="tr1">
+                                             <td class="td1" style="color:red">上传商品主图:</td>
+                                             <td class="td2 dingwei"> <input type="file" name="image"  style="width: 150px; height:150px;resize: none; color:#ccc;position: absolute;left:20px;top:30px;opacity:0;filter:alpha(opacity=0); z-index: 9999;" class="one"/>   <div id="preview" >
+                                    <img src="{$list['cover_img']}"  />
+   
+    </div></td>
+                                      </tr>
+                                      <tr class="tr1">
+                                             <td class="td1" style="color:red">商品缩略图:</td>
+                                             <td class="td2 dingwei2"> <input type="file" name="image2"  style="width: 150px;top:30px; height:150px;resize: none; color:#ccc;position: absolute;left:20px;opacity:0;filter:alpha(opacity=0); z-index: 9999;" class="two" />
+                                            <div id="preview2" > 
+                                       
+                                        <?php if(isset($img_info['data'][0]['image_url'])){   ?>   
+                                             <img src="{$img_info['data'][0]['image_url']}"  />   
+                                            <input type="hidden"  name="img1"  value="{$img_info['data'][0]['img_id']}"  />
+                                         <?php } ?>
+
+                                            </div>
+                                                <?php if(isset($img_info['data'][0]['image_url'])){   ?>   
+                                            <input type="hidden" name="img1"  value="{$img_info['data'][0]['img_id']}"  />
+                                         <?php } ?> 
+                                            <input type="file" name="image3"  style="width: 150px;top:30px; height:150px;resize: none; color:#ccc;position: absolute;left:200px;opacity:0;filter:alpha(opacity=0); z-index: 9999;" class="thr" />
+    <div id="preview3" >      
+         <?php if(isset($img_info['data'][1]['image_url'])){   ?>   
+                                             <img src="{$img_info['data'][1]['image_url']}"  />   
+                                            <input type="hidden"  name="img2"  value="{$img_info['data'][1]['img_id']}"  />
+                                         <?php } ?>
+
+    </div>
+      <?php if(isset($img_info['data'][1]['image_url'])){   ?>   
+                                    
+                                            <input type="hidden"  name="img2"  value="{$img_info['data'][1]['img_id']}"  />
+                                         <?php } ?>
+     <input type="file" name="image4"  style="width: 150px;opacity:0;filter:alpha(opacity=0);  top:30px;height:150px;resize: none; color:#ccc;position: absolute;left:400px;z-index: 9999;" class="thrs"/>
+    <div id="preview4" >      
+                                <?php if(isset($img_info['data'][2]['image_url'])){   ?>   
+                                             <img src="{$img_info['data'][2]['image_url']}"  />   
+                                            <input type="hidden" name="img3"  value="{$img_info['data'][2]['img_id']}"  />
+                                         <?php } ?>
+
+    </div>    <?php if(isset($img_info['data'][2]['image_url'])){   ?>   
+                                            
+                                            <input type="hidden" name="img3"  value="{$img_info['data'][2]['img_id']}"  />
+                                         <?php } ?>
+                                            <div style="position:absolute;top:180px;">如果为空，则以原始图片生成缩略图</div></td>
+                                      </tr>
+                                      <tr class="tr1">
+                                             <td class="td1">商品属性:</td>
+                                             <td class="td2">
+                                                    <div style="width:100%; height:40px;  text-align:center; margin-left:-5.5%">
+                                                         <ul>   
+                                                                 
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:50%;height:35px;margin-left:25%" class="form-control" name="spec1_name" value="{$list['spec1_name']}"  /> </li>
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:50%;height:35px;margin-left:25%" class="form-control" name="spec2_name"  value="{$list['spec2_name']}"  /> </li>
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:50%;height:35px;margin-left:25%" class="form-control" name="spec3_name" value="{$list['spec3_name']}"  />  </li>
+                                                                 <li style="float:left; width:16%">价格</li>
+                                                                 <li style="float:left; width:16%">库存</li>
+                                                                 <li style="float:left; width:16%">操作</li>
+                                                           </ul>
+
+                                                    </div>
+                                                  <div style="width:100%; height:40px; margin-left:-5.5%" id="div1"> 
+                                                {eq name='specs_info' value=''}
+                                                         <ul style="">
+                                                              <input type="hidden"  name="spec_id[]" value="0" />
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:80%;height:35px;margin-left:10%" class="form-control" name="spec_1[]"   /></li>
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:80%;height:35px;margin-left:10%" class="form-control" name="spec_2[]"  /></li>
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:80%;height:35px;margin-left:10%" class="form-control" name="spec_3[]"  /></li>
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:80%;height:35px;margin-left:10%" class="form-control" name="price[]" /></li>
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:80%;height:35px;margin-left:10%" class="form-control" name="stock[]"  /></li>
+                                                                 <li style="float:left; width:16%; text-align:center; line-height:35px ">删除</li>
+                                                           </ul>
+
+                                                {else/}
+                                                     {volist name="specs_info" id="i"}  
+                                                     <div id="{$i.spec_id}">  
+                                                           <ul style=""  >     <input type="hidden"  name="spec_id[]" value="{$i.spec_id}"  />
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:80%;height:35px;margin-left:10%" class="form-control" name="spec_1[]" value="{$i.spec_1}" /></li>
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:80%;height:35px;margin-left:10%" class="form-control" name="spec_2[]" value="{$i.spec_2}"/></li>
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:80%;height:35px;margin-left:10%" class="form-control" name="spec_3[]" value="{$i.spec_3}"/></li>
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:80%;height:35px;margin-left:10%" class="form-control" name="price[]" value="{$i.price}"/></li>
+                                                                 <li style="float:left; width:16%"><input type="text" style="width:80%;height:35px;margin-left:10%" class="form-control" name="stock[]" value="{$i.stock}"/></li>
+                                                                 <li style="float:left; width:16%; text-align:center; line-height:35px " onclick="shuxingdel({$i.spec_id})">删除</li>
+                                                           </ul>
+</div>
+                                                        </br>  {/volist}
+                                                         {/eq} 
+                                                    </div>
+                                                    <div style="width:100%;float:left;">
+                                                           <input type="button" value="添加新的规格属性" id="shuxing" style="width:140px; line-height:30px"/>
+                                                          <!--  <input type="button" value="保存" style="width:80px; line-height:30px;margin-left:10px"/> -->
+                                                    </div>
+                                                      <script type="text/javascript">
+                                                    $('#shuxing').click(function(){
+     
+   
+     $("#div1").append("<ul>  <input type='hidden'  name='spec_id[]'  value='0'  /><li style='float:left; width:16%'><input type='text' style='width:80%;height:35px;margin-left:10%' class='form-control' name='spec_1[]' /></li><li style='float:left; width:16%'><input type='text' style='width:80%;height:35px;margin-left:10%' class='form-control' name='spec_2[]' /></li><li style='float:left; width:16%'><input type='text' style='width:80%;height:35px;margin-left:10%' class='form-control' name='spec_3[]' /></li><li style='float:left; width:16%'><input type='text' style='width:80%;height:35px;margin-left:10%' class='form-control' name='price[]' /></li><li style='float:left; width:16%'><input type='text' style='width:80%;height:35px;margin-left:10%' class='form-control' name='stock[]'/></li><li style='float:left; width:16%; text-align:center; line-height:35px '>删除</li></ul> </br>");
+
+  })
+
+
+</script>
+                                             </td>
+                                      </tr>
+                                       <tr class="tr1">
+    <td class="td1">文章编辑：</td>
+    <td class="td2">  
+    <div>
+     
+    <script id="editor" type="text/plain" name='content' style="width:850px;height:500px;">  {$list['content']}  </script>
+</div>
+
+ 
+    
+<script type="text/javascript">
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor');
+
+
+    function isFocus(e){
+        alert(UE.getEditor('editor').isFocus());
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function setblur(e){
+        UE.getEditor('editor').blur();
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        UE.getEditor('editor').execCommand('insertHtml', value)
+    }
+    function createEditor() {
+        enableBtn();
+        UE.getEditor('editor');
+    }
+    function getAllHtml() {
+        alert(UE.getEditor('editor').getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        UE.getEditor('editor').setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        UE.getEditor('editor').setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = UE.getEditor('editor').selection.getRange();
+        range.select();
+        var txt = UE.getEditor('editor').selection.getText();
+        alert(txt)
+    }
+
+    function getContentTxt() {
+        var arr = [];
+        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+        arr.push("编辑器的纯文本内容为：");
+        arr.push(UE.getEditor('editor').getContentTxt());
+        alert(arr.join("\n"));
+    }
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(UE.getEditor('editor').hasContents());
+        alert(arr.join("\n"));
+    }
+    function setFocus() {
+        UE.getEditor('editor').focus();
+    }
+    function deleteEditor() {
+        disableBtn();
+        UE.getEditor('editor').destroy();
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+
+    function getLocalData () {
+        alert(UE.getEditor('editor').execCommand( "getlocaldata" ));
+    }
+
+    function clearLocalData () {
+        UE.getEditor('editor').execCommand( "clearlocaldata" );
+        alert("已清空草稿箱")
+    }
+</script>
+     </td>
+  </tr>  
+                                      <tr  class="tr1">
+                                             <td class="td1"></td>
+                                             <td class="td2"><input type="submit" id="add" value="提交"  class="btn btn-default"></td>
+                                      </tr>
+                            </table>
+                    </form>
+           </div>
+    </div>
+ </div>
+<script type="text/javascript">
+   $("input[name='goods_bar_code']").blur(function(){
+
+            var goods_bar_code = $("input[name='goods_bar_code']").val(); 
+            $.ajax({
+                type: "post",
+                url: "/index.php/manager/goods/verifyAjax",
+                data: {goods_bar_code:goods_bar_code},
+                success: function (data) {
+                    if(data == "1"){
+                       alert('商品条形码已经存在');
+                      $("input[name='goods_bar_code']").val("");
+                      $("input[name='goods_bar_code']").focus();
+                    }
+                }
+            });
+ 
+    });
+        $("input[name='goods_sn']").blur(function(){
+
+            var goods_sn = $("input[name='goods_sn']").val(); 
+            $.ajax({
+                type: "post",
+                url: "/index.php/manager/goods/verifyAjax",
+                data: {goods_sn:goods_sn},
+                success: function (data) {
+                    if(data == "1"){
+                       alert('商品编号已经存在');
+                      $("input[name='goods_sn']").val("");
+                      $("input[name='goods_sn']").focus();
+                    }
+                }
+            });
+ 
+    });
+   $('.dian_kolh').click(function(){
+
+     $('.zhezhac_kpl').show();
+     })
+    $('#add').click(function(){
+     var goods_bar_code = $("input[name='goods_bar_code']").val();
+     var fenlei= $('#shiji').val();
+     var dafenlei= $('#shengji').val();
+     var shop_price = $("input[name='shop_price']").val();
+     var goods_stock= $("input[name='goods_stock']").val(); 
+     var image= $("input[name='image']").val(); 
+     var spec1_name= $("input[name='spec1_name']").val();
+     var spec2_name= $("input[name='spec2_name']").val();
+     var spec3_name= $("input[name='spec3_name']").val();
+     var spec_1= $("input[name='spec_1[]']").val();
+     var price= $("input[name='price[]']").val();
+     var stock= $("input[name='stock[]']").val(); 
+     var sum_brokerage= $("input[name='sum_brokerage']").val();
+ 
+        if(goods_bar_code == ''){
+           alert("请填写商品条形码");
+         $("input[name='goods_bar_code']").focus();
+            return false;
+        }
+        if(fenlei==null){
+         alert('请填写小分类');
+         $('#shiji').focus();
+            return false;
+        }else{
+          $("input[name='catename']").val($("#shiji").find("option:selected").text()); 
+           
+        } 
+       
+         if(spec1_name==''){
+            alert('商品属性名称必须填写,数据可以不填写');
+            $("input[name='spec1_name']").focus();
+                return false;
+           } 
+            if(spec2_name==''){
+            alert('商品属性名称必须填写,数据可以不填写');
+            $("input[name='spec2_name']").focus();
+                return false;
+           }  
+            if(spec3_name==''){
+            alert('商品属性名称必须填写,数据可以不填写');
+            $("input[name='spec3_name']").focus();
+                return false;
+           } 
+            if(price==''&&shop_price==''){
+            alert('请填写销售价');
+            $("input[name='shop_price']").focus();
+                return false;
+           }   
+           if(stock==''&&goods_stock==''){
+
+            alert('请填写商品库存数量');
+            $("input[name='goods_stock']").focus();
+                return false;
+           }  
+           
+            if(sum_brokerage==''){
+            alert('请填写总佣金');
+            $("input[name='sum_brokerage']").focus();
+                return false;
+           }  
+           
+     })
+</script>
+  <script type="text/javascript">
+  function shuxingdel(id){
+    $.ajax({
+            type: "post",
+            url: "/index.php/manager/goods/specDelAajx",
+            data: {spec_id: id},
+            success: function (json) {
+                 $('#'+id).remove();
+            }
+        })
+ }
+            function preview1(file) {
+                var img = new Image(), url = img.src = URL.createObjectURL(file)
+                var $img = $(img)
+                img.onload = function() {
+                    URL.revokeObjectURL(url)
+                    $('#preview').empty().append($img)
+                }
+            }
+            function preview2(file) {
+                var reader = new FileReader()
+                reader.onload = function(e) {
+                    var $img = $('<img>').attr("src", e.target.result)
+                    $('#preview').empty().append($img)
+                }
+                reader.readAsDataURL(file)
+            }
+             
+            $(function() {
+                $('.one').change(function(e) {
+                    var file = e.target.files[0]
+                    preview1(file)
+                })
+            })
+
+            //图片二
+            function preview3(file) {
+                var img = new Image(), url = img.src = URL.createObjectURL(file)
+                var $img = $(img)
+                img.onload = function() {
+                    URL.revokeObjectURL(url)
+                    $('#preview2').empty().append($img)
+                }
+            }
+            function preview4(file) {
+                var reader = new FileReader()
+                reader.onload = function(e) {
+                    var $img = $('<img>').attr("src", e.target.result)
+                    $('#preview2').empty().append($img)
+                }
+                reader.readAsDataURL(file)
+            }
+             
+            $(function() {
+                $('.two').change(function(e) {
+                    var file = e.target.files[0]
+                    preview3(file)
+                })
+            })
+
+            //图片三
+            function preview5(file) {
+                var img = new Image(), url = img.src = URL.createObjectURL(file)
+                var $img = $(img)
+                img.onload = function() {
+                    URL.revokeObjectURL(url)
+                    $('#preview3').empty().append($img)
+                }
+            }
+            function preview6(file) {
+                var reader = new FileReader()
+                reader.onload = function(e) {
+                    var $img = $('<img>').attr("src", e.target.result)
+                    $('#preview3').empty().append($img)
+                }
+                reader.readAsDataURL(file)
+            }
+             
+            $(function() {
+                $('.thr').change(function(e) {
+                    var file = e.target.files[0]
+                    preview5(file)
+                })
+            })
+             //图片四
+            function preview7(file) {
+                var img = new Image(), url = img.src = URL.createObjectURL(file)
+                var $img = $(img)
+                img.onload = function() {
+                    URL.revokeObjectURL(url)
+                    $('#preview4').empty().append($img)
+                }
+            }
+            function preview8(file) {
+                var reader = new FileReader()
+                reader.onload = function(e) {
+                    var $img = $('<img>').attr("src", e.target.result)
+                    $('#preview4').empty().append($img)
+                }
+                reader.readAsDataURL(file)
+            }
+             
+            $(function() {
+                $('.thrs').change(function(e) {
+                    var file = e.target.files[0]
+                    preview7(file)
+                })
+            })
+            
+        </script>  
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit">                          
+              <li  style="font-size: 20px;font-weight:600;color:#585858">修改会员</li>
+            </ul>   
+        <form action="" method="post" enctype="multipart/form-data" name="myform"  onsubmit="return check_submit()" >
+              
+     <table width="900px" border="0" cellspacing="10" >
+     <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">用户头像：</th>
+    <th   align="left" class="dingwei">
+    <img src="{$data['face']}"  style="width: 150px; height:150px"/>  
+    <div id="preview" >
+    </div>
+
+     </th> 
+      </tr>
+    <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">昵称：</th>
+    <th   align="left">  
+      <input type="text"name="nickname"  class="form-control" id="good"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left" value="{$data['nickname']}"><span id='name' style="float:left;"></span>
+     </th>
+  </tr>
+  <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">真实姓名：</th>
+    <th   align="left">  
+      <input type="text"name="consignee"  class="form-control" id="good"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left"  value="{$data['consignee']}"><span id='name' style="float:left;"></span>
+     </th>
+  </tr>
+  <tr height=70>
+    <th width="200px" style="text-align: right;padding-right:10px;">可用金额：</th>
+    <th   align="left">  
+      <span>{$data['balance']}元</span>
+     </th>
+  </tr>
+  <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">总佣金：</th>   
+    <th style="800px"> 
+      <p>{$data['commission']}元<span><a href="/index.php/manager/Member/moneyLst/id/{$data['uid']}">[查看明细]</a></span></p>    
+      <span class="span" style="float:left;color:red;padding-top:10px;">管理员修改用户佣金</span><input type="text" style="width:150px;float:left;"class="form-control in"  name="commission" id="commission"><span class="span"style="padding-top:6px;">输入正数增加，负数减少</span>
+    </th>      
+  </tr>
+  <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">总积分：</th>   
+    <th style="800px; height:100px">
+    <p>{$data['points']}&nbsp&nbsp<span><a href="/index.php/manager/Member/pointsLst/id/{$data['uid']}">[查看明细]</a></span></p>     
+      <span class="span" style="float:left;color:red;padding-top:4px;">管理员修改用户积分</span><input type="text" style="width:150px;float:left;"class="form-control in"   name="points" id="points"><span class="span"style="padding-top:10px;">输入正数增加，负数减少</span>
+    </th>      
+  </tr>
+  <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">性别：</th>
+    <th   align="left">  
+      <label><input name="sex" type="radio" value="3" {if condition="$data['sex'] eq 3"}checked="checked"{/if}/>保密 </label> 
+      <label><input name="sex" type="radio" value="1" {if condition="$data['sex'] eq 1"}checked="checked"{/if}/>男 </label>
+      <label><input name="sex" type="radio" value="0" {if condition="$data['sex'] eq 0"}checked="checked"{/if}/>女 </label>
+     </th>
+  </tr>
+
+  <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">E-email：</th>
+    <th   align="left">  
+      <input type="text" name="email" class="form-control" id=""   style="width: 300px;resize: none;margin: 10px 0px;width: 300px;float:left;"  value="{$data['email']}"/>
+     </th>
+  </tr>
+  <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">联系电话</th>
+    <th   align="left">  
+      <input type="text"  name="moblie" class="form-control" id="price"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left;"  value="{$data['moblie']}">
+     </th>
+  </tr>
+  <tr height=70 vertical-align="center">
+    <th width="200px" style="text-align: right;padding-right:10px;">地区：</th>
+   
+    <th>     
+        <select name="province" id="province" class="form-control"style="resize: none;width: 100px;float: left;"  required="required">
+        <option  value="">请选择</option>
+        {volist name="res" id="vo"}             
+        <option  value="{$vo.id}" {if condition="$data['province'] eq $vo['id']"}selected="selected"{/if}>{$vo.name}</option>
+        {/volist}     
+        </select>
+        <select name="city" id="city" class="form-control"style="resize: none;width: 130px;float: left; margin-left:20px" >                      
+        <option  value="">请选择</option>
+        <option  value="{$data['city']}" selected="selected">{$city}</option>
+        </select>
+        <select name="district" id="district" class="form-control"style="resize: none;width: 150px;float: left; margin-left:20px">                     
+        <option  value="{$data['district']}" selected="selected">{$district}</option>
+        </select>
+    </th>
+    
+  </tr>
+  <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">详细地址：</th>
+    <th   align="left">  
+      <input type="text"  name="address" class="form-control" id="price"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left;"   value="{$data['address']}">
+      
+     </th>
+  </tr>  
+  <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">邮编：</th>
+    <th   align="left">  
+      <input type="text"name="zipcode"  class="form-control" id="good"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left"   value="{$data['zipcode']}"><span id='name' style="float:left;"></span>
+     </th>
+  </tr>
+    <script type="text/javascript">
+            function preview1(file) {
+                var img = new Image(), url = img.src = URL.createObjectURL(file)
+                var $img = $(img)
+                img.onload = function() {
+                    URL.revokeObjectURL(url)
+                    $('#preview').empty().append($img)
+                }
+            }
+            function preview2(file) {
+                var reader = new FileReader()
+                reader.onload = function(e) {
+                    var $img = $('<img>').attr("src", e.target.result)
+                    $('#preview').empty().append($img)
+                }
+                reader.readAsDataURL(file)
+            }
+             
+            $(function() {
+                $('.one').change(function(e) {
+                    var file = e.target.files[0]
+                    preview1(file)
+                })
+            })
+          
+          $("#province").change(function(){
+                var val = $(this).val();   
+                $.ajax({
+                      url:'/index.php/manager/member/ajaxaddress',
+                      type:'post',//可选get
+                      data:{id:val} ,//传给PHP的数据，多个参数用&连接
+                      // dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                      success:function(data){
+                         $("#city option").remove();
+                         $("#district option").remove();
+                         $("#city").html('<option  value="" >请选择</option>');
+                         $("#district").html('<option  value="" >请选择</option>');
+                         $("#city").append(data);
+                      }
+                }) 
+            });
+          $("#city").change(function(){
+              var val = $(this).val();   
+              $.ajax({
+                    url:'/index.php/manager/member/ajaxaddress',
+                    type:'post',//可选get
+                    data:{id:val} ,//传给PHP的数据，多个参数用&连接
+                    // dataType:'json',//服务器返回的数据类型 可选XML ,Json jsonp script html text等
+                    success:function(data){
+                       $("#district option").remove();
+                       $("#district").html('<option  value="" >请选择</option>');
+                       $("#district").append(data);
+                    }
+              }) 
+          });  
+      function check_submit() {
+      var reg = new RegExp("^[0-9]*$");
+      var obj = document.getElementById("commission");
+      var obj2 = document.getElementById("points");
+      if(isNaN(obj.value.replace(".",""))){
+          alert("钱数请输入数字!");
+          return false;       
+      }else{
+          if(isNaN(obj2.value.replace(".",""))){
+          alert("钱数请输入数字!");
+          return false;  
+          }
+          return true;
+      }
+   }
+        </script>  
+ 
+   
+  <tr style=" height: 70px;">
+    <td colspan="2"><button type="submit" class="btn btn-default" onclick="checkSubmit()" style="width: 100px;margin-left:200px;">确认保存</button><span style="color:red" id="error_msg"></span> </td> 
+  </tr>
+</table></form> 
+        <!-- page-content end -->
+   
+    <!-- main-content end -->
+</div> </div>
+<!-- main-container end --> </div>
+
+</body>
+
+
+<script type="text/javascript">
+
+$('#create_timestamp').datetimepicker({
+  minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});
+</script>
+</html>    

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- datetimepicker css JS 文件 -->
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+ 
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content" >
+              <ul class="nav nav-tabs nav_tit">
+          
+             <li class="active"><a href='#'>主图列表</a></li>
+            
+             
+            
+            </ul>  
+
+             
+            
+            <input type="button" class="btn btn-primary"   value="添加主图" style="margin: 10px 0px;background-color:#ff8000;border:none;" onclick="window.location.href='pic_add'">
+
+            
+     <table class="table table-hover table-bordered" style="border: none;" >
+                <thead>
+                    <tr style="border-top:1px solid #ccc">
+                        <th align="center">编号</th>
+                      <th>主图名称</th>
+                        <th>排序</th>
+                        <th>缩图</th>
+                        <th>外部链接</th>
+                         <th >操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tbody>
+              {volist name="list" id="i"}
+                    <tr>
+                        <td style="text-align: center;line-height: 100px;">{$i.fid}</td>
+                         <th style="text-align: center;line-height: 100px;">{$i.title}</th>
+                        <th style="text-align: center;line-height: 100px;"> {$i.sort}</th>
+                        <td><img src={$i.userfile} width="250px " height="100px"></td><td style="text-align: center;line-height: 100px;">{$i.link} </td> 
+                      <th style="line-height: 100px;" >
+
+                      <a onclick="jsConfirm('确定要修改吗？', '/index.php/manager/index/pic_upd/fid/{$i.fid}');" style="cursor: pointer;" > 修改 </a>&nbsp;&nbsp;&nbsp;&nbsp; 
+                      <a onclick="jsConfirm('确定要删除吗？', '/index.php/manager/index/pic_del/fid/{$i.fid}');" style="cursor: pointer;"> 删除 </a></th>
+                      
+                    </tr>            {/volist}  
+                     </tbody>
+            </table>
+            
+        </div>
+           
+        <!-- page-content end -->
+    </div>
+    <!-- main-content end -->
+</div>
+<!-- main-container end -->
+</body>
+<script type="text/javascript">
+$('#start_time').datetimepicker({
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});  
+$('#end_time').datetimepicker({
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});  
+</script>
+</html>

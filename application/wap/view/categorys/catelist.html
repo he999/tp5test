@@ -1,0 +1,100 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>商品分类</title>
+<meta http-equiv="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/catalog.css"/>
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<style>
+.goods_nav{ width:30%; float:right; right:5px; overflow:hidden; position:fixed;margin-top:25px; z-index:9999999}
+#header{
+	background-color: #E71F19;
+    width: 100%;
+    height: 45px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+}
+.logo{
+	    display: block;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    height: 45px;
+    font-size: 18px;
+    line-height: 45px;
+}
+</style>
+</head>
+<body>
+<header id="header"> 
+      <div class="h-left">
+        <a class="sb-back" href="javascript:history.back(-1)" title="返回"></a>
+      </div>
+	<span href="javascript:void(0)" class="logo">分类</span> 
+</header>
+<!--分类切换--> 
+<div class="container">    
+  <div class="category-box">
+   {assign name="m" value="0"/}
+    <div class="category1" style="outline: none;" tabindex="5000">
+      <ul class="clearfix" style="padding-bottom:50px;">
+        {volist name ="parentinfo" id ="p" key="k"}
+            <li {if condition="$m eq 0"} class='cur' style='margin-top:46px'{/if} data-id="{$m++}">{$p.catename}</li>
+      	{/volist}   
+      </ul>
+    </div>
+    {assign name="j" value="0"/}
+    <div class="category2" style=" outline: none;" tabindex="5001">
+         {volist name ="chirldinfo" id="c"}
+         <dl style="margin-top:46px;padding-bottom:50px;{if condition='$j eq 0'}display:block;{else/}display:none;{/if}" data-id="{$j++}"> 
+            <dt><a href="javascript:void" ></a></dt> 	
+	        <dd> 
+		        <div class="fenimg">
+	                {volist name ="c.data" id="cs"}
+			        <div class="fen">
+				        <a href="/index.php/wap/goods/goodslist/cid/{$cs.cateid}">{$cs.catename}</a> 
+				    </div>
+				    {/volist} 
+				</div>
+	        </dd>
+         </dl> 
+         {/volist}     
+    </div>
+  </div>
+</div>
+
+<!---+++++++++++++++++++++++++++++++++底部菜单栏++++++++++++++++++++++++++++++++++++++++++++-->
+{include file="common:nav" /}
+<!---+++++++++++++++++++++++++++++++++底部菜单栏++++++++++++++++++++++++++++++++++++++++++++-->
+<!--切换js-->
+<script>
+
+$(function () {
+
+    $('.category-box').height($(window).height());
+    //点击切换2 3级分类
+	var array=new Array();
+	$('.category1 li').each(function(){ 
+		array.push($(this).position().top-0);
+	});
+	$('.category1 li').click(function() {
+		var index=$(this).index();
+		$('.category1').delay(200).animate({scrollTop:array[index]},300);
+		$(this).addClass('cur').siblings().removeClass();
+		$('.category2 dl').eq(index).show().siblings().hide();
+        $('.category2').scrollTop(0);
+	});
+
+});
+</script>
+
+</body>
+
+</html>

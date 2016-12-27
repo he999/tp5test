@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{$title}</title>
+<meta name="description" content=""/>
+<meta name="keywords" content=""> 
+<link rel="stylesheet" type="text/css" href="/static/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+<script type="text/javascript" src="/static/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.SuperSlide.2.1.1.js"></script>
+<!--[if IE 6]>    
+<script type="text/javascript" src="js/DD_belatedPNG.js"></script>
+<script>
+        DD_belatedPNG.fix('*');
+    </script>
+<![endif]--> 
+<style type="text/css">
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+.pagination>li {
+    display: inline;
+}
+.pagination>li:first-child>span {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+.all {
+    width: 1090px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.lmbt1 {
+    font-size: 30px;
+    font-weight: bold;
+    display: block;
+    height: 60px;
+    color: #646878;
+    border-right: 1px solid #646878;
+    margin-top: 25px;
+    line-height: 28px;
+    padding-right: 10px;
+    float: left;
+    text-align: left;
+}
+.lmbt2 {
+    font-size: 22px;
+    color: #646878;
+    float: left;
+    margin-left: 10px;
+    padding-top: 52px;
+    background: url(/static/images/jiantou.png) right 57px no-repeat;
+    padding-right: 30px;
+}
+
+.lmbt3 {
+    overflow: hidden;
+    height: auto;
+    width: auto;
+    margin-top: 69px;
+    float: right;
+}
+.lmbt3 li {
+    font-size: 16px;
+    color: #696969;
+    text-align: center;
+    height: 38px;
+    width: 96px;
+    display: block;
+    float: left;
+}
+.lmbt3 li a {
+    color: #696969;
+}
+.cl {
+    clear: both;
+}
+.arc_all {
+    background: #fff;
+    border: 1px solid #AAA9B8;
+    margin-bottom: 20px;
+}
+.Arc_head {
+    background: url(/static/images/xiantiao.png) no-repeat left bottom #ffffff;
+    margin: 0 auto;
+    height: 18px;
+    width: 1030px;
+    padding-top: 56px;
+}
+.Arc_head b {
+    color: #1A1D2B;
+    display: block;
+    width: auto;
+    margin-left: 30px;
+    line-height: 19px;
+    font-size: 18px;
+    background: #ffffff;
+    font-weight: normal;
+    float: left;
+    padding-right: 8px;
+}
+.list_lb {
+    width: 940px;
+    margin: 0 auto;
+}
+.list_lb li {
+    height: 100px;
+    padding-bottom: 10px;
+    width: 100%;
+    border-bottom: solid 1px #e2e2e2;
+    margin-top: 28px;
+    position: relative;
+    font-size: 16px;
+}
+.list_lb li a {
+    border-left: solid 2px #75719E;
+    display: block;
+    height: 100%;
+}
+.list_lb li h3 {
+    font-weight: bold;
+    color: #636363;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: normal;
+}
+.list_lb li div {
+    font-size: 13px;
+    width: 700px;
+    margin-left: 20px;
+    margin-top: 20px;
+    line-height: 24px;
+}
+.list_lb li p {
+    position: absolute;
+    margin-right: 15px;
+    top: 0px;
+    right: 0px;
+}
+</style>
+<script type="text/javascript">
+    $(function(){
+        $(".cent1 li").mouseenter(function(){
+            $(this).addClass("on").siblings(".cent1 li").removeClass("on");
+        })
+        $(".cent1 li").mouseleave(function(){
+            $(this).removeClass("on");
+        })
+    })
+</script>
+<script type="text/javascript">
+    $(function(){
+        $(".ull .liw").mouseenter(function(){
+            $(this).addClass("on").siblings(".ull .liw").removeClass("on");
+        })
+        $(".ull .liw").mouseleave(function(){
+            $(this).removeClass("on");
+        })
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".nav_li .li1").mouseover(function(){
+            $(this).addClass("on").siblings(".nav_li .li1").removeClass("on");
+        });
+        $(".nav_li .li1").mouseout(function(){
+            $(this).removeClass("on");
+        });
+    });
+</script>
+</head>
+<body>
+<div class="warp">
+    <div class="top_warp">
+        <div class="ju">
+            <div class="top1">
+                <div class="w_l logo">
+                    <img src="/static/images/logo.png">
+                </div>
+                <div class="w_l name">
+                    <span><img src="/static/images/name.png"></span>
+                </div>
+                <div class="w_l tit1">
+                    <span><img src="/static/images/t_icon1.png"></span>
+                </div>
+                <div class="tel w_r">
+                    <p><span><img src="/static/images/t_icon2.png"></span><span><img src="/static/images/t_icon3.png"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="center_warp" style="height: auto;">
+        <div class="center1" style="background-size: contain;">
+            <div class="nav">
+                <div class="ju">
+                    <ul class="nav_li">
+                        <li class="li1"><a href="/" class="a1">首页<br><font>Home page</font></a></li>
+                    {volist name="menu" id="vo"}
+                        <li class="li1"><a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/artlist/cid/{$vo.cateid} <?php } ?>" class="a1">{$vo.catename}<br><font>{$vo.english_name}</font></a>
+                        <?php if (isset($vo['down'])) { ?>
+                            <ul class="nav_li2">
+                                <?php foreach($vo['down'] as $row) { ?>
+                                    <li><a href="/index.php/index/article/artlist/cid/{$row.cateid}">{$row.catename}</a></li>   
+                                <?php } ?>
+                            </ul>
+                        <?php } ?></li>
+                    {/volist}
+                    </ul>
+                </div>
+            </div>

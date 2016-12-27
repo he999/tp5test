@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>无标题文档</title>
+    <link href="/static/css/wodejifen.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+</head>
+<body style="background:#fff;">
+<div class="beiji">
+    <div class="logo">
+        <div style="width:94%; margin:0 auto;">
+            <div class="tu_left"><img src="/static/images/jm-001.png" width="100" height="24"/></div>
+            <div class="tu_right"><img src="/static/images/jm-002.png" width="52" height="26"/></div>
+        </div>
+        <div class="dayuan">
+            <div class="xiaoyuan">
+                <p style="width:150px;height:20px;font-size:18px;color:#00a0e9;padding-top:20px;">我的积分</p>
+                <h1 style="width:150px;height:40px;text-align: center;margin-top:2px;padding-bottom:6px; font-size:43px;color:#76db2a;">{$result}</h1>
+                <img src="/static/images/jm-009.png" width="55" height="50"/>
+            </div>
+        </div>
+        <div class="jf">
+            <span style="float:left;"><a>积分规则</a></span>
+            <span style="float:right;"><a
+                    href="http://www.jiangmen.com/index.php/wap/index/credits_exchange">积分兑换</a></span>
+        </div>
+    </div>
+
+</div>
+<div class="huise"></div>
+<div class="daohang">
+    <ul id="ull">
+        <li id="all" class="cul" title="1"><a href="javascript:;">全部</a></li>
+        <li id="income" class="" title="2"><a href="javascript:;">收获积分</a></li>
+        <li id="expenditure" class="" title="3"><a href="javascript:;">积分支出</a></li>
+    </ul>
+</div>
+<div class="conten">
+    <ul id="jiazai" class="2">
+        <!--<li>-->
+        <!--<span>活动参与-问卷调查</span>-->
+        <!--<p>2016.02.22 12:20</p>-->
+        <!--<b class="green">+120</b>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<span>积分兑奖</span>-->
+        <!--<p>2016.02.22 12:20</p>-->
+        <!--<b>-30</b>-->
+        <!--</li>-->
+    </ul>
+    <ul class="dibu"></ul>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var ulli = $("#ull > li");
+        var type = $(".cul").attr("title");
+        var id = 2;
+        var begin = 0;
+        var finish = 10;
+        var html = '';
+        var css = '';
+        $.ajax({
+            type: "post",
+            url: "/index.php/wap/integral/points_query",
+            data: {type: type, begin: begin, finish: finish, id: id},
+            success: function (data) {
+                if(data != ''){
+                    for (var i = 0; i < data.length; i++) {
+
+                        //时间戳转换
+                        var newDate = new Date();
+                        newDate.setTime(data[i].time * 1000);
+                        var time = newDate.toLocaleString();
+                        time = time.substr(0,10) + ' ' + time.substr(12,15);
+
+                        if (data[i].type == 'income') {
+                            css = 'green';
+                        } else {
+                            css = '';
+                        }
+                        html = html + "<li class='" + data[i].id + "'> <span>" + data[i].info + "</span> <p>" + time + "</p> <b class='" + css + "'>" + data[i].point + "</b> </li>";
+                    }
+                    $("#jiazai").append(html);
+                    html = '';
+                }else {
+                    $(".dibu").html('亲，你还没有积分，快去赚取吧！')
+                }
+            }
+        });
+        ulli.each(function (i) {
+            $(ulli[i]).click(function (e) {
+                $(this).addClass("cul");
+                $(this).siblings().removeClass("cul");
+                var type = $(this).attr("title");
+                var id = 2;
+                var begin = 0;
+                var finish = 10;
+                var html = '';
+                $.ajax({
+                    type: "post",
+                    url: "/index.php/wap/integral/points_query",
+                    data: {type: type, begin: begin, finish: finish, id: id},
+                    success: function (data) {
+                        if(data != ''){
+                            for (var i = 0; i < data.length; i++) {
+                                var newDate = new Date();
+                                newDate.setTime(data[i].time * 1000);
+                                var time = newDate.toLocaleString();
+                                time = time.substr(0,10) + ' ' + time.substr(12,15);
+                                if (data[i].type == 'income') {
+                                    css = 'green';
+                                } else {
+                                    css = '';
+                                }
+                                html = html + "<li class='" + data[i].id + "'> <span>" + data[i].info + "</span> <p>" + time + "</p> <b class='" + css + "'>" + data[i].point + "</b> </li>";
+                            }
+                            $("#jiazai").html(html);
+                            html = '';
+                        }else {
+                            $(".dibu").html('没有记录哦！')
+                        }
+
+                    }
+                })
+            })
+        });
+        x=2;
+        $(window).scroll(function () {
+            //        正在看的内容高度 = $(window).height()
+            //        已看内容的高度 = $(window).scrollTop()
+            //        全部网页内容的高度 = $(document).height()
+            if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                var type = $(".cul").attr("title");
+                var yue = $("#jiazai").attr("class");
+                var id = 2;
+                var tiaoshu = 5;
+                var begin = tiaoshu*yue; // 5 10 15
+                var finish = tiaoshu;
+                $.ajax({
+                    type: "post",
+                    url: "/index.php/wap/integral/points_query",
+                    data: {type: type, begin: begin, finish: finish, id: id},
+                    success: function (data) {
+                        if(data != ''){
+                            for (var i = 0; i < data.length; i++) {
+                                var newDate = new Date();
+                                newDate.setTime(data[i].time * 1000);
+                                var time = newDate.toLocaleString();
+                                time = time.substr(0,10) + ' ' + time.substr(12,15);
+                                if (data[i].type == 'income') {
+                                    css = 'green';
+                                } else {
+                                    css = '';
+                                }
+                                html = html + "<li class='" + data[i].id + "'> <span>" + data[i].info + "</span> <p>" + time + "</p> <b class='" + css + "'>" + data[i].point + "</b> </li>";
+                            }
+                            $("#jiazai").append(html);
+                            $("#jiazai").attr('class',x+=1);
+                            html = '';
+                        }else {
+                            $(".dibu").html('到底了。。。')
+                        }
+
+                    }
+                })
+            }
+        });
+    });
+</script>
+</html>
