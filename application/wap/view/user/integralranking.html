@@ -1,0 +1,55 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="applicable-device" content="mobile">
+<title>积分排行</title>
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/user.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
+<script type="text/javascript" src="/static/waps/js/layer.js" ></script>
+<style type="text/css">
+
+.ranking{width: 98%; height:80px; margin-bottom:10px; padding-left:2%;}
+.ranking p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
+.topl{margin-left: 15%;}
+.topr{margin-right: 15%; float:right;}
+</style>
+</head>
+<body style="background:#fff;position:relative;"> 
+
+<header>
+<div class="tab_nav">
+  <div class="header">
+    <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+    <div class="h-mid">积分排行</div>
+  </div>
+</div>
+</header>
+<div style="font-size: 16px; height:40px; line-height:40px;">
+<span class="topl">我的积分:<font style="color:red;">{$points}</font></span>
+<span class="topr">我的排名:<font style="color:red;"><?php if($ran == ''){echo '>10';}else{ echo $ran;} ?></font></span>
+</div>
+<div style="height:10px; width:100%; margin-bottom:10px; background:#F2F5F7;"></div>
+{volist name='data' id='d'}
+<div class="ranking">
+    <div>
+      <img src="{$d.face}" style="width:80px;height:80px;float:left; margin-right:10px;  ">
+    </div>
+    <p>{$d.nickname}&nbsp;&nbsp;{$date}<span style="font-size:14px;float:right;color:red; margin-right:10px;"><?php echo $i; ?></span></p>
+    <p>积分：<font style="color:red;">{$d.points}</font></p>
+</div>
+<HR SIZE=2>
+{/volist}
+</body>
+
+</html>

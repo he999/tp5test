@@ -1,0 +1,262 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="applicable-device" content="mobile">
+<title>我的资料</title>
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/login.css">
+<link rel="stylesheet" href="/static/waps/css/user.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/mui.min.css"/>
+<script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
+<script type="text/javascript" src="/static/waps/js/layer.js" ></script>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+<style>
+.name1{width:100%; margin:auto; height:50px;font-size:14px; line-height:50px; color:#666;}
+.name1 span{width:30%; display:block; float:left}
+.name1 ul { width:70%; float:left; height:50px;}
+.name1 ul li { float: left; width:33.3%}
+.name1 ul li input{ display:none}
+.dizhi{width: 100%;}
+.dizhi ul li{font-size: 12px; line-height:30px;}
+.xiugai{display: block;line-height: 30px;border: 1px solid red;float: left;width:20%;border-radius: 6px;text-align: center;}
+.shanchu{display: block;line-height: 30px;border: 1px solid #ccc;float: left;width:20%;border-radius: 6px;text-align: center;margin-left: 20px;}
+.address{width: 100%;height: 50px;float: left;margin-top: 20px;}
+.address a{width: 90%;margin: 0 auto;display: block;line-height: 40px;background: #FF2233;text-align: center;border-radius: 6px;color:#fff;}
+.address a:hover{color:#fff;}
+</style>
+<body>
+<header>
+  <div class="tab_nav">
+    <div class="header">
+      <div class="h-left"><a class="sb-back" href="/index.php/wap/user/userinfo" title="返回"></a></div>
+      <div class="h-mid">我的资料</div>
+      <div class="h-right">
+      </div>
+    </div>
+  </div>
+</header>
+<div id="tbh5v0">
+	<div class="log_reg_box">
+		<ul class="tab" id="logRegTab">
+			<li id="mob_log" class="curr" onClick="changeForm(this)">
+				<span>
+					<font>个人资料</font>
+				</span>
+			</li>
+			<li id="email_log" class="curr currr" onClick="changeForm(this)">
+				<span>
+					<font>收货资料</font>
+				</span>
+			</li>
+		</ul>
+		<div id="logRegTabCon">
+			<div class="log_reg_item" id="phonearea" style="width:96%;">
+				<form action="" id="mobileForm" name="mobileForm" method="post">
+					<div class="Login" style="width:80%;margin-left:10%; ">
+						<dl >
+			            <dt>昵称：</dt>
+					    	<dd><input type="text" name="nickname" id="nickname" placeholder="请输入中文" value="{$data.nickname}" /></dd>
+						</dl>
+						<div class="name1"><span>性　 别</span>
+	                        <ul>
+	                            <li class="<?php if($data['sex'] ==3){echo 'on'; } ?>" onClick="sexche(this)">
+	                            <label for="sex0">
+	                                <input type="radio" name="sex" value="3" tabindex="2" class="radio"
+	                                       id="sex0" <?php if($data['sex'] ==3){echo "checked='checked'"; } ?> >保密
+	                                </label>
+	                            </li>
+	                            <li class="<?php if($data['sex'] ==1){echo 'on'; } ?>" onClick="sexche(this)">
+	                            <label for="sex1">
+	                                <input type="radio" name="sex" value="1" tabindex="3" class="radio"
+	                                       id="sex1" <?php if($data['sex'] ==1){echo "checked='checked'"; } ?> >男
+	                                </label>
+	                            </li>
+	                            <li class="<?php if($data['sex'] ==0){echo 'on'; } ?>" onClick="sexche(this)">
+	                            <label for="sex2">
+	                                <input type="radio" name="sex" value="0" tabindex="4" class="radio"
+	                                       id="sex2" <?php if($data['sex'] ==0){echo "checked='checked'"; } ?> >女
+	                                </label>
+	                            </li>
+	                        </ul>
+                    	</div>
+<script type="text/javascript">
+function sexche(obj){
+    $('.name1 ul li').click(function () {
+    	$('.name1 ul li').find("input").attr("checked", false);
+        $(obj).find("input").attr("checked", "checked");
+        $('.name1 ul li').removeClass("on");
+        $(obj).addClass("on");
+    })
+}
+</script>
+                    	<dl>
+			            <dt>邮箱：</dt>
+					    	<dd><input name="email" value="{$data.email}" id="email_ep" placeholder="*电子邮件地址" type="text" /></dd>
+						</dl>
+						<dl>
+			            <dt>手机：</dt>
+					    	<dd><input name="moblie" value="{$data.moblie}" id="mobile_ep" placeholder="*手机号码" type="text" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')" maxlength="11" /></dd>
+						</dl>
+						<div class="field submit-btn">
+							<input type="button" class="btn_big1" onClick="check_submit()" value="确 定" />
+						</div>
+									
+			    	</div>
+			</form>
+			</div>
+<!-- ************************************************************************************** -->
+			<div class="log_reg_item hide" id="emailarea" style="width:96%;">
+				
+				<div class="Login" style="width:100%;">
+				{volist name="address" id="r"}
+					<div class="dizhi" id="add{$r.address_id}" style="width:100%;clear:both; margin-bottom:20px; margin-left:20px;">
+						<ul>
+							<li style="font-size:16px; line-height:35px;" onclick="reload(this,{$r.address_id})"><input type="radio" name="ok" <?php if($i ==1){echo "checked=checked";} ?> />设为默认收货地址</li>
+							<li>收货人：{$r.consignee}</li>
+							<li>收货地址：{$r.str}{$r.address}</li>
+							<li>联系电话：{$r.mobile}</li>
+							<li><a href="/index.php/wap/user/upaddress/id/{$r.address_id}" class="xiugai">修改</a>
+							<a onclick="cancel_del({$r.address_id})" class="shanchu">删除</a></li>
+						</ul>
+					</div> 
+				{/volist}
+					<div class="address"><a href="/index.php/wap/user/addAddress">添加新地址</a></div>		
+		    	</div>
+			</div>
+		</div>
+	</div>			
+</div>
+<script type="text/javascript">
+$(function() {
+	var key = <?php echo isset($_GET['key'])?'true':'false';?>;
+	if(key){
+		$('.curr').removeClass('currr');
+		$('#email_log').siblings().addClass('currr');
+		$('#phonearea').hide();
+		setCurrentForm($("#emailForm"))
+		$('#emailarea').show();
+	}
+});
+
+setCurrentForm($("#mobileForm"));
+var flag = false;
+
+function changeForm(obj){
+	$(obj).removeClass('currr');
+	$(obj).siblings().addClass('currr');
+	if($(obj).attr('id')=='mob_log'){
+		$('#phonearea').show();
+		setCurrentForm($("#mobileForm"))
+		$('#emailarea').hide();
+	}else{
+		$('#phonearea').hide();
+		setCurrentForm($("#emailForm"))
+		$('#emailarea').show();
+	}
+}
+
+function setCurrentForm(formObj) {
+	currentForm = $(formObj);
+}
+
+function check_submit()
+{ 
+	var nickname = mobileForm.nickname.value;
+	var email = mobileForm.email.value;
+	var moblie = mobileForm.moblie.value;
+	var sex = mobileForm.sex.value;
+	var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+	var nae = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
+	if(nickname !='' && email !='' && moblie !='')
+	{	
+		if (!nae.test(nickname)) {
+			mui.toast('昵称不能包含特殊字符');
+			return false;
+		}
+		if (!reg.test(email)) {
+			mui.toast('邮箱格式错误');
+			return false;
+		}
+		$.ajax({
+            type : "POST",
+            url:"/index.php/wap/user/ajaxdatum",
+            data:{nickname:nickname,email:email,moblie:moblie,sex:sex},
+            dataType:'json',
+            success: function(data){
+                if(data.error_code == 0){
+                    mui.toast('操作成功');
+                }
+                else{
+                    mui.toast('未更改');
+                    location.reload();
+                }               
+            }
+        });
+	} else{
+		mui.toast('请填写完整信息');
+		return false;	
+	}
+		 
+}
+
+function reload(obj,id){
+	$('.dizhi ul li').find("input").attr("checked", false);
+    $(obj).find("input").attr("checked", "checked");
+    $.ajax({
+            type : "POST",
+            url:"/index.php/wap/user/ajaxdefaultadderss",
+            data:{id:id},
+            dataType:'json',
+            success: function(data){
+                if(data.error_code ==0){
+                    mui.toast('操作成功');
+                }
+                else{
+                    mui.toast('操作频繁');
+                    location.reload();
+                }               
+            }
+        });
+}
+function cancel_del(id){
+	mui.confirm('是否确删除', function(e) {
+	  if (e.index == 1) {
+	     AjaxDelCart(id);
+	  }
+	 
+	})
+}
+
+function AjaxDelCart(id){    
+    $.ajax({
+        type : "POST",
+        url:"/index.php/wap/user/ajaxdeladderss",
+        data :{id:id} ,
+        dataType:'json',                       
+        success: function(data){    
+           if (data.error_code == 0) {
+                mui.toast('操作成功');
+                $('#add'+id).remove();
+           }
+           else{
+               mui.toast(data.error_msg);
+           }
+        }
+    });  
+}
+
+</script>
+</body>
+</html>
+
+

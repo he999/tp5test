@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+<style>
+        .dingwei{position: relative;}
+        #preview {width: 150px;float:left;height:150px;border:1px solid gray;background:url(/static/images/grzl_2.jpg);background-size:150px 150px;background-repeat:no-repeat;
+            overflow: hidden;margin: 30px 0; 
+        }
+        #preview2 {width: 150px;float:left;height:150px;border:1px solid gray;background:url(/static/images/grzl_2.jpg);background-size:150px 150px;background-repeat:no-repeat;
+            overflow: hidden;margin: 30px 20px; 
+        }
+        #preview3 {width: 150px;float:left;height:150px;border:1px solid gray;background:url(/static/images/grzl_2.jpg);background-size:150px 150px;background-repeat:no-repeat;
+            overflow: hidden;margin: 30px 20px; 
+        }
+
+        #preview img {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 10;
+        }        
+        #preview2 img {
+            width: 100%;
+            height: 100%;
+            z-index: 99999999;
+        }
+        #preview3 img {
+            width: 100%;
+            height: 100%;
+            z-index: 99999999;
+        }
+    </style>    
+
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit">                          
+              <li style="font-size: 20px;font-weight:600;color:#585858" >广告设置</li>
+            </ul>   
+        <form action="" method="post" enctype="multipart/form-data" name="myform"   >
+              
+     <table width="900px" border="0" cellspacing="10" >
+    <tr>
+    <th width="200px" style="text-align: center;">广告名称：</th>
+    <th   align="left">  
+      <input type="text"name="name"  class="form-control" id="good"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left" ><span id='name' style="float:left;"></span>
+     </th>
+  </tr>
+  <tr>
+    <th width="200px" style="text-align: center;">上传图片：</th>
+    <th   align="left" class="dingwei">
+    <input type="file" name="image"  style="width: 150px; height:150px;resize: none; color:#ccc;position: absolute;left:20px;top:30px;opacity:0;filter:alpha(opacity=0); z-index: 9999;" class="one"/>  
+    <div id="preview" >
+    </div>
+
+     </th> 
+      </tr>
+    <tr>
+    <th width="200px" style="text-align: center;">排序：</th>
+    <th   align="left">  
+      <input type="text" name="sort"  class="form-control" id="good"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left" ><span id='name' style="float:left;"></span>
+     </th>
+  </tr>
+  
+  <tr>
+    <th width="200px" style="text-align: center;">备注说明：</th>
+    <th   align="left"> 
+      <textarea name="describe" class="form-control" style="width:600px;height:100px;"></textarea>
+     </th>
+  </tr>
+    <script type="text/javascript">
+            function preview1(file) {
+                var img = new Image(), url = img.src = URL.createObjectURL(file)
+                var $img = $(img)
+                img.onload = function() {
+                    URL.revokeObjectURL(url)
+                    $('#preview').empty().append($img)
+                }
+            }
+            function preview2(file) {
+                var reader = new FileReader()
+                reader.onload = function(e) {
+                    var $img = $('<img>').attr("src", e.target.result)
+                    $('#preview').empty().append($img)
+                }
+                reader.readAsDataURL(file)
+            }
+             
+            $(function() {
+                $('.one').change(function(e) {
+                    var file = e.target.files[0]
+                    preview1(file)
+                })
+            })
+            
+        </script>  
+ 
+   
+  <tr style=" height: 70px;">
+    <td colspan="2"><button type="submit" class="btn btn-default" onclick="checkSubmit()" style="width: 100px;margin-left:200px;">添加保存</button><span style="color:red" id="error_msg"></span> </td> 
+  </tr>
+</table></form> 
+        <!-- page-content end -->
+   
+    <!-- main-content end -->
+</div> </div>
+<!-- main-container end --> </div>
+
+</body>
+
+
+<script type="text/javascript">
+
+$('#create_timestamp').datetimepicker({
+  minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});
+</script>
+</html>    

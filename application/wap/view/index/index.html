@@ -1,0 +1,308 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPshop v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>首页</title>
+<meta http-equiv="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/mui.min.css"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/index.css"/>
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script type="text/javascript" src="/static/waps/js/TouchSlide.1.1.js"></script>
+<script type="text/javascript" src="/static/waps/js/jquery.json.js"></script>
+<script type="text/javascript" src="/static/waps/js/touchslider.dev.js"></script>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<style type="text/css">
+.scroll_hot .bd ul li .products_kuang img {
+    width: 100% !important;
+    height: 85px;
+    margin: auto;
+}
+.scroll_hot .bd ul li .goods_name {
+    height: 31px;  
+}
+.tempWrap{
+	height: 170px;
+}
+</style>
+</head>
+<body>
+
+<div id="page" class="showpage">
+<div>
+<header id="header"> 
+	<a href="/index.php/wap/categorys/catelist" class="top_bt"></a>
+	<a href="/index.php/wap/cart/index" class='user_btn'></a>
+	<span href="javascript:void(0)" class="logo">商城</span> 
+</header>
+<!---++++++++++++++++++++++++++++++++轮播图++++++++++++++++++++++++++++++++++++++++++++--> 
+<div id="scrollimg" class="scrollimg">
+  <div class="bd">
+	 <ul>
+	    {volist name= "foucs_list" id="img"}
+	 	<li>
+	 	<img src="{$img.image_url}" width="100%" style=""/>
+	 	</li>
+	 	{/volist}                       
+     </ul>
+  </div>
+  <div class="hd"><ul></ul></div>
+</div>
+<script type="text/javascript">
+	TouchSlide({ 
+		slideCell:"#scrollimg",
+		titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+		mainCell:".bd ul", 
+		effect:"leftLoop", 
+		autoPage:true,//自动分页
+		autoPlay:true //自动播放
+	});
+</script> 
+<!---++++++++++++++++++++++++++++++++搜素++++++++++++++++++++++++++++++++++++++++++++--> 
+<div id="fake-search" class="index_search">
+    <div class="index_search_mid">
+         <span><img src="/static/waps/images/icosousuo.png"></span>
+         <input  type="text" id="search_text" class="search_text" value="请输入您所搜索的商品"/>
+    </div>
+</div>
+
+<!---++++++++++++++++++++++++++++++++四个分类++++++++++++++++++++++++++++++++++++++++++++--> 
+<div class="entry-list clearfix">
+	<nav>
+		<ul>
+			<li>
+				<a href="/index.php/wap/goods/goodslist/id/1">
+					<img alt="全部商品" src="/static/waps/images/1440439257667525408.png" />
+					<span>全部商品</span>
+				</a>
+			</li>		 
+			<li>
+				<a href="/index.php/wap/goods/goodslist/id/1/sort/sum">
+					<img alt="热销商品" src="/static/waps/images/1440439318451279676.png" />
+					<span>热销商品</span>
+				</a>
+			</li>
+			<li>
+				<a href="/index.php/wap/cart/index">
+					<img alt="购物车" src="/static/waps/images/1440439353048484531.png" />
+					<span>购物车</span>
+				</a>
+			</li>
+			
+			<li>
+				<a href="/index.php/wap/categorys/catelist">
+					<img alt="全部分类" src="/static/waps/images/1440437165699930301.png" />
+					<span>全部分类</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</div>
+<!---++++++++++++++++++++++++++++++++新建分类++++++++++++++++++++++++++++++++++++++++++++--> 
+{volist name="data" id="p"}
+<section class="index_floor">
+  <div class="floor_body1">
+    <h2><em></em> <?php echo $p['catename'];?>
+        <div class="geng"> <a href="/index.php/wap/goods/goodslist/pid/<?php echo $p['cateid'];?>">更多</a> <span></span></div>
+    </h2>
+    <div id="scroll_<?php echo $p['cateid'];?>" class="scroll_hot">
+        <div class="bd">
+        <ul>
+        {if (isset($p.data))}
+            {volist name="p.data" id="c"}
+            <li>
+	            <a href="/index.php/wap/goods/goodsinfo/id/{$c.goods_id}" title="{$c.goods_name}">
+	            <div class="index_pro"> 
+		              <div class="products_kuang">
+		                <img src="{$c.cover_img}"></div>
+		              <div class="goods_name">{$c.goods_name}</div>
+		              <div class="price">
+		                 <a href="javascript:AjaxAddCart({$c.goods_id});" class="btns">
+		                    <img src="/static/waps/images/index_flow.png">
+		                 </a>
+		                 <span  class="price_pro">￥{$c.shop_price}元</span>
+		              </div>
+	              </div>
+	            </a>
+            </li>
+            {/volist}
+        {/if}
+        </ul>
+        </div>
+       <!-- <div class="hd"><ul></ul></div> -->
+      </div>
+    </div>
+</section>
+<!-- <script type="text/javascript">
+    TouchSlide({ 
+      slideCell:"#scroll_"+"<?php echo $p['cateid'];?>",
+      titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+      effect:"leftLoop", 
+      autoPage:true, //自动分页
+      //switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+    });
+</script> -->
+{/volist}
+<!---+++++++++++++++++++++++++++++++++全部商品++++++++++++++++++++++++++++++++++++++++++++-->
+<div class="floor_body2">
+  <h2>————&nbsp;全部商品&nbsp;————</h2>
+  <div id="J_ItemList">
+    <ul class="product single_item info">
+        {volist name="all_list" id="a"}
+         <li>
+	        <div class="index_pro">
+	            <a href="/index.php/wap/goods/goodsinfo/id/{$a.goods_id}" >
+			        <div class="products_kuang">
+			            <img src="{$a.cover_img}">
+			        </div>
+			        <div class="goods_name">{$a.goods_name}</div>
+		        </a>
+		        <div class="price">
+		            <a href="/index.php/wap/goods/goodsinfo/id/{$a.goods_id}" ></a>
+		            <a href="javascript:AjaxAddCart({$a.goods_id});" class="btns">
+		             <img src="/static/waps/images/index_flow.png">
+		            </a>
+		            <span href="/index.php/wap/goods/goodsinfo/id/{$a.goods_id}" class="price_pro">￥{$a.shop_price}</span>
+		       </div>
+	       </div>
+	    </li>
+	    {/volist}
+	</ul>
+    <a href="javascript:;" class="get_more" style="text-align: center; display: none;"> 
+    <img src="/static/waps/images/loader.gif" width="12" height="12"> </a> 
+  </div>
+  <div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem;">
+  	<a href="javascript:void(0)" onclick="getGoodsList()">点击加载更多</a>
+  </div>
+</div>
+<!---+++++++++++++++++++++++++++++++++加载更多js++++++++++++++++++++++++++++++++++++++++++++-->  
+<script type="text/javascript">
+var page = 1;
+function getGoodsList(){
+	$('.get_more').show();
+	$.ajax({
+		type : "get",
+		url:"/index.php/wap/index/ajaxgetmore/pages/"+page,
+		dataType:'json',
+		success: function(data)
+		{  
+			if (data.error_code == 0) {
+				if(data.data.length != 0){
+					$.each(data.data,function(k,v){
+	                    $('#J_ItemList>ul').append('<li><div class="index_pro"><a href="/index.php/wap/goods/goodsinfo/id/'+v.goods_id+'" ><div class="products_kuang"><img src="'+v.cover_img+'"></div> <div class="goods_name">'+v.goods_name+'</div></a><div class="price"><a href="/index.php/wap/goods/goodsinfo/id/'+v.goods_id+'" ></a><a href="javascript:AjaxAddCart('+v.goods_id+');" class="btns"><img src="/static/waps/images/index_flow.png"></a> <span class="price_pro">￥'+v.shop_price+'</span></div></div></li>');
+		            });
+					//$("#J_ItemList>ul").append(data);
+					page++;
+					$('.get_more').hide();
+				}
+			}
+			else{
+				$('.get_more').hide();
+				$('#getmore').remove();
+			}
+		}
+	}); 
+}
+
+</script> 
+<!---+++++++++++++++++++++++++++++++++返回顶部++++++++++++++++++++++++++++++++++++++++++++-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="/static/waps/images/topup.png"></a> 
+</div>
+
+<!---+++++++++++++++++++++++++++++++++点击搜索弹框++++++++++++++++++++++++++++++++++++++++++++-->
+<div id="J_demo" style="display:none"></div>
+ <div id="search_hide" class="search_hide">
+ <h2> <span class="close"><img src="/static/waps/images/close.png"></span>关键搜索</h2>
+ <div id="mallSearch" class="search_mid">
+        <div id="search_tips" style="display:none;"></div>
+          <ul class="search-type">
+          	<li  class="cur"  num="0">宝贝</li>
+          	<!--<li  num="1">店铺</li>-->
+          </ul>	
+          <div class="searchdotm"> 
+            <div class="mallSearch-input">
+                <div id="s-combobox-135">
+                    <input class="s-combobox-input" name="q" id="q"  placeholder="请输入关键词"  type="text" value="" style="height:15px;" />
+                </div>                                                
+                <input type="button" value="" class="button"  id="up" />
+            </div>
+         </div> 
+        </div>             
+    </div>                                           
+</div>
+<script type="text/javascript">
+$("#up").click(function(){
+    var keywords = $("#q").val();
+    if (keywords == ''){
+        mui.alert("请输入查询内容");
+    }
+    else{
+       $.post("/index.php/wap/index/selectgoods",{name:keywords},function(data){
+       	    if (data.error_code == 0) {
+              window.location.href = "/index.php/wap/goods/goodslist/id/"+keywords;
+       	    }
+       	    else{
+       	    	mui.alert("查询失败,请更换查询条件，以便更好地搜索商品");
+       	    } 
+       })
+    }
+})
+function  AjaxAddCart(id){ 
+  	$.ajax({
+        type : "POST",
+        url:"/index.php/wap/cart/ajaxaddcart",
+        data :{goods_id:id},
+		dataType:'json',
+        success: function(data){
+		    if(data.error_code == 0){
+		    	mui.toast('购物车加入成功');
+		    }
+		    else{  
+		     	mui.toast(data.error_msg);
+		    }							   							   
+        }
+    });
+}
+</script>
+<!---+++++++++++++++++++++++++++++++++底部菜单栏++++++++++++++++++++++++++++++++++++++++++++-->
+{include file="common:nav" /}
+<!---+++++++++++++++++++++++++++++++++底部菜单栏++++++++++++++++++++++++++++++++++++++++++++-->
+<script type="text/javascript">
+$(function() {
+	//搜素
+    $('#search_text').click(function(){
+        $(".showpage").children('div').hide();
+        $("#search_hide").css('position','fixed').css('top','0px').css('width','100%').css('z-index','999').show();
+    })
+    //
+    $('#get_search_box').click(function(){
+        $(".showpage").children('div').hide();
+        $("#search_hide").css('position','fixed').css('top','0px').css('width','100%').css('z-index','999').show();
+    })
+    $("#search_hide .close").click(function(){
+        $(".showpage").children('div').show();
+        $("#search_hide").hide();
+    })
+});
+</script>
+<script>
+$('.search-type li').click(function() {
+    $(this).addClass('cur').siblings().removeClass('cur');
+    $('#searchtype').val($(this).attr('num'));
+});
+$('#searchtype').val($(this).attr('0'));
+</script>
+
+</body>
+</html>

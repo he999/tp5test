@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+
+<title>后台管理系统</title>
+</head>
+<style type="text/css">
+    form p span{
+        display: block;
+        width: 100px;
+        float: left;
+        height: 35px;
+        line-height: 35px;
+    }
+    form p{
+        margin-left: 30px;
+        margin-top: 20px;
+    }
+    form .p1 input{
+        margin-left: 20px;
+        width: 300px;
+        height: 35px;
+    }
+</style>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit">                          
+              <li  ><a href='#' style="font-size: 20px;font-weight:600;">查看/编辑 用户列表</a></li>
+            </ul>     
+            <form name="from"   method="post" action="/index.php/manager/users/edit_user_list?id=<?php echo $list['uid'];?>" style="background-color: rgba(113, 22, 22, 0);" enctype="multipart/form-data">
+                <p class="p1"><span>用户编号：</span><input disabled='disabled' type="text" value="<?php echo $list['uid'];?>"/></p>               
+                <p class="p"><span>微信头像：</span><img src="<?php echo $list['face']?$list['face']:null;?>" style="margin-left:20px;width:130px;height:130px;"></p>
+                <p class="p1"><span>用户昵称：</span><input disabled='disabled' type="text" value="<?php echo $list['nickname']?$list['nickname']:null;?>"></p>
+                <p class="p1"><span>微信号：</span><input disabled='disabled' type="text" value="<?php echo $list['wechat_id']?$list['wechat_id']:null;?>"></p>
+                <p class="p1"><span>性别：</span><input disabled='disabled' type="text" value="<?php echo $list['sex']?'男':'女';?>"></p>
+                <p class="p1"><span>关注时间：</span><input disabled='disabled' type="text" value="<?php echo $list['create_time']?date('Y-m-d H:i:s',$list['create_time']):null;?>"></p>               
+                <p class="p1"><span>注册状态：</span><input disabled='disabled' type="text" value="<?php echo $list['moblie']?'已注册':'未注册';?>"></p>
+                <p class="p1"><span>注册时间：</span><input disabled='disabled' type="text" value="<?php echo $list['register_time']?date('Y-m-d H:i:s',$list['register_time']):null;?>"></p>
+                <p class="p1"><span>电话：</span><input  disabled='disabled' name="mobile" type="text" value="<?php echo $list['moblie']?$list['moblie']:null;?>"></p>
+                <p class="p1"><span>参与活动：</span><input disabled='disabled' type="text"  value="<?php echo $list['activities_participation']?$list['activities_participation']:0;?>"></p>
+                <p class="p1"><span>邀请注册：</span><input disabled='disabled' type="text" value="<?php echo $list['inviter_register']?$list['inviter_register']:0;?>"></p>
+                <p class="nav-tabs"></p>
+                <p class="p1"><span>账户积分：</span><input name="point" type="text" value="<?php echo $list['point']?$list['point']:null;?>"></p>
+                
+                <p><button type="submit" class="btn btn-submit" style="width: 100px;margin-left:120px;margin-right:50px;background:#0093dd;">确定</button> &nbsp;&nbsp;&nbsp;<button type="button"   class="btn btn-cancel" style="width: 100px" onclick="javascript:history.go(-1);"> 取消</button></p>
+            </form>
+        <!-- page-content end -->
+   
+    <!-- main-content end -->
+</div> </div>
+<!-- main-container end --> </div>
+
+</body>
+</html>

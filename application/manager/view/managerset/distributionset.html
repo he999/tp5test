@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+<style type="text/css">
+  .in{float: left;}
+  .span{float: left;margin: 10px 4px;}
+</style>
+
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        
+        <div class="breadcrumbs">  </div>
+        
+        
+        <div class="page-content" id="content">
+         <ul class="nav nav-tabs nav_tit">                          
+              <li style="font-size: 20px;font-weight:600;color:#585858" >分销设置</li>
+            </ul>        
+        <form action=" " method="post" enctype="multipart/form-data" name="form1"  >
+              
+     <table width="600px" border="0" cellspacing="10" > 
+  <tr height=50>
+    <th width="200px" style="text-align: right;padding-right:10px;">推荐关注送积分：</th>
+   
+    <th style="800px">     
+ <input type="text" style="width:150px;float:left;"class="form-control in"  name="recommend_integral"  value="{$list['recommend_integral']}"  ><span style="float:left;margin:10px 4px;" >积分</span>
+    </th>
+      
+  </tr> 
+  <tr height=60>
+    <th width="200px" style="text-align: right;padding-right:10px;">关注送积分：</th>   
+    <th style="800px">     
+    <input type="text" style="width:150px;float:left;"class="form-control in"   name="attention_integral"  value="{$list['attention_integral']}"    ><span class="span">积分</span>
+    </th>      
+  </tr>
+  <tr height=60>
+    <th width="200px" style="text-align: right;padding-right:10px;">最小提款额度：</th>
+   
+    <th style="800px">     
+      <input type="text" style="width:150px;"class="form-control in" name="least_money_limit"  value="{$list['least_money_limit']}"  ><span class="span" >元</span>
+    </th>      
+  </tr>
+  
+  <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">普通分销提成点：</th>   
+    <th style="800px"> 
+      <table>
+        <tr>
+          <td>
+          <span class="span" >一级返佣比例</span><input type="text" style="width:70px;"class="form-control in" name="yi_fanyong_bili"  value="{$list['yi_fanyong_bili']}"  >
+          <span class="span">%</span>
+      <span style="float:left;" class="span">赠送积分</span><input type="text"style="width:70px;"class="form-control in" name="yi_fanyong_jifen"  value="{$list['yi_fanyong_jifen']}">
+      <span class="span">%</span>
+      </td>
+        </tr>
+        <tr>
+          <td><span class="span">二级返佣比例</span><input type="text" style="width:70px;"class="form-control in" name="er_fanyong_bili"  value="{$list['er_fanyong_bili']}" ><span class="span">%</span>
+      <span style="float:left;" class="span">赠送积分</span><input type="text"style="width:70px;float:left;"class="form-control in" name="er_fanyong_jifen"  value="{$list['er_fanyong_jifen']}">
+      <span class="span">%</span></td>
+        </tr>
+        <tr>
+          <td><span style="float:left;" class="span">三级返佣比例</span><input type="text" style="width:70px;" class="form-control in" name="san_fanyong_bili"  value="{$list['san_fanyong_bili']}"><span class="span">%</span>
+      <span style="float:left;" class="span">赠送积分</span><input type="text"style="width:70px;float:left;" class="form-control in" name="san_fanyong_jifen"  value="{$list['san_fanyong_jifen']}">
+      <span class="span">%</span></td>
+        </tr>
+      </table>  
+      
+    </th>
+
+  </tr>  
+  
+  <tr style="height: 70px;">
+    <td colspan="2"><button type="submit" class="btn btn-default" style="width: 100px;margin-left:200px;">确认保存</button> </td> 
+  </tr>
+</table>
+</form>     
+</div> 
+</div>
+
+</div>
+
+</body>
+
+</html>

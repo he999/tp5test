@@ -1,0 +1,144 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="tpshop" />
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="minimal-ui=yes,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>商品列表</title>
+<meta http-equiv="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" type="text/css" href="/static/waps/css/mui.min.css"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/category_list.css"/>
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+</head>
+<body>
+<section class="_pre" >
+<div class="tab_nav">
+    <div class="header" style="background:#FF2233;">
+      <div class="h-left">
+        <a class="sb-back" href="javascript:history.back(-1)" title="返回"></a>
+      </div>
+      <div class="h-mid" style="color:#fff; font-size: 18px;">商品列表</div>
+    </div>
+</div>
+<section class="filtrate_term" id="product_sort" style="width: 100%;">
+</section>
+<section style="border-top: 1px solid #eee;">
+{if condition="$goods_num gt 0"}
+<div class="touchweb-com_searchListBox openList" id="goods_list">
+   {volist name="goods_list" id="g"}
+   <li>
+		<a href="/index.php/wap/goods/goodsinfo/id/{$g.goods_id}.html" class="item">
+			<div class="pic_box">
+				<div class="active_box">
+					<span style=" background-position:0px -36px">新品</span>
+				</div>
+				<img src="{$g.cover_img}">
+			</div>
+			<div class="title_box">{$g.goods_name}</div>
+			<div class="price_box">
+				<span class="new_price"><i>￥{$g.shop_price}元</i></span>
+			</div>
+			<div class="comment_box">已售0</div>
+		</a>
+		<div class="ui-number b"> 
+			<a class="decrease" onClick="goods_cut({$g.goods_id});">-</a>
+		<input class="num" id="number_{$g.goods_id}" type="text"  value="1"  size="4" maxlength="5" readonly="true">
+			<a class="increase" onClick="goods_add({$g.goods_id},{$g.stock});">+</a> 
+		</div>
+		<span class="bug_car" onClick="AjaxAddCart({$g.goods_id});"><i class="icon-shop_cart"></i></span>
+	</li>
+   {/volist}
+</div>
+ <a href="javascript:;" class="get_more" style="text-align: center; display: none;"> 
+    <img src="/static/waps/images/loader.gif" width="12" height="12"> </a>
+<div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
+  		<a href="javascript:void(0)" onClick="getGoodsList()">点击加载更多</a>
+  </div></section> 
+{else/}
+   <p class="goods_title">抱歉暂时没有相关结果，换个筛选条件试试吧</p>
+{/if}
+</section>
+<!---+++++++++++++++++++++++++++++++++加载更多js++++++++++++++++++++++++++++++++++++++++++++-->  
+<script type="text/javascript">
+var page = 1;
+function getGoodsList(){
+	$('.get_more').show();
+	$.ajax({
+		type : "get",
+		url:"/index.php/wap/goods/ajaxgetmore/{$ids}/{$id}/pages/"+page,
+		dataType:'json',
+		success: function(data)
+		{  
+			if (data.error_code == 0) {
+				if(data.data.length != 0){
+					$.each(data.data,function(k,g){
+	                    $('#goods_list').append('<li><a href="/index.php/wap/goods/goodsinfo/id/'+g.goods_id+'" class="item"><div class="pic_box"><div class="active_box"><span style=" background-position:0px -36px">新品</span></div><img src="'+g.cover_img+'"></div><div class="title_box">'+g.goods_name+'</div><div class="price_box"><span class="new_price"><i>'+g.shop_price+'元</i></span></div><div class="comment_box">已售0</div></a><div class="ui-number b"><a class="decrease" onClick="goods_cut('+g.goods_id+');">-</a>	<input class="num" id="number_'+g.goods_id+'" type="text"  value="1"  size="4" maxlength="5" readonly="true"><a class="increase" onClick="goods_add('+g.goods_id+','+g.stock+');">+</a></div><span class="bug_car" onClick="AjaxAddCart('+g.goods_id+');"><i class="icon-shop_cart"></i></span></li>');
+		            });
+					page++;
+					$('.get_more').hide();
+				}
+			}
+			else{
+				$('.get_more').hide();
+				$('#getmore').remove();
+			}
+		}
+	}); 
+}
+//ajax加入购物车
+function  AjaxAddCart(id){
+	  var num_val=document.getElementById('number_'+id);  
+	  var new_num=num_val.value;
+      $.ajax({
+            type : "POST",
+            url:"/index.php/wap/cart/ajaxaddcart",
+            data :{goods_id:id,goods_num:new_num} ,
+			dataType:'json',
+            success: function(data){
+			    if(data.error_code != 0){
+			    	mui.toast('购物车加入失败');
+			    }
+			    else{  
+			     	mui.toast('购物车加入成功');
+			    }							   							   
+            }
+        });
+}
+</script> 
+<script>
+function goods_cut($val){  
+	var num_val=document.getElementById('number_'+$val);  
+	var new_num=num_val.value;  
+	var Num = parseInt(new_num);  
+	if(Num>1)Num=Num-1;  
+	num_val.value=Num;  
+} 
+
+function goods_add($val,nums){ 
+	var num_val=document.getElementById('number_'+$val);  
+	var new_num=num_val.value;  
+	var Num = parseInt(new_num);  
+	Num=Num+1;  
+	if (Num >nums) {
+		mui.toast('选择商品数量已经超过库存量');
+		num_val.value=nums; 
+	}
+	else{
+		num_val.value=Num; 
+	}
+	 
+}
+</script>
+
+<!---+++++++++++++++++++++++++++++++++底部菜单栏++++++++++++++++++++++++++++++++++++++++++++-->
+{include file="common:nav" /}
+<!---+++++++++++++++++++++++++++++++++底部菜单栏++++++++++++++++++++++++++++++++++++++++++++-->
+
+</body>
+</html>

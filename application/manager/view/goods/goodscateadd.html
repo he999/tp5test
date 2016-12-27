@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+
+<title>后台管理系统</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <div style="margin-left:215px; margin-top:20px; margin-right:10px">
+           <div style="line-height:35px;border-bottom:1px solid #ccc;">
+                    <a href="#" style="font-size: 20px;font-weight:600;">添加商品分类</a>
+                    <a style=" float:right; padding:5px 9px" href="/index.php/manager/goods/goodscatelst">返回列表</a>
+           </div>
+           <div style="clear:both"></div>
+           <div>
+                    <form action="" method="post" enctype="multipart/form-data" name="form1"  >  
+                            <table class="tb1">
+                                     
+                                      <tr>
+                                             <td class="td1">父级分类名称:</td>
+                                             <td class="td2">  <select name="parentid" class="form-control"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px"> 
+                            <option value='0'>顶级分类</option>
+                              {volist name="list" id="i"}
+                          <option value={$i.cateid}> {$i.catename}</option>
+                              {/volist}
+                        </select> </td>
+                                      </tr>
+                                      <tr class="tr1">
+                                             <td class="td1">新分类名称:</td>
+                                             <td class="td2"><input type="text"  name="catename" style="height:28px;width:30%" class="form-control"/></td>
+                                      </tr>
+                                   
+                                      <tr  class="tr1">
+                                             <td class="td1"></td>
+                                             <td class="td2"><input type="submit" value="提交" class="btn btn-default"></td>
+                                      </tr>
+                            </table>
+                    </form>
+           </div>
+    </div>
+ </div>
+<script type="text/javascript">
+   $('.dian_kolh').click(function(){
+
+     $('.zhezhac_kpl').show();
+     })
+  
+</script>
+</body>
+</html>

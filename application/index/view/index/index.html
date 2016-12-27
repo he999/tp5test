@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>华艺</title>
+<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+<link rel="stylesheet" type="text/css" href="/static/css/common.css">
+<link rel="stylesheet" href="/static/css/main.css" />
+<script type="text/javascript" src="/static/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/static/js/index.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.SuperSlide.2.1.1.js"></script>
+<script src="/static/js/swiper.jquery.min.js"></script>
+<script>
+$(function() {
+    //alert($(window).height());
+    $('#ClickMe').click(function() {
+        $('#code').center();
+        $('#goodcover').show();
+        $('#code').fadeIn();
+        $("body").css({overflow:"hidden"});
+    });
+     $('#ClickMes').click(function() {
+        $('#code').center();
+        $('#goodcover').show();
+        $('#code').fadeIn();
+        $("body").css({overflow:"hidden"});
+    });
+    $('#closebt').click(function() {
+        $('#code').hide();
+        $('#goodcover').hide();
+        $("body").css({overflow:"visible"});
+
+    });
+    $('#goodcover').click(function() {
+        // $('#code').hide();
+        // $('#goodcover').hide();
+    });
+    /*var val=$(window).height();
+    var codeheight=$("#code").height();
+    var topheight=(val-codeheight)/2;
+    $('#code').css('top',topheight);*/
+    jQuery.fn.center = function(loaded) {
+        var obj = this;
+        body_width = parseInt($(window).width());
+        body_height = parseInt($(window).height());
+        block_width = parseInt(obj.width());
+        block_height = parseInt(obj.height());
+
+        left_position = parseInt((body_width / 2) - (block_width / 2) + $(window).scrollLeft());
+        if (body_width < block_width) {
+            left_position = 0 + $(window).scrollLeft();
+        };
+
+        top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
+        if (body_height < block_height) {
+            top_position = 0 + $(window).scrollTop();
+        };
+
+        if (!loaded) {
+
+            obj.css({
+                'position': 'absolute'
+            });
+            obj.css({
+                'top': ($(window).height() - $('#code').height()) * 0.5,
+                'left': left_position
+            });
+            $(window).bind('resize', function() {
+                obj.center(!loaded);
+            });
+            $(window).bind('scroll', function() {
+                obj.center(!loaded);
+            });
+
+        } else {
+            obj.stop();
+            obj.css({
+                'position': 'absolute'
+            });
+            obj.animate({
+                'top': top_position
+            }, 200, 'linear');
+        }
+    }
+
+})
+</script>
+<style type="text/css">
+    .ju1 ul li:last-child span{display: none;}  
+</style>
+</head>
+
+<body>
+    <!--头部开始-->
+    <div class="toubu">
+        <div class="tou">
+            <div class="logo">
+              <img src="/static/images/logo.png"/>
+            </div>
+            <div class="huayi">
+              <img src="/static/images/huayiwenhua.png"/>
+            </div>
+             <div class="dianhua">
+              <img src="/static/images/dianhua.png"/>
+            </div>
+            <div class="youshang">
+            <div class="youdaohang">
+             <ul>
+                 <li><a href="http://www.hnhyjys.com">交易市场</a><span style="margin-left:10px;">|</span></li>
+                 <li><a href="http://www.hnhycam.com">网上商城</a><span style="margin-left:10px;">|</span></li>
+                 <li><a href="http://hua2.wiwibao.com/index.php/index/article/artlist/cid/61">联系我们</a></li>
+             </ul>
+         </div>
+            <div class="xinxi">
+              <ul>
+                <li id="ClickMe"><a href="#"><img src="/static/images/weixin.png"/></a></li>
+                <li id="ClickMes"><a href="#"><img src="/static/images/weibo.png"/></a></li>
+              </ul>
+            </div>
+           
+         </div>     
+         </div>
+
+        
+    </div> 
+    <div id="goodcover"></div>
+    
+<div id="code">
+  <div class="close1"><a href="javascript:void(0)" id="closebt"><img src="/static/images/close.gif"></a></div>
+  
+  <div class="code-img"> <img id="ewmsrc"  src="/static/images/erweima.png"></div>
+</div>  
+    <div class="clear"></div>
+     <!--导航开始-->
+    <div class="daohang">
+        <div class="daohangmingcheng">
+            <ul class="nav1">
+                <li class="li1"><a href="/">首        页</a></li>
+                {volist name="menu" id="vo"}
+                        <li class="li1"><span class="<?php if(isset($vo['down'])) echo 'span'; ?>"></span><a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/artlist/cid/{$vo.cateid} <?php } ?>" class="a1" >{$vo.catename}<br></a>
+                        <?php if (isset($vo['down'])) { ?>
+                            <ul class="nav_li2">
+                                <?php foreach($vo['down'] as $row) { ?>
+                                    <li><a href="<?php if ($row['link']) {echo $row['link'];}else{ ?>/index.php/index/article/artlist/cid/{$vo.cateid} <?php } ?>"style="color:#000;font-weight: none;">{$row.catename}</a></li>   
+                                <?php } ?>
+                            </ul>
+                        <?php } ?>
+                        </li>
+                    {/volist}
+            </ul>
+        </div>
+    </div>
+     
+    <!--导航结束-->
+    <div class="clear"></div>
+    <!--轮播图开始-->
+    <div class="banner" id="lunbo">
+    	<ul>
+             <?php foreach ($focus_list as $pic) {?>
+                         <li><a href="{$pic.link}"><img src="<?php echo $pic['userfile'];?>"/></a></li>
+                     <?php }?>
+        </ul>
+             
+                  <div class="prev" onclick="prev()"><a href="javascript:"></a></div>
+                  <div class="next" onclick="next()"><a href="javascript:"></a></div>
+        <p class="number swiper-pagination swiper-pagination-clickable swiper-pagination-bullets" id="num">
+                     <span class="cul"title="1"></span>
+                     <span title="2"></span>
+                     <span title="3"></span>
+                     <span title="4"></span>    
+       	</p>   
+    </div>
+    <!--轮播结束-->
+    <div class="clear"></div>
+    <!--新闻资讯开始-->
+    <div class="zhuti">
+    <div class="new">
+        <div class="xinwenzixun">
+            <div class="new_top"><img src="/static/images/xinwenzixun.png"/></div>
+            <div class="new_center">
+                <ul>
+                
+                    <li>
+                    <?php foreach ($industry_array as $vo) {?>
+                        <img src="/static/images/hangyezixun.png"style="width:130px; height:46px;"/>
+                         <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">
+                        <h2 style="font-weight: normal;">{$vo.title}</h2>
+                    </a>
+                    <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">
+                        <img src="{$vo.coverpic}" style=" vertical-align:baseline; float: left;margin-top: 20px; padding-right: 10px;width:140px;height:90px;"/>
+                    </a>
+                     <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">
+                        <p style="margin-top: 20px; height: 150px;letter-spacing:2px;">{$vo.intro}</p>
+                    
+                    </a>
+                    <?php }?>
+                        <div class="gengduo">
+                     <?php foreach($news_cate_list as $vo){?>
+                     <p><a class="newss" href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">[<?php echo date('Y-m-d',$vo['create_timestamp'])?>]<?php echo mb_substr($vo['title'],0,18,'utf-8');?></a></p>
+                     </p>
+                     <?php }?>
+                        </div>
+                        <div style="width: 100%; height:auto; float:left; margin-top: 10px;">
+
+                            <a style="border-top:3px solid #663300; float: left; padding-top: 12px; font-weight: bold;" href="http://hua2.wiwibao.com/index.php/index/article/artlist/cid/74">查看更多>>></a>
+                        </div>
+
+                    </li>
+                
+                </ul>
+
+            </div><div class="new_center">
+            <ul>
+                <li>
+                    <?php foreach ($industrys_array as $vo) {?>
+                    <a href="{$vo.link}">
+                        <img src="/static/images/shichangdongtai.png"style="width:130px; height:46px;"/>
+                    </a>
+                     <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">
+                        <h2 style="font-weight: normal;">{$vo.title}</h2>
+                    </a>
+                    <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">
+                        <img src="{$vo.coverpic}" style=" vertical-align:baseline; float: left;margin-top: 20px; padding-right: 10px;width:140px;height:90px;"/>
+                    </a>
+                     <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">
+                        <p style="margin-top: 20px; height: 150px;letter-spacing:2px;">{$vo.intro}</p>
+                    
+                    </a>
+                    <?php }?>
+                    <div class="gengduo">
+                       <?php foreach($market_cate_list as $vo){?>
+                     <p><a class="newss" href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">[<?php echo date('Y-m-d',$vo['create_timestamp'])?>]<?php echo mb_substr($vo['title'],0,18,'utf-8');?></a></p>
+                     </p>
+                     <?php }?>
+                    </div>
+                    <div style="width: 100%; height:auto; float:left; margin-top: 10px;">
+
+                        <a style="border-top:3px solid #663300; float: left; padding-top: 12px; font-weight: bold;" href="http://hua2.wiwibao.com/index.php/index/article/artlist/cid/75">查看更多>>></a>
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="new_center">
+            <ul>
+                <li>
+                     <?php foreach ($Company_array as $vo) {?>
+                    <img src="/static/images/gongsigonggao.png" style="width:130px; height:46px; "/>
+                     <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid}<?php } ?>">
+                        <h2 style="font-weight: normal;">{$vo.title}</h2>
+                    </a>
+                    <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">
+                        <img src="{$vo.coverpic}" style="  float: left;margin-top: 20px; padding-right: 10px;width:140px;height:90px;"/>
+                    </a>
+                     <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">
+                        <p style="margin-top: 20px; height: 150px; letter-spacing:2px;">{$vo.intro}
+                    </p>
+                    </a>
+                    <?php }?>
+                    <div class="gengduo">
+                      <?php foreach($notices_cate_list as $vo){?>
+                     <p><a class="newss" href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">[<?php echo date('Y-m-d',$vo['create_timestamp'])?>]<?php echo mb_substr($vo['title'],0,18,'utf-8');?></a></p>
+                     </p>
+                     <?php }?>
+                    </div>
+                    <div style="width: 100%; height:auto; float:left; margin-top: 10px;">
+
+                        <a style="border-top:3px solid #663300; float: left; padding-top: 12px; font-weight: bold;" href="http://hua2.wiwibao.com/index.php/index/article/artlist/cid/76">查看更多>>></a>
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+            <div class="new_right"></div>
+
+        </div>
+    </div>
+    <!--新闻资讯结束-->
+    <div class="clear"></div>
+    <!--艺术鉴赏开始-->
+    <div class="yishu">
+        <div class="yishu1">
+            <div class=yishutu><img src="/static/images/yishujianshang.png"/></div>
+
+            <p class="p">艺术家<span><a href="http://hua2.wiwibao.com/index.php/index/article/artlist/cid/45">更多&gt;&gt;</a></span></p>
+            <div class="picture">
+                <ul>
+                <?php foreach($arts_cate_list as $vo){?>
+                    <li>
+                        <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>"><img src="{$vo.coverpic}" style="width:154px;height:193px;"/></a>
+                        <h1><a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>"><?php echo mb_substr($vo['title'],0,6,'utf-8');?></a></h1>
+                        <a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/content/aid/{$vo.artid} <?php } ?>">
+                        <p style="color:#595757;padding:0 5px;">{$vo.intro}</p>
+                        </a>
+                    </li>
+                    <?php }?>
+                    
+                    </ul>  
+                </div>
+                <p class="p">邮币<span><a href="#">更多 &gt;&gt; </a></span></p>
+                <div class="picture_2" style="">
+                    <ul>
+                        <li>
+                            <a href="details.html"><img src="/static/images/yinbi.jpg" /></a> 
+                             <span style="padding-top:8px;">2012年壬辰龙年生肖1盎司精制彩银币（NGC PF69） </span>
+                                                  
+                        </li>
+                        <li>
+                            <a href="details.html"><img src="/static/images/yinzhangyimei.jpg" /></a>
+                            <span style="padding-top:8px;">2016年地藏王菩萨12盎司精制银章
+                            </span>
+                        </li>
+                        <li>
+                            <a href="details.html"><img src="/static/images/erdairengmingbi.jpg" /></a>
+                            <span style="padding-top:8px;">第二版人民币民族大团结红伍圆 </span>
+                        </li>
+                        <li>
+                            <a href="details.html"><img src="/static/images/wen7yimei.jpg" /></a>
+                            <span style="padding-top:8px;">文7才饮新 </span>
+                        </li>
+                        </ul>
+                    </div>
+                    <p class="p">珠宝<span><a href="#">更多 &gt;&gt; </a></span></p>
+                    <div class="picture_2">
+                        <ul>
+                            <li>
+                                <a href="details.html"><img src="/static/images/baiji.jpg" /></a>
+                                <span style="padding-top:8px;">925银镀白金镶天然葡萄石项链 </span>                       
+                            </li>
+                            <li>
+                                <a href="details.html"><img src="/static/images/shouliang.jpg" /></a>
+                                <span style="padding-top:8px;">天然冰种红玛瑙手链</span>
+                            </li>
+                            <li>
+                                <a href="details.html"><img src="/static/images/shouzhuo.jpg" /></a>
+                                <span style="padding-top:8px;">天然冰种绿缠丝玛瑙小腕手镯</span>
+                            </li>
+                            <li>
+                                <a href="details.html"><img src="/static/images/diaozui.jpg" /></a>
+                                <span style="padding-top:8px;">银镶天然粉色欧泊吊坠 </span>
+                            </li>
+                            </ul>
+                        </div>
+                       <p class="p">艺术品<span><a href="#">更多 &gt;&gt; </a></span></p>
+                        <div class="picture_2">
+                            <ul>
+                                <li>
+                                    <a href="details.html"><img src="/static/images/luhua.jpg" /></a>
+                                    <span style="padding-top:8px;">《芦花》 </span>                       
+                                </li>
+                                <li>
+                                    <a href="details.html"><img src="/static/images/shanzi.jpg" /></a>
+                                    <span style="padding-top:8px;">岳州扇 </span>
+                                </li>
+                                <li>
+                                    <a href="details.html"><img src="/static/images/jiangchenqian.jpg" /></a>
+                                    <span style="padding-top:8px;">蒋陈阡、陈川等《组画12张》 </span>
+                                </li>
+                                <li>
+                                    <a href="details.html"><img src="/static/images/tangqian.jpg" /></a>
+                                    <span style="padding-top:8px;">唐茜《红山（二）》 </span>
+                                </li>
+                                </ul>
+                            </div>
+                    </div>
+    </div>
+    <!--艺术鉴赏结束-->
+    <!--邮币开始-->
+    <div class="youbi">
+    	<div class="youbi1" >
+        	   <div class="youbitu"><img src="/static/images/youbi.png"/></div>
+                    <p style="text-align:center;width:1076px; padding-left:8px;">
+                        <iframe frameborder="0" marginheight="0" marginwidth="0" scrolling="no" src="http://118.123.201.219:8080/market/xslt/index/list.jsp" width="100%" height="201" >
+                        </iframe>
+                    </p>
+                <div class="cent5">
+                    <p style="font-size:;color:#655d5b; margin-left:8px;">合作机构&gt;&gt;&gt;</p>
+                    <div class="bd2" style="overflow:hidden;">
+                        <ul>
+                            <!-- <li><a href="https://www.so.com/"><img src="/static/images/360.png" ></a></li>
+                            <li><a href="https://www.baidu.com/ "><img src="/static/images/bd.png" ></a></li>
+                            <li><a href="http://www.18wind.com/"><img src="/static/images/fj.png" ></a></li>
+                            <li><a href=" http://www.cebbank.com/
+"><img src="/static/images/gd.png" ></a></li>
+                            <li><a href="http://www.ccb.com/cn/home/indexv3.html	"><img src="/static/images/jh.png" ></a></li>
+                            <li><a href="http://www.icbc.com.cn/icbc/	"><img src="/static/images/gh.png" ></a></li>
+                            <li><a href="http://www.abchina.com/cn/	"><img src="/static/images/lh.png" ></a></li>
+                            <li><a href="http://bank.pingan.com/"><img src="/static/images/pa.png"></a></li> -->
+                            <li><a href="http://www.gzclearing.com/"><img src="/static/images/jiesuanzhongxin.png" alt="" /></a></li>
+                            <li><a href="http://www.boc.cn/"><img src="/static/images/zhongguoyinhang.png" alt="" /></a></li>
+                            <li><a href="http://www.abchina.com/cn/ "><img src="/static/images/zhongguonongyeyinhang.png" alt="" /></a></li>
+                            <li><a href="http://www.icbc.com.cn/icbc/   "><img src="/static/images/zhongguogongshangyinhang.png" alt="" /></a></li>
+                            <li><a href="http://www.ccb.com/cn/home/indexv3.html    "><img src="/static/images/zhongguojiansheyinhang.png" alt="" /></a></li>
+                        </ul>
+                    </div>
+                     <div class="bd3"  style="overflow:hidden;">
+                        <ul>
+                           <!-- <li><a href="http://www.gzclearing.com/"><img src="/static/images/qs.png" ></a></li>
+                            <li><a href="http://wh.moneytu.com/"><img src="/static/images/qt.png" ></a></li>
+                            <li><a href="https://www.sogou.com/"><img src="/static/images/sg.png" ></a></li>
+                            <li><a href="http://weibo.com/"><img src="/static/images/xl.png"></a></li>
+                            <li><a href="http://www.youbicard.com/"><img src="/static/images/yb.png" ></a></li>
+                            <li><a href="http://www.chinapost.com.cn/"><img src="/static/images/yz.png"></a></li>
+                            <li><a href="http://www.boc.cn/"><img src="/static/images/zh.png"></a></li> -->
+                            <li><a href=" http://www.chinapost.com.cn/"><img src="/static/images/zhongguoyouzhen.png" alt="" /></a></li>
+                            <li><a href="http://www.18wind.com/"><img src="/static/images/fengyi.png" alt="" /></a></li>
+                            <li><a href="http://bank.pingan.com/"><img src="/static/images/pinganyinhang.png" alt="" /></a></li>
+                            <li><a href="http://www.youbicard.com/"><img src="/static/images/youbikazhijia.png" alt="" /></a></li>
+                            <li><a href="http://wh.moneytu.com/"><img src="/static/images/qiantu.png" alt="" /></a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+            </div>
+    </div>
+    </div>
+    <!--邮币结束-->
+    <!---->
+    <!---->
+    <div class="clear"></div>
+    <!--底部开始-->
+    <div class="foot_warp">
+        <div class="ju">
+            <div class="fot1">
+                <div class="flo w_l">
+                    <span style="margin-left:8px;"><img src="/static/images/erweima.png"></span>
+                    <p style="color:#663300; font-size:15px;">扫一扫，精彩全知道</p>
+                </div>
+                <div class="flowz w_l">
+                    <p style="letter-spacing:2px;font-size:15px;">服务热线：{$com_info.phone_number}</p>
+                    <p style="margin-top:4px;letter-spacing:2px;font-size:15px;">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：{$com_info.company_address}</p>
+                    <p style="margin-top:4px;letter-spacing:2px;font-size:15px;">投诉邮箱：{$com_info.email_address}</p>
+                    <p style="margin-top:4px;letter-spacing:2px;font-size:15px;">中华人民共和国增值电信业务经营许可证编号：湘B2-20160021</p>
+                    <p style="margin-top:4px;letter-spacing:2px;font-size:15px;">本站内容仅供参考，非操作建议，请您自行决策交易</p>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <!--底部结束-->
+ <div class="dibu" style="width:100%; height:auto;padding-bottom:10px;background: #fff;" >
+        <div class="ju1">
+                    <ul>
+                        <li><a href="/">首页</a><span>|</span></li>
+                        {volist name="menu" id="vo"}
+                        <li><a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/artlist/cid/{$vo.cateid} <?php } ?>">{$vo.catename}<span>|</span></a></li>
+                        {/volist}
+                    </ul>
+                </br>
+                     <p>版权所有：Copyright©{$com_info.company_name}&nbsp;<img src="/static/images/tubiao.png"/>&nbsp;[ 备案号：{$com_info.record_num} ]</p>
+        </div>
+</div>
+<script type="text/javascript">
+    $(".tempWrap").css("width", "1182px");
+</script>
+<div class="erweima"><img src="/static/images/erweima.png" style="width:142px;height:auto;"/><p style="color:#e60012;font-size: 12px;background:#fff;">扫描二维码关注官方微信</p></div>
+
+</body>
+</html>
+

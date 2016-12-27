@@ -1,0 +1,315 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>湖南华艺文化艺术品交易市场_湖南文化艺术品交易有限公司[ 官网 ]</title>
+<meta name="description" content="湖南华艺文化艺术品交易市场，致力于打造规范钱币邮票收藏品的交易市场，为社会大众参与文化投资领域提供安全便捷的方式。招商热线：400-0730-929"/>
+<meta name="keywords" content="湖南华艺,华艺邮币卡,华艺交易市场,湖南华艺文化艺术品交易有限公司,华艺,华艺文交所,邮币卡,邮币卡交易市场,湖南华艺文化艺术品交易有限公司官网"> 
+<link rel="stylesheet" type="text/css" href="/static/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<script type="text/javascript" src="/static/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.SuperSlide.2.1.1.js"></script>
+<script src="/static/js/swiper.jquery.min.js"></script>
+<link rel="stylesheet" href="/static/css/swiper.min.css">
+<!--[if IE 6]>    
+<script type="text/javascript" src="js/DD_belatedPNG.js"></script>
+<script>
+        DD_belatedPNG.fix('*');
+    </script>
+<![endif]--> 
+<style type="text/css">
+img{border:0;}
+#Index {z-index: 1; margin: 50px auto 0px; width: 960px; height:auto;}
+#Index .style {z-index: 99; width: 150px; bottom: 0px; display: block; background: url(/static/images/icon_f.png) no-repeat right bottom; float: right; height: 172px; right: 0px}
+#Index_Box {position: relative; margin: 6px 0px 0px 63px; width: 960px; height: 300px}
+#Index_Box ul {position: relative; width: 960px; height: 300px}
+#Index_Box li {z-index: 0; position: absolute; list-style-type: none; width: 0px; background: #787878; height: 0px; overflow: hidden; top: 146px; cursor: pointer; list-style-image: none; left: 377px; border-radius: 4px; box-shadow: 1px 1px 12px rgba(200, 200, 200, 1)}
+#Index_Box li img {width: 100%; background: url(/static/images/loading.gif) no-repeat center 50%; height: 100%; vertical-align: top}
+#Index_Box .prev { display: block}
+#Index_Box .next {display: block}
+#Index_Box .prev {z-index: 100; overflow: hidden; cursor: pointer}
+#Index_Box .next {z-index: 100; overflow: hidden; cursor: pointer}
+#Index_Box .prev {position: absolute; width: 80px; background: url(/static/images/next.png) 0px 0px; height: 120px; top: 140px; left: 85px;}
+#Index_Box .next { position: absolute; width: 80px; background: url(/static/images/next.png) -80px 0px; height: 120px; top: 140px; right: -201px;}
+</style>
+<script type="text/javascript">
+    $(function(){
+        $(".cent1 li").mouseenter(function(){
+            $(this).addClass("on").siblings(".cent1 li").removeClass("on");
+        })
+        $(".cent1 li").mouseleave(function(){
+            $(this).removeClass("on");
+        })
+    })
+</script>
+<script type="text/javascript">
+    $(function(){
+        $(".ull .liw").mouseenter(function(){
+            $(this).addClass("on").siblings(".ull .liw").removeClass("on");
+        })
+        $(".ull .liw").mouseleave(function(){
+            $(this).removeClass("on");
+        })
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".nav_li .li1").mouseover(function(){
+            $(this).addClass("on").siblings(".nav_li .li1").removeClass("on");
+        });
+        $(".nav_li .li1").mouseout(function(){
+            $(this).removeClass("on");
+        });
+    });
+</script>
+</head>
+<body>
+<div class="warp">
+    <div class="top_warp">
+        <div class="ju">
+            <div class="top1">
+                <div class="w_l logo">
+                    <img src="/static/images/logo.png">
+                </div>
+                <div class="w_l name">
+                    <span><img src="/static/images/name.png"></span>
+                </div>
+                <div class="w_l tit1">
+                    <span><img src="/static/images/t_icon1.png"></span>
+                </div>
+                <div class="tel w_r">
+                    <p><span><img src="/static/images/t_icon2.png"></span><span><img src="/static/images/t_icon3.png"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner">
+        <div class="banner_hd">
+            <div class="ban_hd">
+                <div id="Index_Box">
+                     <pre class="prev">&nbsp;</pre>
+                     <pre class="next">&nbsp;</pre>
+                     <ul>
+                      {volist name="pic" id="pic"}
+                         <li><a href="{$pic.link}"><img src="{$pic.userfile}"></a></li>
+                      {/volist}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="static/js/ZoomPic.js" type="text/javascript"></script>
+    </div>
+    <div class="center_warp">
+        <div class="center1">
+            <div class="nav">
+                <div class="ju">
+                    <ul class="nav_li">                                       
+                        <li class="li1"><a href="/" class="a1">首页<br><font>home page</font></a></li>
+                         {volist name="menu" id="vo"}
+                        <li class="li1"><a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/artlist/cid/{$vo.cateid} <?php } ?>" class="a1">{$vo.catename}<br><font>{$vo.english_name}</font></a>
+                        <?php if (isset($vo['down'])) { ?>
+                            <ul class="nav_li2">
+                                <?php foreach($vo['down'] as $row) { ?>
+                                    <li><a href="/index.php/index/article/artlist/cid/{$row.cateid}">{$row.catename}</a></li>   
+                                <?php } ?>
+                            </ul>
+                        <?php } ?>
+                        </li>
+                    {/volist}
+                    </ul>
+                </div>
+            </div>
+            <div class="ju">
+                <div class="cent1">
+                    <div class="cent1_le w_l">
+                        <div class="tit2">
+                            <h4>视频聚焦</h4>
+                        </div>
+                        <div class="tit2_rigth">
+                            <h4>最新公告</h4><a href="/index.php/index/article/artlist/cid/{$notices_cateid}">MORE >></a>
+                        </div>                
+                        <div class="le_hd1 w_l">
+                            <div class="banner_hd1">
+                                <div class="ban_hd1">
+                                     <div class="bannimg1">
+                                     <ul>
+                                            <li>
+                                                <a href="/index.php/index/article/content/aid/1"><video src="http://www.youbicard.com/templets/ybkzj/images/images/%E5%A4%AE%E8%A7%86%E5%85%B3%E6%B3%A8%E9%82%AE%E5%B8%81%E5%8D%A1%E7%94%B5%E5%AD%90%E7%9B%98%20%E5%B8%82%E5%9C%BA%E7%81%AB%E7%83%AD%E5%BE%97%E5%88%B0%E8%82%AF%E5%AE%9A_%E9%82%AE%E5%B8%81%E5%8D%A1%E4%B9%8B%E5%AE%B6_%E4%B8%93%E6%B3%A8%E5%81%9A%E6%9C%80%E6%9C%89%E4%BB%B7%E5%80%BC%E7%9A%84%E9%82%AE%E5%B8%81%E5%8D%A1%E7%AC%AC%E4%B8%89%E6%96%B9%E8%B5%84%E8%AE%AF%E5%B9%B3%E5%8F%B0_2.mp4" controls="" style="width:420px;height:250px;"></video></a>
+                                            </li>
+                                     </ul>
+                                       </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-container" style="overflow: hidden;">
+                            <div class="swiper-wrapper">
+
+                            <?php foreach($notices_array as $row) { ?>
+                                <div class="swiper-slide">
+                                    <div class="le_wz w_r">
+                                        <ul>
+                                            <?php foreach($row as $vo) { ?>
+                                            <li>
+                                                <h3><a href="/index.php/index/article/content/aid/{$vo.artid}">{$vo.title}</a></h3>
+                                                <p>{$vo.intro}<a href="/index.php/index/article/content/aid/{$vo.title}">[详情]</a></p>
+                                            </li>
+                                           <?php } ?>  
+                                        </ul>
+                                    </div>
+                                </div>
+                            <?php } ?>                                   
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <script type="text/javascript">
+                            var swiper = new Swiper('.swiper-container', {
+                                    pagination: '.swiper-pagination',
+                                    paginationClickable: true,
+                                    loop:true,
+                                    autoplay:6000,
+                                    nextButton: '.swiper-button-next',
+                                    prevButton: '.swiper-button-prev',
+                                    autoplayDisableOnInteraction : false,
+                                   
+                          });
+                        </script>
+                        <div class="tit2_button tit3">
+                            <h4>实时盘面</h4><a href="http://118.123.201.219:8080/market/xslt/index/list.jsp">MORE >></a>
+
+                        </div>
+                    </div>
+                    <div class="cent1_ri w_r">
+                        <ul>
+                            <li><a href="/index.php/index/article/artlist/cid/56"><img src="/static/images/r1.png"><font><b>网上开户</b><br/>The internet accounts</font></a></li>
+                            <li><a href="/index.php/index/article/content/aid/269"><img src="/static/images/r2.png"><font><b>软件下载</b><br/>Software download</font></a></li>
+                            <li><a href="http://118.123.201.219:8582/emp/"><img src="/static/images/r3.png"><font><b>会员平台</b><br/>Member platform</font></a></li>
+                            <li><a href="/index.php/index/article/artlist/cid/{$jiaoshou}"><img src="/static/images/r4.png"><font><b>交收流程</b><br/>Settlement process</font></a></li>
+                            <li><a href="/index.php/index/article/artlist/cid/{$jiaogui}"><img src="/static/images/r5.png"><font><b>交易规则</b><br/>Rules of transactions</font></a></li>
+                            <li><a href="/index.php/index/article/artlist/cid/{$related_cateid4}"><img src="/static/images/r6.png"><font><b>商品目录</b><br/>Catalogue of the goods</font></a></li>
+                            <li><a href="/index.php/index/article/artlist/cid/{$huida}"><img src="/static/images/r7.png"><font><b>问题解答</b><br/>Catalogue of the goods</font></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="cent2">
+                    <p>
+                        <iframe frameborder="0" marginheight="0" marginwidth="0" scrolling="no" src="http://118.123.201.219:8080/market/xslt/index/list.jsp" width="100%" height="201">
+                        </iframe>
+                    </p>
+                </div>
+                <div class="cent4">
+                    <ul>
+                        <li class="w_l">
+                            <dl>
+                                <dt><span><h4 style="font-size: 26px;color: #221815;display: inline-block; font-weight: normal;width: 125px;">市场动态</h4></span><a href="/index.php/index/article/artlist/cid/{$huayi}">MORE >></a></dt>
+                                {volist name="related_cate_list1" id="v1"}
+                                <dd><a href="/index.php/index/article/content/aid/{$v1.artid}">{$v1.title}</a></dd>
+                                {/volist}
+                            </dl>
+                        </li>
+                        <li class="w_l lce">
+                            <dl>
+                                <dt><span><h4 style="font-size: 26px;color: #221815;display: inline-block; font-weight: normal;width: 125px;">信息披露</h4></span><a href="/index.php/index/article/artlist/cid/{$mark}">MORE >></a></dt>
+                               {volist name="related_cate_list2" id="v2"}
+                                <dd><a href="/index.php/index/article/content/aid/{$v2.artid}">{$v2.title}</a></dd>
+                                {/volist}
+                            </dl>
+                        </li>
+                        <li class="w_r">
+                            <dl>
+                                <dt><span><h4 style="font-size: 26px;color: #221815;display: inline-block; font-weight: normal;width: 125px;">行业资讯</h4></span><a href="/index.php/index/article/artlist/cid/{$hangye}">MORE >></a></dt>
+                                 {volist name="related_cate_list3" id="v3"}
+                                <dd><a href="/index.php/index/article/content/aid/{$v3.artid}">{$v3.title}</a></dd>
+                                {/volist}
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cent3">
+                    <div class="tit4">
+                       <h5><a href="/index.php/index/article/artlist/cid/{$related_cateid4}" style="font-weight: normal;">上市藏品</a></h5> 
+                       <div class="cent01_warp">
+                            <div class="cent2 ju">
+                                <div class="inde_lb2 inde_lb1">
+                                    <div class="bd1">
+                                        <ul>
+                                            {volist name="collect" id="p1"}
+                                            <li class="marl">
+                                                <div class="pic">
+                                                    <a href="/index.php/index/article/content/aid/{$p1.artid}"><img src="{$p1.coverpic}"></a>
+                                                </div>
+                                            </li>
+                                            {/volist}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                            jQuery(".inde_lb2").slide({mainCell:".bd1 ul",autoPlay:true,effect:"leftMarquee",vis:5,interTime:40,trigger:"click"});
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="cent5">
+                    <h6><p><a href="#" style="font-weight: normal;">战略合作</a></p></h6>
+                    <div class="bd2" style="padding: 13px 80px;">
+                        <ul>
+                            <li><a href="#"><img src="/static/images/360.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/bd.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/fj.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/gd.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/jh.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/gh.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/lh.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/pa.png"></a></li>
+                        </ul>
+                    </div>
+                     <div class="bd3"  style="padding: 13px 80px;overflow:hidden;">
+                        <ul>
+                            <li><a href="#"><img src="/static/images/qs.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/qt.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/sg.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/xl.png"></a></li>
+                            <li><a href="#"><img src="/static/images/yb.png" ></a></li>
+                            <li><a href="#"><img src="/static/images/yz.png"></a></li>
+                            <li><a href="#"><img src="/static/images/zh.png"></a></li>
+                        </ul>
+                    </div>
+                    <script type="text/javascript">
+                        jQuery(".cent5").slide({mainCell:".bd2 ul",autoPlay:true,effect:"leftMarquee",vis:5,interTime:40,trigger:"click"});
+                         jQuery(".cent5").slide({mainCell:".bd3 ul",autoPlay:true,effect:"leftMarquee",vis:5,interTime:40,trigger:"click"});
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="center2">
+            <div class="ju">
+                <ul>                                                                           
+                    <li><a href="#">首页<br/><font>home page</font></a></li>
+                   {volist name="menu" id="vo"}
+                    <li><a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/artlist/cid/{$vo.cateid} <?php } ?>">{$vo.catename}<br/><font>{$vo.english_name}</font></a></li>
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="foot_warp">
+        <div class="ju">
+            <div class="fot1">
+                <div class="flo w_l">
+                    <span><img src="/static/images/fwx.png"></span>
+                </div>
+                <div class="flowz w_l">
+                    <p>版权所有：Copyright©{$com_info.company_name} [ 备案号：{$com_info.record_num} ]</p>
+                    <p>投诉邮箱：{$com_info.email_address} 服务热线：{$com_info.phone_number}</p>
+                    <p>地址：{$com_info.company_address} </p>
+                    <p>中华人民共和国增值电信业务经营许可证编号：湘B2-20160021</p>
+                    <p>技术支持：郑州大学计算机应用研究所</p>
+                    <p>本站内容仅供参考，非操作建议，请您自行决策交易 </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

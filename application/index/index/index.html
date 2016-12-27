@@ -1,0 +1,309 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+<meta name="description" content=""/>
+<meta name="keywords" content=""> 
+<link rel="stylesheet" type="text/css" href="/static/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<script type="text/javascript" src="/static/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.SuperSlide.2.1.1.js"></script>
+<!--[if IE 6]>    
+<script type="text/javascript" src="js/DD_belatedPNG.js"></script>
+<script>
+        DD_belatedPNG.fix('*');
+    </script>
+<![endif]--> 
+<script type="text/javascript">
+	$(function(){
+		$(".cent1 li").mouseenter(function(){
+			$(this).addClass("on").siblings(".cent1 li").removeClass("on");
+		})
+		$(".cent1 li").mouseleave(function(){
+			$(this).removeClass("on");
+		})
+	})
+</script>
+<script type="text/javascript">
+	$(function(){
+		$(".ull .liw").mouseenter(function(){
+			$(this).addClass("on").siblings(".ull .liw").removeClass("on");
+		})
+		$(".ull .liw").mouseleave(function(){
+			$(this).removeClass("on");
+		})
+	})
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".nav_li .li1").mouseover(function(){
+            $(this).addClass("on").siblings(".nav_li .li1").removeClass("on");
+        });
+        $(".nav_li .li1").mouseout(function(){
+            $(this).removeClass("on");
+        });
+    });
+</script>
+</head>
+<body>
+<div class="warp">
+	<div class="top_warp">
+		<div class="ju">
+            <div class="top1">
+                <div class="w_l logo">
+                    <img src="/static/images/logo.png">
+                </div>
+                <div class="w_l name">
+                    <span><img src="/static/images/name.png"></span>
+                </div>
+                <div class="w_l tit1">
+                    <span><img src="/static/images/t_icon1.png"></span>
+                </div>
+                <div class="tel w_r">
+                    <p><span><img src="/static/images/t_icon2.png"></span><span><img src="/static/images/t_icon3.png"></span></p>
+                </div>
+            </div>
+        </div>
+	</div>
+	<div class="banner">
+        <div class="banner_hd">
+            <div class="ban_hd">
+                <div class="bannimg">
+                 	<ul>
+                        <li><a href="#"><img src="/static/images/banner1.jpg"></a></li>
+                        <li><a href="#"><img src="/static/images/banner2.jpg"></a></li>
+                        <li><a href="#"><img src="/static/images/banner1.jpg"></a></li>
+                 	</ul>
+                </div>
+                <div class="hd">
+                    <a class="prev" href="javascript:void(0)"></a>
+                    <a class="next" href="javascript:void(0)"></a>
+                </div>
+                <script type="text/javascript">
+                 	jQuery(".ban_hd").slide({mainCell:".bannimg ul",autoPlay:true});
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="center_warp">
+        <div class="center1">
+            <div class="nav">
+                <div class="ju">
+                    <ul class="nav_li">                                       
+                        <li class="li1"><a href="#" class="a1">首页<br><font>home page</font></a></li>
+                        <li class="li1"><a href="#" class="a1">交易市场<br><font>Trading market</font></a>
+                        </li>
+                        <li class="li1"><a href="#" class="a1">信息披露<br><font>information disclosure</font></a>
+                            <ul class="nav_li2">
+                                <li><a href="#">公司简介</a></li>
+                                <li><a href="#">市场动态</a></li>
+                                <li><a href="#">组织架构</a></li>
+                            </ul>
+                        </li>
+                        <li class="li1"><a href="#" class="a1">商品目录<br><font>Commodity catalogue</font></a></li>
+                        <li class="li1"><a href="#" class="a1">行业资讯<br><font>Industry information</font></a></li>
+                        <li class="li1"><a href="#" class="a1">入市指南<br><font>Guide to the market</font></a></li>
+                        <li class="li1"><a href="#" class="a1">相关下载<br><font>Related Download</font></a></li>
+                        <li class="li1"><a href="#" class="a1">合作机构<br><font>cooperation</font></a></li>
+                        <li class="li1"><a href="#" class="a1">联系我们<br><font>contact us</font></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ju">
+                <div class="cent1">
+                    <div class="cent1_le w_l">
+                    	<div class="tit2" style="whidt:400px;">
+                            <h4>最新公告</h4><a href="#">MORE >></a>
+                        </div>
+                        <div class="tit2" style="width:400px;height:auto;">
+                            <h4>最新公告</h4><a href="#">MORE >></a>
+                        </div>
+                        <div class="le_hd1 w_l">
+                            <div class="banner_hd1">
+                                <div class="ban_hd1">
+                                     <div class="bannimg1">
+                                     <ul>
+                                            <li><a href="#"><img src="/static/images/pic1.jpg"></a></li>
+                                            <li><a href="#"><img src="/static/images/pic2.jpg"></a></li>
+                                            <li><a href="#"><img src="/static/images/pic1.jpg"></a></li>
+                                            <li><a href="#"><img src="/static/images/pic2.jpg"></a></li>
+                                            <li><a href="#"><img src="/static/images/pic1.jpg"></a></li>
+                                     </ul>
+                                       </div>
+                                 <div class="hd">
+                                 <ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li></ul>
+                                  </div>
+                                  <script type="text/javascript">
+                                 jQuery(".ban_hd1").slide({mainCell:".bannimg1 ul",autoPlay:true});
+                                   </script>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="le_wz w_r">
+                            <ul>
+                                <li>
+                                    <h3><a href="#">《犬》等藏品鉴定公告</a></h3>
+                                    <p>经湖南华艺文化艺术品交易市场（以下简称“本交易市场”）持票人申请，本交易市场研究决定，以下藏品《犬》特种邮票、《新势力》GSM卡、《世界风》GSM卡于2016年6月4日 <a href="#">[详情]</a></p>
+                                </li>
+                                <li>
+                                    <h3><a href="#">关于2016年端午节休市安排的通知</a></h3>
+                                    <p>各服务机构、代理商、交易商：根据《国务院办公厅关于2016年部分节假日安排的通知》，经本交易市场研究决定，现将2016年端午节休市安排公告如下<a href="#">[详情]</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tit2 tit3">
+                            <h4>实时盘面</h4><a href="#">MORE >></a>
+                        </div>
+                    </div>
+                    <div class="cent1_ri w_r">
+                        <ul>
+                            <li><a href="#"><img src="/static/images/r1.png"><font><b>网上开户</b><br/>The internet accounts</font></a></li>
+                            <li><a href="#"><img src="/static/images/r2.png"><font><b>软件下载</b><br/>Software download</font></a></li>
+                            <li><a href="#"><img src="/static/images/r3.png"><font><b>会员平台</b><br/>Member platform</font></a></li>
+                            <li><a href="#"><img src="/static/images/r4.png"><font><b>交收流程</b><br/>Settlement process</font></a></li>
+                            <li><a href="#"><img src="/static/images/r5.png"><font><b>交易规则</b><br/>Rules of transactions</font></a></li>
+                            <li><a href="#"><img src="/static/images/r6.png"><font><b>商品目录</b><br/>Catalogue of the goods</font></a></li>
+                            <li><a href="#"><img src="/static/images/r7.png"><font><b>问题解答</b><br/>Catalogue of the goods</font></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="cent2">
+                    <p><img src="/static/images/cp1.jpg"></p>
+                </div>
+                <div class="cent4">
+                    <ul>
+                        <li class="w_l">
+                            <dl>
+                                <dt><span>华艺动态</span><a href="#">MORE >></a></dt>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                            </dl>
+                        </li>
+                        <li class="w_l lce">
+                            <dl>
+                                <dt><span>邮币知识</span><a href="#">MORE >></a></dt>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                            </dl>
+                        </li>
+                        <li class="w_r">
+                            <dl>
+                                <dt><span>行业资讯</span><a href="#">MORE >></a></dt>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                                <dd><a href="#">湖南华艺取得国家文化部艺术品经营单位备</a></dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cent3">
+                    <div class="tit4">
+                       <h5><a href="#">上市藏品</a></h5> 
+                       <div class="cent01_warp">
+                            <div class="cent2 ju">
+                                <div class="inde_lb2 inde_lb1">
+                                    <div class="bd1">
+                                        <ul>
+                                            <li class="marl">
+                                                <div class="pic">
+                                                    <a href="#"><img src="/static/images/pc1.jpg"></a>
+                                                </div>
+                                            </li>
+                                            <li class="marl">
+                                                <div class="pic">
+                                                    <a href="#"><img src="/static/images/pc2.jpg"></a>
+                                                </div>
+                                            </li>
+                                            <li class="marl">
+                                                <div class="pic">
+                                                    <a href="#"><img src="/static/images/pc3.jpg"></a>
+                                                </div>
+                                            </li>
+                                            <li class="marl">
+                                                <div class="pic">
+                                                    <a href="#"><img src="/static/images/pc4.jpg"></a>
+                                                </div>
+                                            </li>
+                                            <li class="marl">
+                                                <div class="pic">
+                                                    <a href="#"><img src="/static/images/pc4.jpg"></a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                            jQuery(".inde_lb2").slide({mainCell:".bd1 ul",autoPlay:true,effect:"leftMarquee",vis:5,interTime:40,trigger:"click"});
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="cent5">
+                    <h6><p><a href="#">战略合作</a></p></h6>
+                    <div class="bd2">
+                        <ul>
+                            <li><a href="#"><img src="/static/images/fk1.png"></a></li>
+                            <li><a href="#"><img src="/static/images/fk2.png"></a></li>
+                            <li><a href="#"><img src="/static/images/fk3.png"></a></li>
+                            <li><a href="#"><img src="/static/images/fk4.png"></a></li>
+                            <li><a href="#"><img src="/static/images/fk5.png"></a></li>
+                            <li><a href="#"><img src="/static/images/fk6.png"></a></li>
+                            <li><a href="#"><img src="/static/images/fk7.png"></a></li>
+                            <li><a href="#"><img src="/static/images/fk8.png"></a></li>
+                            <li><a href="#"><img src="/static/images/fk9.png"></a></li>
+                            <li><a href="#"><img src="/static/images/fk10.png"></a></li>
+                        </ul>
+                    </div>
+                    <script type="text/javascript">
+                        jQuery(".cent5").slide({mainCell:".bd2 ul",autoPlay:true,effect:"leftMarquee",vis:5,interTime:40,trigger:"click"});
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="center2">
+            <div class="ju">
+                <ul>                                                                           
+                    <li><a href="#">首页<br/><font>home page</font></a></li>
+                    <li><a href="#">交易市场<br/><font>Trading market</font></a></li>
+                    <li><a href="#">信息披露<br/><font>information disclosure</font></a></li>
+                    <li><a href="#">商品目录<br/><font>Commodity catalogue</font></a></li>
+                    <li><a href="#">行业资讯<br/><font>Industry information</font></a></li>
+                    <li><a href="#">入市指南<br/><font>Guide to the market</font></a></li>
+                    <li><a href="#">相关下载<br/><font>Related Download</font></a></li>
+                    <li><a href="#">合作机构<br/><font>cooperation</font></a></li>
+                    <li><a href="#">联系我们<br/><font>contact us</font></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="foot_warp">
+        <div class="ju">
+            <div class="fot1">
+                <div class="flo w_l">
+                    <span><img src="/static/images/fwx.png"></span>
+                </div>
+                <div class="flowz w_l">
+                    <p>版权所有：Copyright©湖南华艺文化艺术品交易有限公司 [ 备案号：湘ICP备16001204号 ]</p>
+                    <p>投诉邮箱：complaint@hnhyjys.com 服务热线：400-0730-929</p>
+                    <p>地址：湖南省岳阳市巴陵东路富兴大厦 </p>
+                    <p>中华人民共和国增值电信业务经营许可证编号：湘B2-20160021</p>
+                    <p>技术支持：郑州大学计算机应用研究所</p>
+                    <p>本站内容仅供参考，非操作建议，请您自行决策交易 </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

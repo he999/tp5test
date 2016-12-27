@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>华艺</title>
+<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+<link rel="stylesheet" type="text/css" href="/static/css/common.css">
+<link rel="stylesheet" href="/static/css/main.css" />
+<script type="text/javascript" src="/static/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/static/js/index.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.SuperSlide.2.1.1.js"></script>
+<script src="/static/js/swiper.jquery.min.js"></script>
+<script>
+$(function() {
+    //alert($(window).height());
+    $('#ClickMe').click(function() {
+        $('#code').center();
+        $('#goodcover').show();
+        $('#code').fadeIn();
+        $("body").css({overflow:"hidden"});
+    });
+     $('#ClickMes').click(function() {
+        $('#code').center();
+        $('#goodcover').show();
+        $('#code').fadeIn();
+        $("body").css({overflow:"hidden"});
+    });
+    $('#closebt').click(function() {
+        $('#code').hide();
+        $('#goodcover').hide();
+        $("body").css({overflow:"visible"});
+
+    });
+    $('#goodcover').click(function() {
+        // $('#code').hide();
+        // $('#goodcover').hide();
+    });
+    /*var val=$(window).height();
+    var codeheight=$("#code").height();
+    var topheight=(val-codeheight)/2;
+    $('#code').css('top',topheight);*/
+    jQuery.fn.center = function(loaded) {
+        var obj = this;
+        body_width = parseInt($(window).width());
+        body_height = parseInt($(window).height());
+        block_width = parseInt(obj.width());
+        block_height = parseInt(obj.height());
+
+        left_position = parseInt((body_width / 2) - (block_width / 2) + $(window).scrollLeft());
+        if (body_width < block_width) {
+            left_position = 0 + $(window).scrollLeft();
+        };
+
+        top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
+        if (body_height < block_height) {
+            top_position = 0 + $(window).scrollTop();
+        };
+
+        if (!loaded) {
+
+            obj.css({
+                'position': 'absolute'
+            });
+            obj.css({
+                'top': ($(window).height() - $('#code').height()) * 0.5,
+                'left': left_position
+            });
+            $(window).bind('resize', function() {
+                obj.center(!loaded);
+            });
+            $(window).bind('scroll', function() {
+                obj.center(!loaded);
+            });
+
+        } else {
+            obj.stop();
+            obj.css({
+                'position': 'absolute'
+            });
+            obj.animate({
+                'top': top_position
+            }, 200, 'linear');
+        }
+    }
+
+})
+</script>
+<style type="text/css">
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+.pagination>li {
+    display: inline;
+}
+.pagination>li:first-child>span {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #f6c70c;
+    border-color: #f6c70c;
+}
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #666665;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin: 0 5px;
+}
+.all {
+    width: 1090px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.lmbt1 {
+    font-size: 30px;
+    font-weight: bold;
+    display: block;
+    height: 60px;
+    color: #646878;
+    border-right: 1px solid #646878;
+    margin-top: 25px;
+    line-height: 28px;
+    padding-right: 10px;
+    float: left;
+    text-align: left;
+}
+.lmbt2 {
+    font-size: 22px;
+    color: #646878;
+    float: left;
+    margin-left: 10px;
+    padding-top: 52px;
+    background: url(/static/images/jiantou.png) right 57px no-repeat;
+    padding-right: 30px;
+}
+
+.lmbt3 {
+    overflow: hidden;
+    height: auto;
+    width: auto;
+    margin-top: 69px;
+    float: right;
+}
+.lmbt3 li {
+    font-size: 16px;
+    color: #696969;
+    text-align: center;
+    height: 38px;
+    width: 96px;
+    display: block;
+    float: left;
+}
+.lmbt3 li a {
+    color: #696969;
+}
+.cl {
+    clear: both;
+}
+.arc_all {
+    background: #fff;
+    border: 1px solid #AAA9B8;
+    margin-bottom: 20px;
+}
+.Arc_head {
+    background: url(/static/images/xiantiao.png) no-repeat left bottom #ffffff;
+    margin: 0 auto;
+    height: 18px;
+    width: 1030px;
+    padding-top: 56px;
+}
+.Arc_head b {
+    color: #1A1D2B;
+    display: block;
+    width: auto;
+    margin-left: 30px;
+    line-height: 19px;
+    font-size: 18px;
+    background: #ffffff;
+    font-weight: normal;
+    float: left;
+    padding-right: 8px;
+}
+.list_lb {
+    width: 940px;
+    margin: 0 auto;
+}
+.list_lb li {
+    height: 100px;
+    padding-bottom: 10px;
+    width: 100%;
+    border-bottom: solid 1px #e2e2e2;
+    margin-top: 28px;
+    position: relative;
+    font-size: 16px;
+}
+.list_lb li a {
+    border-left: solid 2px #75719E;
+    display: block;
+    height: 100%;
+}
+.list_lb li h3 {
+    font-weight: bold;
+    color: #636363;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: normal;
+}
+.list_lb li div {
+    font-size: 13px;
+    width: 700px;
+    margin-left: 20px;
+    margin-top: 20px;
+    line-height: 24px;
+}
+.list_lb li p {
+    position: absolute;
+    margin-right: 15px;
+    top: 0px;
+    right: 0px;
+}
+</style>
+
+</head>
+
+<body>
+   <!--头部开始-->
+    <div class="toubu">
+        <div class="tou">
+            <div class="logo">
+              <img src="/static/images/logo.png"/>
+            </div>
+            <div class="huayi">
+              <img src="/static/images/huayiwenhua.png"/>
+            </div>
+             <div class="dianhua">
+              <img src="/static/images/dianhua.png"/>
+            </div>
+            <div class="youshang">
+            <div class="youdaohang">
+             <ul>
+                 <li><a href="http://www.hnhyjys.com">交易市场</a><span style="margin-left:10px;">|</span></li>
+                 <li><a href="http://www.hnhycam.com">网上商城</a><span style="margin-left:10px;">|</span></li>
+                 <li><a href="http://hua2.wiwibao.com/index.php/index/article/artlist/cid/61">联系我们</a></li>
+             </ul>
+         </div>
+            <div class="xinxi">
+              <ul>
+                <li id="ClickMe"><a href="#"><img src="/static/images/weixin.png"/></a></li>
+                <li id="ClickMes"><a href="#"><img src="/static/images/weibo.png"/></a></li>
+              </ul>
+            </div>
+           
+         </div>     
+         </div>
+
+        
+    </div> 
+    <div id="goodcover"></div>
+    
+<div id="code">
+  <div class="close1"><a href="javascript:void(0)" id="closebt"><img src="/static/images/close.gif"></a></div>
+  
+  <div class="code-img"> <img id="ewmsrc"  src="/static/images/erweima.png"></div>
+</div>  
+    <div class="clear"></div>
+     <!--导航开始-->
+    <div class="daohang">
+        <div class="daohangmingcheng">
+            <ul class="nav1">
+                <li class="li1"><a href="/">首        页</a></li>
+                {volist name="menu" id="vo"}
+                        <li class="li1"><span class="<?php if(isset($vo['down'])) echo 'span'; ?>"></span><a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/artlist/cid/{$vo.cateid} <?php } ?>" class="a1" >{$vo.catename}<br></a>
+                        <?php if (isset($vo['down'])) { ?>
+                            <ul class="nav_li2">
+                                <?php foreach($vo['down'] as $row) { ?>
+                                    <li><a href="<?php if ($row['link']) {echo $row['link'];}else{ ?>/index.php/index/article/artlist/cid/{$vo.cateid} <?php } ?>"style="color:#000;font-weight: none;">{$row.catename}</a></li>   
+                                <?php } ?>
+                            </ul>
+                        <?php } ?>
+                        </li>
+                    {/volist}
+            </ul>
+        </div>
+    </div>
+     
+    <!--导航结束-->
+    <div class="clear"></div>

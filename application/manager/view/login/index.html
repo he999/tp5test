@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+ <meta charset="UTF-8">
+<title>后台登录</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+<link rel="stylesheet" href="/static/css/amazeui.css"/>
+<style>
+.header {
+  text-align: center;
+  background: #0D91D2;
+}
+.header h1 {
+  margin-top: 30px;
+  font-weight: normal;
+  color: #fff;
+}
+.header p {
+    width: 200px;
+    height: 40px;
+    margin-left: 238px;
+    font-size: 17px;
+}
+#sub {
+    width: 200px;
+    height: 40px;
+    margin-left: 220px;
+    font-size: 17px; 
+    color: #fff;   
+}
+</style>
+ 
+</head>
+<body >
+<div class="header" style="margin-top: 0;height: 260px">
+  <div class="am-g" style="line-height: 20px;">
+    <h1 style="margin-bottom:140px"></h1>
+    <h1 style="font-size:58px;margin-top:55px;">后台登陆管理</h1>
+  </div>
+</div>
+<div class="am-g" style="margin-top:65px;">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered" style="width: 300px">
+    <form method="post" class="am-form" style="" action="">
+      <input style="border-radius:5px" type="text" name="username" id="email" value="" placeholder="账号:">
+      <br>
+      <input style="border-radius:5px" type="password" name="password" id="password" value="" placeholder="密码:">
+      <br>
+      <div class="am-cf">
+        <input type="submit" style="margin-left: 50px;width: 150px;border-radius:5px;background:#54C84D;" name="" value="登 录" class="btn-add am-btn  am-btn-sm am-fl" id="sub">
+      </div>
+   
+    </form>
+  </div>
+</div>
+ 
+</html>

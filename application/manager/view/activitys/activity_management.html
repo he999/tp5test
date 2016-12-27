@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+
+<title>后台管理系统</title>
+</head>
+<style>    
+    table th{
+        text-align: center;
+    }    
+</style>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit">
+            
+             <li  style="font-size: 20px;font-weight:600;"><a href='#'>活动管理 </a></li>
+             
+            </ul>
+            <p  style="font-size: 16px;font-weight:400;margin-left:20px;">本页是对第三方外链活动的管理，仅通过在链接跳转前的中转页面点击，<br/>完成对用户信息的收集和整理，不涉及活动的内容、过程及结果。 </p>         
+               <form name="from1"   method="get" action="" enctype="multipart/form-data" style="background-color: rgba(113, 22, 22, 0);">            
+            <input type="button" id="btnAdd" class="btn btn-add" style="background:#85c226;border:none;margin-top:-6px;"   value="+添加外链活动">
+            <span style="float:right;height:50px;margin-top:-15px;">
+            活动状态： 
+            <select class="form-control"  name="status"  style="width: 150px;resize: none;margin: 10px 0px;display:inline-block;height:30px;line-height:30px;">  
+               <option value="0" >全部</option>
+               <option value="1" >待开始</option>
+               <option value="2" >进行中</option>
+               <option value="3" >已结束</option>
+               <option value="4" >已关闭</option>            
+            </select>&nbsp;&nbsp; &nbsp;                               
+              <input type="submit" class="btn btn-search" style="border:none;width:100px;background:#85c226;height:30px;margin-top:-4px;"  value="查询">
+            </span>  
+            
+</br>
+     <table class="table table-hover table-bordered" style="border: 0;" >
+                <thead>
+                    <tr style="border-top:1px solid #ccc;background:#ececea;">
+                        <th align="center">编号</th>
+                        <th>活动名称</th>
+                        <th>起止时间</th>
+                        <th>参与人数</th>
+                        <th>点击次数</th>
+                        <th>活动状态</th>
+                        <th>操作</th>                                                     
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach($list as $k => $v){
+					?>
+                    <tbody>
+					
+                    <tr>
+                        <th align="center"><?php echo $v['id'];?></th>
+                        <th><?php echo $v['name'] ? $v['name'] : null;?></th>
+                        <th><?php echo $v['begin_time'] ? date('Y-m-d H:i',$v['begin_time']) : null;?><br/>
+                        	<?php echo $v['end_time'] ? date('Y-m-d H:i',$v['end_time']) : null;?>
+                        </th>
+                        <th><?php echo $v['join_num'] ? $v['join_num'] : 0;?></th>
+                        <th><?php echo $v['clicks'] ? $v['clicks'] : 0;?></th>
+                        <th><?php if($v['begin_time']>time()){echo "待开始";}
+								  if($v['begin_time']<time()&&$v['end_time']>time()&&$v['status']=='1'){echo "进行中";}
+								  if($v['begin_time']<time()&&$v['end_time']>time()&&$v['status']=='0'){echo "已关闭";}
+								  if($v['end_time']<time()){echo "已结束";}
+                        ?></th>
+                        <th>
+                        	<a href="javascript:;" value="点我" onclick=" prompt('活动网址','http://jiang.wiwibao.com/index.php/wap/index/activity?id='+<?php echo $v['id'];?>);" />查看链接</a>
+                            <a href="/index.php/manager/activitys/user_statis?id=<?php echo $v['id'];?>" style="cursor: pointer;text-decoration:none;">用户统计 </a>
+                            <a href="/index.php/manager/activitys/add_activities?id=<?php echo $v['id'];?>" style="cursor: pointer;text-decoration:none;">编辑 </a>
+                            <a href="/index.php/manager/activitys/del_activities?id=<?php echo $v['id'];?>" style="cursor: pointer;text-decoration:none;">删除 </a>
+                        </th>
+                    </tr>
+                   
+                     </tbody>
+                     <?php }?> 
+                     
+                     
+            </table>
+            <div style="float:right">{$list->render()}</div>
+ </form>
+ <table class="table"   >
+ <tr   ><td style="text-align: center;border-top: none;  "></td></tr>
+      </table>
+              <!-- page-content end -->
+   
+    <!-- main-content end -->
+</div> </div>
+<!-- main-container end --> </div>
+ 
+</body>
+<script type="text/javascript">
+$(function () {
+  
+     $("#btn").click(function(){
+ 
+   location.href = '/index.php/manager/activity/chargecom';
+  
+ });
+     $("#btnAdd").click(function(){
+ 
+   location.href = '/index.php/manager/activitys/add_activities';
+  
+ });
+});
+ 
+function copyUrl(){
+	
+}
+</script>
+</html>

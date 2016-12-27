@@ -1,0 +1,41 @@
+{include file="common:head" /}
+     <!--子栏目-->
+            <div class="subtopic">
+                <div class="all">
+                     <div class="lmbt1">{$english_name}</div>
+                     <div class="lmbt2">{$cate_info.catename} </div>
+                     <div class="lmbt3">
+                        <ul>
+                            <?php foreach($other_cates as $row) { ?>
+                                <li><a href="/index.php/index/article/artlist/cid/{$row.cateid}">{$row.catename}</a> </li>
+                            <?php } ?>
+                            </volist>
+                        </ul>
+                        <div class="cl"></div>
+                     </div>
+                     <div class="cl"></div>
+                </div>
+            </div>
+             <!--文章内容-->
+            <div class="news">
+<div class="all" style="background: #fff;border: 1px solid #AAA9B8;margin-bottom: 20px;">
+<div class="Arc_head"><b class="b">{$cate_info.catename}</b><div class="cl"></div></div>
+
+<div class="list_lb">
+<ul>
+<?php foreach($artlist as $row) {?>
+<li><a href="/index.php/index/article/content/aid/{$row.artid}"><h3>{$row.title}</h3><div>{$row.intro}...</div><p> <?=date("Y-m-d", $row['create_timestamp']);?></p></a></li>
+<?php } ?>
+</ul>
+<div class="cl"></div>
+</div>
+<center>
+{$artlist->render()}
+</center>
+</div>
+</div>
+       
+        </div>
+    <!---->
+    <!---->
+    {include file="common:foot" /}

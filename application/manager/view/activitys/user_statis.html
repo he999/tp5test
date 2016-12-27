@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- datetimepicker css JS 文件 -->
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+ 
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content" >
+          <ul class="nav nav-tabs nav_tit">
+          <li  style="font-size: 20px;font-weight:600;" ><a href='#'>用户统计&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; </a></li>                                     
+          </ul>
+          <p style="display:inline-block;">合计：共有<?php echo $count ? $count : 0;?>人次参与本次活动</p>  
+          <input  type="button" id="btn" class="btn btn-add" style="background:#e87717;float:right;margin-bottom:15px;"   value="导出列表记录"  onclick="exportdata()">
+                 
+     <table class="table table-hover table-bordered" style="border: none;" >
+                <thead>
+                    <tr style="border-top:1px solid #ccc;background:#ececea;">
+                      <th align="center"> </th>
+                      <th align="center">用户编号</th>
+                      <th>微信头像</th>
+                      <th>微信昵称</th>
+                      <th>性别</th>
+                      <th>用户电话</th>
+                      <th>注册状态</th>
+                      <th>活动时间</th>
+                      <!-- <th>参与次数</th> -->
+                      <th>获得积分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <form name="from1" id='form1'  method="post" action="" enctype="multipart/form-data" >
+                <?php foreach($list as $k => $v){
+				?>       
+                  <tr>
+                    <td>
+                     <input type="checkbox" form="form1"  value="<?php echo $v['uid'];?>"  name="artid[]" style="width: 20px;height: 15px">
+                    </td>
+                    <td align="center"><?php echo $v['uid'];?></td>
+                    <th><img src="<?php echo $v['face'];?>" style ="width:60px;height:60px;"></th>
+                    <th><?php echo $v['nickname'];?></th>
+                    <th><?php echo $v['sex'] ? '男' : '女';?></th>
+                    <th><?php echo $v['mobile'];?></th>
+                    <th><?php echo $v['register_time'] ? '已注册' : '未注册';?></th>
+                    <td><?php echo date('Y-m-d H:i',$v['join_time']);?></td> 
+                    <!-- <td></td> --> 
+                    <td><?php echo $v['point'];?></td>                     
+                    </tr>
+                 <?php }?>            
+                    
+                
+                
+
+                
+            </table>
+            <input type="checkbox" name="b" style="width: 20px;height: 15px;" >
+            <div  style="text-align: left;border:none;background-color: #82c426;" onclick="diag()"  class="btn btn-default"> 批量积分
+                    <input name="point" type="text" value="" id="point" hidden >
+                </form>    
+            </div>
+            <input type="submit"  id="myform" hidden  formaction="/index.php/manager/activitys/user_statis?id=<?php echo $_GET['id'];?>" form="form1" formmethod="post"  onclick="" value=""    >
+            {$list->render()}
+            <table class="table"   >
+ <tr   ><td style="text-align: center;border-top: none;  "></td></tr>
+      </table>
+        </div>
+           
+        <!-- page-content end -->
+    </div>
+    <!-- main-content end -->
+</div>
+<!-- main-container end -->
+</body>
+<script type="text/javascript">
+ 
+ 
+$("input[name='b']").click(function(){
+//判断当前点击的复选框处于什么状态$(this).is(":checked") 返回的是布尔类型
+if($(this).is(":checked")){
+$("input[name='artid[]']").prop("checked",true);
+}else{
+$("input[name='artid[]']").prop("checked",false);
+}
+});
+
+function exportdata(){  
+    window.location.href="/index.php/manager/activitys/join_activities_excel?id=<?php echo $_GET['id'];?>";   
+  }
+
+function diag()
+{
+    var str=prompt("向选择用户发放积分","");
+    if(str)
+    {
+    	//$('#point').show();
+    	$('#point').attr("value",str);
+    	document.getElementById("myform").click();
+    	
+    }
+}
+</script>
+</html>

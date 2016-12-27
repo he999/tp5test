@@ -1,0 +1,302 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="tpshop" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>商品详情</title>
+<meta http-equiv="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/mui.min.css"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/goods.css"/>
+<link rel="stylesheet" type="text/css" href="/static/waps/css/index.css"/>
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script type="text/javascript" src="/static/waps/js/touchslider.dev.js"></script>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/common.js"></script>
+<style type="text/css">
+.same{
+     float: left; display: block; width: 100%;  
+}
+.pinglen{width: 100%;clear:both; margin-bottom:10px;}
+.pinglen p {line-height:20px; font-size:14px; color:#808080; overflow:hidden;}
+.specs{ width:100%;clear:both; padding-left:20px;color:#666666 }
+ul.spec{ width:100%; height:auto; }
+ul.spec li{ width:auto; margin:10px 15px 1px 0px; padding:0 10px; background:#DCDCDC; line-height:30px; height:30px; display:block; float:left;  }
+ul.spec li.on{background:#FF4500; }
+ul.spec li.on a{color:#fff;}
+hr{margin:0px;padding:0px; border-top:1px solid #eeeeee; }
+</style>
+</head>
+<body>
+<div class="main">
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+            <div class="h-mid">
+                <ul style="width:100%">
+                    <li style="width:50%">
+                        <a href="javascript:;" style='color:#fff;' class="tab_head on"   id="goods_ka1" onClick="setGoodsTab('goods_ka',1,2)">商品</a>
+                    </li>
+                    <li style="width:50%">
+                        <a href="javascript:;" style='color:#fff;' class="tab_head" id="goods_ka2" onClick="setGoodsTab('goods_ka',2,2)">详情</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="h-right">
+                <aside class="top_bar">
+                    <a href="/index.php/wap/cart/index" class="user_btn"></a> 
+                </aside>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="/static/waps/js/mobile.js" ></script>
+
+<div class="main" id="user_goods_ka_1" style="display:block;">
+<div class="banner">
+    <div id="slider" class="slider" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
+        <ul id="sliderlist" class="sliderlist" style="position: relative; overflow: hidden; transition: left 600ms ease; -webkit-transition: left 600ms ease;">
+             {volist  name="goods_images" id="pic"}
+            <li class="same">
+                <span><a  href="javascript:void(0)"><img title="" width="100%" src="{$pic.image_url}"> </a></span>
+            </li>
+            {/volist}
+        </ul>
+        <div id="pagenavi">
+            {foreach  name="goods_images" item="pic" key="k"}
+                 <a href="javascript:void(0);" {if condition="$k eq 0"} class="active" {/if}></a>
+            {/foreach}
+        </div>
+    </div>
+</div>
+<div class="s_bottom"></div>
+<script type="text/javascript">$(function(){
+	$("div.module_special .wrap .major ul.list li:last-child").addClass("remove_bottom_line");
+});
+var active=0,
+	as=document.getElementById('pagenavi').getElementsByTagName('a');
+	
+for(var i=0;i<as.length;i++){
+	(function(){
+		var j=i;
+		as[i].onclick=function(){
+			t2.slide(j);
+			return false;
+		}
+	})();
+}
+var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function(index){
+		as[active].className='';
+		active=index;
+		as[active].className='active';
+	}});
+</script>
+
+	  <form name="buy_goods_form" method="post" id="buy_goods_form" >
+      <div class="product_info">
+        <div class="info_dottm">
+          <h3 class="name" style="width:100%;">{$goods_info.goods_name}</h3>
+        </div>
+        <dl class="goods_price">
+          <dt> <span id="goods_price">￥{$goods_specs.0.price}元</span>
+          <span style="margin-left: 20px;font-size: 16px;color: #666;"> /{$goods_info.weight}克</span>
+          <span style="float:right;color:#999;font-size:15px;margin-right: 20px;">销量:
+          <span style="float:right;font-size:15px;">{$goods_info.sales_sum}本</span></span>
+          </dt>
+        </dl>
+        <dl class="goods_price">
+          <dt>
+          <span style="color:#999; font-size:15px;">市场价：</span>
+          <font style='font-size:14px;color:#999;'>￥{$goods_info.market_price}</font>
+          </dt>
+        </dl>
+      </div> 
+      <input type="hidden" id="specid" value='{$goods_specs.0.spec_id}'>
+      <input type="hidden" id="stock" value='{$goods_specs.0.stock}'>
+      <div><span style="color:#999;font-size:16px;margin-left:10px;">选择商品属性</span></div>
+      {if $goods_specs.0.spec_1}
+      <div class='specs'>{$goods_info.spec1_name}</div>
+      <hr>
+      <ul class='spec' style="padding-left:20px;">
+      {volist name='goods_specs' id='s'}
+        <li class="sp_{$s.spec_id} spn <?php if($i == 1){echo ' on';}?>"><a href='javascript:void(0);' onClick="specs({$s.spec_id},{$s.price},{$s.stock});">{$s.spec_1}</a></li>
+      {/volist}
+      </ul>
+      <div class='specs' style="padding-top:12px;">{$goods_info.spec2_name}</div>
+      <hr>
+      <ul class='spec' style="padding-left:20px;">
+      {volist name='goods_specs' id='s'}
+        <li class="sp_{$s.spec_id} spn <?php if($i == 1){echo ' on';}?>"><a href='javascript:void(0);' onClick="specs({$s.spec_id},{$s.price},{$s.stock});">{$s.spec_2}</a></li>
+      {/volist}
+      </ul>
+      <div class='specs' style="padding-top:12px;">{$goods_info.spec3_name}</div>
+      <hr>
+      <ul class='spec' style="padding-left:20px;">
+      {volist name='goods_specs' id='s'}
+        <li class="sp_{$s.spec_id} spn <?php if($i == 1){echo ' on';}?>"><a href='javascript:void(0);' onClick="specs({$s.spec_id},{$s.price},{$s.stock});">{$s.spec_3}</a></li>
+      {/volist}
+      </ul>
+{/if}
+      <section id="search_ka">
+        <div class="ui-sx bian1">
+          <div class="subNavBox">
+            <div class="subNav on"><strong>购买数量</strong></div>
+            <ul class="navContent" style="display: block;">
+              <li style=" border-bottom:1px solid #eeeeee">
+                <div class="item1"> 
+                  <span class="ui-number">
+                  <button type="button" class="decrease" onClick="goods_cut();">-</button>
+                  <input type="text" class="num" id="number" name="goods_num" {if($goods_specs[0]['stock'] == 0)}value="0"{else}value="1"{/if} min="1" max="1000" readonly="true" />
+                  <button type="button" class="increase" onClick="goods_add();">+</button>
+                  </span> </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+<div style="padding-left:10px;">
+  <div>用户评论</div>
+<?php if($content == ''){ ?>
+  <div class="pinglen">
+    <div>
+      <img src="/static/waps/images/user68.jpg" style="width:80px;height:80px;float:left; margin-right: 10px; ">
+    </div>
+    <p>匿名</p>
+    <p>评论时间</p>
+    <p style="height:60px;">还没人评论，抢购本书评论吧！</p>
+  </div>
+<?php }else{ ?>
+{volist name='content' id='t'}
+  <div class="pinglen">
+    <div>
+      <img src="{$t.face}" style="width:80px;height:80px;float:left;margin-right: 10px; ">
+    </div>
+    <p><?php if($t['is_hide'] == 0){echo $t['nickname'];}else{echo '匿名';}?></p>
+    <p>评论时间:<?php echo date('Y-m-d H:i',$t['time']) ?></p>
+    <p style="height:60px;">{$t.content}</p>
+  </div>
+{/volist}
+<?php } ?>
+</div>
+<script type="text/javascript">
+
+function specs(spid,price,stock){
+  $('.spn').removeClass('on');
+  $('.sp_'+spid).addClass('on');
+  $('#specid').val(''+spid+'');
+  $('#stock').val(''+stock+'');
+  $('#goods_price').text(price.toFixed(2));
+  if(stock == 0){
+    mui.toast('选择的商品没有库存了');
+    document.getElementById('number').value=0;
+  }else{
+    document.getElementById('number').value=1;
+  }
+  
+}
+function goods_cut(){
+	var num_val=document.getElementById('number');  
+	var new_num=num_val.value;  
+	var Num = parseInt(new_num);  
+	if(Num>1)Num=Num-1;  
+	num_val.value=Num;
+}  
+function goods_add(){
+	var num_val=document.getElementById('number'); 
+	var new_num=num_val.value;  
+	var Num = parseInt(new_num);
+  var nums = $('#stock').val();
+	Num=Num+1;  
+  if (Num >nums) {
+    mui.toast('选择商品数量已经超过库存量');
+    num_val.value=nums; 
+  }
+  else{
+    num_val.value=Num; 
+  } 
+}
+</script>
+      <div style=" height:8px; background:#eeeeee; margin-top:-1px;"></div>
+</form>
+</div>
+    <div class="main" id="user_goods_ka_2" style="display:none">
+        <div class="product_main" style=" margin-top:40px;"> <!-- 产品图片 -->
+             <div class="product_images product_desc" id="product_desc"> 
+               {volist  name="goods_images" id="pic"}
+               <p><img src="{$pic.image_url}" style="float:none;" title="{$pic.image_url}"/></p>
+               {/volist}
+            </div>
+        </div>
+        <section class="index_floor">
+          <h2 style=" border-bottom:1px solid #ddd "> <span></span> 商品信息 </h2>
+            <ul class="xiangq">
+              {$goods_info.content}
+            </ul>
+        </section>
+    </div>
+</div>
+<a href="javascript:goTop();" class="gotop"><img src="/static/waps/images/topup.png"></a>
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script> 
+<div style=" height:60px;"></div>
+<div class="footer_nav">
+    <ul>
+        <li class="bian">
+            <a href="/index.php/wap/index/index">
+                 <em class="goods_nav1"></em>
+                 <span>首页</span>
+            </a>
+        </li>
+    </ul>
+    <dl>
+        <dd class="flow">
+            <a style="display:block;" href="javascript:void(0);" onClick="AjaxAddCart(0);">加入购物车</a>
+        </dd>
+        <dd class="goumai">
+            <a style="display:block;" href="javascript:void(0);" onClick="AjaxAddCart(1);">去结算</a> 
+        </dd>
+    </dl>
+</div>
+</body>
+<script type="text/javascript">
+//ajax加入购物车
+function  AjaxAddCart(ele){
+    var num_val = document.getElementById('number');  
+    var new_num = num_val.value;
+    var urls = "/index.php/wap/goods/createorder";
+    var id = $('#specid').val();
+    if(new_num == 0 ){
+       mui.toast('抱歉,选择的商品没有库存了');
+       return;
+    }
+    $.ajax({
+        type : "POST",
+        url:urls,
+        data :{spec_id:id,goods_num:new_num},
+        dataType:'json',                       
+        success: function(data){    
+            // 加入购物车后再跳转到 购物车页面
+           if (data.error_code == 0) {
+                if (ele == 1) {
+                    location.href = "/index.php/wap/cash/createorderlist";
+                }
+                else{
+                   mui.toast('购物车加入成功');
+                   setTimeout("window.location.href = '/index.php/wap/cart/index'",1000);
+                }
+           }
+           else{
+            // alert(data.error_msg);
+               mui.toast(data.error_msg);
+           }
+        }
+    });  
+}
+</script>
+</html>

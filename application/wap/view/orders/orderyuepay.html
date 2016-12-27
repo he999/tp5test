@@ -1,0 +1,110 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="applicable-device" content="mobile">
+<title>订单支付</title>
+<meta http-equiv="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/user.css">
+<link rel="stylesheet" href="/static/waps/css/mui.min.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
+<script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+</head>
+<body>
+
+<header>
+<div class="tab_nav">
+  <div class="header">
+    <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+    <div class="h-mid">确定支付</div>
+  </div>
+</div>
+</header>
+<script type="text/javascript" src="/static/waps/js/mobile.js" ></script>
+ 
+<div id="tbh5v0">						
+	<div class="order">
+
+		<div class="ord_list1">
+			<h2>订单编号:{$data.order_sn}</h2>
+{volist name="list" id="g" }  
+		    <div class="order_list">
+          <dl>
+            <dt><img src="{$g.cover_img}"></dt>
+            <dd class="name" class="pice" style=" width:55%;">
+                <strong>{$g.goods_name}</strong>
+              </dd>
+            <dd class="pice" style=" font-size:13px; color:#F60; width:25%;">￥{$g.shop_price}元
+            <em>x{$g.buy_num}</em></dd>
+            <dd class="pice" style=" font-size:13px; color:#F60; width:25%;"> <em></em></dd>
+          </dl>
+			  </div>
+{/volist}
+		</div>
+       
+		<div style=" height:50px;"></div>
+<div class="jiage">
+<p>下单时间&nbsp;:&nbsp;<span class="price" style="color: #bbb;">
+{$data.create_time|date ="Y-m-d H:i",###}</span></p>
+<p>商品总额&nbsp;:&nbsp;<span class="price">￥{$data.order_amount}元</span></p>
+<p>邮费总额&nbsp;:&nbsp;<span class="price">￥{$data.shipping_price}元</span></p>         
+<p>应付款金额&nbsp;:&nbsp;<span class="price1">￥{$data.order_amount+$data.shipping_price}元</span></p>				
+</div> 
+		<div class="detail_dowm">
+			<div class="anniu1">
+        {if condition="$data.order_status eq 0"}
+          <a onClick="cancelll()" class="on_comment" id="confi" style="background-color: #E24615; color:#fff;width:100%;">确定支付</a> 
+        {/if}
+      </div> 
+		</div>
+	</div>		
+</div>   
+<script language="javascript">
+var key = 0;
+function cancelll(){
+    if (key == 0 ) {
+      mui.confirm('是否确支付', function(e) {
+      if (e.index == 1) {
+        $('#confi').text('支付中，请稍等');
+         AjaxPay();
+      }
+    });
+      key++;
+    }else{
+      return;
+    }
+}
+function AjaxPay(){    
+    var order_id = "<?php echo $data['order_id'];?>";
+    $.ajax({
+        type : "POST",
+        url:"/index.php/wap/orders/ajaxyuepay",
+        data :{order_id:order_id},
+        dataType:'json',                       
+        success: function(data){    
+           if (data.error_code == 0) {
+                mui.toast('支付成功');
+                setTimeout("window.location.href = '/index.php/wap/orders/orderpreparelist'",100);
+           }
+           else{
+               mui.alert(data.error_msg);
+               setTimeout("window.location.href = '/index.php/wap/orders/orderpreparelist'",1000);
+           }
+        }
+    });  
+}
+</script>
+</body>
+
+</html>

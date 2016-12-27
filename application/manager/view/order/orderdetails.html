@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content">
+            <ul class="nav nav-tabs nav_tit tou">
+            
+                 <a href="#" style="font-size: 20px;font-weight:600;">订单详情列表</a>
+
+            </ul>     
+            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%">
+                  基本信息
+            </ul>
+            <ul style="float:left;width:20%;text-align:right">
+                <li>订单号:</li>
+                <li>购货人:</li>
+                <li>支付方式:</li>
+                <li>电子邮件:</li>
+                <li>邮费:</li>
+            </ul>
+            <ul style="float:left;width:30%;text-align:left">
+                <li>{$data.order_sn}</li>
+                <li>{$data.nickname}</li>
+                <li>{$data.pay_name}</li>
+                <li>{$data.pay_name}</li>
+                <li>{$data.shipping_price}</li>
+            </ul>
+            <ul style="float:left;width:20%;text-align:right">
+                <li>订单状态:</li>
+                <li>下单时间:</li>
+                <li>付款时间:</li>
+                <li>发货时间:</li>
+                <li>商品总价:</li>
+            </ul>
+            <ul style="float:left;width:30%;text-align:left">
+                <li>{$status[$data.order_status]}</li>
+                <li>{$data.create_time|date = 'Y-m-d H:i:s',###}</li>
+                <li>{if($data.pay_time != 0)}{$data.pay_time|date = 'Y-m-d H:i:s',###}{else}---{/if}</li>
+                <li>{if($data.shipping_time != 0)}{$data.shipping_time|date = 'Y-m-d H:i:s',###}{else}---{/if}</li>
+                <li>{$data.order_amount}</li>
+            </ul>
+            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%">
+                  收货人信息
+            </ul>
+            <ul style="float:left;width:20%;text-align:right">
+                <li>收货人:</li>
+                <li>购货地址:</li>
+                <li>电话|手机:</li>
+            </ul>
+            <ul style="float:left;width:30%;text-align:left">
+                <li><span style="color:red">{$data.consignee}</span></li>
+                <li>{$distr}</li>
+                <li>{$data.phone}</li>
+            </ul>
+            <ul style="float:left;width:20%;text-align:right">
+                <li>配送方式:</li>
+                <li>邮箱:</li>
+            </ul>
+            <ul style="float:left;width:30%;text-align:left">
+                <li>{$data.shipping_name}</li>
+                <li>{$data.email}</li>
+            </ul>
+            <ul style="clear:both"></ul>
+            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%">
+                 商品信息
+            </ul>
+            <ul  style="weight:100%; height:20px;">
+                <li style="float:left;width:17%">商品条形码</li>
+                <li style="float:left;width:17%">商品名称[品牌]</li>
+                <li style="float:left;width:11%">规格</li>
+                <li style="float:left;width:11%">单位</li>
+                <li style="float:left;width:11%">数量</li>
+                <li style="float:left;width:11%">单价</li>
+                <li style="float:left;width:11%">金额</li>
+                <li style="float:left;width:11%"></li>
+                
+            </ul>
+            {volist name='list' id='t'}
+            <ul  style="display:block; weight:100%; height:40px;">
+                <li style="float:left;width:17%">{$t.goods_sn}</li>
+                <li style="float:left;width:17%">{$t.goods_name}</li>
+                <li style="float:left;width:11%">{$t.spec_value}</li>
+                <li style="float:left;width:11%">本</li>
+                <li style="float:left;width:11%">{$t.buy_num}</li>
+                <li style="float:left;width:11%">{$t.shop_price}</li>
+                <li style="float:left;width:11%">{$t.buy_num*$t.shop_price}</li>
+                <li style="float:left;width:11%"></li>
+            </ul>
+            {/volist}
+            <ul style="float:right;margin-right:4%">
+                总价:{$data.order_amount}
+            </ul>
+            <ul style="clear:both"></ul>
+            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%">
+                 操作信息
+            </ul>
+<form action="" method="post" name='myform'>
+            <ul style="margin-top:21px">
+                 <li style="float:left;margin-right:50px">操作备注:</li>
+                 <li style=""><textarea id="content" name="content" style="width:80%;height:100px"></textarea></li>
+                 <li id="con"></li>
+            </ul>
+            <ul style="margin-top:21px">
+                 <li style="float:left;margin-right:50px">当前可执行操作:</li>
+                 <li style="">
+                 <input type="hidden" id="cao" name='order_status' value="{$order}">
+                <?php for($i=$data['order_status']+1;$i<=4;$i+=1){ ?>
+                    <input type="button" onclick="chesubmit({$i})" name="operation" value="{$caozuo[$i]}"/>
+                <?php } ?>                
+                 </li>
+            </ul>
+</form>
+            <ul  style="">
+                <li style="float:left;width:15%">操作者:</li>
+                <li style="float:left;width:25%">操作时间:</li>
+                <li style="float:left;width:15%">操作动作:</li>
+                <li style="float:left;width:45%">备注:</li>
+            </ul>
+            {volist name='tion' id='t'}
+            <ul  style="">
+                <li style="float:left;width:15%">{$t.admin}</li>
+                <li style="float:left;width:25%">{$t.time|date = 'Y-m-d H:i:s',###}</li>
+                <li style="float:left;width:15%">{$t.operation}</li>
+                <li style="float:left;width:45%">{$t.content}</li>
+            </ul>
+            {/volist} 
+</div> </div>
+<!-- main-container end --> </div>
+
+</body>
+
+
+<script type="text/javascript">
+function chesubmit(cao){
+    var content = myform.content.value;
+    $('#cao').val(''+cao+'');
+    if (content == '') {
+        document.getElementById('con').innerHTML="<font size=2 color=red>不能为空，请输入6-100个字符</font>";
+        return;
+    }
+    myform.submit();
+}
+
+$('#create_timestamp').datetimepicker({
+  minView: "month",
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd'
+});
+</script>
+</html>    

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- datetimepicker css JS 文件 -->
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+ 
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <!-- breadcrumbs begin -->
+        <div class="breadcrumbs">  
+        </div>
+        <!-- breadcrumbs end -->
+        <!-- page-content begin -->
+        <div class="page-content" id="content" >
+              <ul class="nav nav-tabs nav_tit">
+          
+             <li class="active"><a href='#'>文章列表</a></li>
+            
+             
+            
+            </ul>  
+
+                  <form name="from1" id='form1' class="well form-search" method="get" action="/index.php/manager/index/article_list" enctype="multipart/form-data" style="background-color: rgba(113, 22, 22, 0);">
+         
+             
+    栏目分类：  <select name="cateid"  style="width: 200px;height: 26px"   > 
+     <option value="">全部分类</option> 
+                   {volist name="info" id="i"}   
+      <option  value="{$i.cateid}" <?php if ($i['cateid'] == $cateid) echo "selected";?> >{$i.prefix}{$i.catename}</option>
+          {/volist}
+    </select>
+            关键词： <input type="text"  name="title"  value="{$title}" style="width: 200px;"   >
+           &nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp; 
+            &nbsp;&nbsp;&nbsp;&nbsp; 
+            
+            <input type="submit" class="btn btn-primary"   value="查询">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            
+              <input type="button" id="btn" class="btn btn-primary" style="background-color:#ff8000;border:none;" value="添加文章" onclick="window.location.href='article_add'"   >
+            </form> 
+     <table class="table table-hover table-bordered" style="border: none;" >
+                <thead>
+                    <tr style="border-top:1px solid #ccc">
+                     <th align="center"> </th>
+                        <th align="center">编号</th>
+                      <th>文章标题</th>
+                        <th>所属栏目</th>
+                        <th>发布时间</th>
+                        <th>作者</th>
+                         <th >状态</th>
+                         <th >操作</th>
+                    </tr>
+                </thead>
+                <tbody>       
+                <?php foreach($artlist as $i) { ?>
+                    <tr><td>
+                     <input type="checkbox" form="form1"  value="{$i.artid}"  name="artid[]" style="width: 20px;height: 20px">
+                  </td>
+                        <td align="center">{$i.artid}</td>
+                         <th>{$i.title}</th>
+                        <th>{$i.catename}</th>
+                         <th>
+                              {gt name="i.create_timestamp" value="0"}
+                   {$i.create_timestamp|default=time()|date='Y-m-d',###}  
+                {else/}
+                     
+                  {/gt} 
+                          
+                </th>
+                        <td>{$i.author}</td> 
+                        <td>
+                 
+                           {eq name="i.status" value="audit"}
+                          启用
+                          
+                      
+                {else/}
+                    禁用
+                  {/eq} 
+
+                   </td> 
+                   <td> 
+                   
+                     <a onclick="jsConfirm('确定要修改吗？', '/index.php/manager/index/article_upd/artid/{$i.artid}');" style="cursor: pointer;"> 修改 </a>&nbsp;&nbsp;&nbsp;  
+                     <a onclick="jsConfirm('确定要删除吗？','/index.php/manager/index/article_del/artid/{$i.artid}');" style="cursor: pointer;"> 删除 </a>
+                  
+                  
+                   </td>
+                      
+                    </tr>            
+                    <?php } ?>
+                    <tr><td colspan="8" style="text-align: left;border:none;background-color: #fff;"> <input type="checkbox" name="b" style="width: 20px;height: 20px">全选
+
+                      <input type="submit"  formaction="/index.php/manager/index/article_batch_del" form="form1" formmethod="post" class="btn btn-default" onclick="if (confirm('确定要批量删除吗？')) return true; else return false;" value="删除"    >
+
+                        <input type="submit"  formaction="/index.php/manager/index/article_batch_invalid" form="form1" formmethod="post" class="btn btn-default" onclick="if (confirm('确定要批量禁用吗？')) return true; else return false;" value="禁用"    >
+
+                        <input type="submit"  formaction="/index.php/manager/index/article_batch_audit"  form="form1" formmethod="post" class="btn btn-default" onclick="if (confirm('确定要批量启用吗？')) return true; else return false;" value="启用"    >
+
+                </td></tr>  
+                    <tr><td colspan="8" align="center" style="border:none;background-color: #fff;">{$artlist->render()} </td></tr> 
+
+                    <tbody>
+                 </tbody>
+            </table>
+            
+        </div>
+           
+        <!-- page-content end -->
+    </div>
+    <!-- main-content end -->
+</div>
+<!-- main-container end -->
+</body>
+<script type="text/javascript">
+ 
+ 
+$("input[name='b']").click(function(){
+//判断当前点击的复选框处于什么状态$(this).is(":checked") 返回的是布尔类型
+if($(this).is(":checked")){
+$("input[name='artid[]']").prop("checked",true);
+}else{
+$("input[name='artid[]']").prop("checked",false);
+}
+});
+
+</script>
+</html>

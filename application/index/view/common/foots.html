@@ -1,0 +1,33 @@
+        <div class="center2">
+            <div class="ju">
+                <ul>                                                                           
+                    <li><a href="/">首页<br/><font>home page</font></a></li>
+                    {volist name="menu" id="vo"}
+                    <li><a href="<?php if ($vo['link']) {echo $vo['link'];}else{ ?>/index.php/index/article/artlist/cid/{$vo.cateid} <?php } ?>">{$vo.catename}<br/><font>{$vo.english_name}</font></a></li>
+                    {/volist}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="foot_warp">
+        <div class="ju">
+            <div class="fot1">
+                <div class="flo w_l">
+                    <span><img src="/static/images/fwx.png"></span>
+                </div>
+                <div class="flowz w_l">
+                    <p>版权所有：Copyright©{$ar.company_name} [ 备案号：{$ar.record_num} ]</p>
+                    <p>投诉邮箱：{$ar.email_address} 服务热线：{$ar.phone_number}</p>
+                    <p>地址：{$ar.company_address} </p>
+                    <p>中华人民共和国增值电信业务经营许可证编号：湘B2-20160021</p>
+                    <p>技术支持：郑州大学计算机应用研究所</p>
+                    <p>本站内容仅供参考，非操作建议，请您自行决策交易 </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
