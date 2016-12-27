@@ -15,7 +15,7 @@ class Coms extends Model
     protected $table = 'ys_coms_info';
 
     /**
-     * add 
+     * add 增加一个公司
      * @karl
      * @DateTime 2016-07-31T07:38:20+0800
      * @param    array                   $data 输入数据
@@ -126,5 +126,29 @@ class Coms extends Model
             $result['error_msg'] = '没有得到com_info信息';
         }
         return $out_array;
+    }
+
+    /**
+     * getInfos 得到返佣比例信息 ys_rebate
+     * @
+     * @DateTime 2016-07-31T07:38:20+0800
+     * @param    int                      $id id
+     * @return   array                    [error_code, error_msg, data=> [] ]
+     */
+    static public function getRebateInfos($id)
+    {
+
+    }
+
+    /**
+     * getInfos 设置返佣比例信息 ys_rebate
+     * @
+     * @DateTime 2016-07-31T07:38:20+0800
+     * @param    array                      $data [rebate_rate_lv1=> ,....]
+     * @return   array                    [error_code, error_msg, data=> [] ]
+     */
+    static public function setRebateInfos()
+    {
+
     }
 }

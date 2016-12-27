@@ -35,8 +35,7 @@ class UsersMoney extends Model
                 $income += $v['income'];
                 $expense += $v['expense'];
             }
-            $balance = $income-$expense;
-           $balance = sprintf("%.2f", $balance);
+            $balance = sprintf("%.2f",$income - $expense);
             Db::name('users_customers')->where(['uid' => $uid])->update(['balance'=>$balance]);
             $result['error_code'] = 0;
             $result['error_msg'] = '';
@@ -99,6 +98,108 @@ class UsersMoney extends Model
             $result['error_msg'] = '添加失败';
         }
         return $result;
+    }
+
+    /**
+     * listRebate 返佣列表 ys_users_money_rebate
+     * @xiao
+     * @param    array                   $num 每页记录
+     * @param    array                   $data 条件
+     * @param    array                   $url 参数 paginate()
+     * @return   array              [error_code, error_msg,data=>[]]
+     */
+    static public function listRebate($num,$data = '',$url = [])
+    {  
+
+    }
+
+    /**
+     * delRebate 删除返佣记录
+     * @xiao
+     * @param    array                   $id 
+     * @return   array              [error_code, error_msg]
+     */
+    static public function delRebate($id)
+    {  
+
+    }
+    
+    /**
+     * [countBalance 计算返佣] ys_users_money_rebate
+     * 用户账户增加资金的总额减去减少的总额
+     * @xiao
+     * @DateTime 2016-11-27T21:24:15+0800
+     * @param    int                   $uid 用户uid
+     * @return   array     [error_code, error_msg, balance]
+     */
+    static public function countRebate($uid)
+    {  
+
+    }
+
+    /**
+     * [incomeAdd 增加用户返佣金收入记录]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $uid  
+     * @param    array                 $data ['des' => , 'type' => , `income` => , `order_id` => ]
+     * @return   array     [error_code, error_msg, balance]
+     */
+    static public function incomeRebateAdd($data)
+    {
+
+    }
+
+    /**
+     * [expenseAdd 增加用户返佣金支出记录]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $uid  
+     * @param    array                 $data ['des' => , 'type' => , `income` => , `order_id` => ]
+     * @return   array     [error_code, error_msg, balance]
+     */
+    static public function expenseRebateAdd($data)
+    {
+
+    }
+
+    /**
+     * [countBalance 计算财富券] ys_users_money_voucher
+     * 用户账户增加资金的总额减去减少的总额
+     * @xiao
+     * @DateTime 2016-11-27T21:24:15+0800
+     * @param    int                   $uid 用户uid
+     * @return   array     [error_code, error_msg, balance]
+     */
+    static public function countVoucher($uid)
+    {  
+
+    }
+
+    /**
+     * [incomeAdd 增加用户财富券收入记录]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $uid  
+     * @param    array                 $data ['des' => , 'type' => , `income` => , `order_id` => ]
+     * @return   array     [error_code, error_msg, balance]
+     */
+    static public function incomeVoucherAdd($data)
+    {
+
+    }
+
+    /**
+     * [expenseAdd 增加用户财富券支出记录]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $uid  
+     * @param    array                 $data ['des' => , 'type' => , `income` => , `order_id` => ]
+     * @return   array     [error_code, error_msg, balance]
+     */
+    static public function expenseVoucherAdd($data)
+    {
+        
     }
 
     /**
@@ -177,7 +278,7 @@ class UsersMoney extends Model
                 ];
                 self::incomeAdd($add3);
                 $poin3 = ['uid' => $pid3['pid'],'type' => '返佣积分','points'=>$points3,'order_id'=>$order_id,'time'=>time()];
-            UsersPoints::add($poin3);
+                UsersPoints::add($poin3);
                 }
             }
         }

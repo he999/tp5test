@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'       => '121.196.227.117',
     // 数据库名
-    'database'       => 'shop',
+    'database'       => 'fsm',
     // 用户名
-    'username'       => 'shop',
+    'username'       => 'fsm',
     // 密码
-    'password'       => 'XM433DMmc86h7FtB',
+    'password'       => '6bVtD3p6tJW2SxCZ',
     // 端口
     'hostport'       => '',
     // 连接dsn

@@ -461,6 +461,68 @@ class Shipping extends Model
         return $result;
     }
 
+    /**
+     * addShippingPickup 添加门店取货地址 ys_shipping_regions
+     * @
+     * @DateTime 2016-09-06T06:19:16+0800
+     * @param    array                   $data 添加数组
+     * @return   array              [error_code, error_msg,pickup_id]
+     */
+    static public function addShippingPickup($data)
+    { 
+
+    }
+
+    /**
+     * delShippingPickup 删除门店取货地址
+     * @
+     * @DateTime 2016-09-06T06:19:16+0800
+     * @param    array                   $pickup_id 
+     * @return   array              [error_code, error_msg]
+     */
+    static public function delShippingPickup($pickup_id)
+    { 
+
+    }
+
+    /**
+     * editShippingPickup 修改门店取货地址
+     * @
+     * @DateTime 2016-09-06T06:19:16+0800
+     * @param    array                   $pickup_id 
+     * @return   array              [error_code, error_msg,pickup_id]
+     */
+    static public function editShippingPickup($pickup_id)
+    { 
+
+    }
+
+    /**
+     * getShippingPickup 门店取货地址列表
+     * @
+     * @DateTime 2016-09-06T06:19:16+0800
+     * @param    array                   $num 每页记录
+     * @param    array                   $data 条件
+     * @param    array                   $url 参数 paginate()
+     * @return   array              [error_code, error_msg,data=>[]]
+     */
+    static public function getShippingPickup($num,$data = '',$url = [])
+    { 
+
+    }
+
+    /**
+     * getInfoShippingPickup 门店取货地址详情
+     * @
+     * @DateTime 2016-09-06T06:19:16+0800
+     * @param    array                   $pickup_id 
+     * @return   array              [error_code, error_msg,data=>[]]
+     */
+    static public function getInfoShippingPickup($pickup_id)
+    { 
+
+    }
+
 }
 
 ?>
