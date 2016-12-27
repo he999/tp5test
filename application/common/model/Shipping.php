@@ -469,8 +469,20 @@ class Shipping extends Model
      * @return   array              [error_code, error_msg,pickup_id]
      */
     static public function addShippingPickup($data)
-    { 
-
+    {   
+	    $row = DB::name('shipping_pickup')->insertGetId($data);
+		if ($row)
+        {
+           $result['error_code'] = 0;
+           $result['error_msg'] = "";
+           $result['pickup_id'] = $row;
+        }
+        else 
+        {
+           $result['error_code'] = 1;
+           $result['error_msg'] = "添加失败";
+        } 
+        return $result;
     }
 
     /**
@@ -482,7 +494,17 @@ class Shipping extends Model
      */
     static public function delShippingPickup($pickup_id)
     { 
-
+	$row = Db::name('shipping_pickup')->delete($pickup_id); 
+        if ($row) 
+        {    
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+        }
+        else{                 
+             $result['error_code'] = 1;
+             $result['error_msg'] = "删除订单失败";
+        }
+        return $result;	
     }
 
     /**
@@ -492,9 +514,19 @@ class Shipping extends Model
      * @param    array                   $pickup_id 
      * @return   array              [error_code, error_msg,pickup_id]
      */
-    static public function editShippingPickup($pickup_id)
+    static public function editShippingPickup($pickup_id,$data)
     { 
-
+		$row = Db::name('shipping_pickup')->where(['pickup_id' => $pickup_id])->update($data);
+        if ($row) 
+        {                
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+        }
+        else{                 
+             $result['error_code'] = 1;
+             $result['error_msg'] = "编辑订单失败";
+        }
+        return $result;
     }
 
     /**
@@ -508,7 +540,24 @@ class Shipping extends Model
      */
     static public function getShippingPickup($num,$data = '',$url = [])
     { 
-
+		$where['d.is_dels'] = 0;
+        $data = Db::name('orders')
+              ->alias('d')
+              ->join('users_customers u','u.uid = d.uid','left')
+              ->field(["d.order_sn","d.order_status","d.order_amount","d.create_time","d.order_id","d.consignee","u.nickname"])
+              ->where($where)
+              ->order("d.create_time desc")
+              ->paginate($num,false,array('query'=>$url)); 
+        if($data){
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['data'] = $data;
+        }
+        else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '未得到得到订单详情';
+        }
+        return $result;
     }
 
     /**

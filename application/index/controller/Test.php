@@ -17,6 +17,7 @@ use app\common\model\base\CommonModel;
 use app\common\model\base\UsersWeixin;
 use app\common\model\UsersParent;
 use app\common\model\weixin\DiyMenu;
+use app\common\model\Shipping;
 use think\Controller;
 use think\Model;
 
@@ -26,18 +27,17 @@ class Test extends controller
 
     
     public function test(){
-        $add['parent'] = 2;
-                $add['uid'] = 4;
-                $add['weixin_code'] = Users::maxWeixinCode()['count']+1;
-        $res = Users::addParent($add);
+        $add['number'] = 2;
+        $add['name'] = 'hh';
+        $add['responsible'] ='gfffff';
+        $add['phone'] = 2;
+        $add['address'] = 2;
+        $res = Shipping::editShippingPickup(1,$add);
         dump($res);
     }
 
 
-    // public function test(){
-    //     $res = Users::maxWeixinCode()['max(weixin_code)'];
-    //     dump($res);
-    // }
+    
 
     // public function test(){
     //     $res = DiyMenu::createQRCode(2);
