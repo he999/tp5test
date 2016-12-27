@@ -15,15 +15,6 @@ use app\common\model\base\UsersAccess;
 
 class Users extends Model
 {
-    // /**
-    //  * init 初始化
-    //  * @karl
-    //  * @DateTime 2016-07-31T23:23:02+0800
-    //  */
-    //  static public function init()
-    // {
-    //    parent::$table_name = "users";
-    //  }
     
     /*************************************************  
     * Function:      login

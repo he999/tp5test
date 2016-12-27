@@ -62,7 +62,7 @@ class UsersWeixin extends Model
             $result['error_code'] = 1;
             $result['error_msg'] = "添加失败";
         }
-    return $result;
+        return $result;
         
     }
      /**
