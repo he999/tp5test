@@ -17,6 +17,8 @@ use app\common\model\base\CommonModel;
 use app\common\model\base\UsersWeixin;
 use app\common\model\UsersParent;
 use app\common\model\weixin\DiyMenu;
+use app\common\model\base\UsersRebate;
+use app\common\model\base\UsersVoucher;
 use app\common\model\Shipping;
 use think\Controller;
 use think\Model;
@@ -27,15 +29,16 @@ class Test extends controller
 
     
     public function test(){
-        $add['number'] = 2;
-        $add['name'] = 'hh';
-        $add['responsible'] ='gfffff';
-        $add['phone'] = 2;
-        $add['address'] = 2;
-        $res = Shipping::editShippingPickup(1,$add);
+        $add['uid'] = 1;
+        $add['des'] = 2;
+        $add['type'] = '支出';
+        $add['income'] =100;
+        // $add['balance_rebate'] = 2;
+        // $add['time'] = 2;
+        $add['order_id'] = 1;
+        $res = UsersRebate::incomeRebateAdd($add);
         dump($res);
     }
-
 
     
 

@@ -82,7 +82,7 @@ class UsersRebate extends Model
                 $expense += $v['expense'];
             }
             $balance = sprintf("%.2f",$income - $expense);
-            Db::name('users_money_rebate')->where(['uid' => $uid])->update(['balance_rebate'=>$balance]);
+            Db::name('users_customers')->where(['uid' => $uid])->update(['balance_rebate'=>$balance]);
             $result['error_code'] = 0;
             $result['error_msg'] = '';
             $result['income'] = $income;

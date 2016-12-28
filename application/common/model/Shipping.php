@@ -494,15 +494,15 @@ class Shipping extends Model
      */
     static public function delShippingPickup($pickup_id)
     { 
-	$row = Db::name('shipping_pickup')->delete($pickup_id); 
+	    $row = Db::name('shipping_pickup')->delete($pickup_id); 
         if ($row) 
         {    
             $result['error_code'] = 0;
             $result['error_msg'] = "";
         }
         else{                 
-             $result['error_code'] = 1;
-             $result['error_msg'] = "删除订单失败";
+            $result['error_code'] = 1;
+            $result['error_msg'] = "删除门店取货地址";
         }
         return $result;	
     }
@@ -524,7 +524,7 @@ class Shipping extends Model
         }
         else{                 
              $result['error_code'] = 1;
-             $result['error_msg'] = "编辑订单失败";
+             $result['error_msg'] = "修改门店取货地址失败";
         }
         return $result;
     }
@@ -540,22 +540,17 @@ class Shipping extends Model
      */
     static public function getShippingPickup($num,$data = '',$url = [])
     { 
-		$where['d.is_dels'] = 0;
-        $data = Db::name('orders')
-              ->alias('d')
-              ->join('users_customers u','u.uid = d.uid','left')
-              ->field(["d.order_sn","d.order_status","d.order_amount","d.create_time","d.order_id","d.consignee","u.nickname"])
-              ->where($where)
-              ->order("d.create_time desc")
+        $res = Db::name('shipping_pickup')
+              ->where($data)
               ->paginate($num,false,array('query'=>$url)); 
         if($data){
             $result['error_code'] = 0;
             $result['error_msg'] = '';
-            $result['data'] = $data;
+            $result['data'] = $res;
         }
         else{
             $result['error_code'] = 1;
-            $result['error_msg'] = '未得到得到订单详情';
+            $result['error_msg'] = '未得到门店取货地址列表';
         }
         return $result;
     }
@@ -569,7 +564,20 @@ class Shipping extends Model
      */
     static public function getInfoShippingPickup($pickup_id)
     { 
-
+		$res = Db::name('shipping_pickup')->where(['pickup_id' => $pickup_id])->find();
+		if($res)
+        {
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+            $result['data'] = $res;
+        }
+        else
+        {
+            $result['error_code'] = 1;
+            $result['error_msg'] = "未得到门店取货地址详情";
+        }
+        return $result;
+		
     }
 
 }
