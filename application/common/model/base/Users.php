@@ -806,7 +806,7 @@ class Users extends Model
     }
 
      /* maxWeixinCode
-     * @xiao    //微信 关联 勿动
+     * @xiao    
      * @param    array     $data
      * @return   array     [error_code, error_msg, id]
      * @DateTime 2016-11-22T20:46:59+0800
@@ -814,20 +814,20 @@ class Users extends Model
     static public function maxWeixinCode($parent)
     {   //微信 关联 勿动
         $res = Db::name('users_parent')->distinct(true)->field('parent')->select();
-       if ($res) {
-        if (Db::name('users_parent')->field('parent')-where(['parent'=>$parent])->find() ) {
-            $result['count'] = count($res);
+        if ($res) {
+            if (Db::name('users_parent')->field('parent')-where(['parent'=>$parent])->find() ) {
+                $result['count'] = count($res);
+            }else{
+                $result['count'] = count($res)+1;
+            }
         }else{
-            $result['count'] = count($res)+1;
-        }
-       }else{
            $result['count'] = 0;
-       }
-       return $result;
+        }
+        return $result;
     }
 
     /* addparent
-     * @xiao  //微信 关联 勿动
+     * @xiao  
      * @param    array     $data
      * @return   array     [error_code, error_msg, id]
      * @DateTime 2016-11-22T20:46:59+0800
@@ -838,7 +838,7 @@ class Users extends Model
     }
 
     /* upParent
-     * @xiao  //微信 关联 勿动
+     * @xiao  
      * @param    array     $data
      * @return   array     [error_code, error_msg, id]
      * @DateTime 2016-11-22T20:46:59+0800

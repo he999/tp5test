@@ -168,86 +168,100 @@ class Managerset extends Manager
     public function distributionset()
     {
        $input_data = Request::instance()->param();
+       dump($input_data);
        if($_POST)
        {
         /******************* 验证信息 ********************/
-       $rule = [
-            'recommend_integral'  => 'require|max:100|number|between:0,1000',
-            'attention_integral'  => 'require|max:100|number|between:0,1000',
-            'least_money_limit'  => 'require|max:100|number|between:0,1000',
-            'yi_fanyong_bili'  => 'require|max:100|number|between:0,1000',
-            'er_fanyong_bili'  => 'require|max:100|number|between:0,1000',
-            'san_fanyong_bili'  => 'require|max:100|number|between:0,1000',
-            'yi_fanyong_jifen'  => 'require|max:100|number|between:0,1000',
-            'er_fanyong_jifen'  => 'require|max:100|number|between:0,1000',
-            'san_fanyong_jifen'  => 'require|max:100|number|between:0,1000',
-            ];
+       // $rule = [
+       //      'recommend_integral'  => 'require|max:100|number|between:0,1000',
+       //      'attention_integral'  => 'require|max:100|number|between:0,1000',
+       //      'least_money_limit'  => 'require|max:100|number|between:0,1000',
+       //      'yi_fanyong_bili'  => 'require|max:100|number|between:0,1000',
+       //      'er_fanyong_bili'  => 'require|max:100|number|between:0,1000',
+       //      'san_fanyong_bili'  => 'require|max:100|number|between:0,1000',
+       //      'yi_fanyong_jifen'  => 'require|max:100|number|between:0,1000',
+       //      'er_fanyong_jifen'  => 'require|max:100|number|between:0,1000',
+       //      'san_fanyong_jifen'  => 'require|max:100|number|between:0,1000',
+       //      ];
 
-       $msg = [
-            'recommend_integral.max'      =>  '推荐关注送积分最长为100位',
-            'recommend_integral.require'  =>  '推荐关注送积分必须填写',
-            'recommend_integral.number'      =>  '推荐关注送积分只能是数字',
-            'attention_integral.max'      =>  '关注送积分最长为100位',
-            'attention_integral.require'  =>  '关注送积分必须填写',
-            'attention_integral.number'      =>  '关注送积分只能是数字',
-            'least_money_limit.max'      =>  '最小提款额度最长为100位',
-            'least_money_limit.require'  =>  '最小提款额度必须填写',
-            'least_money_limit.number'      =>  '最小提款额度只能是数字',
-            'yi_fanyong_bili.max'      =>  '一级返佣比例最长为100位',
-            'yi_fanyong_bili.require'  =>  '一级返佣比例必须填写', 
-            'yi_fanyong_bili.number'      =>  '一级返佣比例只能是数字',
-            'er_fanyong_bili.max'      =>  '二级返佣比例最长为100位',
-            'er_fanyong_bili.require'  =>  '二级返佣比例必须填写', 
-            'er_fanyong_bili.number'      =>  '二级返佣比例只能是数字',
-            'san_fanyong_bili.max'      =>  '三级返佣比例最长为100位',
-            'san_fanyong_bili.require'  =>  '三级返佣比例必须填写', 
-            'san_fanyong_bili.number'      => '三级返佣比例只能是数字',
-            'yi_fanyong_jifen.max'      =>  '一级返佣积分最长为100位',
-            'yi_fanyong_jifen.require'  =>  '一级返佣积分必须填写', 
-            'yi_fanyong_jifen.number'      =>  '一级返佣积分只能是数字',
-            'er_fanyong_jifen.max'      =>  '二级返佣积分最长为100位',
-            'er_fanyong_jifen.require'  =>  '二级返佣积分必须填写', 
-            'er_fanyong_jifen.number'      =>  '二级返佣积分只能是数字',
-            'san_fanyong_jifen.max'      =>  '三级返佣积分最长为100位',
-            'san_fanyong_jifen.require'  =>  '三级返佣积分必须填写', 
-            'san_fanyong_jifen.number'      => '三级返佣积分只能是数字',
-           ];
+       // $msg = [
+       //      'recommend_integral.max'      =>  '推荐关注送积分最长为100位',
+       //      'recommend_integral.require'  =>  '推荐关注送积分必须填写',
+       //      'recommend_integral.number'      =>  '推荐关注送积分只能是数字',
+       //      'attention_integral.max'      =>  '关注送积分最长为100位',
+       //      'attention_integral.require'  =>  '关注送积分必须填写',
+       //      'attention_integral.number'      =>  '关注送积分只能是数字',
+       //      'least_money_limit.max'      =>  '最小提款额度最长为100位',
+       //      'least_money_limit.require'  =>  '最小提款额度必须填写',
+       //      'least_money_limit.number'      =>  '最小提款额度只能是数字',
+       //      'yi_fanyong_bili.max'      =>  '一级返佣比例最长为100位',
+       //      'yi_fanyong_bili.require'  =>  '一级返佣比例必须填写', 
+       //      'yi_fanyong_bili.number'      =>  '一级返佣比例只能是数字',
+       //      'er_fanyong_bili.max'      =>  '二级返佣比例最长为100位',
+       //      'er_fanyong_bili.require'  =>  '二级返佣比例必须填写', 
+       //      'er_fanyong_bili.number'      =>  '二级返佣比例只能是数字',
+       //      'san_fanyong_bili.max'      =>  '三级返佣比例最长为100位',
+       //      'san_fanyong_bili.require'  =>  '三级返佣比例必须填写', 
+       //      'san_fanyong_bili.number'      => '三级返佣比例只能是数字',
+       //      'yi_fanyong_jifen.max'      =>  '一级返佣积分最长为100位',
+       //      'yi_fanyong_jifen.require'  =>  '一级返佣积分必须填写', 
+       //      'yi_fanyong_jifen.number'      =>  '一级返佣积分只能是数字',
+       //      'er_fanyong_jifen.max'      =>  '二级返佣积分最长为100位',
+       //      'er_fanyong_jifen.require'  =>  '二级返佣积分必须填写', 
+       //      'er_fanyong_jifen.number'      =>  '二级返佣积分只能是数字',
+       //      'san_fanyong_jifen.max'      =>  '三级返佣积分最长为100位',
+       //      'san_fanyong_jifen.require'  =>  '三级返佣积分必须填写', 
+       //      'san_fanyong_jifen.number'      => '三级返佣积分只能是数字',
+       //     ];
  
-       $validate = new Validate($rule, $msg);
-       $result   = $validate->check($input_data);
-       if (!$result)
-       {
-          $this->jsAlert($validate->getError());die;
-       } 
+       // $validate = new Validate($rule, $msg);
+       // $result   = $validate->check($input_data);
+       // if (!$result)
+       // {
+       //    $this->jsAlert($validate->getError());die;
+       // } 
        /******************* 添加数据 ********************/
-         $data = [
-                  'recommend_integral' => $input_data['recommend_integral'],
-                  'least_money_limit'=> $input_data['least_money_limit'],
-                  'attention_integral'=> $input_data['attention_integral'],
-                  'yi_fanyong_bili'=> $input_data['yi_fanyong_bili'],
-                  'er_fanyong_bili' => $input_data['er_fanyong_bili'],
-                  'san_fanyong_bili'=> $input_data['san_fanyong_bili'],
-                  'yi_fanyong_jifen'=> $input_data['yi_fanyong_jifen'],
-                  'er_fanyong_jifen'=> $input_data['er_fanyong_jifen'],
-                  'san_fanyong_jifen' => $input_data['san_fanyong_jifen'],
-                 ];
-         foreach ($input_data as $key => $value) {
-             if(!preg_match("/^[1-9][0-9]*$/",$value))//当不为整数时
-             {
-               $this->jsAlert('请输入整数，不能带小数点','/index.php/manager/Managerset/distributionset');
-              }
-           }  
-         if(Coms::set($data))
-         {
-           $this->jsAlert('保存成功！','/index.php/manager/Managerset/distributionset');
-         }
-         else
-         {
-           $this->jsAlert('保存失败！','/index.php/manager/Managerset/distributionset');
-         }
+         $infodata = [
+                  'purchase_return_commission' => $input_data['purchase_return_commission'],
+                  'least_money_limit'=> $input_data['least_money_limit']
+        ];
+        Coms::set($infodata);
+        $data = [
+                'rebate_rate_lv1' => $input_data['rebate_rate_lv1'],
+                'rebate_rate_lv2' => $input_data['rebate_rate_lv2'],
+                'rebate_rate_lv3' => $input_data['rebate_rate_lv3'],
+                'voucher_rate_lv1' => $input_data['voucher_rate_lv1'],
+                'voucher_rate_lv2' => $input_data['voucher_rate_lv2'],
+                'voucher_rate_lv3' => $input_data['voucher_rate_lv3']
+        ];
+
+        $data2 = [
+                'rebate_rate_lv1' => $input_data['rebate_rate_2lv1'],
+                'rebate_rate_lv2' => $input_data['rebate_rate_2lv2'],
+                'rebate_rate_lv3' => $input_data['rebate_rate_2lv3'],
+                'voucher_rate_lv1' => $input_data['voucher_rate_2lv1'],
+                'voucher_rate_lv2' => $input_data['voucher_rate_2lv2'],
+                'voucher_rate_lv3' => $input_data['voucher_rate_2lv3']
+        ];
+        Coms::setRebateInfos(1,$data);
+        Coms::setRebateInfos(2,$data2);
+      //    foreach ($input_data as $key => $value) {
+      //        if(!preg_match("/^[1-9][0-9]*$/",$value))//当不为整数时
+      //        {
+      //          $this->jsAlert('请输入整数，不能带小数点','/index.php/manager/Managerset/distributionset');
+      //         }
+      //      }  
+      //    if()
+      //    {
+      //      $this->jsAlert('保存成功！','/index.php/manager/Managerset/distributionset');
+      //    }
+      //    else
+      //    {
+      //      $this->jsAlert('保存失败！','/index.php/manager/Managerset/distributionset');
+      //    }
       }
 
-        $this->assign('list',Coms::getInfos());
+      //   $this->assign('list',Coms::getInfos());
         return  $this->fetch();
     }
 

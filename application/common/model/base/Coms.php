@@ -135,9 +135,18 @@ class Coms extends Model
      * @param    int                      $id id
      * @return   array                    [error_code, error_msg, data=> [] ]
      */
-    static public function getRebateInfos($id)
+    static public function getRebateInfos()
     {
-
+        $res = Db::name('rebate_set')->select();
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['data'] = $res;
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '查询失败';
+        }
+        return $result;
     }
 
     /**
@@ -147,8 +156,17 @@ class Coms extends Model
      * @param    array                      $data [rebate_rate_lv1=> ,....]
      * @return   array                    [error_code, error_msg, data=> [] ]
      */
-    static public function setRebateInfos()
+    static public function setRebateInfos($id,$data)
     {
-
+        $res = Db::name('rebate_set')->where(['id' => $id])->updata($data);
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['data'] = $res;
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '修改失败';
+        }
+        return $result;
     }
 }
