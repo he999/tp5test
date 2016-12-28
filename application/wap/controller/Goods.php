@@ -53,6 +53,9 @@ class Goods extends WeixinBase
         }
         if ($goods_specs['error_code'] == 0) {
             $goodsspecs = $goods_specs['data'];
+            $spec_1 = $goods_specs['spec_1'];
+            $spec_2 = $goods_specs['spec_2'];
+            $spec_3 = $goods_specs['spec_3'];
         }else{
             $goodsspecs = '';
             $this->error('未找到该商品详情,请联系我们');
@@ -69,6 +72,9 @@ class Goods extends WeixinBase
         }else{
             $content = '';
         }
+        $this->assign('spec_1',$spec_1);
+        $this->assign('spec_2',$spec_2);
+        $this->assign('spec_3',$spec_3);
         $this->assign('content',$content);
         $this->assign('goods_info', $goodsinfo);
         $this->assign('goods_specs', $goodsspecs);

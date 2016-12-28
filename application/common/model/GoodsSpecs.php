@@ -160,7 +160,31 @@ class GoodsSpecs extends Model
             {
                 $result['error_code'] = 0;
                 $result['error_msg'] = '';
+                $spec_1name = array();$spec_2name = array();$spec_3name = array();
+                foreach ($data as $k => $v) {
+                    if ( $key = array_search($v['spec_1'],$spec_1name)) {
+                        $spec_1[$key]['spec_id'] = $spec_1[$key]['spec_id'].','.$v['spec_id'];
+                    }else{
+                        $spec_1name['name'.$k] = $v['spec_1'];
+                        $spec_1['name'.$k] = ['name' => $v['spec_1'],'spec_id' => $v['spec_id']];
+                    }
+                    if ( $key = array_search($v['spec_2'],$spec_2name)) {
+                        $spec_2[$key]['spec_id'] = $spec_2[$key]['spec_id'].','.$v['spec_id'];
+                    }else{
+                        $spec_2name['name'.$k] = $v['spec_2'];
+                        $spec_2['name'.$k] = ['name' => $v['spec_2'],'spec_id' => $v['spec_id']];
+                    }
+                    if ( $key = array_search($v['spec_3'],$spec_3name)) {
+                        $spec_3[$key]['spec_id'] = $spec_3[$key]['spec_id'].','.$v['spec_id'];
+                    }else{
+                        $spec_3name['name'.$k] = $v['spec_3'];
+                        $spec_3['name'.$k] = ['name' => $v['spec_3'],'spec_id' => $v['spec_id']];
+                    }
+                }
                 $result['data'] = $data;
+                $result['spec_1'] = $spec_1;
+                $result['spec_2'] = $spec_2;
+                $result['spec_3'] = $spec_3;
             }
             else
             {
@@ -170,7 +194,7 @@ class GoodsSpecs extends Model
             
         }
             return $result;
-    }   
+    }
 
     /**
      * getOneSpecs 得到一个商品的默认属性
