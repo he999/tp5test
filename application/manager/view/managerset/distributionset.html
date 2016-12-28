@@ -18,7 +18,7 @@
 <script src="/static/js/mycp.js"></script>
 <style type="text/css">
   .in{float: left;}
-  .span{float: left;margin: 10px 4px;}
+  .span{float: left;margin: 10px 20px 10px 4px;}
 </style>
 
 <title>管理后台</title>
@@ -40,57 +40,87 @@
             </ul>        
         <form action=" " method="post" enctype="multipart/form-data" name="form1"  >
               
-     <table width="600px" border="0" cellspacing="10" > 
+     <table width="800px" border="0" cellspacing="10" > 
   <tr height=50>
-    <th width="200px" style="text-align: right;padding-right:10px;">推荐关注送积分：</th>
-   
-    <th style="800px">     
- <input type="text" style="width:150px;float:left;"class="form-control in"  name="recommend_integral"  value="{$list['recommend_integral']}"  ><span style="float:left;margin:10px 4px;" >积分</span>
-    </th>
-      
+    <th width="200px" style="text-align: right;padding-right:10px;">购买提成点：</th>
+    <th style="800px"><span style="float:left; width: 80px; margin:10px 4px;" >&nbsp;&nbsp;返佣比例</span>     
+<input type="text" style="width:150px;float:left;" class="form-control in"  name="purchase_return_commission"  value="3"  ><span style="float:left;margin:10px 4px;" >%</span>
+    </th> 
   </tr> 
-  <tr height=60>
-    <th width="200px" style="text-align: right;padding-right:10px;">关注送积分：</th>   
-    <th style="800px">     
-    <input type="text" style="width:150px;float:left;"class="form-control in"   name="attention_integral"  value="{$list['attention_integral']}"    ><span class="span">积分</span>
-    </th>      
-  </tr>
+
   <tr height=60>
     <th width="200px" style="text-align: right;padding-right:10px;">最小提款额度：</th>
    
-    <th style="800px">     
-      <input type="text" style="width:150px;"class="form-control in" name="least_money_limit"  value="{$list['least_money_limit']}"  ><span class="span" >元</span>
+    <th style="800px"> 
+    <span style="float:left; width: 80px; margin:10px 4px;" >&nbsp;&nbsp;</span>    
+<input type="text" style="width:150px;" class="form-control in" name="least_money_limit"  value="3"  ><span class="span" >元</span>
     </th>      
   </tr>
   
   <tr>
-    <th width="200px" style="text-align: right;padding-right:10px;">普通分销提成点：</th>   
+    <th width="200px" style="text-align: right;padding-right:10px;">普通用户分销提成点：</th>   
     <th style="800px"> 
       <table>
         <tr>
           <td>
-          <span class="span" >一级返佣比例</span><input type="text" style="width:70px;"class="form-control in" name="yi_fanyong_bili"  value="{$list['yi_fanyong_bili']}"  >
+          <span class="span" >一级返佣比例</span>
+<input type="text" style="width:70px;"class="form-control in" name="rebate_rate_lv1"  value="2"  >
           <span class="span">%</span>
-      <span style="float:left;" class="span">赠送积分</span><input type="text"style="width:70px;"class="form-control in" name="yi_fanyong_jifen"  value="{$list['yi_fanyong_jifen']}">
+      <span style="float:left;" class="span">赠送财富券</span>
+<input type="text"style="width:70px;"class="form-control in" name="voucher_rate_lv1"  value="2">
       <span class="span">%</span>
       </td>
         </tr>
         <tr>
-          <td><span class="span">二级返佣比例</span><input type="text" style="width:70px;"class="form-control in" name="er_fanyong_bili"  value="{$list['er_fanyong_bili']}" ><span class="span">%</span>
-      <span style="float:left;" class="span">赠送积分</span><input type="text"style="width:70px;float:left;"class="form-control in" name="er_fanyong_jifen"  value="{$list['er_fanyong_jifen']}">
+          <td><span class="span">二级返佣比例</span>
+<input type="text" style="width:70px;"class="form-control in" name="rebate_rate_lv2"  value="2" ><span class="span">%</span>
+      <span style="float:left;" class="span">赠送财富券</span>
+<input type="text"style="width:70px;float:left;"class="form-control in" name="voucher_rate_lv2"  value="2">
       <span class="span">%</span></td>
         </tr>
         <tr>
-          <td><span style="float:left;" class="span">三级返佣比例</span><input type="text" style="width:70px;" class="form-control in" name="san_fanyong_bili"  value="{$list['san_fanyong_bili']}"><span class="span">%</span>
-      <span style="float:left;" class="span">赠送积分</span><input type="text"style="width:70px;float:left;" class="form-control in" name="san_fanyong_jifen"  value="{$list['san_fanyong_jifen']}">
+          <td><span style="float:left;" class="span">三级返佣比例</span>
+<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_lv3"  value="2"><span class="span">%</span>
+      <span style="float:left;" class="span">赠送财富券</span>
+<input type="text" style="width:70px;float:left;" class="form-control in" name="voucher_rate_lv3"  value="2">
       <span class="span">%</span></td>
         </tr>
       </table>  
-      
     </th>
+  </tr> 
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+  <tr>
+    <th width="200px" style="text-align: right;padding-right:10px;">代理商分销提成点：</th>   
+    <th style="800px"> 
+      <table>
+        <tr>
+          <td>
+          <span class="span" >一级返佣比例</span>
+<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_2lv1"  value="1"  >
+          <span class="span">%</span>
+      <span style="float:left;" class="span">赠送财富券</span>
+<input type="text" style="width:70px;" class="form-control in" name="voucher_rate_2lv1"  value="1">
+      <span class="span">%</span>
+      </td>
+        </tr>
+        <tr>
+          <td><span class="span">二级返佣比例</span>
+<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_2lv2"  value="1" ><span class="span">%</span>
+      <span style="float:left;" class="span">赠送财富券</span>
+<input type="text" style="width:70px;float:left;" class="form-control in" name="voucher_rate_2lv2"  value="1">
+      <span class="span">%</span></td>
+        </tr>
+        <tr>
+          <td><span style="float:left;" class="span">三级返佣比例</span>
+<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_2lv3"  value="1"><span class="span">%</span>
+      <span style="float:left;" class="span">赠送财富券</span>
+<input type="text" style="width:70px;float:left;" class="form-control in" name="voucher_rate_2lv3"  value="1">
+      <span class="span">%</span></td>
+        </tr>
+      </table>  
+    </th>
+  </tr>
 
-  </tr>  
-  
   <tr style="height: 70px;">
     <td colspan="2"><button type="submit" class="btn btn-default" style="width: 100px;margin-left:200px;">确认保存</button> </td> 
   </tr>
