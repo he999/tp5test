@@ -8,11 +8,11 @@ use app\common\model\base\CommonModel;
 use app\common\model\base\Users;
 
 /*************************************************  
-*ClassName:     UsersRebate
+*ClassName:     UsersVoucher
 *Description:   用户 券 模型
 *Others:        
 *************************************************/
-class UsersRebate extends Model
+class UsersVoucher extends Model
 {
 	/**
      * [countBalance 计算财富券] ys_users_money_voucher
@@ -24,7 +24,28 @@ class UsersRebate extends Model
      */
     static public function countVoucher($uid)
     {  
-
+		$where = array('uid' => $uid);
+        $income = 0;
+        $expense = 0;
+        $res = Db::name('users_money_voucher')->where($where)->select();
+        if ($res) {
+            foreach ($res as $key => $v) {
+                $income += $v['income'];
+                $expense += $v['expense'];
+            }
+            $balance = sprintf("%.2f",$income - $expense);
+            Db::name('users_money_voucher')->where(['uid' => $uid])->update(['balance_voucher'=>$balance]);
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['income'] = $income;
+            $result['expense'] = $expense;
+            $result['balance_voucher'] = $balance;
+        }else{
+            $result['error_code'] = 1;
+            $result['balance_voucher'] = 0;
+            $result['error_msg'] = '查询失败';
+        }
+        return $result;
     }
 
     /**
@@ -37,7 +58,19 @@ class UsersRebate extends Model
      */
     static public function incomeVoucherAdd($data)
     {
-
+		$res = Db::name('users_money_voucher')->insertGetId($data);
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = ''; 
+            $row = self::countVoucher($data['uid']);
+            $balance['balance_voucher'] = $row['balance_voucher'];
+            Db::name('users_money_voucher')->where(['id' => $res])->update($balance);
+            $result['balance'] = $row['balance_voucher'];
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '添加失败';
+        }
+        return $result;
     }
 
     /**
@@ -50,6 +83,19 @@ class UsersRebate extends Model
      */
     static public function expenseVoucherAdd($data)
     {
-        
+		$res = Db::name('users_money_voucher')->insertGetId($data);
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = ''; 
+            $row = self::countVoucher($data['uid']);
+            $balance['balance_voucher'] = $row['balance_voucher'];
+            Db::name('users_money_voucher')->where(['id' => $res])->update($balance);
+            $result['balance'] = $row['balance_voucher'];
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '添加失败';
+        }
+        return $balance;
+        return $res;
     }
 }

@@ -24,7 +24,21 @@ class UsersRebate extends Model
      */
     static public function listRebate($num,$data = '',$url = [])
     {  
-
+		$data['is_del'] = 0;
+        $res = Db::name('users_money_rebate')
+              ->where($data)
+              ->order("time desc")
+              ->paginate($num,false,array('query'=>$url));
+        if($data){
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['data'] = $res;
+        }
+        else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '未得到返佣列表';
+        }
+        return $result;
     }
 
     /**
@@ -35,7 +49,17 @@ class UsersRebate extends Model
      */
     static public function delRebate($id)
     {  
-
+		$row = Db::name('users_money_rebate')->delete($id); 
+        if ($row) 
+        {    
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+        }
+        else{                 
+             $result['error_code'] = 1;
+             $result['error_msg'] = "删除返佣记录失败";
+        }
+        return $result;
     }
     
     /**
@@ -47,8 +71,30 @@ class UsersRebate extends Model
      * @return   array     [error_code, error_msg, balance]
      */
     static public function countRebate($uid)
-    {  
-
+    {   
+		$where = array('uid' => $uid);
+        $income = 0;
+        $expense = 0;
+        $res = Db::name('users_money_rebate')->where($where)->select();
+        if ($res) {
+            foreach ($res as $key => $v) {
+                $income += $v['income'];
+                $expense += $v['expense'];
+            }
+            $balance = sprintf("%.2f",$income - $expense);
+            Db::name('users_money_rebate')->where(['uid' => $uid])->update(['balance_rebate'=>$balance]);
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['income'] = $income;
+            $result['expense'] = $expense;
+            $result['balance_rebate'] = $balance;
+        }else{
+            $result['error_code'] = 1;
+            $result['balance_rebate'] = 0;
+            $result['error_msg'] = '查询失败';
+        }
+        return $result;
+	
     }
 
     /**
@@ -61,7 +107,19 @@ class UsersRebate extends Model
      */
     static public function incomeRebateAdd($data)
     {
-
+		$res = Db::name('users_money_rebate')->insertGetId($data);
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = ''; 
+            $row = self::countRebate($data['uid']);
+            $balance['balance_rebate'] = $row['balance_rebate'];
+            Db::name('users_money_rebate')->where(['id' => $res])->update($balance);
+            $result['balance'] = $row['balance_rebate'];
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '添加失败';
+        }
+        return $result;
     }
 
     /**
@@ -73,9 +131,22 @@ class UsersRebate extends Model
      * @return   array     [error_code, error_msg, balance]
      */
     static public function expenseRebateAdd($data)
-    {
-
+    {   
+		$res = Db::name('users_money_rebate')->insertGetId($data);
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = ''; 
+            $row = self::countRebate($data['uid']);
+            $balance['balance_rebate'] = $row['balance_rebate'];
+            Db::name('users_money_rebate')->where(['id' => $res])->update($balance);
+            $result['balance'] = $row['balance_rebate'];
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '添加失败';
+        }
+        return $result;
     }
+    
 
     /**
      * [PaymentCommission 支付佣金]
