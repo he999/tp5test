@@ -27,6 +27,7 @@
 ul.spec{ width:100%; height:auto; }
 ul.spec li{ width:auto; margin:10px 15px 1px 0px; padding:0 10px; background:#DCDCDC; line-height:30px; height:30px; display:block; float:left;  }
 ul.spec li.on{background:#FF4500; }
+ul.spec li.ok{border:1px solid #FF4500;}
 ul.spec li.on a{color:#fff;}
 hr{margin:0px;padding:0px; border-top:1px solid #eeeeee; }
 </style>
@@ -74,34 +75,34 @@ hr{margin:0px;padding:0px; border-top:1px solid #eeeeee; }
 </div>
 <div class="s_bottom"></div>
 <script type="text/javascript">$(function(){
-	$("div.module_special .wrap .major ul.list li:last-child").addClass("remove_bottom_line");
+  $("div.module_special .wrap .major ul.list li:last-child").addClass("remove_bottom_line");
 });
 var active=0,
-	as=document.getElementById('pagenavi').getElementsByTagName('a');
-	
+  as=document.getElementById('pagenavi').getElementsByTagName('a');
+  
 for(var i=0;i<as.length;i++){
-	(function(){
-		var j=i;
-		as[i].onclick=function(){
-			t2.slide(j);
-			return false;
-		}
-	})();
+  (function(){
+    var j=i;
+    as[i].onclick=function(){
+      t2.slide(j);
+      return false;
+    }
+  })();
 }
 var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function(index){
-		as[active].className='';
-		active=index;
-		as[active].className='active';
-	}});
+    as[active].className='';
+    active=index;
+    as[active].className='active';
+  }});
 </script>
 
-	  <form name="buy_goods_form" method="post" id="buy_goods_form" >
+    <form name="buy_goods_form" method="post" id="buy_goods_form" >
       <div class="product_info">
         <div class="info_dottm">
           <h3 class="name" style="width:100%;">{$goods_info.goods_name}</h3>
         </div>
         <dl class="goods_price">
-          <dt> <span id="goods_price">￥{$goods_specs.0.price}元</span>
+          <dt> <span>￥<i style="font-style:normal" id="goods_price">{$goods_specs.0.price}</i>元</span>
           <span style="margin-left: 20px;font-size: 16px;color: #666;"> /{$goods_info.weight}克</span>
           <span style="float:right;color:#999;font-size:15px;margin-right: 20px;">销量:
           <span style="float:right;font-size:15px;">{$goods_info.sales_sum}本</span></span>
@@ -117,26 +118,29 @@ var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function
       <input type="hidden" id="specid" value='{$goods_specs.0.spec_id}'>
       <input type="hidden" id="stock" value='{$goods_specs.0.stock}'>
       <div><span style="color:#999;font-size:16px;margin-left:10px;">选择商品属性</span></div>
-      {if $goods_specs.0.spec_1}
+{if $goods_specs.0.spec_1}
       <div class='specs'>{$goods_info.spec1_name}</div>
       <hr>
       <ul class='spec' style="padding-left:20px;">
-      {volist name='goods_specs' id='s'}
-        <li class="sp_{$s.spec_id} spn <?php if($i == 1){echo ' on';}?>"><a href='javascript:void(0);' onClick="specs({$s.spec_id},{$s.price},{$s.stock});">{$s.spec_1}</a></li>
+      {volist name='spec_1' id='s'}
+      <?php $array=explode(',',$s['spec_id']); ?>
+        <li class="{volist name='array' id='a'} sp_{$a} {/volist} spn "><a href='javascript:void(0);' onClick="specs('{$s.spec_id}');">{$s.name}</a></li>
       {/volist}
       </ul>
       <div class='specs' style="padding-top:12px;">{$goods_info.spec2_name}</div>
       <hr>
       <ul class='spec' style="padding-left:20px;">
-      {volist name='goods_specs' id='s'}
-        <li class="sp_{$s.spec_id} spn <?php if($i == 1){echo ' on';}?>"><a href='javascript:void(0);' onClick="specs({$s.spec_id},{$s.price},{$s.stock});">{$s.spec_2}</a></li>
+      {volist name='spec_2' id='s'}
+      <?php $array=explode(',',$s['spec_id']); ?>
+        <li class="{volist name='array' id='a'} sp_{$a} {/volist} spn "><a href='javascript:void(0);' onClick="specs('{$s.spec_id}');">{$s.name}</a></li>
       {/volist}
       </ul>
       <div class='specs' style="padding-top:12px;">{$goods_info.spec3_name}</div>
       <hr>
       <ul class='spec' style="padding-left:20px;">
-      {volist name='goods_specs' id='s'}
-        <li class="sp_{$s.spec_id} spn <?php if($i == 1){echo ' on';}?>"><a href='javascript:void(0);' onClick="specs({$s.spec_id},{$s.price},{$s.stock});">{$s.spec_3}</a></li>
+      {volist name='spec_3' id='s'}
+      <?php $array=explode(',',$s['spec_id']); ?>
+        <li class="{volist name='array' id='a'} sp_{$a} {/volist} spn "><a href='javascript:void(0);' onClick="specs('{$s.spec_id}');">{$s.name}</a></li>
       {/volist}
       </ul>
 {/if}
@@ -183,12 +187,42 @@ var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function
 </div>
 <script type="text/javascript">
 
-function specs(spid,price,stock){
+var spsrt = new Array();
+<?php 
+$k = 0;
+foreach ($goods_specs as $v) { ?>
+  spsrt[<?=$k ?>] = "<?php echo implode(',',$v)?>";
+<?php $k+=1; }?>
+
+function specs(spid){
   $('.spn').removeClass('on');
-  $('.sp_'+spid).addClass('on');
-  $('#specid').val(''+spid+'');
-  $('#stock').val(''+stock+'');
-  $('#goods_price').text(price.toFixed(2));
+  $('.spn').removeClass('ok');
+  //alert(spsrt[0]);
+  arr = spid.split(',');
+  var specid = $('#specid').val();
+  var kk = false;
+  for (var i = 0; i < arr.length; i++) {
+    $('.sp_'+arr[i]).addClass('ok');
+    if (arr[i] == specid ) {
+      kk = true;
+    }
+  }
+  if (kk) {
+    $('#specid').val(''+specid+'');
+    $('.sp_'+specid).addClass('on');
+  }else{
+    $('#specid').val(''+arr[0]+'');
+    $('.sp_'+arr[0]).addClass('on');
+  }
+  for (var i = 0; i < spsrt.length; i++) {
+    arrsp = spsrt[i].split(',');
+    if (arrsp[0] == $('#specid').val() ) {
+      $('#stock').val(''+arrsp[7]+'');
+      stock = arrsp[6];
+      $('#goods_price').text(stock);
+    }
+  }
+
   if(stock == 0){
     mui.toast('选择的商品没有库存了');
     document.getElementById('number').value=0;
@@ -198,18 +232,18 @@ function specs(spid,price,stock){
   
 }
 function goods_cut(){
-	var num_val=document.getElementById('number');  
-	var new_num=num_val.value;  
-	var Num = parseInt(new_num);  
-	if(Num>1)Num=Num-1;  
-	num_val.value=Num;
+  var num_val=document.getElementById('number');  
+  var new_num=num_val.value;  
+  var Num = parseInt(new_num);  
+  if(Num>1)Num=Num-1;  
+  num_val.value=Num;
 }  
 function goods_add(){
-	var num_val=document.getElementById('number'); 
-	var new_num=num_val.value;  
-	var Num = parseInt(new_num);
+  var num_val=document.getElementById('number'); 
+  var new_num=num_val.value;  
+  var Num = parseInt(new_num);
   var nums = $('#stock').val();
-	Num=Num+1;  
+  Num=Num+1;  
   if (Num >nums) {
     mui.toast('选择商品数量已经超过库存量');
     num_val.value=nums; 
@@ -241,7 +275,7 @@ function goods_add(){
 <a href="javascript:goTop();" class="gotop"><img src="/static/waps/images/topup.png"></a>
 <script>
 function goTop(){
-	$('html,body').animate({'scrollTop':0},600);
+  $('html,body').animate({'scrollTop':0},600);
 }
 </script> 
 <div style=" height:60px;"></div>
