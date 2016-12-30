@@ -68,7 +68,7 @@
 							<th>{$d.address}</th>                 
 							<th >
 								<a href="{:url('edit',array('id'=>$d['pickup_id']))}">修改</a>
-								<a href="{:url('del',array('id'=>$d['pickup_id']))}">删除</a>
+								<a onclick="return confirm('你确定要删除吗？')" href="{:url('del',array('id'=>$d['pickup_id']))}">删除</a>
 							</th>
 						</tr>
 					{/volist}
