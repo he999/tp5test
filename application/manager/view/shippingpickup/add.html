@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- mycp CSS 文件 -->
+	<link rel="stylesheet" href="/static/css/mycp.css">
+	<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!-- datetimepicker css JS 文件 -->
+	<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+	<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="/static/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+	<!-- mycp JS 文件 -->
+	<script src="/static/js/mycp.js"></script>
+	<title>管理后台</title>
+</head>
+<body>
+	{include file="common:head" /}
+	<!-- main-container begin -->
+	<div class="container-fluid" id="main-container">
+		{include file="common:left" /}
+		<!-- 右主框 main-content begin -->
+		<div class="main-content">
+			<!-- breadcrumbs begin -->
+			<div class="breadcrumbs"></div> 
+			<!-- breadcrumbs end -->
+			<!-- page-content begin -->
+			<div class="page-content" id="content">
+                <div style="line-height:35px;border-bottom:1px solid #ccc;">
+                    <a href="#" style="font-size: 20px;font-weight:600;">添加门店</a>
+                    <a style=" float:right; padding:5px 9px" href="{:url('index')}">返回列表</a>
+                </div>				
+				<form name="from1"  method="post" action="" style="background-color: rgba(113, 22, 22, 0); margin-top:-8px">
+                  <table class="tb1" >
+					    <tr>
+							 <td class="td1">门店编号:</td>
+							 <td class="td2">
+									   <input type="text" style="width:24%; float:left" class="form-control" name="number" />
+							 </td>
+					    </tr>
+					    <tr>
+							 <td class="td1">名称:</td>
+							 <td class="td2">
+									   <input type="text" style="width:24%; float:left" class="form-control" name="name" />
+							 </td>
+					  </tr>
+					   <tr>
+							 <td class="td1">负责人:</td>
+							 <td class="td2">
+									   <input type="text" style="width:24%; float:left" class="form-control" name="responsible" />
+							 </td>
+					  </tr>
+					   <tr>
+							 <td class="td1">手机号:</td>
+							 <td class="td2">
+									   <input type="text" style="width:24%; float:left" class="form-control" name="phone" />
+							 </td>
+					  </tr>
+					  <tr class="tr1"  height="75px">
+							 <td class="td1">地址:</td>
+							 <td class="td2"><input type="textarea" style="height:50px; width:33%; " name="address" class="form-control"/></td>
+					  </tr>
+					   <tr  class="tr1">
+							 <td class="td1"></td>
+							 <td class="td2"><input type="submit" id="add" value="确认保存"  class="btn btn-default"></td>
+					  </tr>
+				  </table>
+                </form>	
+			</div> 
+		</div>
+		<!-- main-container end --> 
+	</div>
+</body>
+<script>
+    $('#add').click(function(){
+        var number = $("input[name='number']").val();
+        var name = $("input[name='name']").val();
+        var responsible= $("input[name='responsible']").val(); 
+        var phone= $("input[name='phone']").val(); 
+        var address= $("input[name='address']").val();
+	   
+        if(number == ''){
+            alert("请输入门店编号");
+            $("input[name='number']").focus();
+            return false;
+        }
+		
+		if($.isNumeric(number)==false){
+            alert("门店编号必须为纯数字");
+            $("input[name='number']").focus();
+            return false;
+        }
+        
+        if(name==''){
+            alert('请输入门店名称');
+            $("input[name='name']").focus();
+            return false;
+	    } 
+		
+		if(responsible==''){
+            alert('请输入门店负责人');
+            $("input[name='responsible']").focus();
+			return false;
+	    }  
+		
+		if(phone==''){
+            alert('请输入门店联系方式');
+            $("input[name='phone']").focus();
+			return false;
+	    } 
+		
+		reg=/^1[34578]{1}\d{9}$/;
+		if(!reg.test(phone)){
+			alert('联系方式输入有误');
+			$("input[name='phone']").focus();
+			return false;
+	    } 
+   
+		if(address==''){
+            alert('请输入门店地址');
+            $("input[name='address']").focus();
+			return false;
+	    }  
+           
+    })
+</script>
+</html>    

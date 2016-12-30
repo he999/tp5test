@@ -34,7 +34,7 @@ class UsersVoucher extends Model
                 $expense += $v['expense'];
             }
             $balance = sprintf("%.2f",$income - $expense);
-            Db::name('users_money_voucher')->where(['uid' => $uid])->update(['balance_voucher'=>$balance]);
+            Db::name('users_customers')->where(['uid' => $uid])->update(['balance_voucher'=>$balance]);
             $result['error_code'] = 0;
             $result['error_msg'] = '';
             $result['income'] = $income;
@@ -95,7 +95,6 @@ class UsersVoucher extends Model
             $result['error_code'] = 1;
             $result['error_msg'] = '添加失败';
         }
-        return $balance;
-        return $res;
+        return $result;
     }
 }
