@@ -104,8 +104,8 @@ var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function
         <dl class="goods_price">
           <dt> <span>￥<i style="font-style:normal" id="goods_price">{$goods_specs.0.price}</i>元</span>
           <span style="margin-left: 20px;font-size: 16px;color: #666;"> /{$goods_info.weight}克</span>
-          <span style="float:right;color:#999;font-size:15px;margin-right: 20px;">销量:
-          <span style="float:right;font-size:15px;">{$goods_info.sales_sum}本</span></span>
+          <span style="float:right;color:#999;font-size:15px;margin-right: 20px;">销量：
+          <span style="float:right;font-size:15px;">{$goods_info.sales_sum}{$goods_info.goods_unit}</span></span>
           </dt>
         </dl>
         <dl class="goods_price">
@@ -117,6 +117,7 @@ var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function
       </div> 
       <input type="hidden" id="specid" value='{$goods_specs.0.spec_id}'>
       <input type="hidden" id="stock" value='{$goods_specs.0.stock}'>
+      <input type="hidden" id="jiu" value='{$goods_specs.0.spec_id}'>
       <div><span style="color:#999;font-size:16px;margin-left:10px;">选择商品属性</span></div>
 {if $goods_specs.0.spec_1}
       <div class='specs'>{$goods_info.spec1_name}</div>
@@ -198,8 +199,9 @@ function specs(spid){
   $('.spn').removeClass('on');
   $('.spn').removeClass('ok');
   //alert(spsrt[0]);
-  arr = spid.split(',');
+  var arr = spid.split(',');
   var specid = $('#specid').val();
+  var jiuarr = $('#jiu').val().split(',');
   var kk = false;
   for (var i = 0; i < arr.length; i++) {
     $('.sp_'+arr[i]).addClass('ok');
@@ -211,8 +213,20 @@ function specs(spid){
     $('#specid').val(''+specid+'');
     $('.sp_'+specid).addClass('on');
   }else{
-    $('#specid').val(''+arr[0]+'');
-    $('.sp_'+arr[0]).addClass('on');
+    for (var i = 0; i < arr.length; i++) {
+      for (var j = 0; j < jiuarr.length; j++) {
+        if (jiuarr[j] == arr[i]) {
+           kk = arr[i];
+        }
+      }
+    }
+    if (kk) {
+      $('#specid').val(''+kk+'');
+      $('.sp_'+kk).addClass('on');
+    }else{
+      $('#specid').val(''+arr[0]+'');
+      $('.sp_'+arr[0]).addClass('on');
+    }
   }
   for (var i = 0; i < spsrt.length; i++) {
     arrsp = spsrt[i].split(',');
@@ -222,7 +236,7 @@ function specs(spid){
       $('#goods_price').text(stock);
     }
   }
-
+  $('#jiu').val(spid);
   if(stock == 0){
     mui.toast('选择的商品没有库存了');
     document.getElementById('number').value=0;
@@ -257,7 +271,7 @@ function goods_add(){
 </form>
 </div>
     <div class="main" id="user_goods_ka_2" style="display:none">
-        <div class="product_main" style=" margin-top:40px;"> <!-- 产品图片 -->
+        <div class="product_main"> <!-- 产品图片 -->
              <div class="product_images product_desc" id="product_desc"> 
                {volist  name="goods_images" id="pic"}
                <p><img src="{$pic.image_url}" style="float:none;" title="{$pic.image_url}"/></p>

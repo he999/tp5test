@@ -44,7 +44,7 @@
   <tr height=50>
     <th width="200px" style="text-align: right;padding-right:10px;">购买提成点：</th>
     <th style="800px"><span style="float:left; width: 80px; margin:10px 4px;" >&nbsp;&nbsp;返佣比例</span>     
-<input type="text" style="width:150px;float:left;" class="form-control in"  name="purchase_return_commission"  value="3"  ><span style="float:left;margin:10px 4px;" >%</span>
+<input type="text" style="width:150px;float:left;" class="form-control in"  name="purchase_return_commission"  value="{$purchase_return_commission}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" ><span style="float:left;margin:10px 4px;" >%</span>
     </th> 
   </tr> 
 
@@ -53,7 +53,7 @@
    
     <th style="800px"> 
     <span style="float:left; width: 80px; margin:10px 4px;" >&nbsp;&nbsp;</span>    
-<input type="text" style="width:150px;" class="form-control in" name="least_money_limit"  value="3"  ><span class="span" >元</span>
+<input type="text" style="width:150px;" class="form-control in" name="least_money_limit"  value="{$least_money_limit}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="5" ><span class="span" >元</span>
     </th>      
   </tr>
   
@@ -64,25 +64,25 @@
         <tr>
           <td>
           <span class="span" >一级返佣比例</span>
-<input type="text" style="width:70px;"class="form-control in" name="rebate_rate_lv1"  value="2"  >
+<input type="text" style="width:70px;"class="form-control in" name="rebate_rate_lv1" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" value="{$data.0.rebate_rate_lv1}"  >
           <span class="span">%</span>
       <span style="float:left;" class="span">赠送财富券</span>
-<input type="text"style="width:70px;"class="form-control in" name="voucher_rate_lv1"  value="2">
+<input type="text"style="width:70px;"class="form-control in" name="voucher_rate_lv1" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2"  value="{$data.0.voucher_rate_lv1}">
       <span class="span">%</span>
       </td>
         </tr>
         <tr>
           <td><span class="span">二级返佣比例</span>
-<input type="text" style="width:70px;"class="form-control in" name="rebate_rate_lv2"  value="2" ><span class="span">%</span>
+<input type="text" style="width:70px;"class="form-control in" name="rebate_rate_lv2" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2"  value="{$data.0.rebate_rate_lv2}" ><span class="span">%</span>
       <span style="float:left;" class="span">赠送财富券</span>
-<input type="text"style="width:70px;float:left;"class="form-control in" name="voucher_rate_lv2"  value="2">
+<input type="text"style="width:70px;float:left;"class="form-control in" name="voucher_rate_lv2" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" value="{$data.0.voucher_rate_lv2}">
       <span class="span">%</span></td>
         </tr>
         <tr>
           <td><span style="float:left;" class="span">三级返佣比例</span>
-<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_lv3"  value="2"><span class="span">%</span>
+<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_lv3" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" value="{$data.0.rebate_rate_lv3}"><span class="span">%</span>
       <span style="float:left;" class="span">赠送财富券</span>
-<input type="text" style="width:70px;float:left;" class="form-control in" name="voucher_rate_lv3"  value="2">
+<input type="text" style="width:70px;float:left;" class="form-control in" name="voucher_rate_lv3" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" value="{$data.0.voucher_rate_lv3}">
       <span class="span">%</span></td>
         </tr>
       </table>  
@@ -96,25 +96,25 @@
         <tr>
           <td>
           <span class="span" >一级返佣比例</span>
-<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_2lv1"  value="1"  >
+<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_2lv1" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" value="{$data.1.rebate_rate_lv1}"  >
           <span class="span">%</span>
       <span style="float:left;" class="span">赠送财富券</span>
-<input type="text" style="width:70px;" class="form-control in" name="voucher_rate_2lv1"  value="1">
+<input type="text" style="width:70px;" class="form-control in" name="voucher_rate_2lv1" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" value="{$data.1.voucher_rate_lv1}">
       <span class="span">%</span>
       </td>
         </tr>
         <tr>
           <td><span class="span">二级返佣比例</span>
-<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_2lv2"  value="1" ><span class="span">%</span>
+<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_2lv2" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" value="{$data.1.rebate_rate_lv2}" ><span class="span">%</span>
       <span style="float:left;" class="span">赠送财富券</span>
-<input type="text" style="width:70px;float:left;" class="form-control in" name="voucher_rate_2lv2"  value="1">
+<input type="text" style="width:70px;float:left;" class="form-control in" name="voucher_rate_2lv2" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" value="{$data.1.voucher_rate_lv2}">
       <span class="span">%</span></td>
         </tr>
         <tr>
           <td><span style="float:left;" class="span">三级返佣比例</span>
-<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_2lv3"  value="1"><span class="span">%</span>
+<input type="text" style="width:70px;" class="form-control in" name="rebate_rate_2lv3" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" value="{$data.1.rebate_rate_lv3}"><span class="span">%</span>
       <span style="float:left;" class="span">赠送财富券</span>
-<input type="text" style="width:70px;float:left;" class="form-control in" name="voucher_rate_2lv3"  value="1">
+<input type="text" style="width:70px;float:left;" class="form-control in" name="voucher_rate_2lv3" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="2" value="{$data.1.voucher_rate_lv3}">
       <span class="span">%</span></td>
         </tr>
       </table>  

@@ -158,7 +158,7 @@ class Coms extends Model
      */
     static public function setRebateInfos($id,$data)
     {
-        $res = Db::name('rebate_set')->where(['id' => $id])->updata($data);
+        $res = Db::name('rebate_set')->where(['id' => $id])->update($data);
         if ($res) {
             $result['error_code'] = 0;
             $result['error_msg'] = '';
