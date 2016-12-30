@@ -36,14 +36,16 @@
 			<div class="page-content" id="content">
 				<ul class="nav nav-tabs nav_tit tou" >       
 					 <a href="#"  style="font-size: 20px;font-weight:600;">门店列表</a>
-				</ul>     
+				</ul> 
+                <form   method="post" action="{:url('add')}" style="float:right"  >
+					<input type="submit" id="pinglun" class="btn btn-search" style="border:none;" value="添加商品"> 
+                </form>				
 				<form name="from1"  method="get" action="" style="background-color: rgba(113, 22, 22, 0); margin-top:-8px">
-				门牌编号： 
-				<input type="text" name="order_sn" value="{$order_sn}" class="form-control" id="company_name" style="width: 100px;margin-right:10px;display:inline-block;">&nbsp;&nbsp; &nbsp;                 
-				名称： 
-				<input type="text" name="consignee" value="{$consignee}" class="form-control" style="width: 100px;display:inline-block;margin: 10px 0px;" > &nbsp;&nbsp; &nbsp; 	  
-				<input type="submit" class="btn btn-search" style="border:none"  value="搜索">  
-				<input type="submit" id="pinglun" class="btn btn-search" style="border:none" value="添加商品">
+					门牌编号： 
+					<input type="text" name="number" value="{$number}" class="form-control" id="company_name" style="width: 100px;margin-right:10px;display:inline-block;">&nbsp;&nbsp; &nbsp;                 
+					名称： 
+					<input type="text" name="name" value="{$name}" class="form-control" style="width: 100px;display:inline-block;margin: 10px 0px;" > &nbsp;&nbsp; &nbsp; 	  
+					<input type="submit" class="btn btn-search" style="border:none;margin-top:4px"   value="搜索"> 
 				</form>
 				<table class="table table-hover table-bordered" style="border: none;" >
 					<thead>
@@ -60,13 +62,13 @@
 					{volist name="data" id='d'}
 						<tr> 
 							<th>{$d.number}</th>
-							<th>{$d.name}</th>
+							<th>{$d.name}</th>                    
 							<th>{$d.responsible}</th>
 							<th>{$d.phone}</th>
-							<th>{$d.address]}</th>                 
+							<th>{$d.address}</th>                 
 							<th >
-								<a href="/index.php/manager/order/orderdetails/id/{$d.order_id}">修改</a>
-								<a href="/index.php/manager/order/orderdetails/id/{$d.order_id}">删除</a>
+								<a href="{:url('edit',array('id'=>$d['pickup_id']))}">修改</a>
+								<a href="{:url('del',array('id'=>$d['pickup_id']))}">删除</a>
 							</th>
 						</tr>
 					{/volist}
@@ -81,16 +83,5 @@
 		<!-- main-container end --> 
 	</div>
 </body>
-<script type="text/javascript">
-	$('#start_time').datetimepicker({
-	    minView: "month",
-		language:  'zh-CN',
-		format: 'yyyy-mm-dd'
-	});  
-	$('#end_time').datetimepicker({
-	    minView: "month",
-		language:  'zh-CN',
-		format: 'yyyy-mm-dd'
-	}); 
-</script>
+
 </html>    

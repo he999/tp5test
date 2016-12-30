@@ -543,7 +543,7 @@ class Shipping extends Model
         $res = Db::name('shipping_pickup')
               ->where($data)
               ->paginate($num,false,array('query'=>$url)); 
-        if($data){
+        if($res){
             $result['error_code'] = 0;
             $result['error_msg'] = '';
             $result['data'] = $res;
