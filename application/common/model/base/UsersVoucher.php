@@ -3,7 +3,6 @@ namespace app\common\model\base;
 
 use think\Model;
 use think\Db;
-
 use app\common\model\base\CommonModel;
 use app\common\model\base\Users;
 
@@ -34,7 +33,7 @@ class UsersVoucher extends Model
                 $expense += $v['expense'];
             }
             $balance = sprintf("%.2f",$income - $expense);
-            Db::name('users_customers')->where(['uid' => $uid])->update(['balance_voucher'=>$balance]);
+            Db::name('users_customers')->where($where)->update(['balance_voucher'=>$balance]);
             $result['error_code'] = 0;
             $result['error_msg'] = '';
             $result['income'] = $income;
@@ -51,8 +50,7 @@ class UsersVoucher extends Model
     /**
      * [incomeAdd 增加用户财富券收入记录]
      * @xiao
-     * @DateTime 2016-11-27T21:35:49+0800
-     * @param    int                   $uid  
+     * @DateTime 2016-11-27T21:35:49+0800 
      * @param    array                 $data ['des' => , 'type' => , `income` => , `order_id` => ]
      * @return   array     [error_code, error_msg, balance]
      */
@@ -76,8 +74,7 @@ class UsersVoucher extends Model
     /**
      * [expenseAdd 增加用户财富券支出记录]
      * @xiao
-     * @DateTime 2016-11-27T21:35:49+0800
-     * @param    int                   $uid  
+     * @DateTime 2016-11-27T21:35:49+0800 
      * @param    array                 $data ['des' => , 'type' => , `income` => , `order_id` => ]
      * @return   array     [error_code, error_msg, balance]
      */
@@ -94,6 +91,94 @@ class UsersVoucher extends Model
         }else{
             $result['error_code'] = 1;
             $result['error_msg'] = '添加失败';
+        }
+        return $result;
+    }
+
+    /**
+     * [voucherSetAdd 用户财富券设置 ]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $type  
+     * @param    array                 $data 
+     * @return   array     [error_code, error_msg, ]
+     */
+    static public function voucherSetAdd($data)
+    {
+       $res = Db::name('voucher_set')->insertAll($data);
+       if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '插入失败';
+            $result['data'] = '';
+        }
+        return $result;
+    }
+
+    /**
+     * [voucherSetAdd 用户财富券设置 ]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $id  
+     * @param    array                 $data 
+     * @return   array     [error_code, error_msg, balance]
+     */
+    static public function voucherSetEdit($id,$data)
+    {
+        $res = Db::name('voucher_set')->where($id)->update($data);
+        if ($res != false) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '更新失败';
+            $result['data'] = '';
+        }
+        return $result;
+    }
+
+    /**
+     * [voucherSetAdd 用户财富券设置 ]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $id  
+     * @param    array                 $data 
+     * @return   array     [error_code, error_msg, balance]
+     */
+    static public function voucherSetDel($id)
+    {
+        $res = Db::name('voucher_set')->where($id)->delete();
+        if ($res != false) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '更新失败';
+            $result['data'] = '';
+        }
+        return $result;
+    }
+
+    /**
+     * [voucherSetList 用户财富券设置列表 ]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $type   
+     * @return   array     [error_code, error_msg, balance]
+     */
+    static public function voucherSetList($type)
+    {
+        $res = Db::name('voucher_set')->where($type)->select();
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['data'] = $res;
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '查找失败';
+            $result['data'] = '';
         }
         return $result;
     }

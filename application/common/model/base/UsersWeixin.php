@@ -3,9 +3,9 @@ namespace app\common\model\base;
 
 use think\Model;
 use think\Db;
-
 use app\common\model\base\CommonModel;
 use app\common\model\base\Users;
+
 /*************************************************  
 *ClassName:     UserWeixn
 *Description:   用户(微信)模型

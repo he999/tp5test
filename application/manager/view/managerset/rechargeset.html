@@ -39,10 +39,20 @@
         <div class="breadcrumbs">  </div>
         <div class="page-content" id="content">
          <ul class="nav nav-tabs nav_tit">                          
-              <li style="font-size: 20px;font-weight:600;color:#585858" >财富券设置</li>
+              <li style="font-size: 20px;font-weight:600;color:#585858" >充值设置</li>
           </ul>        
       <form action=" " method="post" enctype="multipart/form-data" name="form1"  >
-      <table width="1000px" border="0" cellspacing="10" > 
+      <table width="1000px" border="0" cellspacing="10" >
+  <tr height=50>
+    <th width="200px" style="text-align: right;padding-right:10px;">门槛金额设置：</th>
+    <td style="padding-left:20px;" >
+<input type="text" style="width:150px;float:left;" class="form-control in"  name="threshold_money_set"  value="{$give}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')" ><span style="float:left;margin:10px 4px;" >元</span>
+
+    <span style="float:left; line-height: 36px; padding-left:20px;padding-right:10px;">赠送财富券：</span>   
+<input type="text" style="width:150px;" class="form-control in" name="give_voucher_set"  value="{$threshold}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="5" ><span class="span" >元</span>
+    </td>  
+  </tr> 
+
   <tr>
     <th width="200px" valign='top' style="text-align: right;padding-right:10px; padding-top:10px;">财富券使用设置：</th>   
     <th style="width:800px"> 
@@ -52,11 +62,11 @@
           <td>
           <input type="hidden" name="id[]" value='0'>
           <span class="span" >订单金额满</span>
-<input type="text" style="width:100px;" class="form-control in" name="money[]"  value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
+<input type="text" style="width:120px;" class="form-control in" name="money[]"  value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
       <span class="span">元</span>
       </td><td>
       <span  class="span">赠送财富券</span>
-<input type="text" style="width:100px;" class="form-control in" name="voucher[]" value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
+<input type="text" style="width:120px;" class="form-control in" name="voucher[]" value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
       <span class="span">元</span>
       </td>
       <td><a class="ang" >删除</a></td>
@@ -83,13 +93,7 @@
   </tr>
   <tr><td>&nbsp;</td><td style='padding-left: 20px;' ><a class="ang" onclick="addin()">添加</a></td></tr>
   <tr><td>&nbsp;</td><td>&nbsp;</td></tr>  
-  <tr>
-  <th valign='top' style="text-align: right;padding-right:10px;">使用说明：</th>
-  <td><script id="editor" style=" width: 800px; height:300px;" type="text/plain" name='content' style="width:850px;height:500px;">{$content}</script></td>
-  </tr>
-  <script type="text/javascript">
-    var ue = UE.getEditor('editor');
-  </script>
+
   <tr style="height: 70px;">
     <td colspan="2"><button type="submit" class="btn btn-default" style="width: 100px;margin-left:200px;">确认保存</button> </td> 
   </tr>

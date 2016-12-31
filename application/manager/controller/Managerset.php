@@ -3,6 +3,7 @@ namespace app\manager\controller;
 
 use app\common\model\User;
 use app\common\model\base\Coms;
+use app\common\model\base\UsersVoucher;
 use app\common\model\Foucs;
 use think\Session;
 use think\Cookie;
@@ -207,10 +208,162 @@ class Managerset extends Manager
     *************************************************/  
     public function voucherSet()
     {  
-      return  $this->fetch();
+      $input = Request::instance()->param();
+      if ($_POST) {
+        foreach ($input['id'] as $k => $v) {
+          if ($v == 0) {
+            if ($input['money'][$k] !='' && $input['voucher'][$k]!='' ) {
+              $add[] = [
+                'money' => $input['money'][$k],
+                'voucher' => $input['voucher'][$k],
+                'type' => 'buy'
+              ];
+            }
+          }else{
+            $update = [
+              'money' => $input['money'][$k],
+              'voucher' => $input['voucher'][$k],
+              'type' => 'buy'
+            ];
+            $rowu = UsersVoucher::voucherSetEdit(['id' => $v],$update);
+          }
+        }
+        if (isset($add)) {
+          if (count($add)) {
+            $rowa = UsersVoucher::voucherSetAdd($add);
+          }
+        }
+        $rows = Coms::set(['voucher_use_explain' => $input['content']]);
+        if ($rowa['error_code'] = 0 || $rowu['error_code'] = 0 || $rows['error_code'] = 1 ) {
+          $this->jsAlert('保存成功！','/index.php/manager/managerset/voucherset');
+        }else{
+          $this->jsAlert('保存失败！','/index.php/manager/managerset/voucherset');
+        }
+      }else{
+        $row = UsersVoucher::voucherSetList(['type' => 'buy']);
+        $res = Coms::getValue('voucher_use_explain');
+        if ($res['error_code'] == 0) {
+          $content = $res['data'];
+        }else{
+          $content = '';
+        }
+        $this->assign('content',$content);
+        $this->assign('list',$row['data']);
+        return  $this->fetch();
+      }
     }
 
+    /*************************************************  
+    *ClassName:     rechargeSet
+    *Description:   充值设置
+    *************************************************/  
+    public function rechargeSet()
+    {  
+      $input = Request::instance()->param();
+      if ($_POST) {
+        foreach ($input['id'] as $k => $v) {
+          if ($v == 0) {
+            if ($input['money'][$k] !='' && $input['voucher'][$k]!='' ) {
+              $add[] = [
+                'money' => $input['money'][$k],
+                'voucher' => $input['voucher'][$k],
+                'type' => 'recharge'
+              ];
+            }
+          }else{
+            $update = [
+              'money' => $input['money'][$k],
+              'voucher' => $input['voucher'][$k],
+              'type' => 'recharge'
+            ];
+            $rowu = UsersVoucher::voucherSetEdit(['id' => $v],$update);
+          }
+        }
+        if (isset($add)) {
+          if (count($add)) {
+            $rowa = UsersVoucher::voucherSetAdd($add);
+          }
+        }
+        $rows = Coms::set(['threshold_money_set' => $input['threshold_money_set']]);
+        $rowg = Coms::set(['give_voucher_set' => $input['give_voucher_set']]);
+        if ($rowa['error_code'] = 0 || $rowu['error_code'] = 0 || $rows['error_code'] = 1 || $rowg['error_code'] = 1 ) {
+          $this->jsAlert('保存成功！','/index.php/manager/managerset/rechargeset');
+        }else{
+          $this->jsAlert('保存失败！','/index.php/manager/managerset/rechargeset');
+        }
+      }else{
+        $row = UsersVoucher::voucherSetList(['type' => 'recharge']);
+        $ress = Coms::getValue('threshold_money_set');
+        $resg = Coms::getValue('give_voucher_set');
+        if ($ress['error_code'] == 0) {
+          $threshold = $ress['data'];
+        }else{
+          $threshold = '';
+        }
+        if ($resg['error_code'] == 0) {
+          $give = $resg['data'];
+        }else{
+          $give = '';
+        }
+        $this->assign('give',$give);
+        $this->assign('threshold',$threshold);
+        $this->assign('list',$row['data']);
+        return  $this->fetch();
+      }
+    }
 
+    /*************************************************  
+    *ClassName:     ajaxVoucherDel
+    *Description:   删除财富券设置
+    *************************************************/
+    public function ajaxVoucherDel()
+    {
+      $input = Request::instance()->param();
+      $rule = [
+        'id'  => 'require|number',
+      ];
+
+      $msg = [
+        'id.number'      =>  'id只能是数字',
+      ];
+      $validate = new Validate($rule, $msg);
+      $result   = $validate->check($input);
+      $res = UsersVoucher::voucherSetDel(['id' => $input['id']]);
+      if ($res['error_code'] == 0) {
+        $arr['error_code'] = 0;
+      }else{
+        $arr['error_code'] = 1;
+      }
+      return json($arr);
+    }
+    
+    /*************************************************  
+    *ClassName:     commonProblem
+    *Description:   常见问题
+    *************************************************/  
+    public function commonProblem()
+    { 
+      $input = Request::instance()->param();
+      if ($_POST) {
+        $row = Coms::set(['common_problem' => $input['content']]);
+        if ($row['error_code'] = 1 ) {
+          $this->jsAlert('保存成功！','/index.php/manager/managerset/commonproblem');
+        }else{
+          $this->jsAlert('保存失败！','/index.php/manager/managerset/commonproblem');
+        }
+      }else{
+        $res = Coms::getValue('common_problem');
+        if ($res['error_code'] == 0) {
+          $content = $res['data'];
+        }else{
+          $content = '';
+        }
+        $this->assign('content',$content);
+        return  $this->fetch();
+      }
+      
+    }
+    
     /*************************************************  
     *ClassName:     advertisementList
     *Description:   广告列表

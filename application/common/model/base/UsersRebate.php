@@ -3,7 +3,6 @@ namespace app\common\model\base;
 
 use think\Model;
 use think\Db;
-
 use app\common\model\base\CommonModel;
 use app\common\model\base\Users;
 
@@ -82,7 +81,7 @@ class UsersRebate extends Model
                 $expense += $v['expense'];
             }
             $balance = sprintf("%.2f",$income - $expense);
-            Db::name('users_customers')->where(['uid' => $uid])->update(['balance_rebate'=>$balance]);
+            Db::name('users_customers')->where($where)->update(['balance_rebate'=>$balance]);
             $result['error_code'] = 0;
             $result['error_msg'] = '';
             $result['income'] = $income;
@@ -127,7 +126,7 @@ class UsersRebate extends Model
      * @xiao
      * @DateTime 2016-11-27T21:35:49+0800
      * @param    int                   $uid  
-     * @param    array                 $data ['des' => , 'type' => , `income` => , `order_id` => ]
+     * @param    array                 $data ['des' => , 'type' => , `expense` => , `order_id` => ]
      * @return   array     [error_code, error_msg, balance]
      */
     static public function expenseRebateAdd($data)
