@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- mycp CSS 文件 -->
+<link rel="stylesheet" href="/static/css/mycp.css">
+<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- mycp JS 文件 -->
+<script src="/static/js/mycp.js"></script>
+<!-- 百度编辑器 核心 JavaScript 文件 -->
+<script type="text/javascript" charset="utf-8" src="/static/js/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/js/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/static/js/zh-cn.js"></script>
+<style type="text/css">
+  .in{float: left;}
+  .span{float: left;margin: 10px 4px;}
+  .ang{width:75px; display:block; text-align: center; line-height: 34px; color: #000; height:34px; background-color:#E0E0E0; -moz-border-radius:5px; -webkit-border-radius:5px;}
+  .tab tr td{ padding-left: 20px; }
+</style>
+
+<title>管理后台</title>
+</head>
+<body>
+{include file="common:head" /}
+<!-- main-container begin -->
+<div class="container-fluid" id="main-container">
+    {include file="common:left" /}
+    <!-- 右主框 main-content begin -->
+    <div class="main-content"  >
+        <div class="breadcrumbs">  </div>
+        <div class="page-content" id="content">
+         <ul class="nav nav-tabs nav_tit">                          
+              <li style="font-size: 20px;font-weight:600;color:#585858" >充值设置</li>
+          </ul>        
+      <form action=" " method="post" enctype="multipart/form-data" name="form1"  >
+      <table width="1000px" border="0" cellspacing="10" >
+  <tr height=50>
+    <th width="200px" style="text-align: right;padding-right:10px;">门槛金额设置：</th>
+    <td style="padding-left:20px;" >
+<input type="text" style="width:150px;float:left;" class="form-control in"  name="threshold_money_set"  value="{$give}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')" ><span style="float:left;margin:10px 4px;" >元</span>
+
+    <span style="float:left; line-height: 36px; padding-left:20px;padding-right:10px;">赠送财富券：</span>   
+<input type="text" style="width:150px;" class="form-control in" name="give_voucher_set"  value="{$threshold}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"   maxlength="5" ><span class="span" >元</span>
+    </td>  
+  </tr> 
+
+  <tr>
+    <th width="200px" valign='top' style="text-align: right;padding-right:10px; padding-top:10px;">财富券使用设置：</th>   
+    <th style="width:800px"> 
+      <table class="tab" id="add">
+      {if $list == ''}
+        <tr >
+          <td>
+          <input type="hidden" name="id[]" value='0'>
+          <span class="span" >订单金额满</span>
+<input type="text" style="width:120px;" class="form-control in" name="money[]"  value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
+      <span class="span">元</span>
+      </td><td>
+      <span  class="span">赠送财富券</span>
+<input type="text" style="width:120px;" class="form-control in" name="voucher[]" value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
+      <span class="span">元</span>
+      </td>
+      <td><a class="ang" >删除</a></td>
+      </tr>
+      {else/}
+      {volist name='list' id='t'}
+      <tr id="did_{$t.id}">
+          <td>
+          <input type="hidden" name="id[]" value='{$t.id}'>
+          <span class="span" >订单金额满</span>
+<input type="text" style="width:100px;" class="form-control in" name="money[]" value="{$t.money}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
+      <span class="span">元</span>
+      </td><td>
+      <span  class="span">赠送财富券</span>
+<input type="text" style="width:100px;" class="form-control in" name="voucher[]" value="{$t.voucher}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
+      <span class="span">元</span>
+      </td>
+      <td><a class="ang" onclick="can_del({$t.id},{$t.id})">删除</a></td>
+      </tr>
+      {/volist}
+      {/if}
+      </table>  
+    </th>
+  </tr>
+  <tr><td>&nbsp;</td><td style='padding-left: 20px;' ><a class="ang" onclick="addin()">添加</a></td></tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td></tr>  
+
+  <tr style="height: 70px;">
+    <td colspan="2"><button type="submit" class="btn btn-default" style="width: 100px;margin-left:200px;">确认保存</button> </td> 
+  </tr>
+</table>
+</form>     
+</div> 
+</div>
+</div>
+</body>
+<script type="text/javascript">
+function can_del(id,did){
+  
+    if (confirm('是否确删除') ) {
+      if (id == 0) {
+        $('#did_'+did+'').remove();
+      }else{
+        $.ajax({
+            type: "post",
+            url: "/index.php/manager/managerset/ajaxvoucherdel",
+            data: {id: id},
+            success: function (data) {
+              if (data.error_code == 0) {
+                $('#did_'+did+'').remove();
+              }else{
+                alert('删除失败');
+                location.reload();
+              }
+              
+            }
+        })
+        
+      }
+    }
+}
+var did = 0;
+var reg = /[^\d-]/g;
+function addin(){
+  $("#add").append('<tr id="did_'+did+'" ><td><input type="hidden" name="id[]" value="0"><span class="span" >订单金额满</span><input type="text" style="width:100px;" class="form-control in" name="money[]"  value="" onpaste="this.value=this.value.replace('+reg+',\'\')" onkeyup="this.value=this.value.replace('+reg+',\'\')"><span class="span">元</span></td><td><span  class="span">赠送财富券</span><input type="text" style="width:100px;" class="form-control in" name="voucher[]"  value="" onpaste="this.value=this.value.replace('+reg+',\'\')" onkeyup="this.value=this.value.replace('+reg+',\'\')"><span class="span">元</span></td><td><a class="ang" onclick="can_del(0,'+did+')">删除</a></td></tr>');
+    did--;
+}
+</script>
+
+</html>

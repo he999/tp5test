@@ -3,6 +3,7 @@ namespace app\manager\controller;
 
 use app\common\model\User;
 use app\common\model\base\Coms;
+use app\common\model\base\UsersVoucher;
 use app\common\model\Foucs;
 use think\Session;
 use think\Cookie;
@@ -78,7 +79,7 @@ class Managerset extends Manager
                     'web_title'=> $input_data['web_title'],
                     'service_tel'=> $input_data['service_tel'],
                     'contact_service' => $input_data['contact_service'],
-                      'web_logo'=> '/uploads/'.$info->getFilename(),
+                    'web_logo'=> '/uploads/'.$info->getFilename(),
                    ];
         }   
          if(Coms::set($data))
@@ -168,103 +169,201 @@ class Managerset extends Manager
     public function distributionset()
     {
        $input_data = Request::instance()->param();
-       dump($input_data);
        if($_POST)
        {
-        /******************* 验证信息 ********************/
-       // $rule = [
-       //      'recommend_integral'  => 'require|max:100|number|between:0,1000',
-       //      'attention_integral'  => 'require|max:100|number|between:0,1000',
-       //      'least_money_limit'  => 'require|max:100|number|between:0,1000',
-       //      'yi_fanyong_bili'  => 'require|max:100|number|between:0,1000',
-       //      'er_fanyong_bili'  => 'require|max:100|number|between:0,1000',
-       //      'san_fanyong_bili'  => 'require|max:100|number|between:0,1000',
-       //      'yi_fanyong_jifen'  => 'require|max:100|number|between:0,1000',
-       //      'er_fanyong_jifen'  => 'require|max:100|number|between:0,1000',
-       //      'san_fanyong_jifen'  => 'require|max:100|number|between:0,1000',
-       //      ];
-
-       // $msg = [
-       //      'recommend_integral.max'      =>  '推荐关注送积分最长为100位',
-       //      'recommend_integral.require'  =>  '推荐关注送积分必须填写',
-       //      'recommend_integral.number'      =>  '推荐关注送积分只能是数字',
-       //      'attention_integral.max'      =>  '关注送积分最长为100位',
-       //      'attention_integral.require'  =>  '关注送积分必须填写',
-       //      'attention_integral.number'      =>  '关注送积分只能是数字',
-       //      'least_money_limit.max'      =>  '最小提款额度最长为100位',
-       //      'least_money_limit.require'  =>  '最小提款额度必须填写',
-       //      'least_money_limit.number'      =>  '最小提款额度只能是数字',
-       //      'yi_fanyong_bili.max'      =>  '一级返佣比例最长为100位',
-       //      'yi_fanyong_bili.require'  =>  '一级返佣比例必须填写', 
-       //      'yi_fanyong_bili.number'      =>  '一级返佣比例只能是数字',
-       //      'er_fanyong_bili.max'      =>  '二级返佣比例最长为100位',
-       //      'er_fanyong_bili.require'  =>  '二级返佣比例必须填写', 
-       //      'er_fanyong_bili.number'      =>  '二级返佣比例只能是数字',
-       //      'san_fanyong_bili.max'      =>  '三级返佣比例最长为100位',
-       //      'san_fanyong_bili.require'  =>  '三级返佣比例必须填写', 
-       //      'san_fanyong_bili.number'      => '三级返佣比例只能是数字',
-       //      'yi_fanyong_jifen.max'      =>  '一级返佣积分最长为100位',
-       //      'yi_fanyong_jifen.require'  =>  '一级返佣积分必须填写', 
-       //      'yi_fanyong_jifen.number'      =>  '一级返佣积分只能是数字',
-       //      'er_fanyong_jifen.max'      =>  '二级返佣积分最长为100位',
-       //      'er_fanyong_jifen.require'  =>  '二级返佣积分必须填写', 
-       //      'er_fanyong_jifen.number'      =>  '二级返佣积分只能是数字',
-       //      'san_fanyong_jifen.max'      =>  '三级返佣积分最长为100位',
-       //      'san_fanyong_jifen.require'  =>  '三级返佣积分必须填写', 
-       //      'san_fanyong_jifen.number'      => '三级返佣积分只能是数字',
-       //     ];
- 
-       // $validate = new Validate($rule, $msg);
-       // $result   = $validate->check($input_data);
-       // if (!$result)
-       // {
-       //    $this->jsAlert($validate->getError());die;
-       // } 
-       /******************* 添加数据 ********************/
-         $infodata = [
+          $infodata = [
                   'purchase_return_commission' => $input_data['purchase_return_commission'],
                   'least_money_limit'=> $input_data['least_money_limit']
-        ];
-        Coms::set($infodata);
-        $data = [
-                'rebate_rate_lv1' => $input_data['rebate_rate_lv1'],
-                'rebate_rate_lv2' => $input_data['rebate_rate_lv2'],
-                'rebate_rate_lv3' => $input_data['rebate_rate_lv3'],
-                'voucher_rate_lv1' => $input_data['voucher_rate_lv1'],
-                'voucher_rate_lv2' => $input_data['voucher_rate_lv2'],
-                'voucher_rate_lv3' => $input_data['voucher_rate_lv3']
-        ];
-
-        $data2 = [
-                'rebate_rate_lv1' => $input_data['rebate_rate_2lv1'],
-                'rebate_rate_lv2' => $input_data['rebate_rate_2lv2'],
-                'rebate_rate_lv3' => $input_data['rebate_rate_2lv3'],
-                'voucher_rate_lv1' => $input_data['voucher_rate_2lv1'],
-                'voucher_rate_lv2' => $input_data['voucher_rate_2lv2'],
-                'voucher_rate_lv3' => $input_data['voucher_rate_2lv3']
-        ];
-        Coms::setRebateInfos(1,$data);
-        Coms::setRebateInfos(2,$data2);
-      //    foreach ($input_data as $key => $value) {
-      //        if(!preg_match("/^[1-9][0-9]*$/",$value))//当不为整数时
-      //        {
-      //          $this->jsAlert('请输入整数，不能带小数点','/index.php/manager/Managerset/distributionset');
-      //         }
-      //      }  
-      //    if()
-      //    {
-      //      $this->jsAlert('保存成功！','/index.php/manager/Managerset/distributionset');
-      //    }
-      //    else
-      //    {
-      //      $this->jsAlert('保存失败！','/index.php/manager/Managerset/distributionset');
-      //    }
-      }
-
-      //   $this->assign('list',Coms::getInfos());
+          ];
+          $data = [
+                  'rebate_rate_lv1' => $input_data['rebate_rate_lv1'],
+                  'rebate_rate_lv2' => $input_data['rebate_rate_lv2'],
+                  'rebate_rate_lv3' => $input_data['rebate_rate_lv3'],
+                  'voucher_rate_lv1' => $input_data['voucher_rate_lv1'],
+                  'voucher_rate_lv2' => $input_data['voucher_rate_lv2'],
+                  'voucher_rate_lv3' => $input_data['voucher_rate_lv3']
+          ];
+          $data2 = [
+                  'rebate_rate_lv1' => $input_data['rebate_rate_2lv1'],
+                  'rebate_rate_lv2' => $input_data['rebate_rate_2lv2'],
+                  'rebate_rate_lv3' => $input_data['rebate_rate_2lv3'],
+                  'voucher_rate_lv1' => $input_data['voucher_rate_2lv1'],
+                  'voucher_rate_lv2' => $input_data['voucher_rate_2lv2'],
+                  'voucher_rate_lv3' => $input_data['voucher_rate_2lv3']
+          ];
+          if (Coms::setRebateInfos(1,$data)['error_code'] = 0 || Coms::setRebateInfos(2,$data2)['error_code'] = 0 || Coms::set($infodata) ) {
+            $this->jsAlert('保存成功！','/index.php/manager/Managerset/distributionset');
+          }
+      }else{
+        $this->assign('data',Coms::getRebateInfos()['data']);
+        $this->assign('purchase_return_commission',Coms::getValue('purchase_return_commission')['data']);
+        $this->assign('least_money_limit',Coms::getValue('least_money_limit')['data']);
         return  $this->fetch();
+      }   
     }
 
+    /*************************************************  
+    *ClassName:     voucherSet
+    *Description:   财富券设置
+    *************************************************/  
+    public function voucherSet()
+    {  
+      $input = Request::instance()->param();
+      if ($_POST) {
+        foreach ($input['id'] as $k => $v) {
+          if ($v == 0) {
+            if ($input['money'][$k] !='' && $input['voucher'][$k]!='' ) {
+              $add[] = [
+                'money' => $input['money'][$k],
+                'voucher' => $input['voucher'][$k],
+                'type' => 'buy'
+              ];
+            }
+          }else{
+            $update = [
+              'money' => $input['money'][$k],
+              'voucher' => $input['voucher'][$k],
+              'type' => 'buy'
+            ];
+            $rowu = UsersVoucher::voucherSetEdit(['id' => $v],$update);
+          }
+        }
+        if (isset($add)) {
+          if (count($add)) {
+            $rowa = UsersVoucher::voucherSetAdd($add);
+          }
+        }
+        $rows = Coms::set(['voucher_use_explain' => $input['content']]);
+        if ($rowa['error_code'] = 0 || $rowu['error_code'] = 0 || $rows['error_code'] = 1 ) {
+          $this->jsAlert('保存成功！','/index.php/manager/managerset/voucherset');
+        }else{
+          $this->jsAlert('保存失败！','/index.php/manager/managerset/voucherset');
+        }
+      }else{
+        $row = UsersVoucher::voucherSetList(['type' => 'buy']);
+        $res = Coms::getValue('voucher_use_explain');
+        if ($res['error_code'] == 0) {
+          $content = $res['data'];
+        }else{
+          $content = '';
+        }
+        $this->assign('content',$content);
+        $this->assign('list',$row['data']);
+        return  $this->fetch();
+      }
+    }
+
+    /*************************************************  
+    *ClassName:     rechargeSet
+    *Description:   充值设置
+    *************************************************/  
+    public function rechargeSet()
+    {  
+      $input = Request::instance()->param();
+      if ($_POST) {
+        foreach ($input['id'] as $k => $v) {
+          if ($v == 0) {
+            if ($input['money'][$k] !='' && $input['voucher'][$k]!='' ) {
+              $add[] = [
+                'money' => $input['money'][$k],
+                'voucher' => $input['voucher'][$k],
+                'type' => 'recharge'
+              ];
+            }
+          }else{
+            $update = [
+              'money' => $input['money'][$k],
+              'voucher' => $input['voucher'][$k],
+              'type' => 'recharge'
+            ];
+            $rowu = UsersVoucher::voucherSetEdit(['id' => $v],$update);
+          }
+        }
+        if (isset($add)) {
+          if (count($add)) {
+            $rowa = UsersVoucher::voucherSetAdd($add);
+          }
+        }
+        $rows = Coms::set(['threshold_money_set' => $input['threshold_money_set']]);
+        $rowg = Coms::set(['give_voucher_set' => $input['give_voucher_set']]);
+        if ($rowa['error_code'] = 0 || $rowu['error_code'] = 0 || $rows['error_code'] = 1 || $rowg['error_code'] = 1 ) {
+          $this->jsAlert('保存成功！','/index.php/manager/managerset/rechargeset');
+        }else{
+          $this->jsAlert('保存失败！','/index.php/manager/managerset/rechargeset');
+        }
+      }else{
+        $row = UsersVoucher::voucherSetList(['type' => 'recharge']);
+        $ress = Coms::getValue('threshold_money_set');
+        $resg = Coms::getValue('give_voucher_set');
+        if ($ress['error_code'] == 0) {
+          $threshold = $ress['data'];
+        }else{
+          $threshold = '';
+        }
+        if ($resg['error_code'] == 0) {
+          $give = $resg['data'];
+        }else{
+          $give = '';
+        }
+        $this->assign('give',$give);
+        $this->assign('threshold',$threshold);
+        $this->assign('list',$row['data']);
+        return  $this->fetch();
+      }
+    }
+
+    /*************************************************  
+    *ClassName:     ajaxVoucherDel
+    *Description:   删除财富券设置
+    *************************************************/
+    public function ajaxVoucherDel()
+    {
+      $input = Request::instance()->param();
+      $rule = [
+        'id'  => 'require|number',
+      ];
+
+      $msg = [
+        'id.number'      =>  'id只能是数字',
+      ];
+      $validate = new Validate($rule, $msg);
+      $result   = $validate->check($input);
+      $res = UsersVoucher::voucherSetDel(['id' => $input['id']]);
+      if ($res['error_code'] == 0) {
+        $arr['error_code'] = 0;
+      }else{
+        $arr['error_code'] = 1;
+      }
+      return json($arr);
+    }
+    
+    /*************************************************  
+    *ClassName:     commonProblem
+    *Description:   常见问题
+    *************************************************/  
+    public function commonProblem()
+    { 
+      $input = Request::instance()->param();
+      if ($_POST) {
+        $row = Coms::set(['common_problem' => $input['content']]);
+        if ($row['error_code'] = 1 ) {
+          $this->jsAlert('保存成功！','/index.php/manager/managerset/commonproblem');
+        }else{
+          $this->jsAlert('保存失败！','/index.php/manager/managerset/commonproblem');
+        }
+      }else{
+        $res = Coms::getValue('common_problem');
+        if ($res['error_code'] == 0) {
+          $content = $res['data'];
+        }else{
+          $content = '';
+        }
+        $this->assign('content',$content);
+        return  $this->fetch();
+      }
+      
+    }
+    
     /*************************************************  
     *ClassName:     advertisementList
     *Description:   广告列表
@@ -365,16 +464,16 @@ class Managerset extends Manager
     *************************************************/         
     public function advertisementAdd()
     {
-       $input_data = Request::instance()->param();
-       if($_POST)
-       {
+      $input_data = Request::instance()->param();
+      if($_POST)
+      {
         /******************* 验证信息 ********************/
-       $rule = [
+        $rule = [
             'name'  => 'require|max:100',
             'sort'  => 'require|max:100|between:0,1000',
              ];
  
-       $msg = [
+        $msg = [
             'name.max'      =>  '广告名称最长为100位',
             'name.require'  =>  '广告名称必须填写',
             'sort.max'      =>  '排序最长为100位',
@@ -382,22 +481,22 @@ class Managerset extends Manager
             'sort.number'      =>  '排序只能是数字',
             ];
 
-       $validate = new Validate($rule, $msg);
-       $result   = $validate->check($input_data);
-       if (!$result)
-       {
+        $validate = new Validate($rule, $msg);
+        $result   = $validate->check($input_data);
+        if (!$result)
+        {
           $this->jsAlert($validate->getError());die;
-       } 
+        } 
        /******************* 添加数据 ********************/
-      $file = request()->file('image');
-      $arr = (array)$file;
-      if (empty($arr)) 
-      {
-        $this->jsAlert('请上传图片','/index.php/manager/Managerset/advertisementadd'); 
-      }
-      else
-      {
-       $info = $file->rule('uniqid')->move(ROOT_PATH . 'public' . DS . 'uploads','');
+        $file = request()->file('image');
+        $arr = (array)$file;
+        if (empty($arr)) 
+        {
+          $this->jsAlert('请上传图片','/index.php/manager/Managerset/advertisementadd'); 
+        }
+        else
+        {
+          $info = $file->rule('uniqid')->move(ROOT_PATH . 'public' . DS . 'uploads','');
           if($info)
           { 
              $data = [
@@ -408,34 +507,22 @@ class Managerset extends Manager
                     'time'=> time(), 
                  ];
               
-           if(Foucs::add($data))
-           {
-             $this->jsAlert('保存成功！','/index.php/manager/Managerset/advertisementlist');
-           }
-           else
-           {
-             $this->jsAlert('保存失败！','/index.php/manager/Managerset/advertisementlist');
-           }
-
-         }
-         else
-         {
+              if(Foucs::add($data))
+              {
+               $this->jsAlert('保存成功！','/index.php/manager/Managerset/advertisementlist');
+              }
+              else
+              {
+               $this->jsAlert('保存失败！','/index.php/manager/Managerset/advertisementlist');
+              }
+          }else{
             // 上传失败获取错误信息
             echo $file->getError();die;
-         }
+          }
+        }
       }
-  }
-
         return  $this->fetch();
     }    
-
-    // static public function imgname($name = ''){
-    //   if ($name) {
-    //     $name = 'codetpl';
-    //   }
-    //   return $name;
-    // }
-
     /*************************************************  
     *ClassName:     二维码模板 
     *Description:   广告添加
