@@ -240,7 +240,6 @@ class Goods extends Manager
             'goods_name'  => 'require|max:500',
             'goods_bar_code'  => 'require|max:100',
             'goods_sn'  => 'require|max:100',
-         
           ];
 
        $msg = [

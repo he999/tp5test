@@ -128,7 +128,7 @@ class Users extends Model
     static public function info($uid)
     {   
         $res = Db::name('users_customers')->alias('a')->join('users_address c','a.uid = c.uid','left')
-        ->field(['a.uid,a.commission,a.nickname,a.balance,a.points,a.sex,a.moblie,a.email,a.member_type,a.face','c.consignee,c.address,c.zipcode,c.province,c.city,c.district'])
+        ->field(['a.uid,a.commission,a.nickname,a.balance,a.voucher,a.sex,a.moblie,a.email,a.member_type,a.face','c.consignee,c.address,c.zipcode,c.province,c.city,c.district'])
         ->find($uid);
         // $res2=Db::name('users_money')->where(['uid'=>$uid])->select();
         // $commission=0;
@@ -195,17 +195,17 @@ class Users extends Model
             }
             Db::name('users_customers')->where($where)->update(['commission'=> $commission]);   
         }
-        if($data['points']!=''){
-                $res4=Db::name('users_points')->insert(['uid'=>$uid,'type'=>'管理员修改','points'=>$data['points'],'time'=>time()]);
-                if($res4){
-                $res5=Db::name('users_points')->where(['uid'=>$uid])->select();
-                $points=0;
-                foreach ($res5 as $k => $v) {
-                     $points+=$v['points'];
-                } 
-                Db::name('users_customers')->where($where)->update(['points'=>$points]);         
-            }
-        }      
+        // if($data['points']!=''){
+                // $res4=Db::name('users_points')->insert(['uid'=>$uid,'type'=>'管理员修改','points'=>$data['points'],'time'=>time()]);
+                // if($res4){
+                // $res5=Db::name('users_points')->where(['uid'=>$uid])->select();
+                // $points=0;
+                // foreach ($res5 as $k => $v) {
+                     // $points+=$v['points'];
+                // } 
+                // Db::name('users_customers')->where($where)->update(['points'=>$points]);         
+            // }
+        // }      
         if ($res!==false && $res2!==false ) {
             $result['error_code'] = 0;
             $result['error_msg'] = "";
@@ -226,7 +226,28 @@ class Users extends Model
      */
     static public function moneyLst($num,$id)
     {   
-        $res = Db::name('users_money')->where(['type'=>'commission','uid'=>$id,'is_del'=>0])->order('time desc')->paginate($num);
+        $res = Db::name('users_money_rebate')->where(['uid'=>$id,'is_del'=>0])->order('time desc')->paginate($num);
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+            $result['data'] = $res;
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = "修改失败";
+        }
+        return $result;
+    }
+	
+	/**
+     * balanceLst 余额记录
+     * @tanlong
+     * @param    array     $data
+     * @return   array     [error_code, error_msg, id]
+     * @DateTime 2016-11-22T20:46:59+0800
+     */
+    static public function balanceLst($num,$id)
+    {   
+        $res = Db::name('users_money')->where(['uid'=>$id,'is_del'=>0])->order('time desc')->paginate($num);
         if ($res) {
             $result['error_code'] = 0;
             $result['error_msg'] = "";
@@ -239,15 +260,15 @@ class Users extends Model
     }
 
     /**
-     * pointsLst 积分记录
+     * voucherLst 积分记录
      * @tanlong
      * @param    array     $data
      * @return   array     [error_code, error_msg, id]
      * @DateTime 2016-11-22T20:46:59+0800
      */
-    static public function pointsLst($num,$id)
+    static public function voucherLst($num,$id)
     {   
-        $res = Db::name('users_points')->where(['uid'=>$id,'is_del'=>0])->order('time desc')->paginate($num);
+        $res = Db::name('users_money_voucher')->where(['uid'=>$id,'is_del'=>0])->order('time desc')->paginate($num);
         if ($res) {
             $result['error_code'] = 0;
             $result['error_msg'] = "";
@@ -454,16 +475,16 @@ class Users extends Model
         $res = Db::name('users')
               ->alias('a')
               ->join('users_customers c','a.uid = c.uid','left')
-              ->field(["a.create_time","a.uid","c.nickname","c.face","c.moblie"])
+              ->field(["a.create_time","a.uid","c.nickname","c.face","c.moblie","c.member_type"])
               ->where($where)
               ->paginate($num,false,array('query'=>$url)); 
         if($res){
             $counts=array();
-            foreach ($res as $k => $v) {
+            foreach ($res as $k => $v){
                  $count=Db::name('users_parent')
                  ->where(array('parent'=>$v['uid']))
                  ->count();
-                 $counts[]=$count;
+             $counts[]=$count;
             }
         }
         if ($res) {

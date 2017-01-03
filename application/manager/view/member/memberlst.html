@@ -1,109 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- mycp CSS 文件 -->
-<link rel="stylesheet" href="/static/css/mycp.css">
-<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-<!-- mycp JS 文件 -->
-<script src="/static/js/mycp.js"></script>
-
-<title>管理后台</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- mycp CSS 文件 -->
+	<link rel="stylesheet" href="/static/css/mycp.css">
+	<link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!-- mycp JS 文件 -->
+	<script src="/static/js/mycp.js"></script>
+	<title>管理后台</title>
 </head>
-<script type="text/javascript">
-     
-</script>
 <body>
-{include file="common:head" /}
-<!-- main-container begin -->
-<div class="container-fluid" id="main-container">
-    {include file="common:left" /}
-    <!-- 右主框 main-content begin -->
-    <div class="main-content"  >
-        <!-- breadcrumbs begin -->
-        <div class="breadcrumbs">  
-        </div>
-        <!-- breadcrumbs end -->
-        <!-- page-content begin -->
-        <div class="page-content" id="content">
-            <ul class="nav nav-tabs nav_tit tou" >       
-                 <a href="#"  style="font-size: 20px;font-weight:600;">会员列表</a>
-            </ul>     
-               <form name="from1"  method="get" action="" style="background-color: rgba(113, 22, 22, 0); margin-top:-8px">
-            关键字 
-                 <input type="text" name="nickname" value="" class="form-control" style="width: 100px;display:inline-block; margin:10px 0"    >&nbsp;&nbsp; &nbsp; 
-                       <input type="submit" class="btn btn-search" style="border:none;margin-top:3px"   value="搜索" > 
-
-              
-              </form>
-                 <table class="table table-hover table-bordered" style="border: none;text-align:center" >
-                <thead>
-                    <tr style="border-top:1px solid #ccc; ">
-                       <th>会员昵称</th>
-                      <th>头像</th>
-                      <th>手机号</th>
-                      <th style="width:100px">邀请人数</th>
-                      <th>加入时间</th>
-                              <th >操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tbody>
-            {volist name="lst" id="vo" key="k"}
-            <tr> 
-                     <th>{$vo.nickname}</th>
-                      <th><img src="{$vo.face}" style="width:50px; height:50px"/></th>
-                      <th>{$vo.moblie}</th>
-                      <th id="th1"><a href="/index.php/manager/Member/memberRelation/id/{$vo.uid}">{$lst2[$k-1]}</a></th>
-                      <th>{$vo.create_time|date="Y-m-d H:i",###}</th>             
-                      <th ><a href="/index.php/manager/Member/membermanagement/id/{$vo.uid}">编辑</a>
-                     <a onclick="return confirm('你确定要删除吗？')"  href="/index.php/manager/Member/memberDel/id/{$vo.uid}" style="cursor: pointer;">删除</a></th>
-            </tr>
-            {/volist}
-                     </tbody>
-            </table>
-            <div style="margin-top:-10px">{$lst->render()}</div>
-<table class="table"   >
- <tr   ><td style="text-align: center;border-top: none;  "></td></tr>
-      </table>
-        <!-- page-content end -->
-   
-    <!-- main-content end -->
-</div> </div>
-<!-- main-container end --> </div>
-
+	{include file="common:head" /}
+	<!-- main-container begin -->
+	<div class="container-fluid" id="main-container">
+		{include file="common:left" /}
+		<!-- 右主框 main-content begin -->
+		<div class="main-content"  >
+			<!-- breadcrumbs begin -->
+			<!-- breadcrumbs end -->
+			<!-- page-content begin -->
+			<div class="page-content" id="content">
+				<ul class="nav nav-tabs nav_tit tou" >       
+					<a href="#"  style="font-size: 20px;font-weight:600;">会员列表</a>
+				</ul>     
+				<form name="from1"  method="get" action="" style="background-color: rgba(113, 22, 22, 0); margin-top:-8px">
+				    会员昵称 
+					<input type="text" name="nickname" value="{$nickname}" class="form-control" style="width: 150px;display:inline-block; margin:10px 0"    >&nbsp;&nbsp; &nbsp; 
+				    用户身份
+					<input type="text" name="member_type" value="{$member_type}" class="form-control" style="width: 150px;display:inline-block; margin:20px 0"    >&nbsp;&nbsp; &nbsp; 
+				    <input type="submit" class="btn btn-search" style="border:none;margin-top:3px"   value="搜索" > 
+				</form>
+				<table class="table table-hover table-bordered" style="border: none;text-align:center" >
+					<thead>
+						<tr style="border-top:1px solid #ccc; ">
+						    <th>会员昵称</th>
+						    <th>头像</th>
+						    <th>手机号</th>
+						    <th style="width:100px">邀请人数</th>
+						    <th >用户身份</th>
+						    <th>加入时间</th>
+							<th >操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{volist name="lst" id="vo" key="k"}
+						<tr> 
+							<th>{$vo.nickname}</th>
+							<th><img src="{$vo.face}" style="width:50px; height:50px"/></th>
+							<th>{$vo.moblie}</th>
+							<th id="th1"><a href="/index.php/manager/Member/memberRelation/id/{$vo.uid}">{$lst2[$k-1]}</a></th>
+							{switch name="vo.member_type"}
+								{case value="1"}<th>普通</th>{/case}
+								{case value="2"}<th>代理商</th>{/case}
+							{/switch}
+							<th>{$vo.create_time|date="Y-m-d H:i",###}</th>             
+							<th ><a href="/index.php/manager/Member/membermanagement/id/{$vo.uid}">编辑</a>
+							<a onclick="return confirm('你确定要删除吗？')"  href="/index.php/manager/Member/memberDel/id/{$vo.uid}" style="cursor: pointer;">删除</a></th>
+						</tr>
+						{/volist}
+					</tbody>
+				</table>
+				<div><center>{$lst->render()}</center></div>
+			    <!-- page-content end -->
+		        <!-- main-content end -->
+		    </div> 
+		</div>
+	 <!-- main-container end --> 
+	</div>
 </body>
-<!--价格验证-->
-<script type="text/javascript">
-    // var record={
-    //     num:""
-    // }
-    // var checkDecimal=function(n){
-    //     var decimalReg=/^\d{0,8}\.{0,1}(\d{1,2})?$/;
-    //     // var decimalReg=/^[-\+]?\d{0,8}\.{0,1}(\d{1,2})?$/;
-    //     if(n.value!=""&&decimalReg.test(n.value))
-    //     {
-    //         record.num=n.value;
-    //     }else
-    //     {
-    //         if(n.value!="")
-    //         {
-    //             n.value=record.num;
-    //         }
-    //     }
-        
-    // }
-</script>
+
 <script type="text/javascript">
 // function checkSubmit(){
 //     var name=myform.goods_name.value;
@@ -161,11 +135,10 @@
 }
 </script>
 <script type="text/javascript">
-
-$('#create_timestamp').datetimepicker({
-  minView: "month",
-    language:  'zh-CN',
-    format: 'yyyy-mm-dd'
-});
+	$('#create_timestamp').datetimepicker({
+	  minView: "month",
+		language:  'zh-CN',
+		format: 'yyyy-mm-dd'
+	});
 </script>
 </html>    

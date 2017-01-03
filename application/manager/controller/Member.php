@@ -21,12 +21,22 @@ class Member extends Manager
         $url=array();
         $where['role']=array("eq","customer");
         $where['status']=array("eq","1");
+        $where['member_type']=array("gt","0");
+		
         if($_GET){
            if(!empty($input_data['nickname'])){
                  $url['nickname']=$input_data['nickname'];
                  $where['nickname']=array("like",'%'.$input_data['nickname'].'%');
            }
+		   if(!empty($input_data['member_type'])){
+                 $url['member_type']=$input_data['member_type'];
+                 $where['member_type']=array("like",'%'.$input_data['member_type'].'%');
+           }
         }
+		$nickname = !empty($input_data['nickname'])?$input_data['nickname']:'';
+        $member_type = !empty($input_data['member_type'])?$input_data['member_type']:''; 
+        $this->assign('nickname',$nickname);
+        $this->assign('member_type',$member_type);
         $result=users::memberLst(15,$where,$url);
         $this->assign('lst',$result['data']);
         $this->assign('lst2',$result['data2']);
@@ -40,7 +50,7 @@ class Member extends Manager
     public function memberManagement()
     {  
         $id = Request::instance()->param('id');
-        $data=users::info($id);
+        $data=Users::info($id);
         $this->assign('data',$data['data']);
         //$this->assign('commission',$data['commission']);
         $res = Regions::getLevel(1);
@@ -101,16 +111,28 @@ class Member extends Manager
         return  $this->fetch();     
     } 
 
-     /*************************************************  
-   *ClassName:     pointsLst
-   *Description:   积分明细
+	/*************************************************  
+   *ClassName:     balanceLst
+   *Description:   余额明细
    *************************************************/
-    public function pointsLst()
+    public function balanceLst()
     {  
         $id = Request::instance()->param('id');
-        $result=users::pointsLst(15,$id);
+        $result=users::balanceLst(15,$id);
         $this->assign('data',$result['data']);
-        return  $this->fetch();     
+        return  $this->fetch('moneylst');     
+    } 
+
+     /*************************************************  
+   *ClassName:     voucherLst
+   *Description:   财富劵明细
+   *************************************************/
+    public function voucherLst()
+    {  
+        $id = Request::instance()->param('id');
+        $result=users::voucherLst(15,$id);
+        $this->assign('data',$result['data']);
+        return  $this->fetch('moneylst');     
     } 
 
      /*************************************************  
