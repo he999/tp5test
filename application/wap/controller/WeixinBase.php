@@ -34,7 +34,7 @@ class WeixinBase extends Controller
     *************************************************/
     private function weiwinInit()
 	{  	
-		if (!session('open_id')) { 
+		if (session('?open_id')) { 
 			if(WeixinAuth::isWeixin()) {
 				$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"];
 				$openInfo = WeixinAuth::getOpenInfo($this->appid, $this->appsecret, $url);
