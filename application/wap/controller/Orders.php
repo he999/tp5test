@@ -11,6 +11,7 @@ use app\common\model\base\Coms;
 use weixin\pay\WeixinPay;
 use app\common\model\base\UsersMoney;
 use app\common\model\base\UsersVoucher;
+use app\common\model\base\UsersRebate;
 use app\common\model\Regions;
 use app\common\model\Shipping;
 
@@ -251,8 +252,16 @@ class Orders extends WeixinBase
             $distr = Regions::getNameStr($ids);
             $info = '';
         }
-        $voucher = UsersVoucher::voucherKey($row['order_amount'],['type'=>'buy']);
-        $voucherc = UsersVoucher::countVoucher(session('uid'));
+        $vouchera = UsersVoucher::voucherKey($row['order_amount'],['type'=>'buy']);//可用券
+        $voucherc = UsersVoucher::countVoucher(session('uid'));//现有券
+        (int)$c = $voucherc['balance_voucher'];  
+        (int)$a = $vouchera['voucher'];
+        if ($c <= $a) {
+            $voucher = $c;
+        }else{
+            $voucher = $a;
+        }
+        $rebate = UsersRebate::countRebate(session('uid'));
         $where['uid'] = session('uid');
         $where['order_id'] = $input['order_id'];
         $res = OrdersModel::getList($where);
@@ -261,8 +270,8 @@ class Orders extends WeixinBase
         }else{
             $this->error('操作错误');
         }
-        $this->assign('voucher',$voucher['voucher']);
-        $this->assign('voucherc',$voucherc['balance_voucher']);
+        $this->assign('voucher',$voucher);
+        $this->assign('rebate',$rebate['balance_rebate']);
         $this->assign('row',$row);
         $this->assign('info',$info);
         $this->assign('distr',$distr);
@@ -315,6 +324,19 @@ class Orders extends WeixinBase
         $data['notify_url'] = "http://yshop.wiwibao.com/weixinpaynotify.php";
         $weixinpay = new WeixinPay;
         $jsApiParameters = $weixinpay->createPay($data, $key);
+
+        $vouchera = UsersVoucher::voucherKey($data['order_amount'],['type'=>'buy']);//可用券
+        $voucherc = UsersVoucher::countVoucher(session('uid'));//现有券
+        (int)$c = $voucherc['balance_voucher'];  
+        (int)$a = $vouchera['voucher'];
+        if ($c <= $a) {
+            $voucher = $c;
+        }else{
+            $voucher = $a;
+        }
+        $rebate = UsersRebate::countRebate(session('uid'));
+        $this->assign('voucher',$voucher);
+        $this->assign('rebate',$rebate['balance_rebate']);
         $this->assign("jsApiParameters", $jsApiParameters);
         $this->assign('list',$list);
         $this->assign('data',$data);
@@ -340,6 +362,18 @@ class Orders extends WeixinBase
         }else{
             $this->error('操作错误');
         }
+        $vouchera = UsersVoucher::voucherKey($data['order_amount'],['type'=>'buy']);//可用券
+        $voucherc = UsersVoucher::countVoucher(session('uid'));//现有券
+        (int)$c = $voucherc['balance_voucher'];  
+        (int)$a = $vouchera['voucher'];
+        if ($c <= $a) {
+            $voucher = $c;
+        }else{
+            $voucher = $a;
+        }
+        $rebate = UsersRebate::countRebate(session('uid'));//佣金
+        $this->assign('voucher',$voucher);
+        $this->assign('rebate',$rebate['balance_rebate']);
         $this->assign('list',$list);
         $this->assign('data',$data);
         return $this->fetch();
@@ -352,7 +386,7 @@ class Orders extends WeixinBase
      * @param    void                
      * @return   void
      */
-    public function ajaxyuepay()
+    public function ajaxyuePay()
     {   
         $uid = session('uid');
         $input = Request::instance()->param();
@@ -361,6 +395,18 @@ class Orders extends WeixinBase
         $money = $data['order_amount'] + $data['shipping_price'];
         $row = UsersMoney::countBalance($uid);
         $yuemoney = $row['balance'];
+
+        $vouchera = UsersVoucher::voucherKey($data['order_amount'],['type'=>'buy']);//可用券
+        $voucherc = UsersVoucher::countVoucher(session('uid'));//现有券
+        (int)$c = $voucherc['balance_voucher'];  
+        (int)$a = $vouchera['voucher'];
+        if ($c <= $a) {
+            $voucher = $c;
+        }else{
+            $voucher = $a;
+        }
+        $rebate = UsersRebate::countRebate(session('uid'))['balance_rebate'];//佣金
+        
         if($yuemoney < $money ){
             $arr['error_code'] = 1;
             $arr['error_msg'] = '余额不足，请充值再试';

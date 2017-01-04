@@ -48,33 +48,33 @@ class Notify
                             }
                         }
                     }
-                }elseif ($attach == 'jieyue') {
-                    $id = $arr[0];
-                    $data['pay_time'] = time();
-                    $info = Orders::payInfo($id);
-                    if ($info['error_code'] == 0) 
-                    {
-                        if ($info['data']['pay_time'] == '') {
-                            Orders::payEdit($id,$data);
-                            $uid = $info['data']['uid']; 
-                            UsersCustomers::edit($uid,['member_type'=>1,'opening_time'=>time()]);
-                            echo 'SUCCESS';
-                        }
+                // }elseif ($attach == 'jieyue') {
+                //     $id = $arr[0];
+                //     $data['pay_time'] = time();
+                //     $info = Orders::payInfo($id);
+                //     if ($info['error_code'] == 0) 
+                //     {
+                //         if ($info['data']['pay_time'] == '') {
+                //             Orders::payEdit($id,$data);
+                //             $uid = $info['data']['uid']; 
+                //             UsersCustomers::edit($uid,['member_type'=>1,'opening_time'=>time()]);
+                //             echo 'SUCCESS';
+                //         }
                         
-                    }
-                }elseif ($attach == 'nianfei') {
-                    $id = $arr[0];
-                    $data['pay_time'] = time();
-                    $info = Orders::payInfo($id);
-                    if ($info['error_code'] == 0) 
-                    {   
-                        if ($info['data']['pay_time'] == '') {
-                            Orders::payEdit($id,$data);
-                            $uid = $info['data']['uid'];  
-                            UsersCustomers::edit($uid,['member_type'=>2,'opening_time'=>time()]);
-                            echo 'SUCCESS';
-                        }
-                    }
+                //     }
+                // }elseif ($attach == 'nianfei') {
+                //     $id = $arr[0];
+                //     $data['pay_time'] = time();
+                //     $info = Orders::payInfo($id);
+                //     if ($info['error_code'] == 0) 
+                //     {   
+                //         if ($info['data']['pay_time'] == '') {
+                //             Orders::payEdit($id,$data);
+                //             $uid = $info['data']['uid'];  
+                //             UsersCustomers::edit($uid,['member_type'=>2,'opening_time'=>time()]);
+                //             echo 'SUCCESS';
+                //         }
+                //     }
                 }elseif ($attach == 'chonzhi') {
                     $id = $arr[0];
                     $data['pay_time'] = time();
@@ -95,22 +95,22 @@ class Notify
                             echo 'SUCCESS';
                         }
                     }
-                }elseif ($attach == 'yuqi') {
-                    $id = $arr[0];
-                    $data['pay_time'] = time();
-                    $row = Orders::payInfo($id);
-                    if ($row['error_code'] == 0) 
-                    {
-                        if ($row['data']['pay_time'] == '') {
-                            $ard = explode('-',$row['data']['type']);
-                            $ids = $ard[0];
-                            $add = ['renew_time' => time()];
-                            OrdersGoods::editOne($ids,$add);
-                            Orders::payEdit($id,$data);
-                            echo 'SUCCESS';
-                        }
-                    }
-                }
+                // }elseif ($attach == 'yuqi') {
+                //     $id = $arr[0];
+                //     $data['pay_time'] = time();
+                //     $row = Orders::payInfo($id);
+                //     if ($row['error_code'] == 0) 
+                //     {
+                //         if ($row['data']['pay_time'] == '') {
+                //             $ard = explode('-',$row['data']['type']);
+                //             $ids = $ard[0];
+                //             $add = ['renew_time' => time()];
+                //             OrdersGoods::editOne($ids,$add);
+                //             Orders::payEdit($id,$data);
+                //             echo 'SUCCESS';
+                //         }
+                //     }
+                // }
                 echo 'SUCCESS';
             }
             zlog($postObj);
