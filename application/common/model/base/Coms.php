@@ -129,15 +129,15 @@ class Coms extends Model
     }
 
     /**
-     * getInfos 得到返佣比例信息 ys_rebate
-     * @
+     * getInfos 得到返佣比例信息
+     * @xiao
      * @DateTime 2016-07-31T07:38:20+0800
      * @param    int                      $id id
      * @return   array                    [error_code, error_msg, data=> [] ]
      */
-    static public function getRebateInfos()
+    static public function getRebateInfos($where)
     {
-        $res = Db::name('rebate_set')->select();
+        $res = Db::name('rebate_set')->where($where)->select();
         if ($res) {
             $result['error_code'] = 0;
             $result['error_msg'] = '';
@@ -150,8 +150,8 @@ class Coms extends Model
     }
 
     /**
-     * getInfos 设置返佣比例信息 ys_rebate
-     * @
+     * getInfos 设置返佣比例信息
+     * @xiao
      * @DateTime 2016-07-31T07:38:20+0800
      * @param    array                      $data [rebate_rate_lv1=> ,....]
      * @return   array                    [error_code, error_msg, data=> [] ]

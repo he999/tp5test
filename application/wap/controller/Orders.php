@@ -392,12 +392,10 @@ class Orders extends WeixinBase
         $input = Request::instance()->param();
         $order_id = $input['order_id'];
         $data = OrdersModel::ordersInfo($order_id)['data'];
-        $money = $data['order_amount'] + $data['shipping_price'];
         $row = UsersMoney::countBalance($uid);
-        $yuemoney = $row['balance'];
-
+        
         $vouchera = UsersVoucher::voucherKey($data['order_amount'],['type'=>'buy']);//可用券
-        $voucherc = UsersVoucher::countVoucher(session('uid'));//现有券
+        $voucherc = UsersVoucher::countVoucher($uid);//现有券
         (int)$c = $voucherc['balance_voucher'];  
         (int)$a = $vouchera['voucher'];
         if ($c <= $a) {
@@ -407,11 +405,26 @@ class Orders extends WeixinBase
         }
         $rebate = UsersRebate::countRebate(session('uid'))['balance_rebate'];//佣金
         
-        if($yuemoney < $money ){
-            $arr['error_code'] = 1;
-            $arr['error_msg'] = '余额不足，请充值再试';
-            return $arr;
+        $money = $data['order_amount'] - $voucher;
+        $yuemoney = $row['balance'];
+        if ($data['is_rebate'] == 1) {
+            if($yuemoney+$rebate < $money ){
+                $arr['error_code'] = 1;
+                $arr['error_msg'] = '余额不足，请充值再试';
+                return $arr;
+            }
+            if ($rebate < $money ) {
+                $money = $money-$rebate;
+            }
+            
+        }else{
+            if($yuemoney < $money ){
+                $arr['error_code'] = 1;
+                $arr['error_msg'] = '余额不足，请充值再试';
+                return $arr;
+            }
         }
+
         $pay = [
             'des' => '购买',
             'type' => 'buy',
@@ -420,13 +433,27 @@ class Orders extends WeixinBase
             'order_id' => $order_id,
             'uid' => $uid
         ];
-        $res = UsersMoney::expenseAdd($pay);
+        if ($rebate >= $money ) {
+            $res = UsersRebate::expenseRebateAdd($pay);
+        }else{
+            $res = UsersMoney::expenseAdd($pay);
+            $pays = [
+                'des' => '购买',
+                'type' => 'buy',
+                'expense' => $rebate,
+                'time' => time(),
+                'order_id' => $order_id,
+                'uid' => $uid
+            ];
+            UsersRebate::expenseRebateAdd($pays);
+        }
+        
         if ($res['error_code'] == 0) {
-            $datas['order_status'] = 1;
+            $datas['order_status'] = 2;
             $datas['is_pay'] = 1;
             $datas['pay_time'] = time();
             if (OrdersModel::edit($order_id,$datas)['error_code'] == 0) {
-                UsersMoney::PaymentCommission($uid,$order_id,$data['order_amount']);
+                UsersRebate::PaymentCommission($uid,$order_id,$data['order_amount']);
                 $arr['error_code'] = 0;
                 $arr['error_msg'] = '支付成功';
             }

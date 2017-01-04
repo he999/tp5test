@@ -165,14 +165,19 @@ class UsersRebate extends Model
         $where['goods_id'] = ['in',$ids];
         $goods = Goods::getWhereList($where);
 
+        $info = Users::myInfo($uid)['data'];
+        $rebate = Coms::getRebateInfos(['id' => $info['member_type'] ])['data'];
+
         //佣金比例
-        $com1 = (int)Coms::getValue('yi_fanyong_bili')['data']/100;
-        $com2 = (int)Coms::getValue('er_fanyong_bili')['data']/100;
-        $com3 = (int)Coms::getValue('san_fanyong_bili')['data']/100;
+        $reb1 = $rebate[0]['rebate_rate_lv1']/100;
+        $reb2 = $rebate[0]['rebate_rate_lv2']/100;
+        $reb3 = $rebate[0]['rebate_rate_lv3']/100;
+
+
         //对应 金额
-        $money1 = 0;
-        $money2 = 0;
-        $money3 = 0;
+        $rebsum1 = 0;
+        $rebsum2 = 0;
+        $rebsum3 = 0;
 
         //对应积分
         $points1 = $mone*(int)Coms::getValue('yi_fanyong_jifen')['data']/100;
