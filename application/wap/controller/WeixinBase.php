@@ -34,19 +34,13 @@ class WeixinBase extends Controller
     *************************************************/
     private function weiwinInit()
 	{  	
-		//if (session('?open_id')) { 
-			//zlog('有session');
+		if (session('?open_id')) { 
 			if(WeixinAuth::isWeixin()) {
 				$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"];
-				zlog('url:'.$url);
-				zlog('appid:'.$this->appid);
-				zlog('appsecret:'.$this->appsecret);
 				$openInfo = WeixinAuth::getOpenInfo($this->appid, $this->appsecret, $url);
-				zlog('===1===');
 				$open_id = $openInfo['openid'];
 				$res = UsersWeixin::getOne($open_id);
 				if ($res['error_code'] == 0) { 
-					zlog('有关注');
 					$uid = $res['data']['uid']; 
 					if ($res['data']['nickname'] == NULL) {
 						$userinfo = WeixinAuth::getWeiwinInfo($openInfo['access_token'], $openInfo['openid']);
@@ -71,15 +65,13 @@ class WeixinBase extends Controller
 				}else{
 					die("未关注");
 				}
-                // UserLogs::add($uid, "登陆成功");
 			} else {
 				//非微信浏览器处理
 				//die("非微信浏览器");
 				session('uid','81');
         		session("open_id",'oSMR0t1SaQbjlhNAdSA75h9N1gqg');
 			}
-		//}
-		zlog('wan');
+		}
 	}
 }
 
