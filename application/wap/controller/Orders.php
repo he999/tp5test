@@ -10,6 +10,9 @@ use app\common\model\GoodsComment;
 use app\common\model\base\Coms;
 use weixin\pay\WeixinPay;
 use app\common\model\base\UsersMoney;
+use app\common\model\base\UsersVoucher;
+use app\common\model\Regions;
+use app\common\model\Shipping;
 
 /*************************************************
  * @ClassName:     Orders
@@ -115,8 +118,7 @@ class Orders extends WeixinBase
     public function orderAllList()
     {   
         $where['uid'] = session('uid');
-        $where['is_dels'] = 0;
-        $where['order_status'] = 0;
+        $where['order_status'] = 1;
         $res = OrdersModel::getList($where);
         if ($res['error_code'] == 0 ) {
             $data = $res['data'];
@@ -137,8 +139,7 @@ class Orders extends WeixinBase
     public function orderpreparelist()
     {   
         $where['uid'] = session('uid');
-        $where['is_dels'] = 0;
-        $where['order_status'] = 1;
+        $where['order_status'] = 2;
         $res = OrdersModel::getList($where);
         if ($res['error_code'] == 0 ) {
             $data = $res['data'];
@@ -159,8 +160,7 @@ class Orders extends WeixinBase
     public function orderungetlist()
     {   
         $where['uid'] = session('uid');
-        $where['is_dels'] = 0;
-        $where['order_status'] = 2;
+        $where['order_status'] = 3;
         $res = OrdersModel::getList($where);
         if ($res['error_code'] == 0 ) {
             $data = $res['data'];
@@ -181,8 +181,7 @@ class Orders extends WeixinBase
     public function orderendlist()
     {   
         $where['uid'] = session('uid');
-        $where['is_dels'] = 0;
-        $where['order_status'] = 3;
+        $where['order_status'] = 4;
         $res = OrdersModel::getList($where);
         if ($res['error_code'] == 0 ) {
             $data = $res['data'];
@@ -238,6 +237,22 @@ class Orders extends WeixinBase
         if (!$result){
             $this->error($validate->getError());
         }
+        $row = OrdersModel::getOne($input['order_id'])['data'];
+        if ($row['pickup_id'] != 0 ) {
+            $info = Shipping::getInfoShippingPickup($row['pickup_id'])['data'];
+            $distr = '';
+        }else{
+            $ids = [
+                'province' => $row['province'],
+                'city' => $row['city'],
+                'district' => $row['district'],
+                'town' => $row['town']
+            ];
+            $distr = Regions::getNameStr($ids);
+            $info = '';
+        }
+        $voucher = UsersVoucher::voucherKey($row['order_amount'],['type'=>'buy']);
+        $voucherc = UsersVoucher::countVoucher(session('uid'));
         $where['uid'] = session('uid');
         $where['order_id'] = $input['order_id'];
         $res = OrdersModel::getList($where);
@@ -246,6 +261,11 @@ class Orders extends WeixinBase
         }else{
             $this->error('操作错误');
         }
+        $this->assign('voucher',$voucher['voucher']);
+        $this->assign('voucherc',$voucherc['balance_voucher']);
+        $this->assign('row',$row);
+        $this->assign('info',$info);
+        $this->assign('distr',$distr);
         $this->assign('data',$data);
         return $this->fetch();
     }
