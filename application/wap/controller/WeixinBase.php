@@ -34,7 +34,7 @@ class WeixinBase extends Controller
     *************************************************/
     private function weiwinInit()
 	{  	
-		if (session('?open_id')) { 
+		//if (session('?open_id')) { 
 			zlog('有session');
 			if(WeixinAuth::isWeixin()) {
 				$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"];
@@ -74,7 +74,7 @@ class WeixinBase extends Controller
 				session('uid','81');
         		session("open_id",'oSMR0t1SaQbjlhNAdSA75h9N1gqg');
 			}
-		}
+		//}
 		zlog('wan');
 	}
 }
