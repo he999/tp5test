@@ -72,6 +72,8 @@ class WeixinBase extends Controller
         		session("open_id",'oSMR0t1SaQbjlhNAdSA75h9N1gqg');
 			}
 		}
+		dump(session('uid','81').:.session('open_id'));
+		
 	}
 }
 
