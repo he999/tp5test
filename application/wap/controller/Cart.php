@@ -8,6 +8,7 @@ use think\Session;
 use app\common\model\Goods;
 use app\common\model\Cart as CartModel;
 use app\common\model\GoodsSpecs;
+use app\common\model\base\Users;
 
 /*************************************************
  * @ClassName:     Cart
@@ -212,10 +213,10 @@ class Cart extends WeixinBase
         ];
         $validate = new Validate($rule, $msg);
         $result   = $validate->check($input);
-        if (Session::has('uid') ) {
-            $uid = session('uid');
-        }else{
-            $arr['error_msg'] =  '你好，请登陆再试！';
+        $uid = session('uid');
+        $info = Users::myInfo($uid);
+        if ($info['data']['member_type'] == 0) {
+            $arr['error_msg'] =  '你好，请充值门槛金额再试！';
             $arr['error_code'] = 2;
             return json($arr); 
         }

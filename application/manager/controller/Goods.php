@@ -278,8 +278,7 @@ class Goods extends Manager
                 'spec3_name'=> $input_data['spec3_name'],
                 'content'=> $input_data['content'],
                 'stock'=> $input_data['goods_stock'], 
-                'is_real'=> $input_data['is_real'], 
-                'is_free_shipping'=> $input_data['is_free_shipping'], 
+                'sum_voucher' => $input_data['sum_voucher'] 
                 ];
   
       for ($i=0; $i <count($input_data['price']) ; $i++) { 
@@ -401,8 +400,7 @@ class Goods extends Manager
                 'spec3_name'=> $input_data['spec3_name'],
                 'content'=>isset($input_data['content'])?$input_data['content']:'',
                 'stock'=> $input_data['goods_stock'], 
-                'is_real'=> $input_data['is_real'], 
-                'is_free_shipping'=> $input_data['is_free_shipping'], 
+                'sum_voucher' => $input_data['sum_voucher']
                 ];
   
       for ($i=0; $i <count($input_data['price']) ; $i++) { 

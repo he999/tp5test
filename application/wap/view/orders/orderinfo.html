@@ -20,9 +20,15 @@
 <script src="/static/waps/js/mobile_common.js"></script>
 <script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
 <script type="text/javascript" src="/static/waps/js/mui.min.js" ></script>
+<style>
+.address{ width:100%; font-size:14px; padding-left:15px;}
+.address p{line-height:25px;}
+.address p span{margin-left: 20px;}
+#code{font-size:14px;background:#fff;}
+#code span{ margin-left: 15px;}
+</style>
 </head>
 <body>
-
 <header>
 <div class="tab_nav">
   <div class="header">
@@ -34,8 +40,21 @@
 <script type="text/javascript" src="/static/waps/js/mobile.js" ></script>
  {volist name="data" id="g" }
 <div id="tbh5v0">						
-	<div class="order">	
+	<div class="order">
+
 		<div class="ord_list1">
+{if($row.pickup_id == 0)}
+<div class="address" >
+<p>收货地址：{$distr}</p>
+<p>电话：{$row.phone}<span>联系人：{$row.consignee}</span></p>
+</div>
+{else}
+<div class="address" >
+<p>取货门店地址：{$info.address}</p>
+<p>电话：{$info.phone }</p>
+</div>
+{/if}
+<div style=" height:10px; background:#ccc;"></div>
 			<h2>订单编号:{$g.order_sn}</h2>  
 		    <div class="order_list">
              {volist name="g.data" id="a" } 
@@ -55,21 +74,35 @@
 		</div>
        
 		<div style=" height:50px;"></div>
+<div id="code">
+  <div class='pay' style='border-bottom:1px solid  #ddd'>支付方式：
+  <span>{if($row.pay_code) == 1}微信支付{else}余额支付{/if}</span>
+  </div>
+  <div class='con' style='border-bottom:1px solid #ddd'>使用佣金：
+  <span>{if($row.is_rebate) == 1}使用佣金{else}暂不使用{/if}</span>
+  </div>
+  <div class='shipping' >配送方式：
+  <span>{if($row.pickup_id) == 0}物流配送{else}到店取货{/if}</span>
+  </div>
+</div>
 <div class="jiage">
 <p>下单时间&nbsp;:&nbsp;<span class="price" style="color: #bbb;">{$g.create_time|date ="Y-m-d H:i",###}</span></p>
 <p>商品总额&nbsp;:&nbsp;<span class="price">￥{$g.order_amount}元</span></p>
-<p>邮费总额&nbsp;:&nbsp;<span class="price">￥{$g.shipping_price}元</span></p>        
-<p>应付款金额&nbsp;:&nbsp;<span class="price1">￥{$g.order_amount+$g.shipping_price}元</span></p>				
+<p>可使用财富券&nbsp;:&nbsp;<span class="price">￥{$voucher}元</span></p>
+<p>可使用佣金&nbsp;:&nbsp;{if($row.is_rebate) == 1}<span class="price">￥{$voucherc}元</span>{else}<span class="price" style="color: #bbb;">不使用</span>{/if}</p>   
+<p>应付款金额&nbsp;:&nbsp;<span class="price1">￥
+<?php if($g['order_amount']-$voucher-$voucherc <= 0){ $ma = 0; }else{ $ma = $g['order_amount']-$voucher-$voucherc; } ?>
+{if($row.is_rebate) == 1}{$ma}{else}{$g.order_amount-$voucher}{/if}元</span></p>				
 </div> 
 		<div class="detail_dowm">
 			<div class="anniu1">
-                {if condition="$g.order_status eq 0"}
+                {if condition="$g.order_status eq 1"}
                     {if($g.pay_code == 2)}
                     <a onClick="orderyuepay({$g.order_id})" class="on_comment" style="background-color: #E24615; color:#fff;width:100%;">去支付</a>
-                    {else}
+                    {elseif($g.pay_code == 1)}
                      <a onClick="orderpay({$g.order_id})" class="on_comment" style="background-color: #E24615; color:#fff;width:100%;">去支付</a> 
                     {/if}}
-                {elseif condition="$g.order_status eq 2"}
+                {elseif condition="$g.order_status eq 3"}
                      <a onClick="cancel_order({$g.order_id},2)" class="on_comment" style="background-color: #E24615; color:#fff;width:100%;">确认取货</a> 
                 {/if}   
             </div> 
@@ -78,13 +111,17 @@
 </div>
 {/volist}     
 <script language="javascript">
+
 function orderpay(id){
-
-  var payurl = "/index.php/wap/orders/ajaxorderid";
-$.post(payurl,{order_id:id},function(data){
-  location.href="/orderpay.php";
- },'json');
-
+  var money = "<?php echo $ma; ?>";
+  if (money <= 0) {
+    location.href="/index.php/wap/orders/orderyuepay/order_id/"+id;
+  }else{
+    var payurl = "/index.php/wap/orders/ajaxorderid";
+    $.post(payurl,{order_id:id},function(data){
+      location.href="/orderpay.php";
+    },'json');
+  }
 }
 function orderyuepay(id){
   location.href="/index.php/wap/orders/orderyuepay/order_id/"+id;

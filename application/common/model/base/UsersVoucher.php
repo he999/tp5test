@@ -182,4 +182,32 @@ class UsersVoucher extends Model
         }
         return $result;
     }
+
+    /**
+     * [voucherKey 用户财富券可使用对应的金额 ]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $money   
+     * @return   array     [error_code, error_msg, voucher]
+     */
+    static public function voucherKey($money,$type)
+    {
+        $res = Db::name('voucher_set')->where($type)->order('money desc')->select();
+        if ($res) {
+            foreach ($res as $k => $v) {
+                if ($money >= $v['money']) {
+                    $voucher = $v['voucher'];
+                    break;
+                }
+            }
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['voucher'] = isset($voucher)?$voucher:0;
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '查找失败';
+            $result['voucher'] = 0;
+        }
+        return $result;
+    }
 }

@@ -580,6 +580,33 @@ class Shipping extends Model
 		
     }
 
+    /**
+     * getShippingPickup 门店取货地址列表
+     * @
+     * @DateTime 2016-09-06T06:19:16+0800
+     * @param    array                   $num 每页记录
+     * @param    array                   $data 条件
+     * @param    array                   $url 参数 paginate()
+     * @return   array              [error_code, error_msg,data=>[]]
+     */
+    static public function listShippingPickup($page = 1,$num = 20,$data = '')
+    { 
+        $res = Db::name('shipping_pickup')
+              ->where($data)
+              ->page($page,$num)
+              ->select();
+        if($res){
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['data'] = $res;
+        }
+        else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '未得到门店取货地址列表';
+        }
+        return $result;
+    }
+
 }
 
 ?>

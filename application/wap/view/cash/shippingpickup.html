@@ -1,0 +1,50 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPSHOP v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="applicable-device" content="mobile">
+<title>我的分享</title>
+<link rel="stylesheet" href="/static/waps/css/public.css">
+<link rel="stylesheet" href="/static/waps/css/user.css">
+<script type="text/javascript" src="/static/waps/js/jquery.js"></script>
+<script src="/static/waps/js/global.js"></script>
+<script src="/static/waps/js/mobile_common.js"></script>
+<script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
+<script type="text/javascript" src="/static/waps/js/layer.js" ></script>
+<style type="text/css">
+ul{width: 98%; height:80px; margin-bottom:10px; padding-left:2%;}
+ul li{ border-bottom:1px solid #eeeeee;}
+ul li p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
+
+</style>
+</head>
+<body style="background:#fff;position:relative;"> 
+
+<header>
+<div class="tab_nav">
+  <div class="header">
+    <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+    <div class="h-mid">收货门店</div>
+  </div>
+</div>
+</header>
+<div style="height:10px; width:100%; margin-bottom:10px; background:#F2F5F7;"></div>
+<ul>
+{volist name='data' id='d'}
+<li>
+<a href="/index.php/wap/cash/createorderlist/pickup_id/{$d.pickup_id}">
+	<h4>{$d.name}</h4>
+    <p>地址：{$d.address}</p>
+</a>
+</li>
+{/volist}
+</ul>
+</body>
+
+</html>

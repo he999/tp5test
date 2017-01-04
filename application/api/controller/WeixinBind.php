@@ -100,26 +100,21 @@ class WeixinBind
             $weixin_info['open_id']=$data['FromUserName'];
             $weixin_info['attention']=1;
             $uid = UsersWeixin::add($weixin_info)['uid'];
-            $points = Coms::getValue('attention_integral')['data'];
-            $addpoints = ['uid' => $uid, 'type' => '关注送积分','time' => time(),'points'=>$points];
-            UsersPoints::add($addpoints);
+            // $points = Coms::getValue('attention_integral')['data'];
+            // $addpoints = ['uid' => $uid, 'type' => '关注送积分','time' => time(),'points'=>$points];
+            // UsersPoints::add($addpoints);
             //扫码 分销
-              zlog('扫描关注'.$uid);
             $arr = explode('qrscene_',$data['EventKey']);
-             if(count($arr)>1){
-                zlog('扫描关注进来');
+            if(count($arr)>1){
+                zlog('扫描关注'.$uid);
                 $add['parent'] = $arr[1];
                 $add['uid'] = $uid;
-                $add['weixin_code'] =Db::table('ys_users_parent')->count('distinct parent');
+                $add['weixin_code'] = Db::table('ys_users_parent')->count('distinct parent');
                 Users::addParent($add);
-                $recom = Coms::getValue('recommend_integral')['data'];
-                $addegr = ['uid'=>$arr[1],'type'=>'推荐关注送积分','time' => time(),'points'=>$recom];
-                UsersPoints::add($addegr);
+                // $recom = Coms::getValue('recommend_integral')['data'];
+                // $addegr = ['uid'=>$arr[1],'type'=>'推荐关注送积分','time' => time(),'points'=>$recom];
+                // UsersPoints::add($addegr);
             } 
-
-                
-
-            // }
             //关注回复
              $content = Coms::getValue('attention_reply')['data'];
         }
