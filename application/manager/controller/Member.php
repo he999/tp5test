@@ -24,19 +24,23 @@ class Member extends Manager
         $where['member_type']=array("gt","0");
 		
         if($_GET){
-           if(!empty($input_data['nickname'])){
-                 $url['nickname']=$input_data['nickname'];
-                 $where['nickname']=array("like",'%'.$input_data['nickname'].'%');
-           }
-		   if(!empty($input_data['member_type'])){
-                 $url['member_type']=$input_data['member_type'];
-                 $where['member_type']=array("like",'%'.$input_data['member_type'].'%');
-           }
+            if(!empty($input_data['nickname'])){
+                $url['nickname']=$input_data['nickname'];
+                $where['nickname']=array("like",'%'.$input_data['nickname'].'%');
+            }
+		    
+		    if(!empty($input_data['member_type'])){
+				if($input_data['member_type']=='普'||$input_data['member_type']=='通'||$input_data['member_type']=='普通'){
+					$input_data['member_type']='1';
+				}
+				if($input_data['member_type']=='代'||$input_data['member_type']=='理'||$input_data['member_type']=='代理'){
+					$input_data['member_type']='2';
+				}
+                $url['member_type']=$input_data['member_type'];
+                $where['member_type']=array("like",'%'.$input_data['member_type'].'%');
+            }
         }
-		$nickname = !empty($input_data['nickname'])?$input_data['nickname']:'';
-        $member_type = !empty($input_data['member_type'])?$input_data['member_type']:''; 
-        $this->assign('nickname',$nickname);
-        $this->assign('member_type',$member_type);
+		
         $result=users::memberLst(15,$where,$url);
         $this->assign('lst',$result['data']);
         $this->assign('lst2',$result['data2']);
@@ -136,12 +140,12 @@ class Member extends Manager
     } 
 
      /*************************************************  
-   *ClassName:     jifenLst
+   *ClassName:     rebateLst
    *Description:   积分明细
    *************************************************/
-    public function jifenLst()
+    public function rebateLst()
     {  
-        $result=users::jifenLst(15);
+        $result=users::rebateLst(15);
         $this->assign('data',$result['data']);
         return  $this->fetch();     
     } 

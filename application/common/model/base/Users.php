@@ -376,9 +376,9 @@ class Users extends Model
      * @return   array     [error_code, error_msg, id]
      * @DateTime 2016-11-22T20:46:59+0800
      */
-    static public function jifenLst($num)
+    static public function rebateLst($num)
     {   
-        $res = Db::name('users_points')
+        $res = Db::name('users_money_rebate')
         ->alias('a')->where(['a.is_del'=>0]) ->join('users_customers c','a.uid = c.uid','left')->order('time desc')
         ->field('a.*,c.nickname')
         ->paginate($num); 
@@ -950,7 +950,7 @@ class Users extends Model
         $where['uid'] = ['in',$ids];
         $res = Db::name('users_customers')
         ->where($where)
-        ->field('uid,nickname,points,face')
+        ->field('uid,nickname,commission,face')
         ->select();
         if ($res) {
             $result['error_code'] = 0;

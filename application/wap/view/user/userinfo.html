@@ -17,12 +17,13 @@
 <script src="/static/waps/js/mobile_common.js"></script>
 <script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
 <script type="text/javascript" src="/static/waps/js/layer.js" ></script>
-<style type="text/css">
+<style  type="text/css">
 .uer_topnav span{font-size: 15px; height:20px; text-align: center;}
 .wei{ background:#fff; position:absolute;right:20px;}
 .uer_topnav {height: 40px; line-height:40px;}
-.topl{margin-left: 15%;}
-.topr{margin-right: 15%; float: right;}
+.topl{margin-left: 5%;float:left}
+.top2{margin-left: 20%;}
+.topr{margin-right: 7%;float: right;}
 </style>
 </head>
 <body> 
@@ -32,15 +33,15 @@
 <div class="com_top">
 <center style="padding-top:20px; position:relative;">
 	<a class="wei" href="/index.php/wap/user/distribution"></a>
-	<img src="{$data.face}" />
+    <img src="{$data.face}" />
 	<span style="line-height:20px;">会员ID：{$data.uid}</span>
 	<span style="line-height:20px;">昵称：{$data.nickname}</span>
 </center>
 </div>
 <div class="uer_topnav">
 <span class="topl">余额:<font style="color:red;">￥{$data.balance}</font></span>
-
-<span class="topr">积分:<font style="color:red;">{$data.points}</font></span>
+<span class="top2">返佣:<font style="color:red;">￥{$data.commission}</font></span>
+<span class="topr">财富劵:<font style="color:red;">￥{$data.voucher}</font></span>
 </div>
 <div class="Wallet">
 	<a href="/index.php/wap/orders/orderalllist" ><em class="Icon Icon2"></em>
@@ -49,8 +50,8 @@
 	<a href="/index.php/wap/user/myshare"><em class="Icon Icon6"></em>
 		<dl class="b"><dt>我的分享</dt><dd></dd></dl>
 	</a>
-	<a href="/index.php/wap/user/integralranking"><em class="Icon Icon12"></em>
-		<dl class="b"><dt>积分榜</dt><dd></dd></dl>
+	<a href="/index.php/wap/user/myrebate"><em class="Icon Icon12"></em>
+		<dl class="b"><dt>我的返佣</dt><dd></dd></dl>
 	</a>
 	<a href="/index.php/wap/user/mydatum"><em class="Icon Icon5"></em>
 		<dl class="b"><dt>我的资料</dt><dd></dd></dl>
@@ -59,7 +60,16 @@
 		<dl class="b"><dt>我的余额</dt><dd></dd></dl>
 	</a>
 	<a href="/index.php/wap/user/myintegral"><em class="Icon Icon11"></em>
-		<dl class="b"><dt>我的积分</dt><dd></dd></dl>
+		<dl class="b" ><dt>我的财富劵</dt><dd></dd></dl>
+	</a>
+	<a href="/index.php/wap/user/myintegral"><em class="Icon Icon11"></em>
+		<dl class="b"><dt>常见问题</dt><dd></dd></dl>
+	</a>
+	<a href="/index.php/wap/user/myintegral"><em class="Icon Icon11"></em>
+		<dl class="b"><dt>加入平台</dt><dd></dd></dl>
+	</a>
+	<a href="/index.php/wap/user/myintegral"><em class="Icon Icon11"></em>
+		<dl class="b"><dt>在线客服</dt><dd></dd></dl>
 	</a>
 </div>
 

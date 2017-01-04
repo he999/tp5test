@@ -115,7 +115,7 @@ class Orders extends WeixinBase
     public function orderAllList()
     {   
         $where['uid'] = session('uid');
-        $where['is_debit'] = 0;
+        $where['is_dels'] = 0;
         $where['order_status'] = 0;
         $res = OrdersModel::getList($where);
         if ($res['error_code'] == 0 ) {
@@ -137,7 +137,7 @@ class Orders extends WeixinBase
     public function orderpreparelist()
     {   
         $where['uid'] = session('uid');
-        $where['is_debit'] = 0;
+        $where['is_dels'] = 0;
         $where['order_status'] = 1;
         $res = OrdersModel::getList($where);
         if ($res['error_code'] == 0 ) {
@@ -159,7 +159,7 @@ class Orders extends WeixinBase
     public function orderungetlist()
     {   
         $where['uid'] = session('uid');
-        $where['is_debit'] = 0;
+        $where['is_dels'] = 0;
         $where['order_status'] = 2;
         $res = OrdersModel::getList($where);
         if ($res['error_code'] == 0 ) {
@@ -181,7 +181,7 @@ class Orders extends WeixinBase
     public function orderendlist()
     {   
         $where['uid'] = session('uid');
-        $where['is_debit'] = 0;
+        $where['is_dels'] = 0;
         $where['order_status'] = 3;
         $res = OrdersModel::getList($where);
         if ($res['error_code'] == 0 ) {

@@ -34,9 +34,9 @@
 				</ul>     
 				<form name="from1"  method="get" action="" style="background-color: rgba(113, 22, 22, 0); margin-top:-8px">
 				    会员昵称 
-					<input type="text" name="nickname" value="{$nickname}" class="form-control" style="width: 150px;display:inline-block; margin:10px 0"    >&nbsp;&nbsp; &nbsp; 
+					<input type="text" name="nickname" value="" class="form-control" style="width: 150px;display:inline-block; margin:10px 0"    >&nbsp;&nbsp; &nbsp; 
 				    用户身份
-					<input type="text" name="member_type" value="{$member_type}" class="form-control" style="width: 150px;display:inline-block; margin:20px 0"    >&nbsp;&nbsp; &nbsp; 
+					<input type="text" name="member_type" value="" class="form-control" style="width: 150px;display:inline-block; margin:20px 0"    >&nbsp;&nbsp; &nbsp; 
 				    <input type="submit" class="btn btn-search" style="border:none;margin-top:3px"   value="搜索" > 
 				</form>
 				<table class="table table-hover table-bordered" style="border: none;text-align:center" >
@@ -60,7 +60,7 @@
 							<th id="th1"><a href="/index.php/manager/Member/memberRelation/id/{$vo.uid}">{$lst2[$k-1]}</a></th>
 							{switch name="vo.member_type"}
 								{case value="1"}<th>普通</th>{/case}
-								{case value="2"}<th>代理商</th>{/case}
+								{case value="2"}<th>代理</th>{/case}
 							{/switch}
 							<th>{$vo.create_time|date="Y-m-d H:i",###}</th>             
 							<th ><a href="/index.php/manager/Member/membermanagement/id/{$vo.uid}">编辑</a>

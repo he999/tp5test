@@ -23,8 +23,8 @@ class WeixinBase extends Controller
 		// $this->appid = Coms::getValue('appid')['data'];
 		// $this->appsecret = Coms::getValue('appsecret')['data'];
 		// $this->weiwinInit();
-		session('uid','1');
-        session("open_id",'oSMR0t-Kpti9zr5MERZgSAie6ans');
+		session('uid','81');
+        session("open_id",'oSMR0t1SaQbjlhNAdSA75h9N1gqg');
 	}
 
  //    /*************************************************  

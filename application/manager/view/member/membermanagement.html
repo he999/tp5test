@@ -32,10 +32,11 @@
 				<ul class="nav nav-tabs nav_tit">                          
 				    <li  style="font-size: 20px;font-weight:600;color:#585858">修改会员</li>
 				</ul>   
-				<form action="" method="post" enctype="multipart/form-data" name="myform"  onsubmit="return check_submit()" >		  
+				<form action="" method="post" enctype="multipart/form-data" name="myform"  onsubmit="return check_submit()" >
+				    <p  style="background-color:#F9F9F9;height:40px;line-height:40px;color:#d6d6d6;font-size:14px">说明：显示用户的基本信息，管理员可查看详情并进行编辑。</p>
 					<table width="900px" border="0" cellspacing="10" >
 					    <tr>
-							<th width="200px" style="text-align: right;padding-right:10px;">用户头像：</th>
+							<th width="200px" style="text-align:right;padding-right:10px;">用户头像：</th>
 							<th align="left" class="dingwei">
 								<img src="{$data['face']}"  style="width: 150px; height:150px"/>
 							</th> 
@@ -43,7 +44,7 @@
 					    <tr>
 							<th width="200px" style="text-align: right;padding-right:10px;">昵称：</th>
 							<th align="left">  
-							    <input type="text"name="nickname"  class="form-control" id="good"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left" value="{$data['nickname']}"><span id='name' style="float:left;"></span>
+							    <input type="text" name="nickname"  class="form-control" id="good"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left" value="{$data['nickname']}"><span id='name' style="float:left;"></span>
 							</th>
 						</tr>
 						<tr>
@@ -54,8 +55,10 @@
 					    </tr>
 						<tr>
 							<th width="200px" style="text-align: right;padding-right:10px;">总佣金：</th>   
-							<th style="800px"> 
-							   <span>{$data['commission']}元<span style="margin-left:22px;"><a href="/index.php/manager/Member/moneyLst/id/{$data['uid']}">[查看明细]</a></span></span>    
+							<th style="800px">
+							    <label>
+									<span>{$data['commission']}元<span style="margin-left:22px;"><a style="color:black" href="/index.php/manager/Member/moneyLst/id/{$data['uid']}">[查看明细]</a></span></span>    
+							    </label>
 							</th>   
 						</tr>
 						<tr height=40>
@@ -66,7 +69,7 @@
 									<span class="span" style="margin-left:22px;float:left;color:red;padding-top:10px;">管理员修改个人余额</span>
 									<input type="text" style="margin-left:22px;width:150px;float:left;"class="form-control in"  name="commission" id="commission">
 									<span  class="span" style="margin-left:22px;float:left;padding-top:10px;">输入正数增加，负数减少</span>
-									<span style="margin-left:22px;float:left;padding-top:10px;"><a href="/index.php/manager/Member/balanceLst/id/{$data['uid']}">[查看明细]</a></span>
+									<span style="margin-left:22px;float:left;padding-top:10px;"><a style="color:black" href="/index.php/manager/Member/balanceLst/id/{$data['uid']}">[查看明细]</a></span>
 								</label>
 							</th>
 					    </tr>
@@ -78,7 +81,7 @@
 									<span class="span" style="margin-left:22px;float:left;color:red;padding-top:10px;">管理员修改个人财富劵金额</span>
 									<input type="text" style="margin-left:22px;width:150px;float:left;"class="form-control in"  name="commission" id="commission">
 									<span  class="span" style="margin-left:22px;float:left;padding-top:10px;">输入正数增加，负数减少</span>
-									<span style="margin-left:22px;float:left;padding-top:10px;"><a href="/index.php/manager/Member/voucherLst/id/{$data['uid']}">[查看明细]</a></span>
+									<span style="margin-left:22px;float:left;padding-top:10px;"><a style="color:black" href="/index.php/manager/Member/voucherLst/id/{$data['uid']}">[查看明细]</a></span>
 							    </label>
 							</th>
 					    </tr>
@@ -107,13 +110,13 @@
 					    <tr>
 							<th width="200px" style="text-align: right;padding-right:10px;">E-email：</th>
 							<th  align="left">  
-							    <input type="text" name="email" class="form-control" id=""   style="width: 300px;resize: none;margin: 10px 0px;width: 300px;float:left;"  value="{$data['email']}"/>
+							    <input type="text" name="email" class="form-control" id="" style="width: 300px;resize: none;margin: 10px 0px;width: 300px;float:left;"  value="{$data['email']}"/>
 						    </th>
 					    </tr>
 					    <tr>
-							<th width="200px" style="text-align: right;padding-right:10px;">联系电话</th>
+							<th width="200px" style="text-align: right;padding-right:10px;">联系电话:</th>
 							<th  align="left">  
-							    <input type="text"  name="moblie" class="form-control" id="price"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left;"  value="{$data['moblie']}">
+							    <input type="text"  name="moblie" class="form-control" id="price" style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left;"  value="{$data['moblie']}">
 							</th>
 					    </tr>
 					    <tr height=70 vertical-align="center">
