@@ -169,66 +169,98 @@ class UsersRebate extends Model
         $rebate = Coms::getRebateInfos(['id' => $info['member_type'] ])['data'];
 
         //佣金比例
-        $reb1 = $rebate[0]['rebate_rate_lv1']/100;
-        $reb2 = $rebate[0]['rebate_rate_lv2']/100;
-        $reb3 = $rebate[0]['rebate_rate_lv3']/100;
-
+        $reb = (int)Coms::getValue('purchase_return_commission')['data']/100;
+        $reb1 = (int)$rebate[0]['rebate_rate_lv1']/100;
+        $reb2 = (int)$rebate[0]['rebate_rate_lv2']/100;
+        $reb3 = (int)$rebate[0]['rebate_rate_lv3']/100;
+        //券比例
+        $vou1 = (int)$rebate[0]['voucher_rate_lv1']/100;
+        $vou2 = (int)$rebate[0]['voucher_rate_lv2']/100;
+        $vou3 = (int)$rebate[0]['voucher_rate_lv3']/100;
 
         //对应 金额
-        $rebsum1 = 0;
-        $rebsum2 = 0;
-        $rebsum3 = 0;
-
-        //对应积分
-        $points1 = $mone*(int)Coms::getValue('yi_fanyong_jifen')['data']/100;
-        $points2 = $mone*(int)Coms::getValue('er_fanyong_jifen')['data']/100;
-        $points3 = $mone*(int)Coms::getValue('san_fanyong_jifen')['data']/100;
+        $rebsum = 0;
+        $rebsum1 = 0; $vousum1 = 0;
+        $rebsum2 = 0; $vousum1 = 0;
+        $rebsum3 = 0; $vousum1 = 0;
 
         foreach ($goods['data'] as $key => $value) {
-            $money1 += (int)$value['sum_brokerage']*$com1;
-            $money2 += (int)$value['sum_brokerage']*$com2;
-            $money3 += (int)$value['sum_brokerage']*$com3;
+            $rebsum += (int)$value['sum_brokerage']*$reb;
+            $rebsum1 += (int)$value['sum_brokerage']*$reb1;
+            $rebsum2 += (int)$value['sum_brokerage']*$reb2;
+            $rebsum3 += (int)$value['sum_brokerage']*$reb3;
+            $vousum1 += (int)$value['sum_voucher']*$vou1;
+            $vousum2 += (int)$value['sum_voucher']*$vou2;
+            $vousum3 += (int)$value['sum_voucher']*$vou3;
         }
-        //支付 佣金
+        //支付 佣金 券
+        $add = [
+            'des' => '佣金',
+            'type' => 'commission',
+            'income' => $rebsum,
+            'time' => time(),
+            'order_id' => $order_id,
+            'uid' => $uid
+        ];
+        self::incomeAdd($add);
+
         $pid1 = UsersParent::getParent($uid);
         if ($pid1['error_code'] == 0) {
             $add1 = [
                 'des' => '佣金',
                 'type' => 'commission',
-                'income' => $money1,
+                'income' => $rebsum1,
                 'time' => time(),
                 'order_id' => $order_id,
                 'uid' => $pid1['pid']
             ];
             self::incomeAdd($add1);
-            $poin1 = ['uid' => $pid1['pid'],'type' => '返佣积分','points'=>$points1,'order_id'=>$order_id,'time'=>time()];
-            UsersPoints::add($poin1);
+            $cher1 = ['uid' => $pid1['pid'],
+                'des' => '返佣券',
+                'type' => 'buy',
+                'income'=>$vousum1,
+                'order_id'=>$order_id,
+                'time'=>time()
+            ];
+            UsersVoucher::incomeVoucherAdd($cher1);
             $pid2 = UsersParent::getParent($pid1['pid']);
             if ($pid2['error_code'] == 0) {
                 $add2 = [
-                'des' => '佣金',
-                'type' => 'commission',
-                'income' => $money2,
-                'time' => time(),
-                'order_id' => $order_id,
-                'uid' => $pid2['pid']
-            ];
-            self::incomeAdd($add2);
-            $poin2 = ['uid' => $pid2['pid'],'type' => '返佣积分','points'=>$points2,'order_id'=>$order_id,'time'=>time()];
-            UsersPoints::add($poin2);
+                    'des' => '佣金',
+                    'type' => 'commission',
+                    'income' => $rebsum2,
+                    'time' => time(),
+                    'order_id' => $order_id,
+                    'uid' => $pid2['pid']
+                ];
+                self::incomeAdd($add2);
+                $cher1 = ['uid' => $pid2['pid'],
+                    'des' => '返佣券',
+                    'type' => 'buy',
+                    'income'=>$vousum2,
+                    'order_id'=>$order_id,
+                    'time'=>time()
+                ];
+                UsersVoucher::incomeVoucherAdd($cher2);
                 $pid3 = UsersParent::getParent($pid2['pid']);
                 if ($pid3['error_code'] == 0) {
                     $add3 = [
-                    'des' => '佣金',
-                    'type' => 'commission',
-                    'income' => $money3,
-                    'time' => time(),
-                    'order_id' => $order_id,
-                    'uid' => $pid3['pid']
-                ];
-                self::incomeAdd($add3);
-                $poin3 = ['uid' => $pid3['pid'],'type' => '返佣积分','points'=>$points3,'order_id'=>$order_id,'time'=>time()];
-                UsersPoints::add($poin3);
+                        'des' => '佣金',
+                        'type' => 'commission',
+                        'income' => $rebsum3,
+                        'time' => time(),
+                        'order_id' => $order_id,
+                        'uid' => $pid3['pid']
+                    ];
+                    self::incomeAdd($add3);
+                    $cher1 = ['uid' => $pid3['pid'],
+                        'des' => '返佣券',
+                        'type' => 'buy',
+                        'income'=>$vousum3,
+                        'order_id'=>$order_id,
+                        'time'=>time()
+                    ];
+                    UsersVoucher::incomeVoucherAdd($cher3);
                 }
             }
         }

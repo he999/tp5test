@@ -284,7 +284,7 @@ class User extends WeixinBase
                 $data['attach'] = "chonzhi";
                 $data['money'] = 0.01; // ;
                 $data['out_order'] = $id.'-'.time().rand(100, 999);
-                $data['notify_url'] = "http://yshop.wiwibao.com/weixinpaynotify.php";
+                $data['notify_url'] = "http://fsm.yuncentry.com/weixinpaynotify.php";
                 $weixinpay = new WeixinPay;
                 $jsApiParameters = $weixinpay->createPay($data, $key);
                 zlog($jsApiParameters);
