@@ -251,10 +251,8 @@ class Orders extends WeixinBase
             $distr = Regions::getNameStr($ids);
             $info = '';
         }
-        $voucher = UsersVoucher::voucherKey($row['order_amount'],['type'=>'buy'])['voucher'];
+        $voucher = UsersVoucher::voucherKey($row['order_amount'],['type'=>'buy']);
         $voucherc = UsersVoucher::countVoucher(session('uid'));
-        dump($voucher);
-        dump($voucherc['balance_voucher']);
         $where['uid'] = session('uid');
         $where['order_id'] = $input['order_id'];
         $res = OrdersModel::getList($where);
@@ -263,7 +261,7 @@ class Orders extends WeixinBase
         }else{
             $this->error('操作错误');
         }
-        $this->assign('voucher',$voucher);
+        $this->assign('voucher',$voucher['voucher']);
         $this->assign('voucherc',$voucherc['balance_voucher']);
         $this->assign('row',$row);
         $this->assign('info',$info);
