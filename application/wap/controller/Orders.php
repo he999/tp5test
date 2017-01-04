@@ -11,10 +11,7 @@ use app\common\model\base\Coms;
 use weixin\pay\WeixinPay;
 use app\common\model\base\UsersMoney;
 use app\common\model\base\UsersVoucher;
-<<<<<<< HEAD
-=======
 use app\common\model\base\UsersRebate;
->>>>>>> 3ef80a1cd365acc1ee785a2a4b7c7decd2403a47
 use app\common\model\Regions;
 use app\common\model\Shipping;
 
@@ -255,10 +252,7 @@ class Orders extends WeixinBase
             $distr = Regions::getNameStr($ids);
             $info = '';
         }
-<<<<<<< HEAD
-        $voucher = UsersVoucher::voucherKey($row['order_amount'],['type'=>'buy']);
-        $voucherc = UsersVoucher::countVoucher(session('uid'));
-=======
+
         $vouchera = UsersVoucher::voucherKey($row['order_amount'],['type'=>'buy']);//可用券
         $voucherc = UsersVoucher::countVoucher(session('uid'));//现有券
         (int)$c = $voucherc['balance_voucher'];  
@@ -269,7 +263,7 @@ class Orders extends WeixinBase
             $voucher = $a;
         }
         $rebate = UsersRebate::countRebate(session('uid'));
->>>>>>> 3ef80a1cd365acc1ee785a2a4b7c7decd2403a47
+
         $where['uid'] = session('uid');
         $where['order_id'] = $input['order_id'];
         $res = OrdersModel::getList($where);
@@ -278,13 +272,9 @@ class Orders extends WeixinBase
         }else{
             $this->error('操作错误');
         }
-<<<<<<< HEAD
-        $this->assign('voucher',$voucher['voucher']);
-        $this->assign('voucherc',$voucherc['balance_voucher']);
-=======
+
         $this->assign('voucher',$voucher);
         $this->assign('rebate',$rebate['balance_rebate']);
->>>>>>> 3ef80a1cd365acc1ee785a2a4b7c7decd2403a47
         $this->assign('row',$row);
         $this->assign('info',$info);
         $this->assign('distr',$distr);
