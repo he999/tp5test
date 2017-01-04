@@ -44,6 +44,8 @@ zlog('winxin:.2');
 				if ($res['error_code'] == 0) {
 zlog('winxin:.3'); 
 					$uid = $res['data']['uid']; 
+					session("denopen_id", $open_id);
+                	session("uid", $uid);
 					if ($res['data']['nickname'] == NULL) {
 zlog('winxin:.4');
 						$userinfo = WeixinAuth::getWeiwinInfo($openInfo['access_token'], $openInfo['openid']);
@@ -69,8 +71,6 @@ zlog('winxin:.5');
 zlog('winxin:.6');
 					die("未关注");
 				}
-				session("denopen_id", $open_id);
-                session("uid", $uid);
 			} else {
 				//非微信浏览器处理
 				die("非微信浏览器");
