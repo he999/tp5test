@@ -17,12 +17,11 @@ class Member extends Manager
     public function memberLst()
     {  
         $input_data = Request::instance()->param();
-        $where=array();
-        $url=array();
+        $where=[];
+        $url=[];
         $where['role']=array("eq","customer");
         $where['status']=array("eq","1");
         $where['member_type']=array("gt","0");
-		
         if($_GET){
             if(!empty($input_data['nickname'])){
                 $url['nickname']=$input_data['nickname'];
@@ -40,7 +39,6 @@ class Member extends Manager
                 $where['member_type']=array("like",'%'.$input_data['member_type'].'%');
             }
         }
-		
         $result=users::memberLst(15,$where,$url);
         $this->assign('lst',$result['data']);
         $this->assign('lst2',$result['data2']);
@@ -103,7 +101,7 @@ class Member extends Manager
         }  
     }    
 
-     /*************************************************  
+    /*************************************************  
    *ClassName:     moneyLst
    *Description:   佣金明细
    *************************************************/

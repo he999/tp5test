@@ -252,6 +252,7 @@ class Orders extends WeixinBase
             $distr = Regions::getNameStr($ids);
             $info = '';
         }
+
         $vouchera = UsersVoucher::voucherKey($row['order_amount'],['type'=>'buy']);//可用券
         $voucherc = UsersVoucher::countVoucher(session('uid'));//现有券
         (int)$c = $voucherc['balance_voucher'];  
@@ -262,6 +263,7 @@ class Orders extends WeixinBase
             $voucher = $a;
         }
         $rebate = UsersRebate::countRebate(session('uid'));
+
         $where['uid'] = session('uid');
         $where['order_id'] = $input['order_id'];
         $res = OrdersModel::getList($where);
@@ -270,6 +272,7 @@ class Orders extends WeixinBase
         }else{
             $this->error('操作错误');
         }
+
         $this->assign('voucher',$voucher);
         $this->assign('rebate',$rebate['balance_rebate']);
         $this->assign('row',$row);

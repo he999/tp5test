@@ -155,14 +155,96 @@ class User extends WeixinBase
     }
 	
     /*************************************************
-     * Function:      myRebate
+     * Function:      myrebate
      * Description:   我的返佣
      * @param:        void
      * Return:        void
      *************************************************/
-    public function myRebate()
+    public function myrebate()
     {   
-       
+        $uid = session('uid');
+        $res =  Users::myInfo($uid);
+		if ($input = Request::instance()->param()) {
+            if (isset($input['type'])) {
+                if($input['type'] == 'cash'){
+                    $where['type'] = 'cash';
+                    $type = 2;
+                }
+            }
+        }else{
+            $where = '';
+            $type = 1;
+        }
+        if ($res['error_code'] == 0) {
+            $data = $res['data'];
+        }else{
+            $data = '';
+        }
+        $this->assign('data',$data);
+		$this->assign('type',$type);
+        return $this->fetch();
+    }
+	
+	
+	/*************************************************
+     * Function:      myvoucher
+     * Description:   我的返佣
+     * @param:        void
+     * Return:        void
+     *************************************************/
+    public function myvoucher()
+    {   
+        $uid = session('uid');
+        $res =  Users::myInfo($uid);
+		if ($input = Request::instance()->param()) {
+            if (isset($input['type'])) {
+                if($input['type'] == 'cash'){
+                    $where['type'] = 'cash';
+                    $type = 2;
+                }
+            }
+        }else{
+            $where = '';
+            $type = 1;
+        }
+        if ($res['error_code'] == 0) {
+            $data = $res['data'];
+        }else{
+            $data = '';
+        }
+        $this->assign('data',$data);
+		$this->assign('type',$type);
+        return $this->fetch();
+    }
+	
+	/*************************************************
+     * Function:      problem
+     * Description:   常见问题
+     * @param:        void
+     * Return:        void
+     *************************************************/
+    public function problem()
+    {   
+        $uid = session('uid');
+        $res =  Users::myInfo($uid);
+		if ($input = Request::instance()->param()) {
+            if (isset($input['type'])) {
+                if($input['type'] == 'cash'){
+                    $where['type'] = 'cash';
+                    $type = 2;
+                }
+            }
+        }else{
+            $where = '';
+            $type = 1;
+        }
+        if ($res['error_code'] == 0) {
+            $data = $res['data'];
+        }else{
+            $data = '';
+        }
+        $this->assign('data',$data);
+		$this->assign('type',$type);
         return $this->fetch();
     }
 
