@@ -6,6 +6,8 @@ use weixin\pay\WeixinPay;
 use think\Db;
 use app\common\model\Course;
 use app\common\model\base\UsersWeixin;
+use app\common\model\base\UsersVoucher;
+use app\common\model\base\UsersRebate;
 use app\common\model\Orders;
 use app\common\model\UsersCustomers;
 use app\common\model\base\UsersMoney;
@@ -39,13 +41,39 @@ class Notify
                     $res = Orders::getOne($order_id);
                     if ($res['error_code'] == 0) {
                         if ($res['data']['pay_time'] == 0) {
+                            $uid = $res['data']['uid'];
+        $vouchera = UsersVoucher::voucherKey($res['data']['order_amount'],['type'=>'buy']);//可用券
+        $voucherc = UsersVoucher::countVoucher($uid);//现有券
+        (int)$c = $voucherc['balance_voucher'];  
+        (int)$a = $vouchera['voucher'];
+        if ($c <= $a) {
+            $voucher = $c;
+        }else{
+            $voucher = $a;
+        }
+        if ($res['data']['is_rebate'] == 1) {
+            $rebate = UsersRebate::countRebate($uid)['balance_rebate'];//佣金
+            $pays = [
+                'des' => '购买',
+                'type' => 'buy',
+                'expense' => $rebate,
+                'time' => time(),
+                'order_id' => $order_id,
+                'uid' => $uid
+            ];
+            UsersRebate::expenseRebateAdd($pays);
+            $abc = $rebate;
+        }else{
+            $abc = 0;
+        }
+                            $data['order_status'] = 1;
+                            $data['is_pay'] = 1;
+                            $data['pay_time'] = time();
+                            $datas['voucher_cash'] = $voucher;
+                            $datas['rebate_cash'] = $abc;
                             Orders::edit($order_id,$data);
-                            $resd = UsersWeixin::getOne($postObj->openid);
-                            if ($resd['error_code'] == 0) { 
-                                $uid = $res['data']['uid']; 
-                                UsersMoney::PaymentCommission($uid,$order_id,$res['order_amount']);
-                                echo 'SUCCESS';
-                            }
+                            UsersMoney::PaymentCommission($uid,$order_id,$res['data']['order_amount']);
+                            echo 'SUCCESS';
                         }
                     }
                 // }elseif ($attach == 'jieyue') {
