@@ -3,7 +3,7 @@ namespace app\common\model;
 
 use think\Model;
 use think\Db;
-
+use app\common\model\base\UsersVoucher;
 /**
  * 订单模型
  * add 添加定单
@@ -20,24 +20,22 @@ class Orders extends Model
      * * @param  arr                $spid ['shipping_com_id'=>'','pay_id'=>'']
      * @return   array              [error_code, error_msg, order_id]
      */
-    static public function addCartOrder($uid,$spid,$is_debit = 0)
+    static public function addCartOrder($uid,$spid)
     {   
         $shop_price = 0;
-        $weight = 0;
         $byunm = 0;
         $specdata = array();
         $goods = array();
         $cart = Db::name('cart')
         ->alias('c')
         ->join('goods g','g.goods_id = c.goods_id','left')
-        ->field("c.goods_id,c.goods_name,c.shop_price,c.buy_num,c.weight,c.goods_sn,c.spec_id,c.spec_value,c.market_price,g.cover_img")
-        ->where(['c.uid' => $uid,'c.selected'=>1,'c.is_debit'=>$is_debit])
+        ->field("c.goods_id,c.goods_name,c.shop_price,c.buy_num,c.goods_sn,c.spec_id,c.spec_value,c.market_price,g.cover_img")
+        ->where(['c.uid' => $uid,'c.selected'=>1])
         ->select();
         if ($cart) {
             //计算 购物车 总价 重量 商品spec_id与buy_num
             foreach ($cart as $v) {
                 $shop_price += $v['shop_price']*$v['buy_num'];
-                $weight += $v['weight']*$v['buy_num'];
                 $byunm += $v['buy_num'];
                 $specdata[] = ['spec_id' => $v['spec_id'],'buy_num' => $v['buy_num']];
                 $goods[$v['spec_id']] = $v['goods_name'];
@@ -48,104 +46,90 @@ class Orders extends Model
                 // 用户地址
                 $address = UsersAddress::getAddress($uid);
                 if ($address['error_code'] == 0) {
-                    // 物流与运费
-                    $regionid = [
-                        $address['data']['town'],
-                        $address['data']['district'],
-                        $address['data']['city'],
-                        $address['data']['province'],
-                        $address['data']['country'],
-                        ];
-                    if($is_debit == 1){
-                      if ($spid['shipping_com_id'] == 'n') {
-                        //上门取书
-                        $Shipping['error_code'] = 0;
-                        $Shipping['data']['shipping_name'] = '上门取书';
-                        $Shipping['price'] = 0;
-                      }elseif($spid['shipping_com_id'] == 'k'){
-                        //物流运输 默认
-                        $sippid = Shipping::getTacitShipping()['data']['shipping_com_id'];
-                        $Shipping = Shipping::getShippingPrice($weight,$regionid,$sippid,$byunm);
-                      }
+                    // 配送方式
+                    if ($spid['shipping'] == 'wuliu') {
+                        //物流配送
+                        $Shipping['shipping_name'] = '物流配送';
+                        $Shipping['pickup_id'] = '';
                     }else{
-                        //物流
-                    $Shipping = Shipping::getShippingPrice($weight,$regionid,$spid['shipping_com_id'],$byunm);
-
+                        //到店取货
+                        $Shipping['shipping_name'] = '到店取货';
+                        $Shipping['pickup_id'] = $spid['shipping'];
+                    }              
+                    //得到 支付信息
+                    if (isset($spid['pay_id']) ) {
+                        $pay = Payments::getOne($spid['pay_id']);
+                    }else{
+                        $pay['error_code'] = 0;
+                        $pay['data']['pay_code'] = 0;
+                        $pay['data']['pay_name'] = '无';
                     }
-                    
-                    if ($Shipping['error_code'] == 0) {
-                        //得到 支付信息
-                        if (isset($spid['pay_id']) ) {
-                            $pay = Payments::getOne($spid['pay_id']);
+                    //财富券
+                    // $vouchera = UsersVoucher::voucherKey($shop_price,['type'=>'buy']);
+                    // $voucherc = UsersVoucher::countVoucher($uid);
+                    // (int)$c = $voucherc['balance_voucher'];  
+                    // (int)$a = $vouchera['voucher'];
+                    // if ($c <= $a) {
+                    //     $voucher['voucher_cash'] = $c;
+                    // }else{
+                    //     $voucher['voucher_cash'] = $a;
+                    // }
+                    // 订单数据
+                    $data = [
+                        'uid' => $uid,
+                        'order_sn' => time(),
+                        'create_time' => time(),
+                        'order_amount' => $shop_price,
+                        'consignee' => $address['data']['consignee'],
+                        'country' => $address['data']['country'],
+                        'province' => $address['data']['province'],
+                        'city' => $address['data']['city'],
+                        'district' => $address['data']['district'],
+                        'town' => $address['data']['town'],
+                        'address' => $address['data']['address'],
+                        'zipcode' => $address['data']['zipcode'],
+                        'phone' => $address['data']['mobile'],
+                        'shipping_name' => $Shipping['shipping_name'],
+                        'pickup_id' => $Shipping['pickup_id'],
+                        'pay_code' => $pay['data']['pay_code'],
+                        'pay_name' => $pay['data']['pay_name'],
+                        'is_rebate' => $spid['rebate'],
+                        // 'voucher_cash' => $voucher['voucher_cash'],
+                        'order_status' => 1
+                    ];
+                    // 添加订单
+                    $order = self::add($data);
+                    if ($order['error_code'] == 0) {
+                        // 添加订单 商品 详情
+                        if(OrdersGoods::add($order['order_id'],$cart)){
+                            $result['error_code'] = 0;
+                            $result['error_msg'] = "";
+                            $result['order_id'] = $order['order_id'];
+                            //删除购物车
+                            Db::name('cart')->where(['uid' => $uid,'selected'=>1])->delete();
+                            //预定 库存 
+                            GoodsSpecs::stockDec($specdata);
                         }else{
-                            $pay['error_code'] = 0;
-                            $pay['data']['pay_code'] = 0;
-                            $pay['data']['pay_name'] = '无';
-                        }
-                        if ($pay['error_code'] == 0) {
-                            // 订单数据
-                            $data = [
-                                'uid' => $uid,
-                                'order_sn' => time(),
-                                'create_time' => time(),
-                                'order_amount' => $shop_price,
-                                'order_weight' => $weight,
-                                'consignee' => $address['data']['consignee'],
-                                'country' => $address['data']['country'],
-                                'province' => $address['data']['province'],
-                                'city' => $address['data']['city'],
-                                'district' => $address['data']['district'],
-                                'town' => $address['data']['town'],
-                                'address' => $address['data']['address'],
-                                'zipcode' => $address['data']['zipcode'],
-                                'phone' => $address['data']['mobile'],
-                                'shipping_name' => $Shipping['data']['shipping_name'],
-                                'shipping_price' => $Shipping['price'],
-                                'pay_code' => $pay['data']['pay_code'],
-                                'pay_name' => $pay['data']['pay_name'],
-                                'is_debit' => $is_debit,
-                            ];
-                            // 添加订单
-                            $order = self::add($data);
-                            if ($order['error_code'] == 0) {
-                                // 添加订单 商品 详情
-                                if(OrdersGoods::add($order['order_id'],$cart)){
-                                    $return['error_code'] = 0;
-                                    $return['error_msg'] = "";
-                                    $return['order_id'] = $order['order_id'];
-                                    //删除购物车
-                                    Db::name('cart')->where(['uid' => $uid,'selected'=>1])->delete();
-                                    //预定 库存 借书减不减库存？？
-                                    GoodsSpecs::stockDec($specdata);
-                                }else{
-                                    $return['error_code'] = 5;
-                                    $return['error_msg'] = "订单详情添加失败";
-                                }
-                            }else{
-                                $return['error_code'] = 2;
-                                $return['error_msg'] = "添加订单失败";
-                            }
-                        }else{
-                            $return['error_code'] = 5;
-                            $return['error_msg'] = "支付方式出错";
+                            $result['error_code'] = 5;
+                            $result['error_msg'] = "订单详情添加失败";
                         }
                     }else{
-                        $return['error_code'] = 3;
-                        $return['error_msg'] = "该物流公司未开通你的地区业务";
+                        $result['error_code'] = 2;
+                        $result['error_msg'] = "添加订单失败";
                     }
                 }else{
-                    $return['error_code'] = 4;
-                    $return['error_msg'] = "用户未设置地址";
+                    $result['error_code'] = 4;
+                    $result['error_msg'] = "用户未设置地址";
                 }
             }else{
-                $return['error_code'] = 6;
-                $return['error_msg'] = $checkeds['error_msg'];
+                $result['error_code'] = 6;
+                $result['error_msg'] = $checkeds['error_msg'];
             }
         }else{
-            $return['error_code'] = 1;
-            $return['error_msg'] = "购物车为空";
+            $result['error_code'] = 1;
+            $result['error_msg'] = "购物车为空";
         }
-        return $return;
+        return $result;
     }
     
     /**
@@ -160,16 +144,16 @@ class Orders extends Model
         $row = DB::name('orders')->insertGetId($data);
         if ($row)
         {
-           $arr['error_code'] = 0;
-           $arr['error_msg'] = "";
-           $arr['order_id'] = $row;
+           $result['error_code'] = 0;
+           $result['error_msg'] = "";
+           $result['order_id'] = $row;
         }
         else
         {
-           $arr['error_code'] = 1;
-           $arr['error_msg'] = "订单添加失败";
+           $result['error_code'] = 1;
+           $result['error_msg'] = "订单添加失败";
         } 
-        return $arr;
+        return $result;
     }
 
     /**
@@ -184,16 +168,16 @@ class Orders extends Model
         $row = DB::name('payment_orders')->insertGetId($data);
         if ($row)
         {
-           $arr['error_code'] = 0;
-           $arr['error_msg'] = "";
-           $arr['id'] = $row;
+           $result['error_code'] = 0;
+           $result['error_msg'] = "";
+           $result['id'] = $row;
         }
         else
         {
-           $arr['error_code'] = 1;
-           $arr['error_msg'] = "订单添加失败";
+           $result['error_code'] = 1;
+           $result['error_msg'] = "订单添加失败";
         } 
-        return $arr;
+        return $result;
     }
 
     /**
@@ -209,17 +193,17 @@ class Orders extends Model
         $res = Db::name('payment_orders')->where(['id'=>$id])->find();
         if ($res)
         {
-           $arr['error_code'] = 0;
-           $arr['error_msg'] = "";
-           $arr['data'] = $res;
-           $arr['money'] = $res['money'];
+           $result['error_code'] = 0;
+           $result['error_msg'] = "";
+           $result['data'] = $res;
+           $result['money'] = $res['money'];
         }
         else
         {
-           $arr['error_code'] = 1;
-           $arr['error_msg'] = "订单添加失败";
+           $result['error_code'] = 1;
+           $result['error_msg'] = "订单添加失败";
         } 
-        return $arr;
+        return $result;
     }
 
     /**
@@ -236,15 +220,15 @@ class Orders extends Model
         $row = Db::name('payment_orders')->where($where)->update($data);
         if ($row) 
         {                
-            $arr['error_code'] = 0;
-            $arr['error_msg'] = "";
-            $arr['data'] = $row;
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+            $result['data'] = $row;
         }
         else{                 
-            $arr['error_code'] = 1;
-            $arr['error_msg'] = "编辑订单失败";
+            $result['error_code'] = 1;
+            $result['error_msg'] = "编辑订单失败";
         }
-        return $arr;
+        return $result;
     }
 
     /**
@@ -261,15 +245,15 @@ class Orders extends Model
         $row = Db::name('orders')->where($where)->update($data);
             if ($row) 
             {                
-                $arr['error_code'] = 0;
-                $arr['error_msg'] = "";
-                $arr['data'] = $row;
+                $result['error_code'] = 0;
+                $result['error_msg'] = "";
+                $result['data'] = $row;
             }
             else{                 
-                $arr['error_code'] = 1;
-                $arr['error_msg'] = "编辑订单失败";
+                $result['error_code'] = 1;
+                $result['error_msg'] = "编辑订单失败";
             }
-            return $arr;
+            return $result;
     }
 
     /**
@@ -288,15 +272,15 @@ class Orders extends Model
         $row = Db::name('orders_goods')->where($where)->update($data);
             if ($row) 
             {                
-                $arr['error_code'] = 0;
-                $arr['error_msg'] = "";
-                $arr['data'] = $row;
+                $result['error_code'] = 0;
+                $result['error_msg'] = "";
+                $result['data'] = $row;
             }
             else{                 
-                $arr['error_code'] = 1;
-                $arr['error_msg'] = "编辑订单失败";
+                $result['error_code'] = 1;
+                $result['error_msg'] = "编辑订单失败";
             }
-            return $arr;
+            return $result;
 
     }
     
@@ -312,16 +296,16 @@ class Orders extends Model
         $row = Db::name('orders')->where(['order_id' => $order_id])->find();
         if($row)
         {
-            $arr['error_code'] = 0;
-            $arr['error_msg'] = "";
-            $arr['data'] = $row;
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+            $result['data'] = $row;
         }
         else
         {
-            $arr['error_code'] = 1;
-            $arr['error_msg'] = "没有得到订单详情";
+            $result['error_code'] = 1;
+            $result['error_msg'] = "没有得到订单详情";
         }
-        return $arr;
+        return $result;
 
     }
 
@@ -337,17 +321,17 @@ class Orders extends Model
         $res = Db::name('orders_operation')->insertGetId($data);
         if($res)
         {
-            $arr['error_code'] = 0;
-            $arr['error_msg'] = "";
-            $arr['id'] = $res;
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+            $result['id'] = $res;
         }
         else
         {
-            $arr['error_code'] = 1;
-            $arr['data'] = '';
-            $arr['error_msg'] = "失败";
+            $result['error_code'] = 1;
+            $result['data'] = '';
+            $result['error_msg'] = "失败";
         }
-        return $arr;
+        return $result;
     }
 
     /**
@@ -363,17 +347,17 @@ class Orders extends Model
         $res = Db::name('orders_operation')->where($where)->select();
         if($res)
         {
-            $arr['error_code'] = 0;
-            $arr['error_msg'] = "";
-            $arr['data'] = $res;
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+            $result['data'] = $res;
         }
         else
         {
-            $arr['error_code'] = 1;
-            $arr['data'] = '';
-            $arr['error_msg'] = "没有得到订单详情";
+            $result['error_code'] = 1;
+            $result['data'] = '';
+            $result['error_msg'] = "没有得到订单详情";
         }
-        return $arr;
+        return $result;
     }
 
     /**
@@ -460,17 +444,17 @@ class Orders extends Model
         $res = Db::name('orders')->where($where)->find();
         if($res)
         {
-            $arr['error_code'] = 0;
-            $arr['error_msg'] = "";
-            $arr['data'] = $res;
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+            $result['data'] = $res;
         }
         else
         {
-            $arr['error_code'] = 1;
-            $arr['data'] = '';
-            $arr['error_msg'] = "没有得到订单详情";
+            $result['error_code'] = 1;
+            $result['data'] = '';
+            $result['error_msg'] = "没有得到订单详情";
         }
-        return $arr;
+        return $result;
     }
 
     /**
@@ -500,7 +484,7 @@ class Orders extends Model
                 $result['list'] = '';
             }
         }else{
-            $return['error_code'] = 1;
+            $result['error_code'] = 1;
             $result['error_msg'] = '得到订单详情失败';
         }
         return $result;

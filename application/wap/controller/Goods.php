@@ -10,6 +10,7 @@ use app\common\model\GoodsSpecs;
 use app\common\model\GoodsImages;
 use app\common\model\Cart;
 use app\common\model\GoodsComment;
+use app\common\model\base\Users;
 
 /*************************************************
  * @ClassName:     Goods
@@ -229,7 +230,7 @@ class Goods extends WeixinBase
     
     
     /**
-     * CreateOrder 一键下单
+     * CreateOrder 加入购物车
      * @xiao
      * @DateTime 2016-10-15T10:10:36+0800
      * @param    void                
@@ -249,10 +250,10 @@ class Goods extends WeixinBase
         ];
         $validate = new Validate($rule, $msg);
         $result   = $validate->check($input);
-        if (Session::has('uid') ) {
-            $uid = session('uid');
-        }else{
-            $arr['error_msg'] =  '你好，请登陆再试！';
+        $uid = session('uid');
+        $info = Users::myInfo($uid);
+        if ($info['data']['member_type'] == 0) {
+            $arr['error_msg'] =  '你好，请充值门槛金额再试！';
             $arr['error_code'] = 2;
             return json($arr); 
         }
@@ -268,8 +269,9 @@ class Goods extends WeixinBase
         if ($res['error_code'] == 0) {
             $arr['error_msg'] =  '';
             $arr['error_code'] = 0;
+            return json($arr);
         }
-        return json($arr);
+        
     }
 
 }

@@ -27,7 +27,8 @@
 ul.spec{ width:100%; height:auto; }
 ul.spec li{ width:auto; margin:10px 15px 1px 0px; padding:0 10px; background:#DCDCDC; line-height:30px; height:30px; display:block; float:left;  }
 ul.spec li.on{background:#FF4500; }
-ul.spec li.ok{border:1px solid #FF4500;}
+
+ul.spec li.ok{border:1px solid #FF4500; display:block; }
 ul.spec li.on a{color:#fff;}
 hr{margin:0px;padding:0px; border-top:1px solid #eeeeee; }
 </style>
@@ -117,7 +118,9 @@ var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function
       </div> 
       <input type="hidden" id="specid" value='{$goods_specs.0.spec_id}'>
       <input type="hidden" id="stock" value='{$goods_specs.0.stock}'>
-      <input type="hidden" id="jiu" value='{$goods_specs.0.spec_id}'>
+      <input type="hidden" id="jiua" value='{$spec_1.name0.spec_id}'>
+      <input type="hidden" id="jiub" value='{$spec_2.name0.spec_id}'>
+      <input type="hidden" id="jiuc" value='{$spec_3.name0.spec_id}'>
       <div><span style="color:#999;font-size:16px;margin-left:10px;">选择商品属性</span></div>
 {if $goods_specs.0.spec_1}
       <div class='specs'>{$goods_info.spec1_name}</div>
@@ -125,7 +128,7 @@ var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function
       <ul class='spec' style="padding-left:20px;">
       {volist name='spec_1' id='s'}
       <?php $array=explode(',',$s['spec_id']); ?>
-        <li class="{volist name='array' id='a'} sp_{$a} {/volist} spn "><a href='javascript:void(0);' onClick="specs('{$s.spec_id}');">{$s.name}</a></li>
+        <li class="{volist name='array' id='a'} sp_{$a} {/volist} spn "><a href='javascript:void(0);' onClick="specs('{$s.spec_id}','a');">{$s.name}</a></li>
       {/volist}
       </ul>
       <div class='specs' style="padding-top:12px;">{$goods_info.spec2_name}</div>
@@ -133,7 +136,7 @@ var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function
       <ul class='spec' style="padding-left:20px;">
       {volist name='spec_2' id='s'}
       <?php $array=explode(',',$s['spec_id']); ?>
-        <li class="{volist name='array' id='a'} sp_{$a} {/volist} spn "><a href='javascript:void(0);' onClick="specs('{$s.spec_id}');">{$s.name}</a></li>
+        <li class="{volist name='array' id='a'} sp_{$a} {/volist} spn "><a href='javascript:void(0);' onClick="specs('{$s.spec_id}','b');">{$s.name}</a></li>
       {/volist}
       </ul>
       <div class='specs' style="padding-top:12px;">{$goods_info.spec3_name}</div>
@@ -141,7 +144,7 @@ var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function
       <ul class='spec' style="padding-left:20px;">
       {volist name='spec_3' id='s'}
       <?php $array=explode(',',$s['spec_id']); ?>
-        <li class="{volist name='array' id='a'} sp_{$a} {/volist} spn "><a href='javascript:void(0);' onClick="specs('{$s.spec_id}');">{$s.name}</a></li>
+        <li class="{volist name='array' id='a'} sp_{$a} {/volist} spn "><a href='javascript:void(0);' onClick="specs('{$s.spec_id}','c');">{$s.name}</a></li>
       {/volist}
       </ul>
 {/if}
@@ -195,38 +198,23 @@ foreach ($goods_specs as $v) { ?>
   spsrt[<?=$k ?>] = "<?php echo implode(',',$v)?>";
 <?php $k+=1; }?>
 
-function specs(spid){
+function specs(spid,on){
   $('.spn').removeClass('on');
   $('.spn').removeClass('ok');
-  //alert(spsrt[0]);
+
+  if (on == 'a') {$('#jiua').val(spid)};
+  if (on == 'b') {$('#jiub').val(spid)};
+  if (on == 'c') {$('#jiuc').val(spid)};
+  
+  var kk = abcon(spid,on);
   var arr = spid.split(',');
-  var specid = $('#specid').val();
-  var jiuarr = $('#jiu').val().split(',');
-  var kk = false;
-  for (var i = 0; i < arr.length; i++) {
-    $('.sp_'+arr[i]).addClass('ok');
-    if (arr[i] == specid ) {
-      kk = true;
-    }
-  }
   if (kk) {
-    $('#specid').val(''+specid+'');
-    $('.sp_'+specid).addClass('on');
+    $('#specid').val(''+kk+'');
+    $('.sp_'+kk).addClass('on');
   }else{
-    for (var i = 0; i < arr.length; i++) {
-      for (var j = 0; j < jiuarr.length; j++) {
-        if (jiuarr[j] == arr[i]) {
-           kk = arr[i];
-        }
-      }
-    }
-    if (kk) {
-      $('#specid').val(''+kk+'');
-      $('.sp_'+kk).addClass('on');
-    }else{
-      $('#specid').val(''+arr[0]+'');
-      $('.sp_'+arr[0]).addClass('on');
-    }
+    mui.toast('该商品没有你想要的匹配属性');
+    $('#specid').val(''+arr[0]+'');
+    $('.sp_'+arr[0]).addClass('on');
   }
   for (var i = 0; i < spsrt.length; i++) {
     arrsp = spsrt[i].split(',');
@@ -236,7 +224,6 @@ function specs(spid){
       $('#goods_price').text(stock);
     }
   }
-  $('#jiu').val(spid);
   if(stock == 0){
     mui.toast('选择的商品没有库存了');
     document.getElementById('number').value=0;
@@ -244,6 +231,63 @@ function specs(spid){
     document.getElementById('number').value=1;
   }
   
+}
+function abcon(spid,on){
+  var arr = spid.split(',');
+  var specid = $('#specid').val();
+  var jiua = $('#jiua').val().split(',');
+  var jiub = $('#jiub').val().split(',');
+  var jiuc = $('#jiuc').val().split(',');
+  var kk = false;
+  if (on == 'a') {
+    for (var i = 0; i < arr.length; i++) {
+      $('.sp_'+arr[i]).addClass('ok');
+      for (var b = 0; b < jiua.length; b++) {
+        for (var c = 0; c < jiuc.length; c++) {
+          if (jiub[b] == arr[i] && jiuc[c] == arr[i] && specid == arr[i]) {
+            return kk = arr[i];
+          }else{
+            if (jiub[b] == arr[i] && jiuc[c] == arr[i]) {
+              kk = arr[i];
+            }
+          }
+        }
+      }
+    }
+  }
+  if (on == 'b') {
+    for (var i = 0; i < arr.length; i++) {
+      $('.sp_'+arr[i]).addClass('ok');
+      for (var a = 0; a < jiua.length; a++) {
+        for (var c = 0; c < jiuc.length; c++) {
+          if (jiua[a] == arr[i] && jiuc[c] == arr[i] && specid == arr[i]) {
+            return kk = arr[i];
+          }else{
+            if (jiua[a] == arr[i] && jiuc[c] == arr[i]) {
+              kk = arr[i];
+            }
+          }
+        }
+      }
+    }
+  }
+  if (on == 'c') {
+    for (var i = 0; i < arr.length; i++) {
+      $('.sp_'+arr[i]).addClass('ok');
+      for (var a = 0; a < jiua.length; a++) {
+        for (var b = 0; b < jiuc.length; b++) {
+          if (jiua[a] == arr[i] && jiub[b] == arr[i] && specid == arr[i]) {
+            return kk = arr[i];
+          }else{
+            if (jiua[a] == arr[i] && jiub[b] == arr[i]) {
+              kk = arr[i];
+            }
+          }
+        }
+      }
+    }
+  }
+  return kk;
 }
 function goods_cut(){
   var num_val=document.getElementById('number');  

@@ -69,24 +69,32 @@
 <div style=" width:100%; padding-left:20px; font-size:16px; background:#fff;">
 <form action="" method="post" name='myform'>
 <div id="code">
-	<div class='pay'>支付方式：
-	{volist name="pay" id='p' empty="功能未启用"}
-	<span onclick="reloadss(this)"><input type="radio" name="pay_id" value="{$p.pay_id}" {if($i==1)}checked="checked"{/if} />{$p.pay_name}</span>
-	{/volist}
+	<div class='pay' style='border-bottom:1px solid  #ddd'>支付方式：
+	<span onclick="reloadss(this)"><input type="radio" name="payid" value="1" checked="checked"/>微信支付</span>
+	<span onclick="reloadss(this)"><input type="radio" name="payid" value="2"/>余额支付</span>
 	</div>
-	<div class='shipping'>配送方式：
-	{volist name="shipping" id='s' empty="功能未启用"}
-	<span onclick="reload(this)"><input type="radio" name="shipping_com_id" value="{$s.shipping_com_id}" {if($i==1)}checked="checked"{/if} />{$s.company_name}</span>
-	{/volist}
+	<div class='con' style='border-bottom:1px solid #ddd'>使用佣金：
+	<span onclick="reloads(this)"><input type="radio" name="rebate" value="1" checked="checked"/>使用佣金</span>
+	<span onclick="reloads(this)"><input type="radio" name="rebate" value="0" />暂不使用</span>
+	</div>
+	<div class='shipping' >
+	<div style="width:auto; height:72px; float:left; ">配送方式：</div>
+	<span onclick="reload(this)">
+	<input type="radio" name="shipping" checked="checked" value="{$pickup_id}"/>到店取货</span>
+	<span><a href="/index.php/wap/cash/shippingpickup" style='color: red;'>{if($name == '')}选择取货门店{else}{$name}{/if}</a></span><br>
+	<span onclick="reload(this)">
+	<input type="radio" name="shipping" value="wuliu"/>物流配送</span>
 	</div>
 </div>
 </form>
 </div>
 		<div class="jiage">
 			<p>下单时间&nbsp;:&nbsp;<span class="price" style="color: #bbb;">当前时间</span></p>
+			<p>可使用的佣金&nbsp;:&nbsp;<span class="price">￥{$info.commission}元</span></p>
+			<p>可使用财富券金额&nbsp;:&nbsp;<span class="price">￥{$info.voucher}元</span></p>
             <p>商品总额&nbsp;:&nbsp;<span class="price">￥{$sum}元</span></p>         
 			<p>应付款金额&nbsp;:&nbsp;<span class="price1">￥{$sum}元</span></p>					
-			</div> 
+		</div> 
 			
 		<div class="detail_dowm">
 			<div class="anniu1">
@@ -104,6 +112,10 @@ function reload(obj){
 	$('.shipping span ').find("input").attr("checked", false);
     $(obj).find("input").attr("checked", "checked");
 }
+function reloads(obj){
+	$('.con span ').find("input").attr("checked", false);
+    $(obj).find("input").attr("checked", "checked");
+}
 
 function cancel_order(){
 	mui.confirm('是否确定下单', function(e) {
@@ -113,22 +125,26 @@ function cancel_order(){
 	});
 }
 function AjaxAddCart(){    
-	var pay_id = myform.pay_id.value;
-	var shipping_com_id = myform.shipping_com_id.value;
+	var payid = myform.payid.value;
+	var shipping = myform.shipping.value;
+	var rebate = myform.rebate.value;
+	if (shipping == '') {
+		return mui.alert('未选择门店');
+	}
     $.ajax({
         type : "POST",
         url:"/index.php/wap/cash/ajaxcreateorder",
-        data :{pay_id:pay_id,shipping_com_id:shipping_com_id} ,
+        data :{payid:payid,shipping:shipping,rebate:rebate} ,
         dataType:'json',                       
         success: function(data){    
             // 加入购物车后再跳转到 购物车页面
-           if (data.error_code == 0) {
+            if (data.error_code == 0) {
                 mui.toast('下单成功');
                 setTimeout("window.location.href = '/index.php/wap/orders/orderalllist'",100);
-           }
-           else{
+            }
+            else{
                mui.alert(data.error_msg);
-           }
+            }
         }
     });  
 }

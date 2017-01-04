@@ -10,6 +10,7 @@ use app\common\model\Orders;
 use app\common\model\Regions;
 use app\common\model\Payments;
 use app\common\model\Shipping;
+use app\common\model\base\Users;
 
 
 /*************************************************
@@ -28,6 +29,7 @@ class Cash extends WeixinBase
      *************************************************/
     public function CreateOrderList()
     {
+        $input = Request::instance()->param();
         $uid = session('uid');
         $res = UsersAddress::getAddress($uid);
         if ($res['error_code'] == 0) {
@@ -50,20 +52,17 @@ class Cash extends WeixinBase
         }else{
             $datas = '';
         }
-        $pay = Payments::getList();
-        if ($pay['error_code'] == 0) {
-            $paydata = $pay['data'];
+        if (isset($input['pickup_id']) ) {
+            $pickup_id = $input['pickup_id'];
+            $name = Shipping::getInfoShippingPickup($pickup_id)['data']['name'];
         }else{
-            $paydata = '';
+            $pickup_id = '';
+            $name = '';
         }
-        $shipping = Shipping::getShippingList();
-        if ($shipping['error_code'] == 0) {
-            $shippingdata = $shipping['data'];
-        }else{
-            $paydata = '';
-        }
-        $this->assign('pay',$paydata);
-        $this->assign('shipping',$shippingdata);
+        $info = Users::myInfo($uid);
+        $this->assign('info',$info['data']);
+        $this->assign('pickup_id',$pickup_id);
+        $this->assign('name',$name);
         $this->assign('data',$datas);
         return $this->fetch();
     }
@@ -78,22 +77,23 @@ class Cash extends WeixinBase
     {   
         $input = Request::instance()->param();
         $rule = [
-            'pay_id'  => 'require',
-            'shipping_com_id'  => 'require',
+            'payid'  => 'require',
+            'shipping'  => 'require',
         ];
         $msg = [
-            'pay_id.require'  =>  'pay_id必须填写',
-            'shipping_com_id.require'  =>  'shipping_com_id必须填写',
+            'payid.require'  =>  '支付方式必须选',
+            'shipping.require'  =>  '配送方式必须填选',
         ];
         $validate = new Validate($rule, $msg);
         $result   = $validate->check($input);
         if (!$result){
-            $arr['error_code'] == 2;
-            $arr['error_msg'] == $validate->getError();
+            $arr['error_code'] = 2;
+            $arr['error_msg'] = $validate->getError();
             return $arr;
         }
-        $data['pay_id'] =$input['pay_id'];
-        $data['shipping_com_id'] =$input['shipping_com_id'];
+        $data['pay_id'] = $input['payid'];
+        $data['shipping'] = $input['shipping'];
+        $data['rebate'] = $input['rebate'];
         $uid = session('uid');
         $res = Orders::addCartOrder($uid,$data);
         if ($res['error_code'] == 0) {
@@ -137,6 +137,24 @@ class Cash extends WeixinBase
 
         $this->assign('order_info', $order_info);
         $this->assign('payment_list', $payment_list);
+        return $this->fetch();
+    }
+
+    /*************************************************
+     * Function:      shippingPickup
+     * Description:   取货门店
+     * @param:        void
+     * Return:        void
+     *************************************************/
+    public function shippingPickup()
+    {   
+        $res = Shipping::listShippingPickup();
+        if ($res['error_code'] == 0) {
+            $data = $res['data'];
+        }else{
+            $data = '';
+        }
+        $this->assign('data',$data);
         return $this->fetch();
     }
 }
