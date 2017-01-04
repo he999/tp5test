@@ -72,11 +72,12 @@
                         <th>{if condition="$vo['is_on'] eq 0"}申请成功{/if}{if condition="$vo['is_on'] eq 1"}待申请{/if}{if condition="$vo['is_on'] eq 2"}申请失败{/if}</th>                 
                         <th >                          
                           {if condition="$vo['transit_time'] eq ''"}<a onclick="return confirm('你确定要修改吗？')" href="/index.php/manager/member/withdrawalEdit/id/{$vo.id}/type/2">拒绝申请</a>
-                          <a onclick="return confirm('你确定要修改吗？')" href="/index.php/manager/member/withdrawalEdit/id/{$vo.id}/type/0">通过申请</a>{/if}</th>
+                          <a onclick="return confirm('你确定要修改吗？')" href="/index.php/manager/member/withdrawalEdit/id/{$vo.id}/type/0">通过申请</a>{/if}
+						  </th>
                         {/volist}
                      </tbody>
             </table>
-            <div style="margin-top:-10px">{$data->render()}</div>
+            <div ><center>{$data->render()}</center></div>
 <table class="table"   >
  <tr   ><td style="text-align: center;border-top: none;  "></td></tr>
       </table>

@@ -27,14 +27,14 @@ class Manager extends Controller
         { 
             $this->error('登录超时，请重新登录！','/index.php/manager/login/index');
         }
-        // elseif(session('authdata')){
+        elseif(session('authdata')){
             // $request = Request::instance();
             // $mc = $request->module().'/'. $request->controller();
             // $mc = strtolower($mc);
             // if (!in_array($mc,session('authdata'))) {
-                // $this->error('你没有权限！');die;
+            //     $this->error('你没有权限！');die;
             // }
-        // }
+        }
         $this->assign('username',session('username'));
         $this->assign('role',session('userinfo')['title']);
     }

@@ -32,37 +32,44 @@
 			<!-- page-content begin -->
 			<div class="page-content" id="content">
 				<ul class="nav nav-tabs nav_tit tou" >       
-					<a href="#"  style="font-size: 20px;font-weight:600;">佣金列表</a>
-				</ul>  
+					<a href="#" style="font-size: 20px;font-weight:600;">佣金统计</a>
+				</ul>
 			    <table class="table table-hover table-bordered" style="border: none;text-align:center" >
 					<thead>
 						<tr style="border-top:1px solid #ccc; ">
-						    <th width="33%">收入</th>
-						    <th width="33%">支出</th>
-						    <th width="33%">时间</th>
+						    <th width="20%">昵称</th>
+						    <th width="20%">佣金</th>
+						    <th width="20%">帐变</th>
+						    <th width="20%">时间</th>
+						    <th width="20%">操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						{volist name="data" id="vo"}            
+				        {volist name="data" id="vo"}
 				        <tr> 
-						    <th>{$vo.income}</th>
-						    <th>{$vo.expense}</th>
-						    <th>{$vo.time|date="Y-m-d H:i",###}</th>         
+						    <th>{$vo.nickname}</th>
+						    {switch name="vo.type"}
+								{case value="commission"}<th>{$vo.income}元</th><th>下级返佣</th>{/case}
+								{case value="cash"}<th>{$vo.expense}元</th><th>提现</th>{/case}
+								{case value="buy"}<th>{$vo.income}元</th><th>购买</th>{/case}
+								{default/}<th>  </th><th> </th>
+						    {/switch}
+						    <th>{$vo.time|date="Y-m-d H:i",###}</th>
+						    <th><a onclick="return confirm('你确定要删除吗？')"  href="/index.php/manager/Member/jifenDel/id/{$vo.id}" style="cursor: pointer;">删除</a></th>    
 				        </tr>
-						{/volist}
+				        {/volist}
 					</tbody>
 				</table>
 				<div><center>{$data->render()}</center></div>
-				<table class="table"   >
+				<table class="table" >
 					<tr><td style="text-align: center;border-top: none;  "></td></tr>
 			    </table>
-			<!-- page-content end -->
-	        <!-- main-content end -->
+		    <!-- page-content end -->
+		    <!-- main-content end -->
 	        </div> 
 	    </div>
-	<!-- main-container end -->
+	<!-- main-container end --> 
 	</div>
-
 </body>
 <!--价格验证-->
 <script type="text/javascript">

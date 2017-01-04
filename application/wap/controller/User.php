@@ -153,6 +153,18 @@ class User extends WeixinBase
         $this->assign('data',$data);
         return $this->fetch();
     }
+	
+    /*************************************************
+     * Function:      myRebate
+     * Description:   我的返佣
+     * @param:        void
+     * Return:        void
+     *************************************************/
+    public function myRebate()
+    {   
+       
+        return $this->fetch();
+    }
 
     /*************************************************
      * Function:      recharge
