@@ -14,9 +14,9 @@ use app\common\model\base\Users;
 */
 class WeixinBase extends Controller
 {
-	// public    $issub;
-	// public    $appid;
-	// public    $appsecret; 
+	public    $issub;
+	public    $appid;
+	public    $appsecret; 
 
 	protected function _initialize() 
 	{
