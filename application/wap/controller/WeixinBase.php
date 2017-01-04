@@ -34,25 +34,25 @@ class WeixinBase extends Controller
     private function weiwinInit()
 	{  	
 		if (!session('open_id')) { 
-zlog('winxin:'.1);
+zlog('winxin:1');
 			if(WeixinAuth::isWeixin()) {
-zlog('winxin:'.2);
+zlog('winxin:.2');
 				$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"];
 				$openInfo = WeixinAuth::getOpenInfo($this->appid, $this->appsecret, $url);
 				$open_id = $openInfo['openid'];
 				$res = UsersWeixin::getOne($open_id);
 				if ($res['error_code'] == 0) {
-zlog('winxin:'.3); 
+zlog('winxin:.3'); 
 					$uid = $res['data']['uid']; 
 					if ($res['data']['nickname'] == NULL) {
-zlog('winxin:'.4);
+zlog('winxin:.4');
 						$userinfo = WeixinAuth::getWeiwinInfo($openInfo['access_token'], $openInfo['openid']);
 	 					$data['open_id']  = $userinfo['openid'];
 	                    $data['nickname'] = $userinfo['nickname'];
 	                    $data['face']     = $userinfo['headimgurl'];
 	                    $data['sex']      = $userinfo['sex'];
 	                    if (isset($userinfo['unionid'])){
-zlog('winxin:'.5);	                    	
+zlog('winxin:.5');	                    	
 	                    	$data['union_id'] = $userinfo['unionid'];
 	                    } 
 						UsersWeixin::edit($open_id,$data);
@@ -66,7 +66,7 @@ zlog('winxin:'.5);
 					}
 					dupm($userinfo['nickname']);
 				}else{
-zlog('winxin:'.6);
+zlog('winxin:.6');
 					die("未关注");
 				}
 			} else {
@@ -74,7 +74,7 @@ zlog('winxin:'.6);
 				die("非微信浏览器");
 			}
 		}
-zlog('winxin:'.7);
+zlog('winxin:.7');
 		//echo '<center>=>=>=>=>正在建设中<=<=<=<=</center>';
 	}
 
