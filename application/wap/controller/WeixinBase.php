@@ -32,7 +32,7 @@ class WeixinBase extends Controller
     * Return:        void
     *************************************************/
     private function weiwinInit()
-	{  	
+	{  	session(null);
 		if (!session('uid')) {
 zlog('winxin:1');
 			if(WeixinAuth::isWeixin()) {
