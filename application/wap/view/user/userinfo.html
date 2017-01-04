@@ -33,9 +33,12 @@
 <div class="com_top">
 <center style="padding-top:20px; position:relative;">
 	<a class="wei" href="/index.php/wap/user/distribution"></a>
-    <img src="{$data.face}" />
+	<img src="{$data.face}">
 	<span style="line-height:20px;">会员ID：{$data.uid}</span>
 	<span style="line-height:20px;">昵称：{$data.nickname}</span>
+	{if condition="$data['member_type'] eq 2"} 
+	<img src="/static/images/dai.png" style="width:25px;height:25px;margin-top:-19px;margin-left:95px">
+	{/if}
 </center>
 </div>
 <div class="uer_topnav">
@@ -59,7 +62,7 @@
 	<a href="/index.php/wap/user/mymoney"><em class="Icon Icon1"></em>
 		<dl class="b"><dt>我的余额</dt><dd></dd></dl>
 	</a>
-	<a href="/index.php/wap/user/myintegral"><em class="Icon Icon11"></em>
+	<a href="/index.php/wap/user/myvoucher"><em class="Icon Icon11"></em>
 		<dl class="b" ><dt>我的财富劵</dt><dd></dd></dl>
 	</a>
 	<a href="/index.php/wap/user/myintegral"><em class="Icon Icon11"></em>

@@ -962,6 +962,32 @@ class Users extends Model
         }
         return $result;
     }
+	
+	
+	/**
+     * shareCode 我的返佣列表
+     * @xiao
+     * @param    array     $uid
+     * @return   array     [error_code, error_msg, id]
+     * @DateTime 2016-11-22T20:46:59+0800
+     */
+    static public function myrebateList($uid)
+    { 
+        $where = array('uid' => $uid);
+        $res = Db::name('users_customers')
+        ->where($where)
+        ->field('uid,nickname,commission,face')
+        ->select();
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+            $result['data'] = $res;
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = "查询失败";
+        }
+        return $result;
+    }
     
 
     /**

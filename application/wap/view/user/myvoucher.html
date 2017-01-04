@@ -9,7 +9,7 @@
 <meta name="apple-touch-fullscreen" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="applicable-device" content="mobile">
-<title>我的佣金</title>
+<title>我的财富劵</title>
 <link rel="stylesheet" href="/static/waps/css/public.css">
 <link rel="stylesheet" href="/static/waps/css/user.css">
 <script type="text/javascript" src="/static/waps/js/jquery.js"></script>
@@ -20,7 +20,7 @@
 <style type="text/css">
 .ranking{width: 98%; height:80px; margin-bottom:10px; padding-left:2%;}
 .ranking p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
-.topl{margin-left: 15%;  border-right:1px solid #d6d6d6}
+.topl{margin-left: 15%;}
 .topr{margin-right: 17%; float:right;}
 </style>
 </head>
@@ -29,23 +29,23 @@
 <div class="tab_nav">
   <div class="header">
     <div class="h-left"><a class="sb-back" href="/index.php/wap/user/userInfo" title="返回"></a></div>
-    <div class="h-mid">我的佣金</div>
+    <div class="h-mid">我的财富劵</div>
   </div>
 </div>
 </header>
 <div id="tbh5v0">
     <div class="pbox">
 			    <div style="font-size: 16px; height:40px; line-height:40px;border-bottom:1px solid #d6d6d6">
-				 <span class="topl" style="padding-right:20%;">累计佣金:<font style="color:red;">111</font></span>
-				<span class="topr">可提佣金:<font style="color:red;">{$data.commission}</font>
+				<span class="topl" style="padding-right:20%;">财富劵金额:<font style="color:red;">{$data.voucher}</font></span>
+				
 				<a style="padding: 0 10px;text-align: center;color: #fff;
 				border: 1px solid #FE6D0B;display: inline-block;border-radius: 3px;
-				box-shadow: 0 1px 2px #E7E7E7;background: #f60;" href="/index.php/wap/user/cash">提现</a></span>
+				box-shadow: 0 1px 2px #E7E7E7;background: #f60;margin-left:140px" href="/index.php/wap/user/cash">使用说明</a></span>
 				</div>
            
         <div class="il_nav" id="J_il_nav">
-            <a href="/index.php/wap/user/myrebate" class="<?php if($type=='1'){ echo 'active';}?>">返佣明细</a>
-            <a href="/index.php/wap/user/myrebate/type/cash" class="<?php if($type=='2'){ echo 'active';}?>">提现记录</a>
+            <a href="/index.php/wap/user/myvoucher" class="<?php if($type=='1'){ echo 'active';}?>">获得明细</a>
+            <a href="/index.php/wap/user/myvoucher/type/cash" class="<?php if($type=='2'){ echo 'active';}?>">使用记录</a>
         </div>
     
 			<!-- 下滑加载无更多样式 S-->

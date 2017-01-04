@@ -9,7 +9,7 @@
 <meta name="apple-touch-fullscreen" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="applicable-device" content="mobile">
-<title>æˆ‘çš„ä½£é‡‘</title>
+<title>ÎÒµÄÓ¶½ğ</title>
 <link rel="stylesheet" href="/static/waps/css/public.css">
 <link rel="stylesheet" href="/static/waps/css/user.css">
 <script type="text/javascript" src="/static/waps/js/jquery.js"></script>
@@ -28,42 +28,42 @@
 <header>
 <div class="tab_nav">
   <div class="header">
-    <div class="h-left"><a class="sb-back" href="/index.php/wap/user/userInfo" title="è¿”å›"></a></div>
-    <div class="h-mid">æˆ‘çš„ä½£é‡‘</div>
+    <div class="h-left"><a class="sb-back" href="/index.php/wap/user/userInfo" title="·µ»Ø"></a></div>
+    <div class="h-mid">ÎÒµÄÓ¶½ğ</div>
   </div>
 </div>
 </header>
 <div id="tbh5v0">
     <div class="pbox">
 			    <div style="font-size: 16px; height:40px; line-height:40px;border-bottom:1px solid #d6d6d6">
-				 <span class="topl" style="padding-right:20%;">ç´¯è®¡ä½£é‡‘:<font style="color:red;">111</font></span>
-				<span class="topr">å¯æä½£é‡‘:<font style="color:red;">{$data.commission}</font>
+				 <span class="topl" style="padding-right:20%;">ÀÛ¼ÆÓ¶½ğ:<font style="color:red;">111</font></span>
+				<span class="topr">¿ÉÌáÓ¶½ğ:<font style="color:red;">{$data.commission}</font>
 				<a style="padding: 0 10px;text-align: center;color: #fff;
 				border: 1px solid #FE6D0B;display: inline-block;border-radius: 3px;
-				box-shadow: 0 1px 2px #E7E7E7;background: #f60;" href="/index.php/wap/user/cash">æç°</a></span>
+				box-shadow: 0 1px 2px #E7E7E7;background: #f60;" href="/index.php/wap/user/cash">ÌáÏÖ</a></span>
 				</div>
            
         <div class="il_nav" id="J_il_nav">
-            <a href="/index.php/wap/user/myrebate" class="<?php if($type=='1'){ echo 'active';}?>">è¿”ä½£æ˜ç»†</a>
-            <a href="/index.php/wap/user/myrebate/type/cash" class="<?php if($type=='2'){ echo 'active';}?>">æç°è®°å½•</a>
+            <a href="/index.php/wap/user/myrebate" class="<?php if($type=='1'){ echo 'active';}?>">·µÓ¶Ã÷Ï¸</a>
+            <a href="/index.php/wap/user/myrebate/type/cash" class="<?php if($type=='2'){ echo 'active';}?>">ÌáÏÖ¼ÇÂ¼</a>
         </div>
     
-			<!-- ä¸‹æ»‘åŠ è½½æ— æ›´å¤šæ ·å¼ S-->
+			<!-- ÏÂ»¬¼ÓÔØÎŞ¸ü¶àÑùÊ½ S-->
 	            <div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
-	                    <!-- <a href="javascript:void(0)" onClick="ajax_sourch_submit()">ç‚¹å‡»åŠ è½½æ›´å¤š</a> -->
+	                    <!-- <a href="javascript:void(0)" onClick="ajax_sourch_submit()">µã»÷¼ÓÔØ¸ü¶à</a> -->
 	            </div>
-	            <!-- ä¸‹æ»‘åŠ è½½æ— æ›´å¤šæ ·å¼ E-->          
+	            <!-- ÏÂ»¬¼ÓÔØÎŞ¸ü¶àÑùÊ½ E-->          
             </div>
 <script>
 var  page = 1;
- /*** ajax æäº¤è¡¨å• æŸ¥è¯¢è®¢å•åˆ—è¡¨ç»“æœ*/  
+ /*** ajax Ìá½»±íµ¥ ²éÑ¯¶©µ¥ÁĞ±í½á¹û*/  
  // function ajax_sourch_submit()
 //  {	 	 	 
 //         page += 1;
 // 		$.ajax({
 // 			type : "GET",
 // 			url:"/index.php"+page,//+tab,						
-// //			data : $('#filter_form').serialize(),// ä½ çš„formid æœç´¢è¡¨å• åºåˆ—åŒ–æäº¤
+// //			data : $('#filter_form').serialize(),// ÄãµÄformid ËÑË÷±íµ¥ ĞòÁĞ»¯Ìá½»
 // 			success: function(data)
 // 			{
 // 				if($.trim(data) == '')
