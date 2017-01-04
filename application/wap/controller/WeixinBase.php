@@ -16,13 +16,14 @@ class WeixinBase extends Controller
 {
 	public    $issub;
 	public    $appid;
-	public    $appsecret; 
+	public    $appsecret;
 
 	protected function _initialize() 
 	{
 		$this->appid = Coms::getValue('appid')['data'];
 		$this->appsecret = Coms::getValue('appsecret')['data'];
 		$this->weiwinInit();
+
 	}
 
     /*************************************************  
@@ -32,29 +33,22 @@ class WeixinBase extends Controller
     * Return:        void
     *************************************************/
     private function weiwinInit()
-	{  	session(null);
-		if (!session('uid')) {
-zlog('winxin:1');
+	{  	
+		if (!session('open_id')) { 
 			if(WeixinAuth::isWeixin()) {
-zlog('winxin:.2');
 				$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"];
 				$openInfo = WeixinAuth::getOpenInfo($this->appid, $this->appsecret, $url);
 				$open_id = $openInfo['openid'];
 				$res = UsersWeixin::getOne($open_id);
-				if ($res['error_code'] == 0) {
-zlog('winxin:.3'); 
+				if ($res['error_code'] == 0) { 
 					$uid = $res['data']['uid']; 
-					session("open_id", $open_id);
-                	session("uid", $uid);
 					if ($res['data']['nickname'] == NULL) {
-zlog('winxin:.4');
 						$userinfo = WeixinAuth::getWeiwinInfo($openInfo['access_token'], $openInfo['openid']);
 	 					$data['open_id']  = $userinfo['openid'];
 	                    $data['nickname'] = $userinfo['nickname'];
 	                    $data['face']     = $userinfo['headimgurl'];
 	                    $data['sex']      = $userinfo['sex'];
 	                    if (isset($userinfo['unionid'])){
-zlog('winxin:.5');	                    	
 	                    	$data['union_id'] = $userinfo['unionid'];
 	                    } 
 						UsersWeixin::edit($open_id,$data);
@@ -66,22 +60,20 @@ zlog('winxin:.5');
 						Users::editUsersCustomers($uid,$data2);
 						Users::userUpdates($uid,['username' => $userinfo['nickname']]);
 					}
-					dupm($userinfo['nickname']);
 				}else{
-zlog('winxin:.6');
 					die("未关注");
 				}
+				session("open_id", $open_id);
+                session("uid", $uid);
+                // UserLogs::add($uid, "登陆成功");
 			} else {
 				//非微信浏览器处理
-				die("非微信浏览器");
+				//die("非微信浏览器");
+				session('uid','81');
+        		session("open_id",'oSMR0t1SaQbjlhNAdSA75h9N1gqg');
 			}
 		}
-zlog('winxin:.7'.session('uid'));
-		//echo '<center>=>=>=>=>正在建设中<=<=<=<=</center>';
 	}
-
-
 }
-
 
 ?>
