@@ -33,7 +33,7 @@ class WeixinBase extends Controller
     *************************************************/
     private function weiwinInit()
 	{  	
-		if (!session('denopen_id')) {
+		if (!session('uid')) {
 zlog('winxin:1');
 			if(WeixinAuth::isWeixin()) {
 zlog('winxin:.2');
@@ -44,7 +44,7 @@ zlog('winxin:.2');
 				if ($res['error_code'] == 0) {
 zlog('winxin:.3'); 
 					$uid = $res['data']['uid']; 
-					session("denopen_id", $open_id);
+					session("open_id", $open_id);
                 	session("uid", $uid);
 					if ($res['data']['nickname'] == NULL) {
 zlog('winxin:.4');
