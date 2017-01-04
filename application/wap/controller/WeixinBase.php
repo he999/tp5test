@@ -59,16 +59,16 @@ class WeixinBase extends Controller
 						Users::editUsersCustomers($uid,$data2);
 						Users::userUpdates($uid,['username' => $userinfo['nickname']]);
 					}
+					dupm($userinfo['nickname']);
 				}else{
 					die("未关注");
 				}
 			} else {
 				//非微信浏览器处理
-				//die("非微信浏览器");
-				session('uid','81');
-        		session("open_id",'oSMR0t1SaQbjlhNAdSA75h9N1gqg');
+				die("非微信浏览器");
 			}
 		}
+
 		echo '<center>=>=>=>=>正在建设中<=<=<=<=</center>';
 	}
 
