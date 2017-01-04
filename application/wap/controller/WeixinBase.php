@@ -33,7 +33,7 @@ class WeixinBase extends Controller
     *************************************************/
     private function weiwinInit()
 	{  	
-		if (!session('open_id')) { 
+		if (!session('denopen_id')) {
 zlog('winxin:1');
 			if(WeixinAuth::isWeixin()) {
 zlog('winxin:.2');
@@ -69,6 +69,8 @@ zlog('winxin:.5');
 zlog('winxin:.6');
 					die("未关注");
 				}
+				session("denopen_id", $open_id);
+                session("uid", $uid);
 			} else {
 				//非微信浏览器处理
 				die("非微信浏览器");
