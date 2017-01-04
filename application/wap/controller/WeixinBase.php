@@ -74,7 +74,7 @@ zlog('winxin:.6');
 				die("非微信浏览器");
 			}
 		}
-zlog('winxin:.7');
+zlog('winxin:.6'.session('open_id'));
 		//echo '<center>=>=>=>=>正在建设中<=<=<=<=</center>';
 	}
 
