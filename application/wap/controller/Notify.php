@@ -110,7 +110,7 @@ class Notify
                 //             echo 'SUCCESS';
                 //         }
                 //     }
-                // }
+                }
                 echo 'SUCCESS';
             }
             zlog($postObj);
