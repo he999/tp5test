@@ -58,12 +58,14 @@
 <p>下单时间&nbsp;:&nbsp;<span class="price" style="color: #bbb;">
 {$data.create_time|date ="Y-m-d H:i",###}</span></p>
 <p>商品总额&nbsp;:&nbsp;<span class="price">￥{$data.order_amount}元</span></p>
-<p>邮费总额&nbsp;:&nbsp;<span class="price">￥{$data.shipping_price}元</span></p>         
-<p>应付款金额&nbsp;:&nbsp;<span class="price1">￥{$data.order_amount+$data.shipping_price}元</span></p>				
-</div> 
+<p>可使用财富券&nbsp;:&nbsp;<span class="price">￥{$voucher}元</span></p>
+<p>可使用佣金&nbsp;:&nbsp;{if($data.is_rebate) == 1}<span class="price">￥{$rebate}元</span>{else}<span class="price" style="color: #bbb;">不使用</span>{/if}</p>  
+<?php if($data['order_amount']-$voucher-$rebate <= 0){ $ma = 0; }else{ $ma = $data['order_amount']-$voucher-$rebate; } ?>        
+<p>应付款金额&nbsp;:&nbsp;<span class="price1">￥{if($data.is_rebate) == 1}{$ma}{else}{$data.order_amount-$voucher}{/if}元</span></p>        
+</div>
 		<div class="detail_dowm">
 			<div class="anniu1">
-        {if condition="$data.order_status eq 0"}
+        {if condition="$data.order_status eq 1"}
           <a onClick="cancelll()" class="on_comment" id="confi" style="background-color: #E24615; color:#fff;width:100%;">确定支付</a> 
         {/if}
       </div> 
@@ -71,16 +73,16 @@
 	</div>		
 </div>   
 <script language="javascript">
-var key = 0;
+var key = true;
 function cancelll(){
-    if (key == 0 ) {
+    if (key) {
       mui.confirm('是否确支付', function(e) {
       if (e.index == 1) {
         $('#confi').text('支付中，请稍等');
          AjaxPay();
       }
     });
-      key++;
+      key = false;
     }else{
       return;
     }

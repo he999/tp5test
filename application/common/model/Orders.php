@@ -64,16 +64,6 @@ class Orders extends Model
                         $pay['data']['pay_code'] = 0;
                         $pay['data']['pay_name'] = '无';
                     }
-                    //财富券
-                    // $vouchera = UsersVoucher::voucherKey($shop_price,['type'=>'buy']);
-                    // $voucherc = UsersVoucher::countVoucher($uid);
-                    // (int)$c = $voucherc['balance_voucher'];  
-                    // (int)$a = $vouchera['voucher'];
-                    // if ($c <= $a) {
-                    //     $voucher['voucher_cash'] = $c;
-                    // }else{
-                    //     $voucher['voucher_cash'] = $a;
-                    // }
                     // 订单数据
                     $data = [
                         'uid' => $uid,
@@ -94,7 +84,6 @@ class Orders extends Model
                         'pay_code' => $pay['data']['pay_code'],
                         'pay_name' => $pay['data']['pay_name'],
                         'is_rebate' => $spid['rebate'],
-                        // 'voucher_cash' => $voucher['voucher_cash'],
                         'order_status' => 1
                     ];
                     // 添加订单
