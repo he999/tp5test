@@ -39,6 +39,8 @@ class WeixinBase extends Controller
 			if(WeixinAuth::isWeixin()) {
 				$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"];
 				zlog('url:'.$url);
+				zlog('appid:'.$this->appid);
+				zlog('appsecret:'.$this->appsecret);
 				$openInfo = WeixinAuth::getOpenInfo($this->appid, $this->appsecret, $url);
 				zlog('===1===');
 				$open_id = $openInfo['openid'];
