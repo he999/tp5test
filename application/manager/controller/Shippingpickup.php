@@ -96,8 +96,7 @@ class Shippingpickup extends Manager
 			{
 				$this->jsAlert('修改失败','/index.php/manager/Shippingpickup/edit');
 				die;
-			}     
-        
+			}   
         }  
 		$list = Shipping::getInfoShippingPickup($input_data['id']);
 		$this->assign('list',$list['data']);

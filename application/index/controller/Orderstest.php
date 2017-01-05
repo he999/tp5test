@@ -38,11 +38,11 @@ class OrdersTest
     {   
         $order_id = 1;
         $data=[
-                'order_sn' => '987654',
-                'uid' => '2',
-                'com_id' => '3',
-                'is_pay' => '1'
-              ];
+			'order_sn' => '987654',
+			'uid' => '2',
+			'com_id' => '3',
+			'is_pay' => '1'
+        ];
         $result = Orders::edit($order_id, $data);
         var_dump($result);
     }
@@ -60,12 +60,12 @@ class OrdersTest
     {
         $order_id = 1;   
         $data = [
-                    'order_id' => '2',
-                    'action_user' => '1234554',
-                    'order_status' => '1', 
-                    'order_status' => '2', 
-                    'shipping_status' => '3'
-                ];
+			'order_id' => '2',
+			'action_user' => '1234554',
+			'order_status' => '1', 
+			'order_status' => '2', 
+			'shipping_status' => '3'
+		];
         $result = OrdersActions::add($order_id,$data);
         var_dump($result);
     }
@@ -83,9 +83,9 @@ class OrdersTest
     {   
         $order_id = 1;
         $data = [
-                    ['order_id' => $order_id,'goods_name' => 'xiaoming','buy_num' => '1223456543'], 
-                    ['order_id' => $order_id,'goods_name' => 'mingxiao','buy_num' => '1223456543']
-                ];
+			['order_id' => $order_id,'goods_name' => 'xiaoming','buy_num' => '1223456543'], 
+			['order_id' => $order_id,'goods_name' => 'mingxiao','buy_num' => '1223456543']
+		];
         $result = OrdersGoods::add($order_id,$data);
         var_dump($result);
     }
@@ -94,9 +94,9 @@ class OrdersTest
     public function test6()
     {   
         $data=[
-                ['id' => '1', 'order_id'=>'2', 'goods_name' => 'aaaaaaaa','buy_num' => '1233'],
-                ['id' => '2', 'order_id'=>'2', 'goods_name' => 'oooooooooo','buy_num' => '5433']
-              ];
+			['id' => '1', 'order_id'=>'2', 'goods_name' => 'aaaaaaaa','buy_num' => '1233'],
+			['id' => '2', 'order_id'=>'2', 'goods_name' => 'oooooooooo','buy_num' => '5433']
+	    ];
         $result = OrdersGoods::edit($data);
         var_dump($result);
     }

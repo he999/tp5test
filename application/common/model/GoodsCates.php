@@ -96,7 +96,7 @@ class GoodsCates extends Model
         {
             if($category['parentid'] == $cateid)
             {
-                    $sub_categories[] = $category;
+				$sub_categories[] = $category;
             }
         }
         /* 在子分类中查找子分类 */
@@ -155,7 +155,6 @@ class GoodsCates extends Model
     static public function getChildren($categories, $cateid = 0, $li = 0)
     {
         $return_categories = [];
-
         foreach($categories as $category)
         {
             if($category['parentid'] == $cateid)
@@ -181,12 +180,10 @@ class GoodsCates extends Model
     {
         $return_categories = [];
         $parentid = isset($categories[$cateid]) ? $categories[$cateid]['parentid'] : 0;
-
         if($parentid == $stopid)
         {
             return $return_categories;
         }
-
         foreach($categories as $category)
         {
             if($category['cateid'] == $parentid)
@@ -214,7 +211,6 @@ class GoodsCates extends Model
             return $return_categories;
         }
         $parentid = $cateid == 0 ? 0 : $categories[$cateid]['parentid'];
-
         foreach($categories as $category)
         {
             if($category['parentid'] == $parentid)
@@ -363,7 +359,6 @@ class GoodsCates extends Model
         }
         return $menu;
     }
- 
 }
 
 

@@ -9,7 +9,6 @@ class RegionsTest
     public function testa()
     {
         $level=1;
-
         $result = Regions::getLevel($level);
         dump($result);
     }

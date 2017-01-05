@@ -8,7 +8,6 @@ use think\Request;
 use app\common\model\Com;
 use app\common\model\Message;
 
-
 /*************************************************  
 *ClassName:     Manager
 *Description:   后台控制器基类
@@ -51,18 +50,16 @@ class Manager extends Controller
         $this->assign('info', $info);
         $this->assign('url', $url);
         echo $this->fetch(APP_PATH.request()->module().'/view/common/alert.html');
-        die;
+		die;
     }
-     
 
-          /*************************************************  
+    /*************************************************  
     * Function:      logout
     * Description:   退出系统
     *************************************************/
-      public function logout()
-      {
-       session(null);
-       $this->jsAlert('退出成功！','/index.php/manager/login/index');
-       }  
-
+    public function logout()
+    {
+		session(null);
+		$this->jsAlert('退出成功！','/index.php/manager/login/index');
+    }  
 }

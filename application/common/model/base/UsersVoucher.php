@@ -14,13 +14,13 @@ use app\common\model\base\Users;
 class UsersVoucher extends Model
 {
 	/**
-     * [countBalance 计算财富券] ys_users_money_voucher
-     * 用户账户增加资金的总额减去减少的总额
-     * @xiao
-     * @DateTime 2016-11-27T21:24:15+0800
-     * @param    int                   $uid 用户uid
-     * @return   array     [error_code, error_msg, balance]
-     */
+    * [countBalance 计算财富券] ys_users_money_voucher
+    * 用户账户增加资金的总额减去减少的总额
+    * @xiao
+    * @DateTime 2016-11-27T21:24:15+0800
+    * @param    int                   $uid 用户uid
+    * @return   array     [error_code, error_msg, balance]
+    */
     static public function countVoucher($uid)
     {  
 		$where = array('uid' => $uid);

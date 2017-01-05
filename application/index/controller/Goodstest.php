@@ -159,9 +159,6 @@ class GoodsTest
     }
 
 
-
-
-
     //商品属性添加
     public function test8()
     {   
@@ -197,6 +194,5 @@ class GoodsTest
         $result = GoodsSpecs::getSpecs($goods_id);
         var_dump($result);
     }
-
     
 }

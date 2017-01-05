@@ -6,9 +6,7 @@ namespace app\common\model\weixin;
 */
 class Wechat
 {
-
     private $data = array();
-
     public function __construct($token)
     {
         zlog("进入wechat");
@@ -29,7 +27,7 @@ class Wechat
             }
         }
     }
-
+	
     public function request()
     {
         return $this->data;
@@ -80,6 +78,7 @@ class Wechat
         zlog($result);
         return $result;
     }
+	
     /**
      * response 回复消息
      * @karl

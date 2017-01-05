@@ -91,18 +91,18 @@ class Borrow extends Model
     static public function getRecord($num,$where,$url=[], $page='') 
     {
          if (empty($page)){
-             $row=Db::name('orders')->where($where)
-             ->alias('a')
-             ->join('users_customers c','a.uid = c.uid','left')
-             ->order("create_time DESC")
-             ->paginate($num, false, array('query'=>$url)); 
-         }else{
-             $row=Db::name('orders')->where($where)
-             ->alias('a')
-             ->join('users_customers c','a.uid = c.uid','left')
-             ->order("create_time DESC")
-             ->page($page, $num)->select();
-         }
+            $row=Db::name('orders')->where($where)
+                ->alias('a')
+                ->join('users_customers c','a.uid = c.uid','left')
+                ->order("create_time DESC")
+                ->paginate($num, false, array('query'=>$url)); 
+            }else{
+            $row=Db::name('orders')->where($where)
+                ->alias('a')
+                ->join('users_customers c','a.uid = c.uid','left')
+                ->order("create_time DESC")
+                ->page($page, $num)->select();
+            }
          
         if($row){
             $arr['error_code'] = 0;
@@ -157,16 +157,16 @@ class Borrow extends Model
          ));
          if(array_key_exists('shipping_time',$input)){
             if($input['shipping_time']==3){
-             Db::name('orders')
-             ->where(array('order_id'=>$id))
-             ->update(array('order_status'=>2,'shipping_time'=>time()));
+                Db::name('orders')
+                ->where(array('order_id'=>$id))
+                ->update(array('order_status'=>2,'shipping_time'=>time()));
             }
          } 
          if(array_key_exists('status',$input)){
             if($input['status']!=''){
-             Db::name('orders')
-             ->where(array('order_id'=>$id))
-             ->update(array('order_status'=>3,'confirm_time'=>time()));
+                Db::name('orders')
+                ->where(array('order_id'=>$id))
+                ->update(array('order_status'=>3,'confirm_time'=>time()));
             }
          }              
          $row2= Db::name('orders_goods')
@@ -175,10 +175,10 @@ class Borrow extends Model
          ->select();
          if($row2){
             foreach ($row2 as $k => $v) {
-             $row3=Db::name('orders_goods')->where(array('id'=>$v['id']))->update(array('is_back'=>$input['is_backs'][$k]));
-             if($row3 && $input['is_backs'][$k]==1){   //如果更新成功,再判断是不是更新为还书状态,是的话才改时间
-                $row4=Db::name('orders')->where(array('order_id'=>$id))->update(array('confirm_time'=>time()));
-             }
+				$row3=Db::name('orders_goods')->where(array('id'=>$v['id']))->update(array('is_back'=>$input['is_backs'][$k]));
+				if($row3 && $input['is_backs'][$k]==1){   //如果更新成功,再判断是不是更新为还书状态,是的话才改时间
+					$row4=Db::name('orders')->where(array('order_id'=>$id))->update(array('confirm_time'=>time()));
+				}
             }
          }        
         if($row!==false && $row3!==false){

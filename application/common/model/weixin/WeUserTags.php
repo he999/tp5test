@@ -244,7 +244,6 @@ class WeUserTags
     	{
     		$result['error_code'] = $return_data['errcode'];
     		$result['error_msg'] = $return_data['errmsg'];
-    	
     	}
     	return $result;
     }
@@ -274,7 +273,6 @@ class WeUserTags
     	{
     		$result['error_code'] = $return_data['errcode'];
     		$result['error_msg'] = $return_data['errmsg'];
-    		
     	}
     	return $result;
     }

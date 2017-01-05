@@ -53,13 +53,13 @@ class Cart extends Model
             //拼接商品属性
             $type1 ='';$type2='';$type3='';
             if ( $row['spec1_name'] != '') {
-                 $type1 .= $row['spec1_name'].":".$row['spec_1'].",";
+                $type1 .= $row['spec1_name'].":".$row['spec_1'].",";
             }
             if ( $row['spec2_name'] != '') {
-                 $type2 .= $row['spec2_name'].":".$row['spec_2'].",";
+                $type2 .= $row['spec2_name'].":".$row['spec_2'].",";
             }
             if ( $row['spec3_name'] != '') {
-                 $type3 .= $row['spec3_name'].":".$row['spec_3'];
+                $type3 .= $row['spec3_name'].":".$row['spec_3'];
             }
             $arr['spec_value'] = $type1.$type2.$type3."颜色".":".$row['color'];
             $arr['uid'] = $uid;
@@ -236,12 +236,7 @@ class Cart extends Model
     {
         if ($uid){
             $where['uid'] = $uid;
-            $data = Db::name('cart')
-              ->alias('c')
-              ->join('goods g','g.goods_id = c.goods_id','left')
-              ->field(["c.*","g.stock","g.cover_img"])
-              ->where($where)
-              ->select();
+            $data = Db::name('cart')->alias('c')->join('goods g','g.goods_id = c.goods_id','left') ->field(["c.*","g.stock","g.cover_img"])->where($where)->select();
             if($data){
                 $result['error_code'] = 0;
                 $result['error_msg'] = '';
@@ -254,7 +249,6 @@ class Cart extends Model
         }
         return $result;
     }
-
 }
 
 ?>

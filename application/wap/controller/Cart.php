@@ -229,7 +229,7 @@ class Cart extends WeixinBase
         $res = GoodsSpecs::getOneSpecs($goods_id);
         if ($res['error_code'] == 0) {
             $data = ['buy_num' => isset($input['goods_num'])?$input['goods_num']:1,
-                     'spec_id' => $res['data']['spec_id'],
+                'spec_id' => $res['data']['spec_id'],
             ];
             $resd = CartModel::add($uid,$data);
             if ($resd['error_code'] == 0) {

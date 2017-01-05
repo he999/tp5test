@@ -95,18 +95,18 @@ class Foucs extends Model
      */
     static public function del($fid)
     {       
-       $row = Db::name('foucs')->delete($fid);
-       if($row)
-       {
+        $row = Db::name('foucs')->delete($fid);
+        if($row)
+        {
             $result['error_code'] = 0;
             $result['error_msg'] = '';
             $result['data'] = $row;
-       }
-       else
-       {
+        }
+        else
+        {
             $result['error_code'] = 1;
             $result['error_msg'] = '主图删除失败';
-       }
+        }
        return $result;
     }
 
@@ -118,18 +118,18 @@ class Foucs extends Model
      */
     static public function advertisementDel($fid)
     {       
-       $row = Db::name('foucs')->delete($fid);
-       if($row)
-       {
+        $row = Db::name('foucs')->delete($fid);
+        if($row)
+        {
             $result['error_code'] = 0;
             $result['error_msg'] = '';
             $result['data'] = $row;
-       }
-       else
-       {
+        }
+        else
+        {
             $result['error_code'] = 1;
             $result['error_msg'] = '主图删除失败';
-       }
+        }
        return $result;
     }
 

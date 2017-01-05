@@ -91,7 +91,6 @@ class Regions extends Model
     {   
         $where['level'] = $level;
         $where['parent_id'] = $pid;
-        
         $data = DB::name("regions")->where($where)->select();
         if ($data) 
         {

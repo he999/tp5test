@@ -393,7 +393,6 @@ class Orders extends WeixinBase
         $order_id = $input['order_id'];
         $data = OrdersModel::ordersInfo($order_id)['data'];
         $row = UsersMoney::countBalance($uid);
-        
         $vouchera = UsersVoucher::voucherKey($data['order_amount'],['type'=>'buy']);//可用券
         $voucherc = UsersVoucher::countVoucher($uid);//现有券
         (int)$c = $voucherc['balance_voucher'];  
@@ -404,7 +403,6 @@ class Orders extends WeixinBase
             $voucher = $a;
         }
         $rebate = UsersRebate::countRebate(session('uid'))['balance_rebate'];//佣金
-        
         $money = $data['order_amount'] - $voucher;
         $yuemoney = $row['balance'];
         if ($data['is_rebate'] == 1) {
@@ -415,8 +413,7 @@ class Orders extends WeixinBase
             }
             if ($rebate < $money ) {
                 $money = $money-$rebate;
-            }
-            
+            } 
         }else{
             if($yuemoney < $money ){
                 $arr['error_code'] = 1;
@@ -424,7 +421,6 @@ class Orders extends WeixinBase
                 return $arr;
             }
         }
-
         $pay = [
             'des' => '购买',
             'type' => 'buy',
@@ -447,7 +443,6 @@ class Orders extends WeixinBase
             ];
             UsersRebate::expenseRebateAdd($pays);
         }
-        
         if ($res['error_code'] == 0) {
             $datas['order_status'] = 2;
             $datas['is_pay'] = 1;
@@ -462,6 +457,5 @@ class Orders extends WeixinBase
             $arr['error_msg'] = '网络繁忙';
         }
         return $arr;
-    }
-    
+    }   
 }

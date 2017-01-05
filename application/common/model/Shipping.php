@@ -55,39 +55,39 @@ class Shipping extends Model
         $row = DB::name('shipping')->insertGetId($data);
         if ($row)
         {
-              if($input_region[0]!=''){
-                 $region_id=$input_region[0];               
-              }
-              if($input_region[1]!=''){
+                if($input_region[0]!=''){
+                    $region_id=$input_region[0];               
+                }
+                if($input_region[1]!=''){
                     $region_id=$input_region[1];
-              }
-              if($input_region[2]!=''){
+                }
+                if($input_region[2]!=''){
                     $region_id=$input_region[2];
-              }
-              $data = [
-                      'shipping_id' => $row,
-                      'region_id'=> $region_id,
-                     ];           
-              $row2 = DB::name('shipping_regions')->insert($data);
-              if($input_region2!==false){
-                  $key = array_search($region_id,$input_region2);
-                  if ($key !== false){
-                       array_splice($input_region2, $key);
-                  }
-                  $input_region2=array_unique($input_region2);
-                  foreach ($input_region2 as $k => $v) {   //多个添加的地区
-                          $data = [
-                          'shipping_id' => $row,
-                          'region_id'=> $v,
-                          ];       
-                          $row3 = DB::name('shipping_regions')->insert($data);   
+                }
+                $data = [
+                    'shipping_id' => $row,
+                    'region_id'=> $region_id,
+                ];           
+                $row2 = DB::name('shipping_regions')->insert($data);
+                if($input_region2!==false){
+                    $key = array_search($region_id,$input_region2);
+                    if ($key !== false){
+                        array_splice($input_region2, $key);
+                    }
+                    $input_region2=array_unique($input_region2);
+                    foreach ($input_region2 as $k => $v) {   //多个添加的地区
+                        $data = [
+							'shipping_id' => $row,
+							'region_id'=> $v,
+                        ];       
+                        $row3 = DB::name('shipping_regions')->insert($data);   
                   } 
               }             
-           if($row2){
-               $result['error_code'] = 0;
-               $result['error_msg'] = "";
-               $result['shipping_id'] = $row;
-           }else{
+            if($row2){
+                $result['error_code'] = 0;
+                $result['error_msg'] = "";
+                $result['shipping_id'] = $row;
+            }else{
                 $result['error_code'] = 1;
                 $result['error_msg'] = "添加失败";
            }        
@@ -114,42 +114,42 @@ class Shipping extends Model
         $row = DB::name('shipping')->update($data);
         if ($row!==false)
         {
-              DB::name('shipping_regions')->where(['shipping_id'=>$data['shipping_id']])->delete();
-              if($input_region[0]!=''){
-                 $region_id=$input_region[0];               
-              }
-              if($input_region[1]!=''){
-                    $region_id=$input_region[1];
-              }
-              if($input_region[2]!=''){
-                    $region_id=$input_region[2];
-              }
-              if(isset($region_id)){
-                      $data = [
-                      'shipping_id' => $data['shipping_id'],
-                      'region_id'=> $region_id,
-                     ];           
-                     $row2 = DB::name('shipping_regions')->insert($data);
-              }      
-              if($input_region2!==false){
-                  if(isset($region_id)){
-                      $key = array_search($region_id,$input_region2);
-                      if ($key !== false){
-                           array_splice($input_region2, $key);
-                      }
-                  } 
-                  $input_region2=array_unique($input_region2);
-                  foreach ($input_region2 as $k => $v) {   //多个添加的地区
-                          $data = [
-                          'shipping_id' => $data['shipping_id'],
-                          'region_id'=> $v,
-                          ];       
-                          $row3 = DB::name('shipping_regions')->insert($data);   
-                  } 
-              }             
-               $result['error_code'] = 0;
-               $result['error_msg'] = "";
-               $result['shipping_id'] = $row; 
+			DB::name('shipping_regions')->where(['shipping_id'=>$data['shipping_id']])->delete();
+			if($input_region[0]!=''){
+				$region_id=$input_region[0];               
+			}
+			if($input_region[1]!=''){
+				$region_id=$input_region[1];
+			}
+			if($input_region[2]!=''){
+				$region_id=$input_region[2];
+			}
+			if(isset($region_id)){
+				$data = [
+					'shipping_id' => $data['shipping_id'],
+					'region_id'=> $region_id,
+				];           
+				$row2 = DB::name('shipping_regions')->insert($data);
+			}      
+			if($input_region2!==false){
+				if(isset($region_id)){
+					$key = array_search($region_id,$input_region2);
+					if ($key !== false){
+						array_splice($input_region2, $key);
+					}
+				} 
+				$input_region2=array_unique($input_region2);
+				foreach ($input_region2 as $k => $v) {   //多个添加的地区
+					$data = [
+						'shipping_id' => $data['shipping_id'],
+						'region_id'=> $v,
+					];       
+					$row3 = DB::name('shipping_regions')->insert($data);   
+				} 
+			}             
+		   $result['error_code'] = 0;
+		   $result['error_msg'] = "";
+		   $result['shipping_id'] = $row; 
         }
         else 
         {
@@ -175,8 +175,8 @@ class Shipping extends Model
             $result['error_msg'] = "";
         }
         else{                 
-             $result['error_code'] = 1;
-             $result['error_msg'] = "编辑订单失败";
+            $result['error_code'] = 1;
+            $result['error_msg'] = "编辑订单失败";
         }
         return $result;
 
@@ -203,8 +203,8 @@ class Shipping extends Model
             $result['error_msg'] = "";
         }
         else{                 
-             $result['error_code'] = 1;
-             $result['error_msg'] = "删除订单失败";
+            $result['error_code'] = 1;
+            $result['error_msg'] = "删除订单失败";
         }
         return $result;
 
@@ -271,10 +271,7 @@ class Shipping extends Model
      */
     static public function getShipping($shopping_com_id)
         {   
-            $lst = Db::name('shipping')
-                  ->where(array('shipping_com_id'=>$shopping_com_id))
-                  ->field(["shipping_id","shipping_name","shipping_des"])
-                  ->select();
+            $lst = Db::name('shipping') ->where(array('shipping_com_id'=>$shopping_com_id))->field(["shipping_id","shipping_name","shipping_des"]) ->select();
             if($lst)
             {    
                 foreach ($lst as $k => $v) {
@@ -314,35 +311,35 @@ class Shipping extends Model
      * @return   array                 [error_code, error_msg, data] 
      */
     static public function getShippingOne($id)
-        {   
-            $lst = Db::name('shipping')
-                  //->field(["shipping_id","shipping_name","shipping_des"])
-                  ->find($id);
-            $city=Db::name('shipping_regions')
-                  ->where(['shipping_id'=>$id])
-                  ->select();
-            $names=[];
-            foreach ($city as $k2 => $v2) {
-                        $name=Db::name('regions')
-                        ->field('name')
-                        ->where(array('id'=>$v2['region_id']))
-                        ->find();
-                        $names[]=$name;
-            }
-            if($lst)
-            {    
-                $result['error_code'] = 0;
-                $result['error_msg'] = "";
-                $result['data'] = $lst;
-                $result['city'] = $city;
-                $result['names'] = $names;
-            }
-            else
-            {
-                $result['error_code'] = 1;
-                $result['error_msg'] = "没有得到订单详情";
-            }
-            return $result;
+	{   
+		$lst = Db::name('shipping')
+			//->field(["shipping_id","shipping_name","shipping_des"])
+			->find($id);
+		$city=Db::name('shipping_regions')
+			->where(['shipping_id'=>$id])
+			->select();
+		$names=[];
+		foreach ($city as $k2 => $v2) {
+			$name=Db::name('regions')
+			->field('name')
+			->where(array('id'=>$v2['region_id']))
+			->find();
+			$names[]=$name;
+		}
+		if($lst)
+		{    
+			$result['error_code'] = 0;
+			$result['error_msg'] = "";
+			$result['data'] = $lst;
+			$result['city'] = $city;
+			$result['names'] = $names;
+		}
+		else
+		{
+			$result['error_code'] = 1;
+			$result['error_msg'] = "没有得到订单详情";
+		}
+		return $result;
     }
 
     /**
@@ -362,8 +359,8 @@ class Shipping extends Model
             $result['error_msg'] = "";
         }
         else{                 
-             $result['error_code'] = 1;
-             $result['error_msg'] = "删除订单失败";
+            $result['error_code'] = 1;
+            $result['error_msg'] = "删除订单失败";
         }
         return $result;
     }
@@ -410,7 +407,6 @@ class Shipping extends Model
             $where['r.region_id'] = $v;
             $where['s.com_id'] = $com_id;
             $where['c.shipping_com_id'] = $shipping_com_id;
-            
             $row = Db::name('shipping')
             ->alias('s')
             ->join('shipping_regions r','s.shipping_id = r.shipping_id','left')
@@ -523,8 +519,8 @@ class Shipping extends Model
             $result['error_msg'] = "";
         }
         else{                 
-             $result['error_code'] = 1;
-             $result['error_msg'] = "修改门店取货地址失败";
+            $result['error_code'] = 1;
+            $result['error_msg'] = "修改门店取货地址失败";
         }
         return $result;
     }
@@ -540,9 +536,7 @@ class Shipping extends Model
      */
     static public function getShippingPickup($num,$data = '',$url = [])
     { 
-        $res = Db::name('shipping_pickup')
-              ->where($data)
-              ->paginate($num,false,array('query'=>$url)); 
+        $res = Db::name('shipping_pickup')->where($data)->paginate($num,false,array('query'=>$url)); 
         if($res){
             $result['error_code'] = 0;
             $result['error_msg'] = '';
@@ -591,10 +585,7 @@ class Shipping extends Model
      */
     static public function listShippingPickup($page = 1,$num = 20,$data = '')
     { 
-        $res = Db::name('shipping_pickup')
-              ->where($data)
-              ->page($page,$num)
-              ->select();
+        $res = Db::name('shipping_pickup')>where($data)->page($page,$num)->select();
         if($res){
             $result['error_code'] = 0;
             $result['error_msg'] = '';

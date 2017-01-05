@@ -14,7 +14,6 @@ use think\Cookie;
 *************************************************/
 class Login extends Controller
 {
-
     public function index()
     { 
         /******************* 验证信息 ********************/
@@ -55,16 +54,16 @@ class Login extends Controller
                         }
                         session('authdata',$data);
                     }
-                  $this->jsAlert('登陆成功','/index.php/manager/member/memberlst');
+					$this->jsAlert('登陆成功','/index.php/manager/member/memberlst');
                 }
                 else
                 {
-                  $this->jsAlert('您不是管理员帐号'); 
+					$this->jsAlert('您不是管理员帐号'); 
                 }
             } 
             else
             {
-              $this->jsAlert('用户名密码不匹配');
+				$this->jsAlert('用户名密码不匹配');
             }
         }
         else
@@ -93,15 +92,10 @@ class Login extends Controller
     * Function:      logout
     * Description:   退出系统
     *************************************************/
-      public function logout()
-      {
+    public function logout()
+    {
        session(null);
        $this->jsAlert('退出成功！','/index.php/manager/login/index');
-      } 
-   
- 
-
-    
-
+    } 
     
 }

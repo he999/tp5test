@@ -104,9 +104,7 @@ class GoodsComment extends Model
      */
     static public function getCommentList($where, $page_num, $url = [])
     {
-      
-      return $list = Db::table('ys_goods_comment')->alias('c')->join('ys_goods g','c.goods_id = g.goods_id','left')->join('ys_users_customers u','c.uid = u.uid','left')->where($where)->field('g.goods_name,u.nickname,c.grade,c.content,c.time,c.comment_id,c.is_hide')->order("time desc")->paginate($page_num, false , array('query'=>$url));
-         
+      return $list = Db::table('ys_goods_comment')->alias('c')->join('ys_goods g','c.goods_id = g.goods_id','left')->join('ys_users_customers u','c.uid = u.uid','left')->where($where)->field('g.goods_name,u.nickname,c.grade,c.content,c.time,c.comment_id,c.is_hide')->order("time desc")->paginate($page_num, false , array('query'=>$url));    
     }  
 }
 

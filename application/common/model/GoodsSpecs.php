@@ -191,7 +191,6 @@ class GoodsSpecs extends Model
                 $result['error_code'] = 1;
                 $result['error_msg'] = '没有查到商品属性详情';
             }
-            
         }
             return $result;
     }
@@ -220,10 +219,8 @@ class GoodsSpecs extends Model
                 $result['error_code'] = 1;
                 $result['error_msg'] = '没有查到商品属性详情';
             }
-            
         }
             return $result;
-
     }  
 
     /**

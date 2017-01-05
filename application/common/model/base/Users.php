@@ -48,6 +48,7 @@ class Users extends Model
         }
         return $return;
     }
+	
     /**
      * add 添加用户 
      * 包括users表和users_weixins表  user_customers表
@@ -238,6 +239,34 @@ class Users extends Model
         return $result;
     }
 	
+	
+	/**
+     * myrebateLst 我的返佣详情
+     * @tanlong
+     * @param    array     $data
+     * @return   array     [error_code, error_msg, id]
+     * @DateTime 2016-11-22T20:46:59+0800
+     */
+    static public function myrebateLst($uid)
+    {   
+		$where['a.type']=['neq','cash'];
+		$where['a.uid'] = $uid;
+        $res = Db::name('users_money_rebate')
+        ->alias('a')->where(['a.is_del'=>0]) ->join('users_customers c','a.uid = c.uid','left')->order('time desc')
+        ->field('a.*,c.nickname,c.commission,c.face')
+		->where($where)
+        ->select(); 
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+            $result['data'] = $res;
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = "修改失败";
+        }
+        return $result;
+    }
+	
 	/**
      * balanceLst 余额记录
      * @tanlong
@@ -370,7 +399,7 @@ class Users extends Model
     }
 
     /**
-     * jifen 全部积分记录
+     * rebateLst 全部佣金记录
      * @tanlong
      * @param    array     $data
      * @return   array     [error_code, error_msg, id]
@@ -965,7 +994,7 @@ class Users extends Model
 	
 	
 	/**
-     * shareCode 我的返佣列表
+     * myrebateList 我的返佣列表
      * @xiao
      * @param    array     $uid
      * @return   array     [error_code, error_msg, id]
@@ -1150,6 +1179,27 @@ class Users extends Model
         }else{
             $result['error_code'] = 1;
             $result['error_msg'] = '删除失败';
+        }
+        return $result;
+    }
+	
+	
+	/**
+     * userDel  常见问题
+     * @xiao
+     * @DateTime 2016-08-07T19:18:33+0800
+     * @return   boolean                   返回数据
+     */
+    static public function problem()
+    {   
+        $res = Db::name('coms_info')->field('value')->where(['name'=>'common_problem'])->find();
+        if($res){
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['data'] = $res;
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = '查询失败';
         }
         return $result;
     }

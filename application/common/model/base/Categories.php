@@ -77,7 +77,6 @@ class Categories extends Model
         $icons = array('│', '├', '└', '&nbsp;&nbsp;'); //'　'
         $return_categories = array();
         $sub_categories = array();
-
         foreach($categories as $category)
         {
             if($category['parentid'] == $cateid)
@@ -141,14 +140,13 @@ class Categories extends Model
     static public function getChildren($categories, $cateid = 0, $li = 0)
     {
         $return_categories = [];
-
         foreach($categories as $category)
         {
             if($category['parentid'] == $cateid)
             {
-                    $category['li'] = $li;
-                    $return_categories[$category['cateid']] = $category;
-                    $return_categories += self::getChildren($categories, $category['cateid'], $li+1);
+				$category['li'] = $li;
+				$return_categories[$category['cateid']] = $category;
+				$return_categories += self::getChildren($categories, $category['cateid'], $li+1);
             }
         }
         return $return_categories;
@@ -177,8 +175,8 @@ class Categories extends Model
         {
             if($category['cateid'] == $parentid)
             {
-                    $return_categories += self::getParents($categories, $category['cateid'], $stopid);
-                    $return_categories[$category['cateid']] = $category;
+				$return_categories += self::getParents($categories, $category['cateid'], $stopid);
+				$return_categories[$category['cateid']] = $category;
             }
         }
         return $return_categories;
@@ -205,7 +203,7 @@ class Categories extends Model
         {
             if($category['parentid'] == $parentid)
             {
-                    $return_categories[$category['cateid']] = $category;
+				$return_categories[$category['cateid']] = $category;
             }
         }
         return $return_categories;

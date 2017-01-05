@@ -14,20 +14,17 @@ use app\common\model\base\Users;
 class UsersRebate extends Model
 {
     /**
-     * listRebate 返佣列表 ys_users_money_rebate
-     * @xiao
-     * @param    array                   $num 每页记录
-     * @param    array                   $data 条件
-     * @param    array                   $url 参数 paginate()
-     * @return   array              [error_code, error_msg,data=>[]]
-     */
+    * listRebate 返佣列表 ys_users_money_rebate
+    * @xiao
+    * @param    array                   $num 每页记录
+    * @param    array                   $data 条件
+    * @param    array                   $url 参数 paginate()
+    * @return   array              [error_code, error_msg,data=>[]]
+    */
     static public function listRebate($num,$data = '',$url = [])
     {  
 		$data['is_del'] = 0;
-        $res = Db::name('users_money_rebate')
-              ->where($data)
-              ->order("time desc")
-              ->paginate($num,false,array('query'=>$url));
+        $res = Db::name('users_money_rebate')->where($data)->order("time desc")->paginate($num,false,array('query'=>$url));
         if($data){
             $result['error_code'] = 0;
             $result['error_msg'] = '';
@@ -93,7 +90,6 @@ class UsersRebate extends Model
             $result['error_msg'] = '查询失败';
         }
         return $result;
-	
     }
 
     /**

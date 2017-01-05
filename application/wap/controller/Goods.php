@@ -273,5 +273,4 @@ class Goods extends WeixinBase
         }
         
     }
-
 }

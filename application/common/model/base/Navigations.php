@@ -85,7 +85,7 @@ class Navigations extends Model
         {
             if($nav['parentid'] == $cateid)
             {
-                    $sub_navigations[] = $nav;
+                $sub_navigations[] = $nav;
             }
         }
         /* 在子分类中查找子分类 */
@@ -148,9 +148,9 @@ class Navigations extends Model
         {
             if($nav['parentid'] == $nav_id)
             {
-                    $nav['li'] = $li;
-                    $return_navigations[$nav['cateid']] = $nav;
-                    $return_navigations += self::getChildren($navigations, $nav['nav_id'], $li+1);
+				$nav['li'] = $li;
+				$return_navigations[$nav['cateid']] = $nav;
+				$return_navigations += self::getChildren($navigations, $nav['nav_id'], $li+1);
             }
         }
         return $return_navigations;
@@ -176,9 +176,9 @@ class Navigations extends Model
         foreach($navigations as $nav)
         {
             if($nav['nav_id'] == $parentid)
-            {
-                    $return_navigations += self::getParents($navigations, $nav['cateid'], $stopid);
-                    $return_navigations[$nav['cateid']] = $nav;
+			{
+				$return_navigations += self::getParents($navigations, $nav['cateid'], $stopid);
+				$return_navigations[$nav['cateid']] = $nav;
             }
         }
         return $return_navigations;
@@ -205,7 +205,7 @@ class Navigations extends Model
         {
             if($nav['parentid'] == $parentid)
             {
-                    $return_navigations[$nav['cateid']] = $nav;
+				$return_navigations[$nav['cateid']] = $nav;
             }
         }
         return $return_navigations;

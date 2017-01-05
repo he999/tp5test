@@ -361,11 +361,11 @@ class Orders extends Model
         //订单信息
         $where['is_dels'] = 0;
         $row = DB::name('orders')
-             ->where($data)
-             ->field("order_id,order_sn,order_status,pay_code,create_time,order_amount,shipping_time,shipping_price")
-             ->order("order_id desc")
-             ->page($page,$page_num)
-             ->select();
+            ->where($data)
+            ->field("order_id,order_sn,order_status,pay_code,create_time,order_amount,shipping_time,shipping_price")
+            ->order("order_id desc")
+            ->page($page,$page_num)
+            ->select();
         if ($row) {
             //订单商品信息
             foreach ($row as $k => $v) {
@@ -400,12 +400,12 @@ class Orders extends Model
     {   
         $where['d.is_dels'] = 0;
         $data = Db::name('orders')
-              ->alias('d')
-              ->join('users_customers u','u.uid = d.uid','left')
-              ->field(["d.order_sn","d.order_status","d.order_amount","d.create_time","d.order_id","d.consignee","u.nickname"])
-              ->where($where)
-              ->order("d.create_time desc")
-              ->paginate($num,false,array('query'=>$url)); 
+            ->alias('d')
+            ->join('users_customers u','u.uid = d.uid','left')
+            ->field(["d.order_sn","d.order_status","d.order_amount","d.create_time","d.order_id","d.consignee","u.nickname"])
+            ->where($where)
+            ->order("d.create_time desc")
+            ->paginate($num,false,array('query'=>$url)); 
         if($data){
             $result['error_code'] = 0;
             $result['error_msg'] = '';
@@ -458,10 +458,10 @@ class Orders extends Model
         $where['d.order_id'] = $order_id;
         $where['d.is_dels'] = 0;
         $data = Db::name('orders')
-              ->alias('d')
-              ->join('users_customers u',' d.uid = u.uid','left')
-              ->where($where)
-              ->find();
+            ->alias('d')
+            ->join('users_customers u',' d.uid = u.uid','left')
+            ->where($where)
+            ->find();
         if ($data) {
             $result['error_code'] = 0;
             $result['error_msg'] = '';

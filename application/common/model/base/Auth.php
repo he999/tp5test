@@ -160,12 +160,7 @@ class Auth extends Model
     {
         //$where['uid'] = $uid;
         //获取用户权限
-        $info =  Db::table('auth_group_access')
-              ->alias('a')
-              ->join('auth_group g','a.group_id = g.id')
-              ->field("g.rules")
-              ->where("uid", $uid)
-              ->find();
+        $info =  Db::table('auth_group_access')->alias('a') ->join('auth_group g','a.group_id = g.id') ->field("g.rules")->where("uid", $uid)->find();
         $infos = explode(",",$info['rules']);
         if ($info) {
             //判断权限   
@@ -175,21 +170,21 @@ class Auth extends Model
             if ($row){
                 foreach ($infos as $key => $value) {
                     if ($row['id'] == $value) { 
-                         $arr['result'] = "ok";
-                         break;
+                        $arr['result'] = "ok";
+                        break;
                     }else{
-                         $arr['result'] = "no";
+                        $arr['result'] = "no";
                     }
                 }
                 if ($arr['result'] == "ok") {
                     $arr['msg'] = "auth is exsit ";//存在权限
                 }
                 else{
-                     $arr['msg'] = "auth is not exsit ";//不存在权限
+                    $arr['msg'] = "auth is not exsit ";//不存在权限
                 }
             }
             else{
-                 $arr['msg'] = "Illegal operation";//非法操作
+                $arr['msg'] = "Illegal operation";//非法操作
             }
         }
         else{
@@ -271,11 +266,11 @@ class Auth extends Model
     static public function getRole($id="")
     {
         if($id){
-           return   Db::table('auth_group')->where("id",$id)->select();
+			return  Db::table('auth_group')->where("id",$id)->select();
         }
         else
         {
-      return  Db::query("select DISTINCT id,title from auth_group ");
+			return  Db::query("select DISTINCT id,title from auth_group ");
         }
     }
 
@@ -346,7 +341,6 @@ class Auth extends Model
 //         $arr['group_name'] = $group_name;
         if ($list) {
             //更改数据
-
             $info = Db::table('auth_group_access')->where("uid", $uid)->update($arr);
             $rule['error_msg'] = "update";
         }

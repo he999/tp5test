@@ -70,7 +70,6 @@ class DiyMenu extends Model
             }
         }
         return $result;
-
     }
 
     /**
@@ -232,9 +231,7 @@ class DiyMenu extends Model
                     }
                 }
                 $i++;
-
             }
-        
             if ($c != false) {
                 $data .= ']';
             }
@@ -259,9 +256,7 @@ class DiyMenu extends Model
             return $result;
         }
         exit;
-
-
-        }
+	}
 
     /**
      * createQRCode 生成数组
@@ -301,7 +296,7 @@ class DiyMenu extends Model
        // https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQHr8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyX2g1X1FLODQ5UVQxMDAwME0wM2IAAgQOSkpYAwQAAAAA
         //$targetName = './uploads/qrscene/qrscene_888.jpg'; 
        // 
-        }
+	}
     
         
         

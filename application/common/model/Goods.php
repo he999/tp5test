@@ -169,7 +169,6 @@ class Goods extends Model
             
         }
             return $result;
-
     }
    
        /**
@@ -193,10 +192,7 @@ class Goods extends Model
             $result['error_code'] = 1;
             $result['error_msg'] = '没有得到商品详情';  //查找失败
         }
-        
-    
         return $result;
-
     }
 
        /**
@@ -219,10 +215,7 @@ class Goods extends Model
             $result['error_code'] = 1;
             $result['error_msg'] = '没有得到商品详情';  //查找失败
         }
-        
-    
         return $result;
-
     }
 
     /**

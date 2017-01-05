@@ -46,18 +46,16 @@ class WeixinKeywords extends Model
         return $row = Db::name('weixin_text')->where('id',$id)->field('text,id')->find();       
     }
 
-     static public function getArticlesOne($artid)
+    static public function getArticlesOne($artid)
     {   
-        return $row = Db::name('articles')->alias('a')
-                ->join('articles_contents g','a.artid = g.artid')
-                 ->where('a.artid',$artid)->find();       
+        return $row = Db::name('articles')->alias('a')->join('articles_contents g','a.artid = g.artid') ->where('a.artid',$artid)->find();       
     }
     
     
     static public function getKeyWord($keyword)
     {   
-         $res = Db::name('weixin_text')->where(['keyword'=>$keyword])->find(); 
-          if ($res) {
+        $res = Db::name('weixin_text')->where(['keyword'=>$keyword])->find(); 
+        if ($res) {
             $result['error_code'] = 0;
             $result['error_msg'] = "";
             $result['data'] = $res;
@@ -77,12 +75,7 @@ class WeixinKeywords extends Model
      */
     static public function getAll($id)
     {   
-        return $info =  Db::table('ys_weixin_keywords_bind')
-                ->alias('a')
-                ->join('weixin_keywords g','a.keyword_id = g.id')
-                ->field("g.keyword,g.id")
-                ->where("content_id", $id)
-                ->select();       
+        return $info =  Db::table('ys_weixin_keywords_bind')->alias('a') ->join('weixin_keywords g','a.keyword_id = g.id') ->field("g.keyword,g.id") ->where("content_id", $id) ->select();       
     }
 
     /**
@@ -126,7 +119,6 @@ class WeixinKeywords extends Model
      */
     static public function upd($where,$data)
     {   
-       
         return $result = Db::table('ys_weixin_text')->where($where)->update($data);
     }
 
@@ -176,11 +168,10 @@ class WeixinKeywords extends Model
     {   
         return $row = Db::name('weixin_keywords_bind')->where('content_id',$id)->delete();       
     }
-     static public function updKeyword($data)
+    static public function updKeyword($data)
     {   
         return DB::table("ys_weixin_keywords")->update($data);     
     }  
-          
 }
 
 ?>

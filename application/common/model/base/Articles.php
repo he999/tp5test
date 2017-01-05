@@ -69,8 +69,7 @@ class Articles extends Model
     {
         $row = DB::table('articles')->where(['artid' => $artid])->find();
         $cateid = $row['cateid'];
-        $data = DB::table('articles')->where(['cateid' => $cateid])
-                ->where("artid", ">", $artid)->order("artid")->find();
+        $data = DB::table('articles')->where(['cateid' => $cateid])->where("artid", ">", $artid)->order("artid")->find();
         if ($data) {
             $result['error_code'] = 0;
             $result['error_msg'] = '';
@@ -93,8 +92,7 @@ class Articles extends Model
     {
         $row = DB::table('articles')->where(['artid' => $artid])->find();
         $cateid = $row['cateid'];
-        $data = DB::table('articles')->where(['cateid' => $cateid])
-                ->where("artid", "<", $artid)->order("artid")->find();
+        $data = DB::table('articles')->where(['cateid' => $cateid])->where("artid", "<", $artid)->order("artid")->find();
         if ($data) {
             $result['error_code'] = 0;
             $result['error_msg'] = '';
@@ -144,10 +142,9 @@ class Articles extends Model
             if (isset($data['content'])) $content = $data['content'];
             if (isset($data['album'])) $content = $data['album'];
             unset($data['content'], $data['album']);  
-
             if($artid = DB::table("ys_articles")->insertGetId($data))
             {
-                 zlog(Db::table('ys_articles')->getLastSql()); 
+                zlog(Db::table('ys_articles')->getLastSql()); 
                 $input['artid'] = $artid;
                 $input['content'] = $content;
                 DB::table("ys_articles_contents")->insert($input);

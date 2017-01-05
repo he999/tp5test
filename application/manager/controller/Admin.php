@@ -75,7 +75,7 @@ class Admin extends Manager
     {   
     	$list = Auth::getAuthList(10);
         if($list['error_code'] == 0){
-    	   $this->assign('list',$list['data']);
+			$this->assign('list',$list['data']);
         }else{
             $this->assign('list','');
         }
@@ -117,7 +117,6 @@ class Admin extends Manager
     	}else{
     		$this->jsAlert('删除失败！','/index.php/manager/admin/authslist'); 
     	}
-
     }
 
     /**
@@ -163,5 +162,4 @@ class Admin extends Manager
     		return $this->fetch();
     	}
     }
-    
 }

@@ -36,9 +36,7 @@ class UsersCustomers extends Model
            $result['error_code'] = 1;
            $result['error_msg'] = "修改失败";
         } 
-        return $result;
-        
-        
+        return $result;  
     }
 }
 

@@ -154,6 +154,20 @@ class User extends WeixinBase
         return $this->fetch();
     }
 	
+	
+	/*************************************************
+     * Function:      problem
+     * Description:   常见问题
+     * @param:        void
+     * Return:        void
+     *************************************************/
+    public function problem()
+    {   
+		$key = Coms::getValue('common_problem')['data'];
+        $this->assign('key',$key);
+        return $this->fetch();
+    }
+	
     /*************************************************
      * Function:      myrebate
      * Description:   我的返佣
@@ -163,7 +177,7 @@ class User extends WeixinBase
     public function myrebate()
     {   
         $uid = session('uid');
-        $res =  Users::myInfo($uid);
+        $res =  Users::myrebateLst($uid);
 		if ($input = Request::instance()->param()) {
             if (isset($input['type'])) {
                 if($input['type'] == 'cash'){
@@ -181,6 +195,7 @@ class User extends WeixinBase
             $data = '';
         }
         $this->assign('data',$data);
+		$this->assign('date',date('Y-m-d H:i'));
 		$this->assign('type',$type);
         return $this->fetch();
     }
@@ -188,7 +203,7 @@ class User extends WeixinBase
 	
 	/*************************************************
      * Function:      myvoucher
-     * Description:   我的返佣
+     * Description:   我的财富劵
      * @param:        void
      * Return:        void
      *************************************************/
@@ -217,37 +232,7 @@ class User extends WeixinBase
         return $this->fetch();
     }
 	
-	/*************************************************
-     * Function:      problem
-     * Description:   常见问题
-     * @param:        void
-     * Return:        void
-     *************************************************/
-    public function problem()
-    {   
-        $uid = session('uid');
-        $res =  Users::myInfo($uid);
-		if ($input = Request::instance()->param()) {
-            if (isset($input['type'])) {
-                if($input['type'] == 'cash'){
-                    $where['type'] = 'cash';
-                    $type = 2;
-                }
-            }
-        }else{
-            $where = '';
-            $type = 1;
-        }
-        if ($res['error_code'] == 0) {
-            $data = $res['data'];
-        }else{
-            $data = '';
-        }
-        $this->assign('data',$data);
-		$this->assign('type',$type);
-        return $this->fetch();
-    }
-
+	
     /*************************************************
      * Function:      recharge
      * Description:   充值
@@ -255,7 +240,15 @@ class User extends WeixinBase
      * Return:        void
      *************************************************/
     public function recharge()
-    {
+    {   
+		$uid = session('uid');
+	    $res =  Users::myInfo($uid);
+		if ($res['error_code'] == 0) {
+            $data = $res['data'];
+        }else{
+            $data = '';
+        }
+		$this->assign('data',$data);
         return $this->fetch(); 
     }
     
@@ -267,7 +260,7 @@ class User extends WeixinBase
      *************************************************/
     public function ajaxrecharge()
     {    
-        if ($input = Request::instance()->param()) {
+        if ($input = Request::instance()->param()){
             $date = [
                 'uid' => session('uid'),
                 'type' => '充值订单',

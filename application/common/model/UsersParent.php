@@ -48,7 +48,6 @@ class UsersParent extends Model
     {
         static $count=0;
         static $result=array();
-
         if ($uid) {
             foreach ($uid as $v) {
                 $where['parent'] = $v['uid'];
@@ -64,14 +63,12 @@ class UsersParent extends Model
                 }
             }
             $count++;
-
             if ($count < $level ) {
                 self::getChildren($arr,$level);
             }
         }
         return $result;
     }
-
 }
 
 ?>

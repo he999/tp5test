@@ -32,7 +32,6 @@ class GoodsImages extends Model
                 $row = Db::name('goods_images')->insertGetId($add);
                if ($row)
                 {
-                    
                     $result['error_msg'] = '';
                     $result['data'][] = $row;
                 }
@@ -43,7 +42,6 @@ class GoodsImages extends Model
                 }
             } 
         }
-            
         return $result;
     }
 
@@ -59,7 +57,6 @@ class GoodsImages extends Model
         foreach ($data as $key => $value) 
         {
             $where = array('img_id' => $value['img_id']);
-
             if($update = Db::name('goods_images')->where($where)->update($value))
             {
                 $result['error_code'] = 0;
@@ -108,7 +105,7 @@ class GoodsImages extends Model
      */
     static public function getList($goods_id)
     {
-         if ($goods_id)
+        if ($goods_id)
         {
             $where = array('goods_id' => $goods_id);
             if($data = Db::name('goods_images')->where($where)->order("img_id asc")->select())

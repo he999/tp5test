@@ -51,7 +51,7 @@ class UsersWeixin extends Model
         $user['create_time']=time();
         $uid = Db::name('users')->insertGetId($user);
         $customer['uid']=$uid;
-          Db::name('users_customers')->insert($customer);
+		Db::name('users_customers')->insert($customer);
         $data['uid']=$uid;
         $row = Db::name('users_weixin')->insert($data);
         if ($row) {
@@ -63,18 +63,17 @@ class UsersWeixin extends Model
             $result['error_msg'] = "添加失败";
         }
         return $result;
-        
     }
-     /**
-     * editUsers 修改用户信息 
-     * @xiao
-     * @param    array     $data
-     * @return   array     [error_code, error_msg, id]
-     * @DateTime 2016-11-22T20:46:59+0800
-     */
+	
+    /**
+    * editUsers 修改用户信息 
+    * @xiao
+    * @param    array     $data
+    * @return   array     [error_code, error_msg, id]
+    * @DateTime 2016-11-22T20:46:59+0800
+    */
     static public function edit($open_id,$data)
     {   
-        
         $res = Db::name('users_weixin')->where(['open_id'=>$open_id])->update($data);
         if ($res) {
             $result['error_code'] = 0;
@@ -86,7 +85,6 @@ class UsersWeixin extends Model
         }
         return $result;
     }
-
 }
 
 ?>
