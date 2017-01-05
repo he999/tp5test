@@ -516,7 +516,7 @@ class Systemset extends Manager
 		    $msg = [
 				'attention_reply.max'      =>  '用户关注公众号时回复文字最长为500位',
 				'attention_reply.require'  =>  '用户关注公众号时回复文字必须填写' 
-			];=
+			];
             $validate = new Validate($rule, $msg);
             $result   = $validate->check($input_data);
 			if (!$result)
@@ -741,7 +741,8 @@ class Systemset extends Manager
     */
     public function jsAlert($info, $url="")
     {
-         this->assign('info', $info);
+        
+        $this->assign('info', $info);
         $this->assign('url', $url);
         echo $this->fetch(APP_PATH.request()->module().'/view/common/alert.html');
         die;
