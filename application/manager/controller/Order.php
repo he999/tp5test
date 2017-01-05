@@ -49,7 +49,7 @@ class Order extends Manager
                 $num=1;
             }else{
                 $hao = orders::edit($input['id'],['order_status' => $order]);
-                  $num=2;
+                $num=2;
             }
             
             if ($hao['error_code'] == 0) {
@@ -64,7 +64,7 @@ class Order extends Manager
             }
         }
 
-        $status = ['0'=>'待付款','1'=>'待发货','2'=>'已发成','3'=>'已完成'];
+        $status = ['1'=>'待付款','2'=>'待发货','3'=>'已发成','4'=>'已完成'];
         
         $this->assign('order',$order);
         $this->assign('tion',$tion['data']);
@@ -95,38 +95,10 @@ class Order extends Manager
                 $url['order_sn'] = $input['order_sn'];
                 $where['order_sn'] = array("like",'%'.$input['order_sn'].'%');
             }
-            if(Request::instance()->param('status'))
-             {
-             if($input['status']==5)
-             {
-               
-                $this->assign('stat',5);
-             }
-             if($input['status']==4)
-             {
-                  $url['status'] =4;
-                $where['d.order_status'] = array("eq",3);
-                $this->assign('status',4);
-             }
-              if($input['status']==3)
-             {
-                  $url['status'] =3;
-                $where['d.order_status'] = array("eq",2);
-                $this->assign('status',3);
-             }
-              if($input['status']==2)
-             {
-                  $url['status'] =2;
-                $where['d.order_status'] = array("eq",1);
-                $this->assign('status',2);
-             }
-                if($input['status']==1)
-             {
-                  $url['status'] =1;
-                $where['d.order_status'] = array("eq",0);
-                $this->assign('status',1);
-             }
-           }
+            if (!empty($input['status'])) {
+                $url['status'] = $input['status'];
+                $where['order_status'] = array("eq",$input['status']);
+            }
         if (!empty($input['time_start'])&&!empty($input['time_end'])) {
                 $url['time_start'] = $input['time_start'];
                 $url['time_end'] = $input['time_end'];
@@ -141,7 +113,6 @@ class Order extends Manager
             $data = Orders::ordersList(8,$where,$url);
         }else{
             $where['order_id'] = array("gt",0);
-             $this->assign('stat',5);
             $data = Orders::ordersList(8,$where);
         }
         if ($data['error_code'] != 0) {
@@ -153,8 +124,8 @@ class Order extends Manager
         $order_sn = !empty($input['order_sn'])?$input['order_sn']:'';
         $timear = !empty($input['time_start'])?$input['time_start']:'';
         $timeed = !empty($input['time_end'])?$input['time_end']:'';
-        $stat = !empty($input['status'])?$input['status']:5;
-        $status = ['0'=>'待付款','1'=>'待发货','2'=>'已发货','3'=>'已完成','4'=>'全部']; 
+        $stat = !empty($input['status'])?$input['status']:0;
+        $status = ['0'=>'全部','1'=>'待付款','2'=>'待发货','3'=>'已发货','4'=>'已完成']; 
         $this->assign('stat',$stat);
         $this->assign('timear',$timear);
         $this->assign('timeed',$timeed);
@@ -184,47 +155,10 @@ class Order extends Manager
                 $url['order_sn'] = $input['order_sn'];
                 $where['order_sn'] = array("like",'%'.$input['order_sn'].'%');
             }
-            // if (!empty($input['status'])) {
-            //     if ($input['status'] == 4) {
-            //         $url['status'] = $input['status'];
-            //         $where['order_status'] = array("lt",$input['status']);
-            //     }else{
-            //         $url['status'] = $input['status'];
-            //         $where['order_status'] = array("eq",$input['status']);
-            //     }
-            // }
-            if(Request::instance()->param('status'))
-             {
-             if($input['status']==5)
-             {
-               
-                $this->assign('stat',5);
-             }
-             if($input['status']==4)
-             {
-                  $url['status'] =4;
-                $where['d.order_status'] = array("eq",3);
-                $this->assign('status',4);
-             }
-              if($input['status']==3)
-             {
-                  $url['status'] =3;
-                $where['d.order_status'] = array("eq",2);
-                $this->assign('status',3);
-             }
-              if($input['status']==2)
-             {
-                  $url['status'] =2;
-                $where['d.order_status'] = array("eq",1);
-                $this->assign('status',2);
-             }
-                if($input['status']==1)
-             {
-                  $url['status'] =1;
-                $where['d.order_status'] = array("eq",0);
-                $this->assign('status',1);
-             }
-           }
+            if (!empty($input['status'])) {
+                $url['status'] = $input['status'];
+                $where['order_status'] = array("eq",$input['status']);
+            }
             if (!empty($input['time_start'])&&!empty($input['time_end'])) {
                 $url['time_start'] = $input['time_start'];
                 $url['time_end'] = $input['time_end'];
@@ -239,7 +173,6 @@ class Order extends Manager
             $data = Orders::ordersList(8,$where,$url);
         }else{
             $where['order_id'] = array("gt",0);
-             $this->assign('stat',5);
             $data = Orders::ordersList(8,$where);
         }
         if ($data['error_code'] != 0) {
@@ -250,8 +183,8 @@ class Order extends Manager
         $order_sn = !empty($input['order_sn'])?$input['order_sn']:'';
         $timear = !empty($input['time_start'])?$input['time_start']:'';
         $timeed = !empty($input['time_end'])?$input['time_end']:'';
-        $stat = !empty($input['status'])?$input['status']:5;
-        $status =  ['0'=>'待付款','1'=>'待发货','2'=>'已发货','3'=>'已完成','4'=>'全部']; 
+        $stat = !empty($input['status'])?$input['status']:0;
+        $status = ['0'=>'全部','1'=>'待付款','2'=>'待发货','3'=>'已发货','4'=>'已完成']; 
         $this->assign('stat',$stat);
         $this->assign('timear',$timear);
         $this->assign('timeed',$timeed);

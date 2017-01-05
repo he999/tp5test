@@ -272,12 +272,12 @@ class User extends WeixinBase
                 $data['appid'] = Coms::getValue('appid')['data'];
                 $data['appsecret'] = Coms::getValue('appsecret')['data'];
                 $data['mchid'] = Coms::getValue('mchid')['data'];
-                $data['open_id'] = $open_id = session("open_id");
+                $data['open_id'] = session("open_id");
                 $data['body'] = "充值订单";
                 $data['attach'] = "chonzhi";
-                $data['money'] = 0.01; // ;
+                $data['money'] = 0.01; // $input['money'];
                 $data['out_order'] = $id.'-'.time().rand(100, 999);
-                $data['notify_url'] = "http://yshop.wiwibao.com/weixinpaynotify.php";
+                $data['notify_url'] = "http://fsm.yuncentry.com/weixinpaynotify.php";
                 $weixinpay = new WeixinPay;
                 $jsApiParameters = $weixinpay->createPay($data, $key);
                 zlog($jsApiParameters);

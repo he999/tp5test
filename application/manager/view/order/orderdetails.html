@@ -102,7 +102,7 @@
                 <li style="float:left;width:11%">数量</li>
                 <li style="float:left;width:11%">单价</li>
                 <li style="float:left;width:11%">金额</li>
-                <li style="float:left;width:11%"></li>
+                <li style="float:left;width:11%">&nbsp;</li>
                 
             </ul>
             {volist name='list' id='t'}
@@ -110,11 +110,11 @@
                 <li style="float:left;width:17%">{$t.goods_sn}</li>
                 <li style="float:left;width:17%">{$t.goods_name}</li>
                 <li style="float:left;width:11%">{$t.spec_value}</li>
-                <li style="float:left;width:11%">本</li>
+                <li style="float:left;width:11%">{$t.goods_unit}&nbsp;</li>
                 <li style="float:left;width:11%">{$t.buy_num}</li>
                 <li style="float:left;width:11%">{$t.shop_price}</li>
                 <li style="float:left;width:11%">{$t.buy_num*$t.shop_price}</li>
-                <li style="float:left;width:11%"></li>
+                <li style="float:left;width:11%">&nbsp;</li>
             </ul>
             {/volist}
             <ul style="float:right;margin-right:4%">
@@ -134,7 +134,7 @@
                  <li style="float:left;margin-right:50px">当前可执行操作:</li>
                  <li style="">
                  <input type="hidden" id="cao" name='order_status' value="{$order}">
-                <?php for($i=$data['order_status']+1;$i<=4;$i+=1){ ?>
+                <?php for($i=$data['order_status'];$i<=4;$i+=1){ ?>
                     <input type="button" onclick="chesubmit({$i})" name="operation" value="{$caozuo[$i]}"/>
                 <?php } ?>                
                  </li>

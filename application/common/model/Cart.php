@@ -41,7 +41,7 @@ class Cart extends Model
                  ->join('goods g','gs.goods_id = g.goods_id','left')
                  ->where('gs.spec_id',$data['spec_id'])
                  ->field("gs.stock,gs.price,gs.goods_id,gs.color,gs.spec_3,gs.spec_1,gs.spec_2,
-                    g.goods_name,g.goods_sn,g.weight,g.market_price,g.spec1_name,g.spec2_name,g.spec3_name")
+                    g.goods_name,g.goods_unit,g.goods_sn,g.weight,g.market_price,g.spec1_name,g.spec2_name,g.spec3_name")
                  ->find();
             $arr['goods_id'] = $row['goods_id'];
             $arr['sku'] = $row['stock'];
@@ -50,6 +50,7 @@ class Cart extends Model
             $arr['market_price'] = $row['market_price'];
             $arr['shop_price'] = $row['price'];
             $arr['weight'] = $row['weight'];
+            $arr['goods_unit'] = $row['goods_unit'];
             //拼接商品属性
             $type1 ='';$type2='';$type3='';
             if ( $row['spec1_name'] != '') {
