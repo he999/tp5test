@@ -33,7 +33,7 @@ class UsersVoucher extends Model
                 $expense += $v['expense'];
             }
             $balance = sprintf("%.2f",$income - $expense);
-            Db::name('users_customers')->where($where)->update(['balance_voucher'=>$balance]);
+            Db::name('users_customers')->where($where)->update(['voucher'=>$balance]);
             $result['error_code'] = 0;
             $result['error_msg'] = '';
             $result['income'] = $income;
