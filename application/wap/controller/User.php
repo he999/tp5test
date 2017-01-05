@@ -178,6 +178,7 @@ class User extends WeixinBase
     {   
         $uid = session('uid');
         $res =  Users::myrebateLst($uid);
+		$zrebate = 0;
 		if ($input = Request::instance()->param()) {
             if (isset($input['type'])) {
                 if($input['type'] == 'cash'){
@@ -200,6 +201,7 @@ class User extends WeixinBase
 		}
         $this->assign('data',$data);
         $this->assign('commission',$commission);
+        $this->assign('zrebate',$zrebate);
 		$this->assign('date',date('Y-m-d H:i'));
 		$this->assign('type',$type);
         return $this->fetch();

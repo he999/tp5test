@@ -37,7 +37,7 @@
     <div class="pbox">
 	<ul class="il_title">
 		<li style="float:left;">
-			<span class="topl">累计佣金:<font style="color:red;">111</font></span>
+			<span class="topl">累计佣金:<font style="color:red;">{$zrebate}</font></span>
 		</li>
 		<li style="text-align:right;padding-right:10px;">
 			<span class="topr">可提佣金:<font style="color:red;">{$commission}</font>
@@ -58,9 +58,9 @@
     <p>&nbsp&nbsp&nbsp&nbsp{$d.nickname}</p>
 	<p style="margin-top:7px">&nbsp&nbsp&nbsp&nbsp{$date}</p>
 	{if condition="$d['type'] eq 'commission'"}
-    <p>佣金：<font style="color:red;">{$d.income}</font></p>
+    <p style="margin-left:77%;margin-top:-7%">佣金：<font style="color:red;">+{$d.income}</font></p>
 	{elseif condition="$d['type'] eq 'buy'"}
-	<p>佣金：<font style="color:red;">{$d.expense}</font></p>
+	<p style="margin-left:77%;margin-top:-7%">佣金：<font style="color:red;">-{$d.expense}</font></p>
 	{/if}
 </div>
 <HR SIZE=2>
