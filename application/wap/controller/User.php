@@ -168,6 +168,19 @@ class User extends WeixinBase
         return $this->fetch();
     }
 	
+	/*************************************************
+     * Function:      sysm
+     * Description:   我的财富劵使用说明
+     * @param:        void
+     * Return:        void
+     *************************************************/
+    public function sysm()
+    {   
+		$key = Coms::getValue('voucher_use_explain')['data'];
+        $this->assign('key',$key);
+        return $this->fetch();
+    }
+	
     /*************************************************
      * Function:      myrebate
      * Description:   我的返佣
@@ -177,32 +190,32 @@ class User extends WeixinBase
     public function myrebate()
     {   
         $uid = session('uid');
-        $res =  Users::myrebateLst($uid);
-		$zrebate = 0;
 		if ($input = Request::instance()->param()) {
             if (isset($input['type'])) {
                 if($input['type'] == 'cash'){
                     $where['type'] = 'cash';
                     $type = 2;
+                }elseif($input['type'] == 'commission'){
+                    $where['a.type']=['neq','cash'];
+                    $type = 1;
                 }
             }
-        }else{
-            $where = '';
-            $type = 1;
         }
+		$zrebate = 0;
+		$res =  Users::myrebateLst($uid,$where);
+		$row =  Users::myrebate($uid);
         if ($res['error_code'] == 0){
             $data = $res['data'];
         }else{
             $data = '';
         }
-		foreach($data as $v){
+		foreach($row['data'] as $v){
 			$commission = $v['commission'];
 			$zrebate += $v['income'];
 		}
         $this->assign('data',$data);
         $this->assign('commission',$commission);
         $this->assign('zrebate',$zrebate);
-		$this->assign('date',date('Y-m-d H:i'));
 		$this->assign('type',$type);
         return $this->fetch();
     }
@@ -217,19 +230,19 @@ class User extends WeixinBase
     public function myvoucher()
     {   
         $uid = session('uid');
-		$row = Users::myInfo($uid);
-        $res = Users::myvoucher($uid);
 		if ($input = Request::instance()->param()) {
             if (isset($input['type'])) {
-                if($input['type'] == 'cash'){
-                    $where['type'] = 'cash';
+                if($input['type'] == 'buy'){
+                    $where['type'] = 'buy';
                     $type = 2;
-                }
+                }elseif($input['type'] == 'recharge'){
+					$where['type'] = 'recharge';
+					$type = 1;
+				}
             }
-        }else{
-            $where = '';
-            $type = 1;
         }
+		$row = Users::myInfo($uid);
+        $res = Users::myvoucher($uid,$where);
         if ($res['error_code'] == 0) {
             $data = $res['data'];
         }else{
@@ -403,14 +416,11 @@ class User extends WeixinBase
                 if ($input['type'] == 'recharge') {
                     $where['type'] = 'recharge';
                     $type = 2;
-                }elseif($input['type'] == 'cash'){
-                    $where['type'] = 'cash';
-                    $type = 3;
+                }elseif($input['type'] == 'buy'){
+                    $where['type'] = 'buy';
+                    $type = 1;
                 }
             }
-        }else{
-            $where = '';
-            $type = 1;
         }
         $row = UsersMoney::countBalance($uid);
         $res = Users::moneyList($uid,$where);

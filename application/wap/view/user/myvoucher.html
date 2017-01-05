@@ -40,33 +40,39 @@
 				
 				<a style="padding: 0 13px;color: #fff;padding-top:5px;padding-bottom:5px;
 				border-radius:4px;
-				box-shadow: 0 1px 2px #E7E7E7;background: #d6d6d9;margin-left:140px" href="/index.php/wap/user/cash">使用说明</a></span>
+				box-shadow: 0 1px 2px #E7E7E7;background: #d6d6d9;margin-left:140px" href="/index.php/wap/user/sysm">使用说明</a>
 				</div>
            
         <div class="il_nav" id="J_il_nav">
-            <a href="/index.php/wap/user/myvoucher" class="<?php if($type=='1'){ echo 'active';}?>">获得明细</a>
-            <a href="/index.php/wap/user/myvoucher/type/cash" class="<?php if($type=='2'){ echo 'active';}?>">使用记录</a>
+            <a href="/index.php/wap/user/myvoucher/type/recharge" class="<?php if($type=='1'){ echo 'active';}?>">获得明细</a>
+            <a href="/index.php/wap/user/myvoucher/type/buy" class="<?php if($type=='2'){ echo 'active';}?>">使用记录</a>
         </div>
+		{volist name='data' id='v'}
+            <ul class="il_list all_score" id="J_il_list_1">
+            	<li class="list_add J_add">
+                    <div class="td_l">
+                        <p><?php
+                            if ($v['income'] == 0) {
+                                echo '<p style="float:left;">'.'金额:'.'<p style="float:left;color:red">'.'-'.$v['expense'].'元'.'</p>'.'</p>';
+                            }else {
+                                echo '<p style="float:left;">'.'金额:'.'<p style="float:left;color:red">'.'+'.$v['income'].'元'.'</p>'.'</p>';
+                            }
+                         ?></p>
+                    </div>
+                    <div class="td_r">
+					     <p> <?php echo $v['des'] ?><p>
+                        <p class="time"><?php echo date('Y-m-d',$v['time']);?></p>
+                    </div>
+                </li>  
+            </ul>
+        {/volist}
 		
-		{volist name='data' id='d'}	
-<div class="ranking">
-	{if condition="$d['type'] eq 'commission'"}
-    <p style="margin-left:2%">金额：<font style="color:red;">+{$d.income}元</font></p>
-	{elseif condition="$d['type'] eq 'buy'"}
-	<p style="margin-left:2%">金额：<font style="color:red;">-{$d.expense}元</font></p>
-	{/if}
-    <p style="float:right;margin-top:-5%">{$d.des}<br/>{$date}</p>
-	
-</div>
-<HR SIZE=2>
-{/volist}
-    
 			<!-- 下滑加载无更多样式 S-->
 	            <div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
 	                    <!-- <a href="javascript:void(0)" onClick="ajax_sourch_submit()">点击加载更多</a> -->
 	            </div>
 	            <!-- 下滑加载无更多样式 E-->          
-            </div>
+    </div>
 <script>
 var  page = 1;
  /*** ajax 提交表单 查询订单列表结果*/  

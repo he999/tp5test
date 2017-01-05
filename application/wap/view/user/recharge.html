@@ -125,8 +125,8 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
 <div id="tbh5v0">
 	<!-- <div class="g-Total gray9">您的当前余额：<span class="orange arial">2.00</span>元</div> -->
 	<form method="post"  id="recharge_form" action="">
-	<p style="margin-top:10px;margin-bottom:7px">您的当前余额：<span style="color:red">{$data.balance}</span>元</p>
-	<section class="clearfix g-member">
+	    <p style="margin-top:10px;margin-bottom:7px">您的当前余额：<span style="color:red">{$data.balance}</span>元</p>
+	    <section class="clearfix g-member">
            <div class="g-Recharge">
                <ul id="ulOption">
                    <li money="10"><a href="javascript:;" class="z-sel">10元<s></s></a></li>
@@ -135,7 +135,7 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
                    <li money="500"><a href="javascript:;">500元<s></s></a></li>
                    <li money="1000"><a href="javascript:;">1000元<s></s></a></li>
                    <li><b>
-                       <input type="text" id="input_val" class="z-init" placeholder="输入金额" maxlength="8" value=""><s></s></b></li>
+                   <input type="text" id="input_val" class="z-init" placeholder="输入金额" maxlength="8" value=""><s></s></b></li>
                </ul>
            </div>
 		
@@ -144,8 +144,8 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
            </div>
            <input type="hidden" name="account" id="add_money" value="10">
            <input type="hidden" name="order_id" value="">
-      </section>
-      </form>
+        </section>
+    </form>
 </div>
 <input type="hidden"  id="wx1"   />
                    <input type="hidden"  id="wx2"  />

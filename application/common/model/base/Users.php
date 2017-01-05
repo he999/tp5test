@@ -247,9 +247,9 @@ class Users extends Model
      * @return   array     [error_code, error_msg, id]
      * @DateTime 2016-11-22T20:46:59+0800
      */
-    static public function myrebateLst($uid)
+    static public function myrebateLst($uid,$where)
     {   
-		$where['a.type']=['neq','cash'];
+		
 		$where['a.uid'] = $uid;
         $res = Db::name('users_money_rebate')
         ->alias('a')->where(['a.is_del'=>0]) ->join('users_customers c','a.uid = c.uid','left')->order('time desc')
@@ -1191,9 +1191,34 @@ class Users extends Model
      * @return   array     [error_code, error_msg, id]
      * @DateTime 2016-11-22T20:46:59+0800
      */
-    static public function myvoucher($uid)
+    static public function myvoucher($uid,$where)
     {   
-        $res = Db::name('users_money_voucher')->where(['uid'=>$uid,'is_del'=>0])->order('time desc')->select();
+		$where['uid'] = $uid;
+        $res = Db::name('users_money_voucher')->where($where)->order('time desc')->select();
+        if ($res) {
+            $result['error_code'] = 0;
+            $result['error_msg'] = "";
+            $result['data'] = $res;
+        }else{
+            $result['error_code'] = 1;
+            $result['error_msg'] = "查询失败";
+        }
+        return $result;
+    }
+	
+	/**
+     * myrebate 财富劵
+     * @tanlong
+     * @param    array     $data
+     * @return   array     [error_code, error_msg, id]
+     * @DateTime 2016-11-22T20:46:59+0800
+     */
+    static public function myrebate($uid)
+    {   
+        $res = Db::name('users_money_rebate')
+        ->alias('a')->where(['a.is_del'=>0,'a.uid'=>$uid]) ->join('users_customers c','a.uid = c.uid','left')->order('time desc')
+        ->field('a.*,c.nickname,c.commission,c.face')
+        ->select(); 
         if ($res) {
             $result['error_code'] = 0;
             $result['error_msg'] = "";

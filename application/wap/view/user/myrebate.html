@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 <html>
 <head>
-<meta name="Generator" content="TPSHOP v1.1" />
+<meta name="Generator" content="TPSHOP v1.1"/>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <meta name="format-detection" content="telephone=no" />
@@ -9,7 +9,7 @@
 <meta name="apple-touch-fullscreen" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="applicable-device" content="mobile">
-<title>我的佣金</title>
+<title>我的返佣</title>
 <link rel="stylesheet" href="/static/waps/css/public.css">
 <link rel="stylesheet" href="/static/waps/css/user.css">
 <script type="text/javascript" src="/static/waps/js/jquery.js"></script>
@@ -19,6 +19,7 @@
 <script type="text/javascript" src="/static/waps/js/layer.js" ></script>
 <style type="text/css">
 .ranking{width: 98%; height:80px; margin-bottom:10px; padding-left:2%;}
+.rank{width: 98%; height:40px; margin-bottom:10px; padding-left:2%;}
 .ranking p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
 .topl{margin-left:8%;line-height:30px;height:30px;}
 .topr{margin-left: 33%; margin-top:2%;float:left;}
@@ -29,7 +30,7 @@
 <div class="tab_nav">
   <div class="header">
     <div class="h-left"><a class="sb-back" href="/index.php/wap/user/userInfo" title="返回"></a></div>
-    <div class="h-mid">我的佣金</div>
+    <div class="h-mid">我的返佣</div>
   </div>
 </div>
 </header>
@@ -47,25 +48,35 @@
 		</li>
     </ul>    
 	<div class="il_nav" id="J_il_nav">
-		<a href="/index.php/wap/user/myrebate" class="<?php if($type=='1'){ echo 'active';}?>">返佣明细</a>
-		<a href="/index.php/wap/user/myrebate/type/cash" class="<?php if($type=='2'){ echo 'active';}?>">提现记录</a>
+		<a href="/index.php/wap/user/myrebate/type/commission" class="<?php if($type=='1'){ echo 'active';}?>">返佣明细</a>
+		<a href="/index.php/wap/user/myrebate/type/cash" class="<?php if($type=='2'){ echo 'active';}?>" onclick=" myFunction()">提现记录</a>
 	</div>
-	
+
 {volist name='data' id='d'}	
-<div class="ranking">
-    <div>
-      <img src="{$d.face}" style="width:100px;height:100px;float:left; ">
-    </div>
+{if condition="$d['type'] neq 'cash'"}
+<div class="ranking" style="float:left;margin-top:1%;border-bottom:1px solid black">
+    <img src="{$d.face}" style="width:60px;height:60px;float:left; ">
     <p>&nbsp&nbsp&nbsp&nbsp{$d.nickname}</p>
-	<p style="margin-top:7px">&nbsp&nbsp&nbsp&nbsp{$date}</p>
+	<p style="margin-top:1%">&nbsp&nbsp&nbsp&nbsp{$d.time|date="Y-m-d H:i:s",###}</p>
 	{if condition="$d['type'] eq 'commission'"}
-    <p style="margin-left:77%;margin-top:-7%">佣金：<font style="color:red;">+{$d.income}</font></p>
+    <p style="margin-left:66%;margin-top:-7%">佣金：<font style="color:red;">￥{$d.income}</font></p>
 	{elseif condition="$d['type'] eq 'buy'"}
-	<p style="margin-left:77%;margin-top:-7%">佣金：<font style="color:red;">-{$d.expense}</font></p>
+	<p style="margin-left:66%;margin-top:-7%">佣金：<font style="color:red;">￥{$d.expense}</font></p>
 	{/if}
+	<p style="margin-top:-1%;margin-left:66%">备注：{$d.des} </p>
 </div>
-<HR SIZE=2>
+{else/}
+<div class="rank" style="float:left;margin-top:1%;border-bottom:1px solid black">
+  <p>提现：<font style="color:red;">￥{$d.expense}</font>元</p>
+  <p style="margin-left:66%;margin-top:-6%" >{$d.time|date="Y-m-d H:i:s",###}</p>
+</div>
+
+{/if}
 {/volist}
+
+
+
+
 
 			<!-- 下滑加载无更多样式 S-->
 	            <div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">

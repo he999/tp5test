@@ -123,10 +123,15 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
 <script type="text/javascript" src="/static/waps/js/mobile.js" ></script>
 <div id="tbh5v0">
 	<form method="post"  id="recharge_form" action="">
+	<div style="margin-top:5%;margin-left:5%">
+	<p style="font-size:20px">可提现金额：<span style="color:red">￥{$money}</span></p>
+	<p>(您提现的金额经平台审核通过后，将自动转入您的微信账户)</p></div>
 	<section class="clearfix g-member" style="padding-top:100px;">
            <div class="g-Recharge">
+		   
                <ul id="ulOption">
                    <li style="width:100%;">
+				   
                        <input type="text" id="input_val" style="width:100%;height:30px;line-height:30px;    border-radius: 6px;" class="z-init" maxlength="8" value="{$max}"></li>
                </ul>
            </div>

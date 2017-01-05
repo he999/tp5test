@@ -59,18 +59,18 @@
 .Icon{ display:block; float:left; width:35px; height:35px; margin-top:5px; position:absolute}
 .Icon1,.Icon2,.Icon3,.Icon4,.Icon5,.Icon6,.Icon7,.Icon8,.Icon9,.Icon11,.Icon12{background-image: url(../images/user.png);background-repeat: no-repeat;background-size: auto 1200%; }
 .Icon10{background-image: url(../images/user1.png);background-repeat: no-repeat;background-size: auto 820%; }
-.Icon1{ background-position:0px 3px}
-.Icon2{ background-position:0px -34px}
-.Icon3{ background-position:0px -71px}
-.Icon4{ background-position:0px -108px}
-.Icon5{ background-position:0px -146px}
-.Icon6{ background-position:0px -183px}
-.Icon7{ background-position:0px -221px}
-.Icon8{ background-position:0px -255px}
+.Icon1{ background-image: url(../images/u6.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
+.Icon2{ background-image: url(../images/u3.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
+.Icon3{ background-image: url(../images/u7.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
+.Icon4{ background-image: url(../images/u1.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
+.Icon5{ background-image: url(../images/u5.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
+.Icon6{ background-image: url(../images/u4.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
+.Icon7{ background-image: url(../images/u8.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
+.Icon8{ background-image: url(../images/u9.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
 .Icon9{background-position:0px -302px}
 .Icon10{background-position:0px -3px}
 .Icon11{background-position:0px -336px}
-.Icon12{background-position:0px -373px}
+.Icon12{background-image: url(../images/u2.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
 .Icona{background-image: url(../images/Icona.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
 .Iconb{background-image: url(../images/Iconb.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}
 .Iconc{background-image: url(../images/Iconc.png);background-repeat: no-repeat; background-position:0px 3px; background-size: auto 80%;}

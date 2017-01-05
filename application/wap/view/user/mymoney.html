@@ -33,39 +33,34 @@
 </header>
 <div id="tbh5v0">
     <div class="pbox">
-        <ul class="il_title">
-            <li style="float:left;">
-                <p style="text-align:left;padding-left:10px; line-height:40px;">我的余额：<span class="cf22" id="wait_score">￥{$money}</span></p>
-            </li>
-            <li style="text-align:right;padding-right:10px;">
-                <a style="padding: 0 10px;text-align: center;color: #fff;
-				border: 1px solid #FE6D0B;display: inline-block;border-radius: 3px;
+	
+	
+	<div style="font-size: 16px; height:50px; line-height:50px;border-bottom:1px solid #d6d6d6">
+				<span style="margin-left:10%">我的余额:<font style="color:red;">￥{$money}</font></span>
+				<a style="padding: 0 10px;text-align: center;color: #fff;margin-left:40%;
+				border: 1px solid #FE6D0B;border-radius: 3px;padding-top:5px;padding-bottom:5px;
 				box-shadow: 0 1px 2px #E7E7E7;background: #f60;" href="/index.php/wap/user/recharge">充值</a>
-                <a style="padding: 0 10px;text-align: center;color: #fff;
-				border: 1px solid #FE6D0B;display: inline-block;border-radius: 3px;
-				box-shadow: 0 1px 2px #E7E7E7;background: #f60;" href="/index.php/wap/user/cash">提现</a>
-            </li>
-        </ul>
+				</div>
+				
         <div class="il_nav" id="J_il_nav">
-            <a href="/index.php/wap/user/mymoney" class="<?php if($type=='1'){ echo 'active';}?>">交易记录</a>
+            <a href="/index.php/wap/user/mymoney/type/buy" class="<?php if($type=='1'){ echo 'active';}?>">变动明细</a>
             <a href="/index.php/wap/user/mymoney/type/recharge" class="<?php if($type=='2'){ echo 'active';}?>">充值记录</a>
-            <a href="/index.php/wap/user/mymoney/type/cash" class="<?php if($type=='3'){ echo 'active';}?>">提现记录</a>
         </div>
         {volist name='data' id='v'}
             <ul class="il_list all_score" id="J_il_list_1">
             	<li class="list_add J_add">
                     <div class="td_l">
-                        <p><?php echo $v['des'];
+                        <p><?php
                             if ($v['income'] == 0) {
-                                echo '支出'.$v['expense'];
+                                echo '<p style="float:left;">'.'金额:'.'<p style="float:left;color:red">'.'-'.$v['expense'].'元'.'</p>'.'</p>';
                             }else {
-                               echo '收入'.$v['income'];
+                                echo '<p style="float:left;">'.'金额:'.'<p style="float:left;color:red">'.'+'.$v['income'].'元'.'</p>'.'</p>';
                             }
                          ?></p>
-                        <p>已支付</p>
                     </div>
                     <div class="td_r">
-                        <p class="time"><?php echo date('y-m-d h:i',$v['time']);?></p>
+					     <p> <?php echo $v['des'] ?><p>
+                        <p class="time"><?php echo date('Y-m-d',$v['time']);?></p>
                     </div>
                 </li>  
             </ul>
