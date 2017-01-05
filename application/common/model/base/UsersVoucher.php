@@ -210,4 +210,49 @@ class UsersVoucher extends Model
         }
         return $result;
     }
+
+    /**
+     * [PaymentVoucher 支付券]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $uid
+     * @param    int                   $order_id  
+     * @param    array                 $data ['des' => , 'type' => , `income` => , `order_id` => ]
+     * @return   array     [error_code, error_msg, balance]
+     */
+    static public function paymentVoucher($uid,$order_id,$mone)
+    {   
+        $type =  Users::myInfo($uid)['data']['member_type'];
+        if ($type == 0) {
+            $inc = UsersMoney::countBalance($uid)['income'];
+            $sho = Coms::getValue('threshold_money_set')['data'];
+            if ($inc >= $sho ) {
+                Users::editUsersCustomers($uid,['member_type' => 1]);
+                $gvs = Coms::getValue('give_voucher_set')['data'];
+                $add = [
+                    'uid' => $uid,
+                    'des' => '返佣券',
+                    'type' => 'recharge',
+                    'income'=> $gvs,
+                    'order_id'=> $order_id,
+                    'time'=>time()
+                ];
+                self::incomeVoucherAdd($add);
+            }
+        }else{
+            $vouchera = self::voucherKey($mone,['type'=>'recharge'])['voucher'];
+            if ($vouchera > 0) {
+                $add = [
+                    'uid' => $uid,
+                    'des' => '返佣券',
+                    'type' => 'recharge',
+                    'income'=>$vouchera,
+                    'order_id'=>$order_id,
+                    'time'=>time()
+                ];
+                self::incomeVoucherAdd($add);
+            }
+        }
+    }
+
 }

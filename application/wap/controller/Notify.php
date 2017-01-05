@@ -72,37 +72,10 @@ class Notify
                             $datas['voucher_cash'] = $voucher;
                             $datas['rebate_cash'] = $abc;
                             Orders::edit($order_id,$data);
-                            UsersMoney::PaymentCommission($uid,$order_id,$res['data']['order_amount']);
+                            UsersRebate::PaymentCommission($uid,$order_id,$res['data']['order_amount']);
                             echo 'SUCCESS';
                         }
                     }
-                // }elseif ($attach == 'jieyue') {
-                //     $id = $arr[0];
-                //     $data['pay_time'] = time();
-                //     $info = Orders::payInfo($id);
-                //     if ($info['error_code'] == 0) 
-                //     {
-                //         if ($info['data']['pay_time'] == '') {
-                //             Orders::payEdit($id,$data);
-                //             $uid = $info['data']['uid']; 
-                //             UsersCustomers::edit($uid,['member_type'=>1,'opening_time'=>time()]);
-                //             echo 'SUCCESS';
-                //         }
-                        
-                //     }
-                // }elseif ($attach == 'nianfei') {
-                //     $id = $arr[0];
-                //     $data['pay_time'] = time();
-                //     $info = Orders::payInfo($id);
-                //     if ($info['error_code'] == 0) 
-                //     {   
-                //         if ($info['data']['pay_time'] == '') {
-                //             Orders::payEdit($id,$data);
-                //             $uid = $info['data']['uid'];  
-                //             UsersCustomers::edit($uid,['member_type'=>2,'opening_time'=>time()]);
-                //             echo 'SUCCESS';
-                //         }
-                //     }
                 }elseif ($attach == 'chonzhi') {
                     $id = $arr[0];
                     $data['pay_time'] = time();
@@ -119,25 +92,11 @@ class Notify
                                 'uid' => $row['data']['uid']
                             ];
                             UsersMoney::incomeAdd($add);
+                            UsersVoucher::paymentVoucher($row['data']['uid'],$id,$row['money']);
                             Orders::payEdit($id,$data);
                             echo 'SUCCESS';
                         }
                     }
-                // }elseif ($attach == 'yuqi') {
-                //     $id = $arr[0];
-                //     $data['pay_time'] = time();
-                //     $row = Orders::payInfo($id);
-                //     if ($row['error_code'] == 0) 
-                //     {
-                //         if ($row['data']['pay_time'] == '') {
-                //             $ard = explode('-',$row['data']['type']);
-                //             $ids = $ard[0];
-                //             $add = ['renew_time' => time()];
-                //             OrdersGoods::editOne($ids,$add);
-                //             Orders::payEdit($id,$data);
-                //             echo 'SUCCESS';
-                //         }
-                //     }
                 }
                 echo 'SUCCESS';
             }
