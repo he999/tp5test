@@ -18,7 +18,7 @@
 <script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
 <script type="text/javascript" src="/static/waps/js/layer.js" ></script>
 <style type="text/css">
-.ranking{width: 98%; height:80px; margin-bottom:10px; padding-left:2%;}
+.ranking{width: 98%; height:40px;link-height:40px margin-bottom:10px; padding-left:2%;}
 .ranking p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
 .topl{margin-left: 15%;}
 .topr{margin-right: 17%; float:right;}
@@ -50,13 +50,13 @@
 		
 		{volist name='data' id='d'}	
 <div class="ranking">
-    <p>&nbsp&nbsp&nbsp&nbsp{$d.nickname}</p>
-	<p style="margin-top:7px">&nbsp&nbsp&nbsp&nbsp{$date}</p>
 	{if condition="$d['type'] eq 'commission'"}
-    <p style="margin-left:77%;margin-top:-7%">佣金：<font style="color:red;">+{$d.income}</font></p>
+    <p style="margin-left:2%">金额：<font style="color:red;">+{$d.income}元</font></p>
 	{elseif condition="$d['type'] eq 'buy'"}
-	<p style="margin-left:77%;margin-top:-7%">佣金：<font style="color:red;">-{$d.expense}</font></p>
+	<p style="margin-left:2%">金额：<font style="color:red;">-{$d.expense}元</font></p>
 	{/if}
+    <p style="float:right;margin-top:-5%">{$d.des}<br/>{$date}</p>
+	
 </div>
 <HR SIZE=2>
 {/volist}

@@ -237,8 +237,20 @@ class User extends WeixinBase
         }
         $this->assign('row',$row['data']);
         $this->assign('data',$data);
-		$this->assign('date',date('Y-m-d H:i'));
+		$this->assign('date',date('Y-m-d'));
 		$this->assign('type',$type);
+        return $this->fetch();
+    }
+	
+	
+	/*************************************************
+     * Function:      join
+     * Description:   加入我们
+     * @param:        void
+     * Return:        void
+     *************************************************/
+    public function join()
+    {   
         return $this->fetch();
     }
 	
