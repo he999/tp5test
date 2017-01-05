@@ -402,7 +402,7 @@ class Orders extends Model
         $data = Db::name('orders')
             ->alias('d')
             ->join('users_customers u','u.uid = d.uid','left')
-            ->field(["d.order_sn","d.order_status","d.order_amount","d.create_time","d.order_id","d.consignee","u.nickname"])
+            ->field(["d.order_sn","d.order_status","d.pickup_id","d.pay_name","d.voucher_cash","d.order_amount","d.create_time","d.order_id","d.consignee","u.nickname"])
             ->where($where)
             ->order("d.create_time desc")
             ->paginate($num,false,array('query'=>$url)); 

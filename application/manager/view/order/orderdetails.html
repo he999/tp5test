@@ -38,7 +38,8 @@
                  <a href="#" style="font-size: 20px;font-weight:600;">订单详情列表</a>
 
             </ul>     
-            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%">
+            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%;
+            background-color:#ddd; height:30px; line-height:30px; ">
                   基本信息
             </ul>
             <ul style="float:left;width:20%;text-align:right">
@@ -69,7 +70,8 @@
                 <li>{if($data.shipping_time != 0)}{$data.shipping_time|date = 'Y-m-d H:i:s',###}{else}---{/if}</li>
                 <li>{$data.order_amount}</li>
             </ul>
-            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%">
+            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%;
+            background-color:#ddd; height:30px; line-height:30px;clear:both;">
                   收货人信息
             </ul>
             <ul style="float:left;width:20%;text-align:right">
@@ -91,7 +93,8 @@
                 <li>{$data.email}</li>
             </ul>
             <ul style="clear:both"></ul>
-            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%">
+            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%;
+            background-color:#ddd; height:30px; line-height:30px;">
                  商品信息
             </ul>
             <ul  style="weight:100%; height:20px;">
@@ -121,7 +124,8 @@
                 总价:{$data.order_amount}
             </ul>
             <ul style="clear:both"></ul>
-            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%">
+            <ul style="text-align:center; font-size:16px; font-weight:bold; margin-right:6%;
+            background-color:#ddd; height:30px; line-height:30px;">
                  操作信息
             </ul>
 <form action="" method="post" name='myform'>
