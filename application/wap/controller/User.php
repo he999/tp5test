@@ -667,11 +667,13 @@ class User extends WeixinBase
     {   
         $uid = session('uid');
         $res = Users::myInfo($uid);
+        $qq = Coms::getValue('service_QQ')['data'];
         if ($res['error_code'] == 0) {
             $data = $res['data'];
         }else{
             $data = '';
         }
+        $this->assign('qq',$qq);
         $this->assign('data',$data);
         return $this->fetch();
     }    

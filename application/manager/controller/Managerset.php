@@ -31,11 +31,12 @@ class Managerset extends Manager
 		{
 			/******************* 验证信息 ********************/
 			$rule = [
-				'web_name'  => 'require|max:100',
+				'web_name'  => 'require|max:60',
 				'com_address'  => 'require|max:100',
 				'web_title'  => 'require|max:100',
 				'service_tel'  => 'require|max:100',
-				'contact_service'  => 'require|max:100'
+				'contact_service'  => 'require|max:100',
+				'service_QQ' =>  'require|max:12',
 			];
 
 			$msg = [
@@ -48,7 +49,8 @@ class Managerset extends Manager
 				'service_tel.max'      =>  '客服电话最长为100位',
 				'service_tel.require'  =>  '客服电话必须填写', 
 				'contact_service.max'      =>  '联系客服最长为100位',
-				'contact_service.require'  =>  '联系客服必须填写' 
+				'contact_service.require'  =>  '联系客服必须填写',
+				'service_QQ.require'  =>  '客服QQ必须填写' 
 			];
 			$validate = new Validate($rule, $msg);
 			$result   = $validate->check($input_data);
@@ -66,7 +68,8 @@ class Managerset extends Manager
 					'com_address'=> $input_data['com_address'],
 					'web_title'=> $input_data['web_title'],
 					'service_tel'=> $input_data['service_tel'],
-					'contact_service' => $input_data['contact_service']
+					'contact_service' => $input_data['contact_service'],
+					'service_QQ' => $input_data['service_QQ']
 				];
 			}
 			else
@@ -78,7 +81,8 @@ class Managerset extends Manager
 					'web_title'=> $input_data['web_title'],
 					'service_tel'=> $input_data['service_tel'],
 					'contact_service' => $input_data['contact_service'],
-					'web_logo'=> '/uploads/'.$info->getFilename(),
+					'service_QQ' => $input_data['service_QQ'],
+					'web_logo'=> '/uploads/'.$info->getFilename()
 				];
 			}   
 			if(Coms::set($data))
