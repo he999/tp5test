@@ -19,7 +19,7 @@ return [
     // 用户名
     'username'       => 'fsm',
     // 密码
-    'password'       => 'd',
+    'password'       => '6bVtD3p6tJW2SxCZ',
     // 端口
     'hostport'       => '',
     // 连接dsn
