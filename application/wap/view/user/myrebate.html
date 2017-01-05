@@ -50,7 +50,8 @@
 		<a href="/index.php/wap/user/myrebate" class="<?php if($type=='1'){ echo 'active';}?>">返佣明细</a>
 		<a href="/index.php/wap/user/myrebate/type/cash" class="<?php if($type=='2'){ echo 'active';}?>">提现记录</a>
 	</div>
-{volist name='data' id='d'}		
+	
+{volist name='data' id='d'}	
 <div class="ranking">
     <div>
       <img src="{$d.face}" style="width:100px;height:100px;float:left; ">
