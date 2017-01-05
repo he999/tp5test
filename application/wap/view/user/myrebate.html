@@ -20,8 +20,8 @@
 <style type="text/css">
 .ranking{width: 98%; height:80px; margin-bottom:10px; padding-left:2%;}
 .ranking p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
-.topl{margin-left: 15%;  border-right:1px solid #d6d6d6}
-.topr{margin-right: 17%; float:right;}
+.topl{margin-left:8%;line-height:30px;height:30px;}
+.topr{margin-left: 33%; margin-top:2%;float:left;}
 </style>
 </head>
 <body style="background: rgb(235, 236, 237);position:relative;"> 
@@ -34,20 +34,22 @@
 </div>
 </header>
 <div id="tbh5v0">
-
     <div class="pbox">
-			    <div style="font-size: 16px; height:40px; line-height:40px;border-bottom:1px solid #d6d6d6">
-				 <span class="topl" style="padding-right:20%;">累计佣金:<font style="color:red;">111</font></span>
-				<span class="topr">可提佣金:<font style="color:red;">{$data[0]['commission']}</font>
+	<ul class="il_title">
+		<li style="float:left;">
+			<span class="topl">累计佣金:<font style="color:red;">{$zrebate}</font></span>
+		</li>
+		<li style="text-align:right;padding-right:10px;">
+			<span class="topr">可提佣金:<font style="color:red;">{$commission}</font>
 				<a style="padding: 0 10px;text-align: center;color: #fff;
 				border: 1px solid #FE6D0B;display: inline-block;border-radius: 3px;
-				box-shadow: 0 1px 2px #E7E7E7;background: #f60;" href="/index.php/wap/user/cash">提现</a></span>
-				</div>
-           
-        <div class="il_nav" id="J_il_nav">
-            <a href="/index.php/wap/user/myrebate" class="<?php if($type=='1'){ echo 'active';}?>">返佣明细</a>
-            <a href="/index.php/wap/user/myrebate/type/cash" class="<?php if($type=='2'){ echo 'active';}?>">提现记录</a>
-        </div>
+				box-shadow: 0 1px 2px #E7E7E7;background: #f60;" href="/index.php/wap/user/cash">提现</a>
+		</li>
+    </ul>    
+	<div class="il_nav" id="J_il_nav">
+		<a href="/index.php/wap/user/myrebate" class="<?php if($type=='1'){ echo 'active';}?>">返佣明细</a>
+		<a href="/index.php/wap/user/myrebate/type/cash" class="<?php if($type=='2'){ echo 'active';}?>">提现记录</a>
+	</div>
 {volist name='data' id='d'}		
 <div class="ranking">
     <div>
@@ -56,9 +58,9 @@
     <p>&nbsp&nbsp&nbsp&nbsp{$d.nickname}</p>
 	<p style="margin-top:7px">&nbsp&nbsp&nbsp&nbsp{$date}</p>
 	{if condition="$d['type'] eq 'commission'"}
-    <p>佣金：<font style="color:red;">{$d.income}</font></p>
+    <p style="margin-left:77%;margin-top:-7%">佣金：<font style="color:red;">+{$d.income}</font></p>
 	{elseif condition="$d['type'] eq 'buy'"}
-	<p>佣金：<font style="color:red;">{$d.expense}</font></p>
+	<p style="margin-left:77%;margin-top:-7%">佣金：<font style="color:red;">-{$d.expense}</font></p>
 	{/if}
 </div>
 <HR SIZE=2>
