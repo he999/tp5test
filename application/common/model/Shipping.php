@@ -585,7 +585,7 @@ class Shipping extends Model
      */
     static public function listShippingPickup($page = 1,$num = 20,$data = '')
     { 
-        $res = Db::name('shipping_pickup')>where($data)->page($page,$num)->select();
+        $res = Db::name('shipping_pickup')->where($data)->page($page,$num)->select();
         if($res){
             $result['error_code'] = 0;
             $result['error_msg'] = '';

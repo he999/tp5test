@@ -249,7 +249,7 @@ class User extends WeixinBase
             $data = '';
         }
 		$this->assign('data',$data);
-        return $this->fetch(); 
+        return $this->fetch();
     }
     
     /*************************************************
