@@ -134,7 +134,7 @@ class Coms extends Model
      * @param    int                      $id id
      * @return   array                    [error_code, error_msg, data=> [] ]
      */
-    static public function getRebateInfos($where)
+    static public function getRebateInfos($where = '')
     {
         $res = Db::name('rebate_set')->where($where)->select();
         if ($res) {
