@@ -217,7 +217,8 @@ class User extends WeixinBase
     public function myvoucher()
     {   
         $uid = session('uid');
-        $res =  Users::myInfo($uid);
+		$row = Users::myInfo($uid);
+        $res = Users::myvoucher($uid);
 		if ($input = Request::instance()->param()) {
             if (isset($input['type'])) {
                 if($input['type'] == 'cash'){
@@ -234,7 +235,9 @@ class User extends WeixinBase
         }else{
             $data = '';
         }
+        $this->assign('row',$row['data']);
         $this->assign('data',$data);
+		$this->assign('date',date('Y-m-d H:i'));
 		$this->assign('type',$type);
         return $this->fetch();
     }

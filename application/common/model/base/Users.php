@@ -1185,21 +1185,22 @@ class Users extends Model
 	
 	
 	/**
-     * userDel  常见问题
-     * @xiao
-     * @DateTime 2016-08-07T19:18:33+0800
-     * @return   boolean                   返回数据
+     * myvoucher 财富劵
+     * @tanlong
+     * @param    array     $data
+     * @return   array     [error_code, error_msg, id]
+     * @DateTime 2016-11-22T20:46:59+0800
      */
-    static public function problem()
+    static public function myvoucher($uid)
     {   
-        $res = Db::name('coms_info')->field('value')->where(['name'=>'common_problem'])->find();
-        if($res){
+        $res = Db::name('users_money_voucher')->where(['uid'=>$uid,'is_del'=>0])->order('time desc')->select();
+        if ($res) {
             $result['error_code'] = 0;
-            $result['error_msg'] = '';
+            $result['error_msg'] = "";
             $result['data'] = $res;
         }else{
             $result['error_code'] = 1;
-            $result['error_msg'] = '查询失败';
+            $result['error_msg'] = "修改失败";
         }
         return $result;
     }
