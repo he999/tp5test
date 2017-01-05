@@ -261,4 +261,6 @@ class UsersRebate extends Model
             }
         }
     }
+
+    
 }
