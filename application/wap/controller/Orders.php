@@ -409,12 +409,7 @@ class Orders extends WeixinBase
         }else{
             $voucher = $a;
         }
-<<<<<<< HEAD
-        $rebate = UsersRebate::countRebate(session('uid'))['balance_rebate'];//佣金
-=======
-        $rebate = UsersRebate::countRebate($uid)['balance_rebate'];//佣金
         
->>>>>>> 29b43c67736da6d1bb2e1aa692c76b2e9b1ffac9
         $money = $data['order_amount'] - $voucher;
         $yuemoney = $row['balance'];
         if ($data['is_rebate'] == 1) {
@@ -425,9 +420,6 @@ class Orders extends WeixinBase
             }
             if ($rebate < $money ) {
                 $money = $money-$rebate;
-<<<<<<< HEAD
-            } 
-=======
             }
             $pay = [
                 'des' => '购买',
@@ -455,29 +447,21 @@ class Orders extends WeixinBase
                 UsersRebate::expenseRebateAdd($pays);
                 $abc = $rebate;
             }
->>>>>>> 29b43c67736da6d1bb2e1aa692c76b2e9b1ffac9
         }else{
             if($yuemoney < $money ){
                 $arr['error_code'] = 1;
                 $arr['error_msg'] = '余额不足，请充值再试';
                 return $arr;
             }
-<<<<<<< HEAD
-        }
-        $pay = [
-            'des' => '购买',
-            'type' => 'buy',
-            'expense' => $money,
-            'time' => time(),
-            'order_id' => $order_id,
-            'uid' => $uid
-        ];
-        if ($rebate >= $money ) {
-            $res = UsersRebate::expenseRebateAdd($pay);
-        }else{
-=======
+            $pay = [
+                'des' => '购买',
+                'type' => 'buy',
+                'expense' => $money,
+                'time' => time(),
+                'order_id' => $order_id,
+                'uid' => $uid
+            ];
             //全部余额支付
->>>>>>> 29b43c67736da6d1bb2e1aa692c76b2e9b1ffac9
             $res = UsersMoney::expenseAdd($pay);
             $abc = 0;
         }
