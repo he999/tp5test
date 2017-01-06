@@ -210,6 +210,7 @@ class User extends WeixinBase
             $commission = $res['commission'];
         }else{
             $data = '';
+			$commission = '';
         }
         $this->assign('data',$data);
         $this->assign('commission',$commission);
