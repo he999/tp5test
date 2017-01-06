@@ -299,6 +299,7 @@ class UsersVoucher extends Model
         $accesstoken = WeixinSms::getsAccessToken($appid,$appsecret);
         return WeixinSms::sendMessage($accesstoken,urldecode(json_encode($template)));
     }
+    //'template_id' => 'a7YrWAPBrbUpdP1IpP77slFMuCVfjhtdKu04GTdf55Q',
     // 'data' =>[
     //             'first' => ['value' => '分享提醒', 'color' => '#000'],
     //             'keyword1' => ['value' => $info['nickname'].'通过你的分享，已成功加入平台', 'color' => '#666666'],
