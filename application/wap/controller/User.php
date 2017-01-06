@@ -13,6 +13,7 @@ use app\common\model\base\UsersMoney;
 use app\common\model\weixin\DiyMenu;
 use app\common\model\base\UsersPoints;
 use app\common\model\base\UsersRebate;
+use app\common\model\base\UsersVoucher;
 use app\common\model\Orders;
 use app\common\model\UsersCustomers;
 use app\common\model\base\Coms;
@@ -204,6 +205,7 @@ class User extends WeixinBase
         }
 		$zrebate = 0;
 		$res =  Users::myrebateLst($uid,$where);
+		$commission =  Users::myinfo($uid);
 		$row =  UsersRebate::countRebate($uid);
         if ($res['error_code'] == 0){
             $data = $res['data'];
@@ -277,13 +279,20 @@ class User extends WeixinBase
     public function recharge()
     {   
 		$uid = session('uid');
+		$type = '';
 	    $res =  Users::myInfo($uid);
+	    $row =  UsersVoucher::voucherSetList($type);
+		$money = Coms::getValue('threshold_money_set')['data'];
+		$voucher = Coms::getValue('give_voucher_set')['data'];
 		if ($res['error_code'] == 0) {
             $data = $res['data'];
         }else{
             $data = '';
         }
+        $this->assign('money',$money);
+        $this->assign('voucher',$voucher);
 		$this->assign('data',$data);
+		$this->assign('row',$row['data']);
         return $this->fetch();
     }
     

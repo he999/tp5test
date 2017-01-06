@@ -170,6 +170,7 @@ class UsersVoucher extends Model
      */
     static public function voucherSetList($type)
     {
+		$type =['type'=>'recharge'];
         $res = Db::name('voucher_set')->where($type)->select();
         if ($res) {
             $result['error_code'] = 0;

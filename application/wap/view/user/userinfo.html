@@ -21,9 +21,9 @@
 .uer_topnav span{font-size: 15px; height:20px; text-align: center;}
 .wei{ background:#fff; position:absolute;right:20px;}
 .uer_topnav {height: 40px; line-height:40px;width:100%;}
-.topl{width:25%;text-align:center;float:left}
-.top2{width:25%;text-align:center;}
-.topr{width:25%;text-align:center;float: right;}
+.topl{width:33%;text-align:center;float:left}
+.top2{width:32%;text-align:center;margin-left:4%}
+.topr{width:33%;text-align:center;float: right;}
 </style>
 </head>
 <body> 
@@ -37,13 +37,13 @@
 	<span style="line-height:20px;">会员ID：{$data.uid}</span>
 	<span style="line-height:20px;">昵称：{$data.nickname}</span>
 	{if condition="$data['member_type'] eq 2"} 
-	<img src="/static/images/dai.png" style="width:25px;height:25px;margin-top:-19px;margin-left:21%">
+	<img src="/static/images/dai.png" style="width:25px;height:25px;margin-top:-19px;margin-left:23%">
 	{/if}
 </center>
 </div>
 <div class="uer_topnav">
 <span class="topl">余额:<font style="color:red;">￥{$data.balance}</font></span>
-<span >返佣:<font style="color:red;">￥{$data.commission}</font></span>
+<span class="top2">返佣:<font style="color:red;">￥{$data.commission}</font></span>
 <span class="topr">财富劵:<font style="color:red;">￥{$data.voucher}</font></span>
 </div>
 <div class="Wallet">
