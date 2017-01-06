@@ -42,7 +42,7 @@
 		</li>
 		<li style="text-align:right;padding-right:10px;">
 			<span class="topr">可提佣金:<font style="color:red;">{$commission??'0'}</font></span>
-				<a style="padding: 0 10px;text-align: center;color: #fff;float:right;
+				<a style="padding: 0 10px;text-align: center;color: #fff;float:right;margin-top:3%;
 				border: 1px solid #FE6D0B;display: inline-block;border-radius: 3px;
 				box-shadow: 0 1px 2px #E7E7E7;background: #f60;" href="/index.php/wap/user/cash">提现</a>
 				
@@ -62,9 +62,9 @@
     <p>&nbsp&nbsp&nbsp&nbsp{$d.nickname}</p>
 	<p>&nbsp&nbsp&nbsp&nbsp{$d.time|date="Y-m-d H:i",###}</p>
 	{if condition="$d['type'] eq 'commission'"}
-    <p style="margin-left:60%;margin-top:-16%">佣金：<font style="color:red;">￥{$d.income??''}</font></p>
+    <p style="margin-left:60%;margin-top:-15%">佣金：<font style="color:red;">￥{$d.income??''}</font></p>
 	{elseif condition="$d['type'] eq 'buy'"}
-	<p style="margin-left:60%;margin-top:-10%">佣金：<font style="color:red;">￥{$d.expense??''}</font></p>
+	<p style="margin-left:60%;margin-top:-15%">佣金：<font style="color:red;">￥{$d.expense??''}</font></p>
 	{/if}
 	<p style="margin-left:60%">备注：{$d.des??''} </p>
 </div>
