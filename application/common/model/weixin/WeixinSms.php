@@ -71,7 +71,7 @@ class WeixinSms
 		// post数据
 		curl_setopt($curl, CURLOPT_POST, 1);
 		// 请求数据 
-		curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($data));
+		curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
 		$response = curl_exec($curl);
 		curl_close($curl);
 		return $response;
