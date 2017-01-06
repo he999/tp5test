@@ -29,7 +29,7 @@ class Test extends controller
 
     
     public function test(){
-        UsersVoucher::smsMessage(99);
+        dump(UsersVoucher::smsMessage(99));
     }
 
     
