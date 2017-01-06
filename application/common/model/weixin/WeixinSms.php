@@ -40,10 +40,10 @@ class WeixinSms
     {
     zlog('===duanxin kai===');
     	$url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
-    zlog($url);
+
     	$res = self::httpRequest($url,$data);
     	
-    zlog(json_decode($res));
+    zlog($data);
     zlog('===duanxin jie===');
     	return json_decode($res);
     }
@@ -71,7 +71,7 @@ class WeixinSms
 		// post数据
 		curl_setopt($curl, CURLOPT_POST, 1);
 		// 请求数据 
-		curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($data));
+		curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
 		$response = curl_exec($curl);
 		curl_close($curl);
 		return $response;
