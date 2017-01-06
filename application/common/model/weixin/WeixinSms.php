@@ -38,11 +38,13 @@ class WeixinSms
      */
     static public function sendMessage($access_token,$data)
     {
+    	zlog('===duanxin kai===');
     	$url = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=".$access_token;
+    	zlog($url);
     	$res = self::httpRequest($url,$data);
-    	zlog('===duanxin===');
+    	
     	zlog(json_decode($res));
-    	zlog('===duanxin===');
+    	zlog('===duanxin jie===');
     	return json_decode($res);
     }
 
