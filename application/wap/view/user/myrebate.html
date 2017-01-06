@@ -22,7 +22,7 @@
 .rank{width: 98%; height:40px; margin-bottom:10px; padding-left:2%;}
 .ranking p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
 .topl{margin-left:7%;line-height:30px;height:30px;}
-.topr{margin-left:15%; line-height:30px;height:30px;float:left}
+.topr{margin-left:10%; line-height:30px;height:30px;float:left}
 </style>
 </head>
 <body style="background: rgb(235, 236, 237);position:relative;"> 
@@ -60,13 +60,13 @@
 <div class="ranking" style="float:left;margin-top:1%;border-bottom:1px solid black">
     <img src="{$d.face}" style="width:60px;height:60px;float:left; ">
     <p>&nbsp&nbsp&nbsp&nbsp{$d.nickname}</p>
-	<p style="margin-top:1%">&nbsp&nbsp&nbsp&nbsp{$d.time|date="Y-m-d H:i",###}</p>
+	<p>&nbsp&nbsp&nbsp&nbsp{$d.time|date="Y-m-d H:i",###}</p>
 	{if condition="$d['type'] eq 'commission'"}
-    <p style="margin-left:56%;margin-top:-10%">佣金：<font style="color:red;">￥{$d.income??''}</font></p>
+    <p style="margin-left:60%;margin-top:-10%">佣金：<font style="color:red;">￥{$d.income??''}</font></p>
 	{elseif condition="$d['type'] eq 'buy'"}
-	<p style="margin-left:56%;margin-top:-8%">佣金：<font style="color:red;">￥{$d.expense??''}</font></p>
+	<p style="margin-left:60%;margin-top:-8%">佣金：<font style="color:red;">￥{$d.expense??''}</font></p>
 	{/if}
-	<p style="margin-top:-1%;margin-left:66%">备注：{$d.des??''} </p>
+	<p style="margin-left:60%">备注：{$d.des??''} </p>
 </div>
 {else/}
 <div class="rank" style="float:left;margin-top:1%;border-bottom:1px solid black">
