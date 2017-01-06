@@ -22,7 +22,7 @@
 .wei{ background:#fff; position:absolute;right:20px;}
 .uer_topnav {height: 40px; line-height:40px;width:100%;}
 .topl{width:33%;text-align:center;float:left}
-.top2{width:24%;text-align:center;}
+.top2{width:33%;text-align:center;}
 .topr{width:33%;text-align:center;float: right;}
 </style>
 </head>
@@ -37,7 +37,7 @@
 	<span style="line-height:20px;">会员ID：{$data.uid}</span>
 	<span style="line-height:20px;">昵称：{$data.nickname}</span>
 	{if condition="$data['member_type'] eq 2"} 
-	<img src="/static/images/dai.png" style="width:25px;height:25px;margin-top:-19px;margin-left:19%">
+	<img src="/static/images/dai.png" style="width:25px;height:25px;margin-top:-19px;margin-left:21%">
 	{/if}
 </center>
 </div>
@@ -71,11 +71,11 @@
 	<a href="/index.php/wap/user/join"><em class="Icon Icon7"></em>
 		<dl ><dt>加入平台</dt><dd></dd></dl>
 	</a>
-	<a href="/index.php/wap/user/myintegral"><em class="Icon Icon8"></em>
-		<dl ><dt>在线客服</dt><dd></dd></dl>
+	<a href="http://wpa.qq.com/msgrd?v=3&uin={$qq}&site=qq&menu=yes"><em class="Icon Icon8"></em>
+		<dl class="b"><dt>在线客服</dt><dd></dd></dl>
 	</a>
 </div>
-
+<!-- tencent://message/?uin={/qq/}&Site=&Menu=yes -->
 </div>
 
 </div>
