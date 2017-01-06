@@ -8,6 +8,7 @@ use app\common\model\base\Users;
 use app\common\model\base\Coms;
 use app\common\model\base\UsersWeixin;
 use app\common\model\weixin\WeixinSms;
+use app\common\model\UsersParent;
 
 /*************************************************  
 *ClassName:     UsersVoucher
