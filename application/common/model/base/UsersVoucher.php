@@ -277,7 +277,7 @@ class UsersVoucher extends Model
             return;
         }
 
-        $info = UsersWeixin::getOneinfo($uid)['data'];
+        $info = UsersWeixin::getOneinfo($id)['data'];
         if ($info['attention'] != 1) {
             return;
         }
