@@ -283,12 +283,13 @@ class UsersVoucher extends Model
         }
         $openid = $info['open_id'];
         $template =[
-            'touser' => $openid,
-            'template_id' => 'a7YrWAPBrbUpdP1IpP77slFMuCVfjhtdKu04GTdf55Q',
+            'touser' => "$openid",
+            'template_id' => 'cat_6NC0Vfysze5ghA8c94lqRZozt6DrjxFZwAOBE2c',
             //'url' => 'http://fsm.yuncentry.com/index.php/wap',
             'data' =>[
                 'first' => ['value' => '分享提醒', 'color' => '#000'],
-                'keyword1' => ['value' => $info['nickname'].'通过你的分享，已成功加入平台', 'color' => '#666666'],
+                'keyword2' => ['value' => $info['uid'].'通过你的分享，已成功加入平台', 'color' => '#666666'],
+                'keyword2' => ['value' => $info['nickname'].'通过你的分享，已成功加入平台', 'color' => '#666666'],
                 'keyword2' => ['value' => date('Y-m-d H:i'), 'color' => '#666666'],
                 'remark' => ['value' => '进行平台消费后，您可以获得相应的返佣和财富券，以后的每一次订单消费也可以获得返佣喔！', 'color' => '#666666']
             ]
@@ -298,4 +299,10 @@ class UsersVoucher extends Model
         $accesstoken = WeixinSms::getsAccessToken($appid,$appsecret);
         return WeixinSms::sendMessage($accesstoken,json_encode($template));
     }
+    // 'data' =>[
+    //             'first' => ['value' => '分享提醒', 'color' => '#000'],
+    //             'keyword1' => ['value' => $info['nickname'].'通过你的分享，已成功加入平台', 'color' => '#666666'],
+    //             'keyword2' => ['value' => date('Y-m-d H:i'), 'color' => '#666666'],
+    //             'remark' => ['value' => '进行平台消费后，您可以获得相应的返佣和财富券，以后的每一次订单消费也可以获得返佣喔！', 'color' => '#666666']
+    //         ]
 }
