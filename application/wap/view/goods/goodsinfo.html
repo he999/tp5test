@@ -19,26 +19,25 @@
 <script src="/static/waps/js/common.js"></script>
 <style type="text/css">
 .same{
-     float: left; display: block; width: 100%;  
+    float: left; display: block; width: 100%;  
 }
 .pinglen{width: 100%;clear:both; margin-bottom:10px;}
 .pinglen p {line-height:20px; font-size:14px; color:#808080; overflow:hidden;}
 .specs{ width:100%;clear:both; padding-left:20px;color:#666666 }
-ul.spec{ width:100%; height:auto; }
-ul.spec li{ width:auto; margin:10px 15px 1px 0px; float:left;   }
+ul.spec{ width:100%; height:auto;}
+ul.spec li{ width:auto; margin:10px 15px 1px 0px; float:left;}
 ul.spec li input{padding:0 10px;background:#DCDCDC; line-height:30px; height:30px;display:block;border:none;}
 ul.spec li.on input{background:#FF4500; }
 ul.spec li.ok{border:1px solid #FF4500; display:block; }
 ul.spec li.on input{color:#fff;}
 hr{margin:0px;padding:0px; border-top:1px solid #eeeeee; }
 #header,.header{
-  background-color: {$module.color??'red'};
+	background-color: {$module.color??'red'};
 }
 </style>
 </head>
 <body>
 <div class="main">
-<p style="width:100%;height:45px;"></p>
     <div class="tab_nav">
         <div class="header">
             <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
@@ -104,7 +103,7 @@ var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function
     <form name="buy_goods_form" method="post" id="buy_goods_form" >
       <div class="product_info">
         <div class="info_dottm">
-          <h3 class="name" style="width:100%;">{$goods_info.goods_name}</h3>
+          <h3 class="name" style="width:98%;">{$goods_info.goods_name}</h3>
         </div>
         <dl class="goods_price">
           <dt> <span>￥<i style="font-style:normal" id="goods_price">{$goods_specs.0.price}</i>元</span>
@@ -178,7 +177,7 @@ var t2=new TouchSlider({id:'sliderlist', speed:600, timeout:300, before:function
     </div>
     <p>匿名</p>
     <p>评论时间</p>
-    <p style="height:60px;">还没人评论，抢购本书评论吧！</p>
+    <p style="height:60px;">还没人评论，赶紧评论吧！</p>
   </div>
 <?php }else{ ?>
 {volist name='content' id='t'}
