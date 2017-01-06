@@ -18,11 +18,11 @@
 <script src="/static/waps/js/common.js"></script>
 <style type="text/css">
 .addressmone{ width:100%; overflow:hidden; background:#fff}
-.addressmone ul{ width:95%; overflow:hidden; margin:auto}
+.addressmone ul{ width:100%; overflow:hidden; margin:auto}
 .addressmone ul li{ width:100%; overflow:hidden; border-bottom:1px solid #CCC;}
-.addressmone ul li span{ display:block; float:left; width:30%; font-size:14px; line-height:45px; color:#666;}
-.addressmone ul li input{ display:block; float:left; width:60%; background:none; border:0px; font-size:16px; color:#333; line-height:45px;}
-.addressmone ul li select{ display:block; float:left;background:none; height:45px; border:0px; font-size:16px; color:#333; line-height:45px; padding-right:10px;-webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; border-radius: 0; -webkit-rtl-ordering: logical; -webkit-user-select: text;}
+.addressmone ul li span{ display:block; float:left; padding-left:20px; width:100px; font-size:14px; line-height:45px; color:#666;}
+.addressmone ul li input{ display:block; float:left; width:60%; background:none; border:0px; font-size:14px; color:#333; line-height:45px;}
+.addressmone ul li select{ display:block; float:left;background:none; height:45px; border:1px solid #000; font-size:14px; color:#333; line-height:45px; padding-right:5px;-webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1;  -webkit-rtl-ordering:logical; -webkit-user-select: text;}
 .dotm_btn1{ display:block; float:left; width:30%; height:40px; background:#FF3300; font-size:14px; line-height:40px; color:#FFF; border:0; margin-top:5px;border-radius:3px; margin-left:3%;}
 .beett{ display:inline; float:inherit; width:60%; margin-left:inherit; padding:0 20px; }
 .dotm_btn{ width:100%; height:50px; background:#fff;position:fixed;text-align:center;min-width: 320px; max-width: 640px; }
@@ -45,11 +45,11 @@
        <li>
     	<span>收货人姓名</span>  
         <input name="consignee" id="consignee" type="text" value="{$address.consignee}" maxlength="12">
-		</li>          
-       <li>
+		</li>
+      <li>
           <span>地区</span>       
           <input name="country" value="0" type="hidden">
-	             <select name="province" id="province" >
+               <select name="province" id="province" style="width:100px;" >
                       <option value="">请选择</option>
                       {volist name="data" id="v"}
                       {if ($address.province == $v.id)}
@@ -58,21 +58,21 @@
                       <option value="{$v.id}">{$v.name}</option>
                       {/volist}
                 </select>
-                <select name="city" id="city">
+                <select name="city" id="city" style="width:100px;">
                     <option selected="selected" value="{$city.id}">{$city.name}</option>
                 </select>
-                <select name="district" id="district">
-                    <option selected="selected" value="{$district.id}">{$district.name}</option>
-                </select>                 
-                <select name="town" id="town">
+                <br>
+                <select name="district" id="district" style="width:100px;margin-left:120px; clear:both">
+                    <option value="">请选择</option>
+                </select>                
+                <select name="town" id="town" style="width:125px;">
                 {if ($town)}
                   <option value="">请选择</option>
                 {/else}
                   <option selected="selected" value="{$town.id}">{$town.name}</option>
                 {/if}
-                    
                 </select>          
-        	</li>
+          </li>          
            <li>
     		 <span>详细地址</span> <input type="text" name="address" id="address" maxlength="100" value="{$address.address}">
 	       </li>

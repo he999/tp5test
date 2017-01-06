@@ -332,7 +332,7 @@ class Orders extends WeixinBase
         $data['appid'] = Coms::getValue('appid')['data'];
         $data['appsecret'] = Coms::getValue('appsecret')['data'];
         $data['mchid'] = Coms::getValue('mchid')['data'];
-        $data['open_id'] = $open_id = session("open_id");
+        $data['open_id'] = session("open_id");
         $data['body'] = "订单支付";
         $data['attach'] = 'dindan';
         $data['money'] = 0.01; //$money;
@@ -340,7 +340,6 @@ class Orders extends WeixinBase
         $data['notify_url'] = "http://fsm.yuncentry.com/weixinpaynotify.php";
         $weixinpay = new WeixinPay;
         $jsApiParameters = $weixinpay->createPay($data, $key);
-
 
         $this->assign('voucher',$voucher);
         $this->assign('rebate',$rebate);
