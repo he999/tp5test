@@ -125,8 +125,8 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
 <div id="tbh5v0">
 	<!-- <div class="g-Total gray9">您的当前余额：<span class="orange arial">2.00</span>元</div> -->
 	<form method="post"  id="recharge_form" action="">
-	<p style="margin-top:10px;margin-bottom:7px">您的当前余额：<span style="color:red">{$data.balance}</span>元</p>
-	<section class="clearfix g-member">
+	    <p style="margin-top:10px;margin-bottom:7px">您的当前余额：<span style="color:red">{$data.balance}</span>元</p>
+	    <section class="clearfix g-member">
            <div class="g-Recharge">
                <ul id="ulOption">
                    <li money="10"><a href="javascript:;" class="z-sel">10元<s></s></a></li>
@@ -135,17 +135,25 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
                    <li money="500"><a href="javascript:;">500元<s></s></a></li>
                    <li money="1000"><a href="javascript:;">1000元<s></s></a></li>
                    <li><b>
-                       <input type="text" id="input_val" class="z-init" placeholder="输入金额" maxlength="8" value=""><s></s></b></li>
+                   <input type="text" id="input_val" class="z-init" placeholder="输入金额" maxlength="8" value=""><s></s></b></li>
                </ul>
            </div>
 		
            <div class="mt10 f-Recharge-btn">
                <a id="btnSubmit" href="javascript:;" class="orgBtn" onclick="recharge_submit()">确认充值</a>
            </div>
+		    <p style="font-size:20px;margin-top:5%">充值说明<p>
+		   <div style="margin-left:7%;margin-top:2%">
+		     用户首次充值{$money}元门槛金额可获得{$voucher}元财富劵<br/>
+		    {volist name='row' id='v'}
+               充值金额满{$v.money}元,可获得{$v.voucher}元财富劵<br/>
+            {/volist}
+		   </div>
+		  
            <input type="hidden" name="account" id="add_money" value="10">
            <input type="hidden" name="order_id" value="">
-      </section>
-      </form>
+        </section>
+    </form>
 </div>
 <input type="hidden"  id="wx1"   />
                    <input type="hidden"  id="wx2"  />
