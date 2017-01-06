@@ -5,6 +5,7 @@ use think\Model;
 use think\Db;
 use app\common\model\base\CommonModel;
 use app\common\model\base\Users;
+use app\common\model\base\Coms;
 
 /*************************************************  
 *ClassName:     UsersVoucher

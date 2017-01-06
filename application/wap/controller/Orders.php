@@ -332,15 +332,14 @@ class Orders extends WeixinBase
         $data['appid'] = Coms::getValue('appid')['data'];
         $data['appsecret'] = Coms::getValue('appsecret')['data'];
         $data['mchid'] = Coms::getValue('mchid')['data'];
-        $data['open_id'] = $open_id = session("open_id");
+        $data['open_id'] = session("open_id");
         $data['body'] = "订单支付";
         $data['attach'] = 'dindan';
         $data['money'] = 0.01; //$money;
         $data['out_order'] = $data['order_id'].'-'.time().rand(100, 999);
-        $data['notify_url'] = "http://fsm.yuncentry.com/weixinpaynotify.php";
+        $data['notify_url'] = "http://".$_SERVER['HTTP_HOST']."/weixinpaynotify.php";
         $weixinpay = new WeixinPay;
         $jsApiParameters = $weixinpay->createPay($data, $key);
-
 
         $this->assign('voucher',$voucher);
         $this->assign('rebate',$rebate);
