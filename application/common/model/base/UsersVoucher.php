@@ -281,7 +281,7 @@ class UsersVoucher extends Model
         if ($info['attention'] != 1) {
             return;
         }
-        $openid = $info['open_id '];
+        $openid = $info['open_id'];
         $template =[
             'touser' => $openid,
             'template_id' => 'a7YrWAPBrbUpdP1IpP77slFMuCVfjhtdKu04GTdf55Q',
