@@ -85,6 +85,30 @@ class UsersWeixin extends Model
         }
         return $result;
     }
+
+    /*************************************************  
+    * Function:      getOneinfo
+    * Description:   获取一条用户信处
+                     联表查user表
+    * @param:        mix $open_id|$uid
+    * Return:        array 用户信息
+    *************************************************/
+    static public function getOneinfo($uid)
+    {   
+        $array = Db::name('users_weixin')->where(['uid'=>$uid])->find();
+        if ($array)
+        {
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['data'] = $array;
+        }
+        else
+        {
+            $result['error_code'] = 1;
+            $result['error_msg'] = '失败';
+        }
+        return $result;
+    }
 }
 
 ?>

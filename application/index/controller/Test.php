@@ -29,15 +29,7 @@ class Test extends controller
 
     
     public function test(){
-        $add['uid'] = 1;
-        $add['des'] = 2;
-        $add['type'] = '支出';
-        $add['income'] =100;
-        // $add['balance_rebate'] = 2;
-        // $add['time'] = 2;
-        $add['order_id'] = 1;
-        $res = UsersRebate::incomeRebateAdd($add);
-        dump($res);
+        dump(UsersVoucher::smsMessage(99));
     }
 
     

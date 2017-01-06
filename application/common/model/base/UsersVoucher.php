@@ -6,6 +6,9 @@ use think\Db;
 use app\common\model\base\CommonModel;
 use app\common\model\base\Users;
 use app\common\model\base\Coms;
+use app\common\model\base\UsersWeixin;
+use app\common\model\weixin\WeixinSms;
+use app\common\model\UsersParent;
 
 /*************************************************  
 *ClassName:     UsersVoucher
@@ -220,7 +223,7 @@ class UsersVoucher extends Model
      * @param    int                   $uid
      * @param    int                   $order_id  
      * @param    array                 $data ['des' => , 'type' => , `income` => , `order_id` => ]
-     * @return   array     [error_code, error_msg, balance]
+     * @return   
      */
     static public function paymentVoucher($uid,$order_id,$mone)
     {   
@@ -240,6 +243,7 @@ class UsersVoucher extends Model
                     'time'=>time()
                 ];
                 self::incomeVoucherAdd($add);
+                self::smsMessage($uid);
             }
         }else{
             $vouchera = self::voucherKey($mone,['type'=>'recharge'])['voucher'];
@@ -257,4 +261,49 @@ class UsersVoucher extends Model
         }
     }
 
+    /**
+     * [smsMessage 发微信短信给上级]
+     * @xiao
+     * @DateTime 2016-11-27T21:35:49+0800
+     * @param    int                   $uid
+     * @return   
+     */
+    static public function smsMessage($uid)
+    { 
+        $pid = UsersParent::getParent($uid);
+        if ($pid['error_code'] == 0) {
+            $id = $pid['pid'];
+        }else{
+            return;
+        }
+
+        $info = UsersWeixin::getOneinfo($id)['data'];
+        if ($info['attention'] != 1) {
+            return;
+        }
+        $openid = $info['open_id'];
+        $template =[
+            'touser' => $openid,
+            'template_id' => 'cat_6NC0Vfysze5ghA8c94lqRZozt6DrjxFZwAOBE2c',
+            'url' => 'http://fsm.yuncentry.com/index.php/wap',
+            'data' =>[
+                'first' => ['value' => urldecode('分享提醒'), 'color' => '#000'],
+                'keyword1' => ['value' => urldecode($info['uid']), 'color' => '#666666'],
+                'keyword2' => ['value' => urldecode($info['nickname']), 'color' => '#666666'],
+                'keyword3' => ['value' => date('Y-m-d H:i'), 'color' => '#666666'],
+                'remark' => ['value' => urldecode('通过你的分享，已成功加入平台进行平台消费后，您可以获得相应的返佣和财富券，以后的每一次订单消费也可以获得返佣喔！'), 'color' => '#666666']
+            ]
+        ];
+        $appid = Coms::getValue('appid')['data'];
+        $appsecret = Coms::getValue('appsecret')['data'];
+        $accesstoken = WeixinSms::getsAccessToken($appid,$appsecret);
+        zlog(json_encode($template));
+        return WeixinSms::sendMessage($accesstoken,urldecode(json_encode($template)));
+    }
+    // 'data' =>[
+    //             'first' => ['value' => '分享提醒', 'color' => '#000'],
+    //             'keyword1' => ['value' => $info['nickname'].'通过你的分享，已成功加入平台', 'color' => '#666666'],
+    //             'keyword2' => ['value' => date('Y-m-d H:i'), 'color' => '#666666'],
+    //             'remark' => ['value' => '进行平台消费后，您可以获得相应的返佣和财富券，以后的每一次订单消费也可以获得返佣喔！', 'color' => '#666666']
+    //         ]
 }
