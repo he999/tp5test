@@ -212,6 +212,7 @@ class User extends WeixinBase
 			}
         }else{
             $data = '';
+			$commission='';
         }
         $this->assign('data',$data);
         $this->assign('commission',$commission);
@@ -319,7 +320,7 @@ class User extends WeixinBase
                 $data['attach'] = "chonzhi";
                 $data['money'] = 0.01; // ;
                 $data['out_order'] = $id.'-'.time().rand(100, 999);
-                $data['notify_url'] = "http://".$_SERVER['HTTP_HOST']."/weixinpaynotify.php";
+                $data['notify_url'] = "http://yshop.wiwibao.com/weixinpaynotify.php";
                 $weixinpay = new WeixinPay;
                 $jsApiParameters = $weixinpay->createPay($data, $key);
                 zlog($jsApiParameters);
