@@ -16,7 +16,7 @@
 .uer_topnav ul li a{ display:block; width:100%; overflow:hidden;font-size:12px;}
 .uer_topnav ul li span{ display:block; width:100%; height:20px; font-size:16px; line-height:20px; color:#666}
 .bain{ border-right:1px solid #eeeeee;}
-.Wallet{ width:100%; background:#FFF; overflow:hidden; border-bottom:1px solid #dddcdc; margin-top:10px; position:relative}
+.Wallet{ width:100%; background:#FFF; overflow:hidden;  margin-top:10px; position:relative}
 .Wallet a{ margin-left:10px;height:45px; display:block; width:100%; overflow:hidden; padding-bottom:1px}
 .Wallet a dl{width:100%; margin-left:35px; overflow:hidden;}
 .Wallet a dl dt{float:left; font-size:16px; line-height:45px; color:#666;}
