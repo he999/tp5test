@@ -243,7 +243,7 @@ class Users extends Model
 	/**
      * myrebateLst 我的返佣详情
      * @tanlong
-     * @param    array     $data
+     * @param    array     $data  
      * @return   array     [error_code, error_msg, id]
      * @DateTime 2016-11-22T20:46:59+0800
      */
@@ -261,7 +261,7 @@ class Users extends Model
             $result['error_msg'] = "";
             $result['data'] = $res;
 			$row = 	Db::name('users_customers')->where(['uid'=>$uid])->field('commission')->find();
-            $result['data']['commission'] =$row;
+            $result['commission'] =$row;
         }else{
             $result['error_code'] = 1;
             $result['error_msg'] = "修改失败";
