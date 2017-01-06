@@ -22,7 +22,7 @@
 .rank{width: 98%; height:40px; margin-bottom:10px; padding-left:2%;}
 .ranking p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
 .topl{margin-left:7%;line-height:30px;height:30px;}
-.topr{margin-left:24%; line-height:30px;height:30px;float:left}
+.topr{margin-left:15%; line-height:30px;height:30px;float:left}
 </style>
 </head>
 <body style="background: rgb(235, 236, 237);position:relative;"> 
@@ -41,7 +41,7 @@
 			<span class="topl">累计佣金:<font style="color:red;">{$row.income??''}</font></span>
 		</li>
 		<li style="text-align:right;padding-right:10px;">
-			<span class="topr">可提佣金:<font style="color:red;">{$commission??''}</font></span>
+			<span class="topr">可提佣金:<font style="color:red;">{$commission??'0'}</font></span>
 				<a style="padding: 0 10px;text-align: center;color: #fff;float:right;
 				border: 1px solid #FE6D0B;display: inline-block;border-radius: 3px;
 				box-shadow: 0 1px 2px #E7E7E7;background: #f60;" href="/index.php/wap/user/cash">提现</a>
@@ -62,16 +62,16 @@
     <p>&nbsp&nbsp&nbsp&nbsp{$d.nickname}</p>
 	<p style="margin-top:1%">&nbsp&nbsp&nbsp&nbsp{$d.time|date="Y-m-d H:i",###}</p>
 	{if condition="$d['type'] eq 'commission'"}
-    <p style="margin-left:66%;margin-top:-9%">佣金：<font style="color:red;">￥{$d.income??''}</font></p>
+    <p style="margin-left:56%;margin-top:-10%">佣金：<font style="color:red;">￥{$d.income??''}</font></p>
 	{elseif condition="$d['type'] eq 'buy'"}
-	<p style="margin-left:66%;margin-top:-7%">佣金：<font style="color:red;">￥{$d.expense??''}</font></p>
+	<p style="margin-left:56%;margin-top:-8%">佣金：<font style="color:red;">￥{$d.expense??''}</font></p>
 	{/if}
 	<p style="margin-top:-1%;margin-left:66%">备注：{$d.des??''} </p>
 </div>
 {else/}
 <div class="rank" style="float:left;margin-top:1%;border-bottom:1px solid black">
   <p>提现：<font style="color:red;">￥{$d.expense??''}</font>元</p>
-  <p style="margin-left:66%;margin-top:-9%" >{$d.time|date="Y-m-d H:i",###}</p>
+  <p style="margin-left:66%;margin-top:-10%" >{$d.time|date="Y-m-d H:i",###}</p>
 </div>
 
 {/if}

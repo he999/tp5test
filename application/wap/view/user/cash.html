@@ -89,7 +89,7 @@ a.gray9, .gray9 {color: #999;}
 .f-Recharge-btn {display: block;}
 a.orgBtn {background: #f60;border: 1px solid #ef6000;}
 .orgBtn {
-    display: block; width: 100%;
+    display: block; width: 95%;
     -webkit-box-sizing: border-box;
     height: 43px;line-height: 43px;
     text-align: center; color: #fff!important;
@@ -130,17 +130,17 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
            <div class="g-Recharge">
 		   
                <ul id="ulOption">
-                   <li style="width:100%;">
+                   <li style="width:95%;">
 				   
-                       <input type="text" id="input_val" style="width:95%;height:30px;line-height:30px;    border-radius: 6px;" class="z-init" maxlength="8" value="{$max}"></li>
+                     <center><input type="text" id="input_val" style="width:95%;height:30px;line-height:30px;    border-radius: 6px;" class="z-init" maxlength="8" value="{$max}"></li></center>
                </ul>
            </div>
            <input type="hidden" name="account" id="add_money" value="50">
            <input type="hidden" name="order_id" value="">
            <input type="hidden" name="money" id="money" value="{$money}">
       </section>
-      <div class="f-Recharge-btn">
-               <a id="btnSubmit" style="width:95%" href="javascript:;" class="orgBtn" onclick="recharge_submit()">确认</a>
+      <div class="f-Recharge-btn" style="width:95%">
+             <center><a id="btnSubmit" href="javascript:;" class="orgBtn" onclick="recharge_submit()">确认</a></center>
            </div>
      </form>
 </div>
