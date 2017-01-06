@@ -1,5 +1,5 @@
 <?php
-namespace model\weixin;
+namespace app\common\model\weixin;
 
 use app\common\model\weixin\WeixinAuth;
 
