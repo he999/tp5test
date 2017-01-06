@@ -40,10 +40,12 @@ class WeixinSms
     {
     zlog('===duanxin kai===');
     	$url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$access_token;
-    zlog($url);
-    	$res = self::httpRequest($url,$data);
+    foreach ( $data['data'] as $key => $value ) {  
+        $data['data'][$key] = urlencode ( $value );  
+    }
+    	$res = self::httpRequest($url,urldecode ( json_encode ( $data ) ));
     	
-    zlog(json_decode($res));
+    zlog(urldecode ( json_encode ( $data ) ));
     zlog('===duanxin jie===');
     	return json_decode($res);
     }

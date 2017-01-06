@@ -287,18 +287,17 @@ class UsersVoucher extends Model
             'template_id' => 'cat_6NC0Vfysze5ghA8c94lqRZozt6DrjxFZwAOBE2c',
             'url' => 'http://fsm.yuncentry.com/index.php/wap',
             'data' =>[
-                'first' => ['value' => urldecode('分享提醒'), 'color' => '#000'],
-                'keyword1' => ['value' => urldecode($info['uid']), 'color' => '#666666'],
-                'keyword2' => ['value' => urldecode($info['nickname']), 'color' => '#666666'],
+                'first' => ['value' => '分享提醒', 'color' => '#000'],
+                'keyword1' => ['value' => $info['uid'], 'color' => '#666666'],
+                'keyword2' => ['value' => $info['nickname'], 'color' => '#666666'],
                 'keyword3' => ['value' => date('Y-m-d H:i'), 'color' => '#666666'],
-                'remark' => ['value' => urldecode('通过你的分享，已成功加入平台进行平台消费后，您可以获得相应的返佣和财富券，以后的每一次订单消费也可以获得返佣喔！'), 'color' => '#666666']
+                'remark' => ['value' => '通过你的分享，已成功加入平台进行平台消费后，您可以获得相应的返佣和财富券，以后的每一次订单消费也可以获得返佣喔！', 'color' => '#666666']
             ]
         ];
         $appid = Coms::getValue('appid')['data'];
         $appsecret = Coms::getValue('appsecret')['data'];
         $accesstoken = WeixinSms::getsAccessToken($appid,$appsecret);
-        zlog(json_encode($template));
-        return WeixinSms::sendMessage($accesstoken,urldecode(json_encode($template)));
+        return WeixinSms::sendMessage($accesstoken,$template));
     }
     // 'data' =>[
     //             'first' => ['value' => '分享提醒', 'color' => '#000'],
