@@ -297,6 +297,7 @@ class UsersVoucher extends Model
         $appid = Coms::getValue('appid')['data'];
         $appsecret = Coms::getValue('appsecret')['data'];
         $accesstoken = WeixinSms::getsAccessToken($appid,$appsecret);
+        zlog(json_encode($template));
         return WeixinSms::sendMessage($accesstoken,json_encode($template));
     }
     // 'data' =>[
