@@ -255,11 +255,13 @@ class Users extends Model
         ->alias('a')->where(['a.is_del'=>0]) ->join('users_customers c','a.uid = c.uid','left')->order('time desc')
         ->field('a.*,c.nickname,c.commission,c.face')
 		->where($where)
-        ->select(); 
+        ->select();
         if ($res) {
             $result['error_code'] = 0;
             $result['error_msg'] = "";
             $result['data'] = $res;
+			$row = 	Db::name('users_customers')->where(['uid'=>$uid])->field('commission')->find();
+            $result['commission'] =$row;
         }else{
             $result['error_code'] = 1;
             $result['error_msg'] = "修改失败";
@@ -1202,30 +1204,6 @@ class Users extends Model
         }else{
             $result['error_code'] = 1;
             $result['error_msg'] = "查询失败";
-        }
-        return $result;
-    }
-	
-	/**
-     * myrebate 财富劵
-     * @tanlong
-     * @param    array     $data
-     * @return   array     [error_code, error_msg, id]
-     * @DateTime 2016-11-22T20:46:59+0800
-     */
-    static public function myrebate($uid)
-    {   
-        $res = Db::name('users_money_rebate')
-        ->alias('a')->where(['a.is_del'=>0,'a.uid'=>$uid]) ->join('users_customers c','a.uid = c.uid','left')->order('time desc')
-        ->field('a.*,c.nickname,c.commission,c.face')
-        ->select(); 
-        if ($res) {
-            $result['error_code'] = 0;
-            $result['error_msg'] = "";
-            $result['data'] = $res;
-        }else{
-            $result['error_code'] = 1;
-            $result['error_msg'] = "修改失败";
         }
         return $result;
     }

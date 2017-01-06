@@ -12,6 +12,7 @@ use app\common\model\UsersParent;
 use app\common\model\base\UsersMoney;
 use app\common\model\weixin\DiyMenu;
 use app\common\model\base\UsersPoints;
+use app\common\model\base\UsersRebate;
 use app\common\model\Orders;
 use app\common\model\UsersCustomers;
 use app\common\model\base\Coms;
@@ -203,19 +204,16 @@ class User extends WeixinBase
         }
 		$zrebate = 0;
 		$res =  Users::myrebateLst($uid,$where);
-		$row =  Users::myrebate($uid);
+		$row =  UsersRebate::countRebate($uid);
         if ($res['error_code'] == 0){
             $data = $res['data'];
+            $commission = $res['commission'];
         }else{
             $data = '';
         }
-		foreach($row['data'] as $v){
-			$commission = $v['commission'];
-			$zrebate += $v['income'];
-		}
         $this->assign('data',$data);
         $this->assign('commission',$commission);
-        $this->assign('zrebate',$zrebate);
+        $this->assign('row',$row);
 		$this->assign('type',$type);
         return $this->fetch();
     }
