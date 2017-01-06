@@ -125,7 +125,7 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
 <div id="tbh5v0">
 	<!-- <div class="g-Total gray9">您的当前余额：<span class="orange arial">2.00</span>元</div> -->
 	<form method="post"  id="recharge_form" action="">
-	    <p style="margin-top:10px;margin-bottom:7px">您的当前余额：<span style="color:red">{$data.balance}</span>元</p>
+	    <p style="margin-top:10px;margin-bottom:7px;margin-left:2%">您的当前余额：<span style="color:red">{$data.balance}</span>元</p>
 	    <section class="clearfix g-member">
            <div class="g-Recharge">
                <ul id="ulOption">
@@ -143,7 +143,7 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
                <a id="btnSubmit" href="javascript:;" class="orgBtn" onclick="recharge_submit()">确认充值</a>
            </div>
 		    <p style="font-size:20px;margin-top:5%">充值说明<p>
-		   <div style="margin-left:7%;margin-top:2%">
+		   <div style="margin-left:4%;margin-top:2%">
 		     用户首次充值{$money}元门槛金额可获得{$voucher}元财富劵<br/>
 		    {volist name='row' id='v'}
                充值金额满{$v.money}元,可获得{$v.voucher}元财富劵<br/>
