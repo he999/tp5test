@@ -260,8 +260,6 @@ class Users extends Model
             $result['error_code'] = 0;
             $result['error_msg'] = "";
             $result['data'] = $res;
-			$row = 	Db::name('users_customers')->where(['uid'=>$uid])->field('commission')->find();
-            $result['commission'] =$row;
         }else{
             $result['error_code'] = 1;
             $result['error_msg'] = "修改失败";

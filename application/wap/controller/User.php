@@ -207,10 +207,11 @@ class User extends WeixinBase
 		$row =  UsersRebate::countRebate($uid);
         if ($res['error_code'] == 0){
             $data = $res['data'];
-            $commission = $res['commission'];
+			foreach($data as $v){
+				$commission = $v['commission'];
+			}
         }else{
             $data = '';
-			$commission = '';
         }
         $this->assign('data',$data);
         $this->assign('commission',$commission);
