@@ -22,7 +22,7 @@
 .rank{width: 98%; height:40px; margin-bottom:10px; padding-left:2%;}
 .ranking p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
 .topl{margin-left:8%;line-height:30px;height:30px;}
-.topr{margin-left: 33%; margin-top:2%;float:left;}
+.topr{margin-left: 25%; margin-top:2%;float:left;}
 </style>
 </head>
 <body style="background: rgb(235, 236, 237);position:relative;"> 
@@ -49,7 +49,7 @@
     </ul>    
 	<div class="il_nav" id="J_il_nav">
 		<a href="/index.php/wap/user/myrebate/type/commission" class="<?php if($type=='1'){ echo 'active';}?>">返佣明细</a>
-		<a href="/index.php/wap/user/myrebate/type/cash" class="<?php if($type=='2'){ echo 'active';}?>" onclick=" myFunction()">提现记录</a>
+		<a href="/index.php/wap/user/myrebate/type/cash" class="<?php if($type=='2'){ echo 'active';}?>" >提现记录</a>
 	</div>
 
 	
@@ -59,7 +59,7 @@
 <div class="ranking" style="float:left;margin-top:1%;border-bottom:1px solid black">
     <img src="{$d.face}" style="width:60px;height:60px;float:left; ">
     <p>&nbsp&nbsp&nbsp&nbsp{$d.nickname}</p>
-	<p style="margin-top:1%">&nbsp&nbsp&nbsp&nbsp{$d.time|date="Y-m-d H:i:s",###}</p>
+	<p style="margin-top:1%">&nbsp&nbsp&nbsp&nbsp{$d.time|date="Y-m-d H:i",###}</p>
 	{if condition="$d['type'] eq 'commission'"}
     <p style="margin-left:66%;margin-top:-9%">佣金：<font style="color:red;">￥{$d.income??''}</font></p>
 	{elseif condition="$d['type'] eq 'buy'"}
@@ -70,7 +70,7 @@
 {else/}
 <div class="rank" style="float:left;margin-top:1%;border-bottom:1px solid black">
   <p>提现：<font style="color:red;">￥{$d.expense??''}</font>元</p>
-  <p style="margin-left:66%;margin-top:-9%" >{$d.time|date="Y-m-d H:i:s",###}</p>
+  <p style="margin-left:66%;margin-top:-9%" >{$d.time|date="Y-m-d H:i",###}</p>
 </div>
 
 {/if}
