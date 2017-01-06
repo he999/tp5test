@@ -27,7 +27,7 @@ class WeixinSms
         $access_token = $result['access_token'];
         return $access_token;
     }
-	
+
 	/**
      * message 发短信
      * @xiao
@@ -39,7 +39,7 @@ class WeixinSms
     static public function sendMessage($access_token,$data)
     {
     	$url = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=".$access_token;
-    	$res = $this->http_request($url,$data);
+    	$res = $this->httpRequest($url,$data);
     	zlog(json_decode($res));
     }
 
@@ -51,7 +51,7 @@ class WeixinSms
      * @param    string                   $data 短信   
      * @return   
      */
-    protected function http_request($url,$data)
+    protected function httpRequest($url,$data)
     {
     	$curl = curl_init();
     	$curl_setopt($curl,CURLOPT_URL,$url);
