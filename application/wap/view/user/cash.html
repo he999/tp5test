@@ -125,14 +125,14 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
 	<form method="post"  id="recharge_form" action="">
 	<div style="margin-top:5%;margin-left:5%">
 	<p style="font-size:20px">可提现金额：<span style="color:red">￥{$money}</span></p>
-	<p>(您提现的金额经平台审核通过后，将自动转入您的微信账户)</p></div>
+	<p style="margin-left:2%">(您提现的金额经平台审核通过后，将自动转入您的微信账户)</p></div>
 	<section class="clearfix g-member" style="padding-top:100px;">
            <div class="g-Recharge">
 		   
                <ul id="ulOption">
                    <li style="width:100%;">
 				   
-                       <input type="text" id="input_val" style="width:100%;height:30px;line-height:30px;    border-radius: 6px;" class="z-init" maxlength="8" value="{$max}"></li>
+                       <input type="text" id="input_val" style="width:95%;height:30px;line-height:30px;    border-radius: 6px;" class="z-init" maxlength="8" value="{$max}"></li>
                </ul>
            </div>
            <input type="hidden" name="account" id="add_money" value="50">
@@ -140,7 +140,7 @@ a.orgBtn {background: #f60;border: 1px solid #ef6000;}
            <input type="hidden" name="money" id="money" value="{$money}">
       </section>
       <div class="f-Recharge-btn">
-               <a id="btnSubmit" href="javascript:;" class="orgBtn" onclick="recharge_submit()">确认</a>
+               <a id="btnSubmit" style="width:95%" href="javascript:;" class="orgBtn" onclick="recharge_submit()">确认</a>
            </div>
      </form>
 </div>

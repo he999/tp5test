@@ -21,8 +21,8 @@
 .ranking{width: 98%; height:80px; margin-bottom:10px; padding-left:2%;}
 .rank{width: 98%; height:40px; margin-bottom:10px; padding-left:2%;}
 .ranking p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
-.topl{margin-left:8%;line-height:30px;height:30px;}
-.topr{margin-left: 25%; margin-top:2%;float:left;}
+.topl{margin-left:7%;line-height:30px;height:30px;}
+.topr{margin-left:24%; line-height:30px;height:30px;float:left}
 </style>
 </head>
 <body style="background: rgb(235, 236, 237);position:relative;"> 
@@ -41,10 +41,11 @@
 			<span class="topl">累计佣金:<font style="color:red;">{$row.income??''}</font></span>
 		</li>
 		<li style="text-align:right;padding-right:10px;">
-			<span class="topr">可提佣金:<font style="color:red;">{$commission??''}</font>
-				<a style="padding: 0 10px;text-align: center;color: #fff;margin-left:2%
+			<span class="topr">可提佣金:<font style="color:red;">{$commission??''}</font></span>
+				<a style="padding: 0 10px;text-align: center;color: #fff;float:right;
 				border: 1px solid #FE6D0B;display: inline-block;border-radius: 3px;
 				box-shadow: 0 1px 2px #E7E7E7;background: #f60;" href="/index.php/wap/user/cash">提现</a>
+				
 		</li>
     </ul>    
 	<div class="il_nav" id="J_il_nav">
