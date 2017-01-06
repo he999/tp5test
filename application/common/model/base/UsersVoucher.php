@@ -285,7 +285,7 @@ class UsersVoucher extends Model
         $template =[
             'touser' => $openid,
             'template_id' => 'a7YrWAPBrbUpdP1IpP77slFMuCVfjhtdKu04GTdf55Q',
-            'url' => 'http://fsm.yuncentry.com/index.php/wap',
+            //'url' => 'http://fsm.yuncentry.com/index.php/wap',
             'data' =>[
                 'first' => ['value' => '分享提醒', 'color' => '#000'],
                 'keyword1' => ['value' => $info['nickname'].'通过你的分享，已成功加入平台', 'color' => '#666666'],

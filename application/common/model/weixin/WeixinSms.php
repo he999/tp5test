@@ -38,13 +38,13 @@ class WeixinSms
      */
     static public function sendMessage($access_token,$data)
     {
-    	zlog('===duanxin kai===');
+    zlog('===duanxin kai===');
     	$url = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=".$access_token;
-    	zlog($url);
+    zlog($url);
     	$res = self::httpRequest($url,$data);
     	
-    	zlog(json_decode($res));
-    	zlog('===duanxin jie===');
+    zlog(json_decode($res));
+    zlog('===duanxin jie===');
     	return json_decode($res);
     }
 
@@ -58,37 +58,23 @@ class WeixinSms
      */
     static public function httpRequest($url,$data)
     {	
-   	zlog('==0==');
-    	$curl = curl_init($url); zlog('==1==');
+    	$curl = curl_init($url);
 		$header = array();
 		$header[] = 'Content-Type: application/x-www-form-urlencoded';
-		curl_setopt($curl, CURLOPT_HTTPHEADER, $header); zlog('==2==');
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 		// 不输出header头信息
-		curl_setopt($curl, CURLOPT_HEADER, 0); zlog('==3==');
+		curl_setopt($curl, CURLOPT_HEADER, 0);
 		// 伪装浏览器
-		curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36'); zlog('==4==');
+		curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36');
 		// 保存到字符串而不是输出
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); zlog('==5==');
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		// post数据
-		curl_setopt($curl, CURLOPT_POST, 1); zlog('==6==');
+		curl_setopt($curl, CURLOPT_POST, 1);
 		// 请求数据 
-		curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($data)); zlog('==7==');
-		$response = curl_exec($curl); zlog('==8==');
-		curl_close($curl); zlog('==9==');
+		curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($data));
+		$response = curl_exec($curl);
+		curl_close($curl);
 		return $response;
-
-    	// $curl = curl_init();
-    	// $curl_setopt($curl,CURLOPT_URL,$url);
-    	// $curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,FALSE);
-    	// $curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,FALSE);
-    	// if (!empty($data)) {
-    	// 	curl_setopt($curl,CURLOPT_POST,1);
-    	// 	curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
-    	// }
-    	// curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
-    	// $output = curl_exec($curl);
-    	// curl_close($curl);
-    	// return $output;
     }
 }
 
