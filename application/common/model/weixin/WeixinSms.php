@@ -40,7 +40,9 @@ class WeixinSms
     {
     	$url = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=".$access_token;
     	$res = self::httpRequest($url,$data);
-    	zlog(json_decode($res));
+    	zlog('===duanxin===');
+    	zlog($res);
+    	zlog('===duanxin end===');
     }
 
     /**
