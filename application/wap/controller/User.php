@@ -204,18 +204,15 @@ class User extends WeixinBase
             }
         }
 		$res =  Users::myrebateLst($uid,$where);
+		$commission =  Users::myInfo($uid);
 		$row =  UsersRebate::countRebate($uid);
         if ($res['error_code'] == 0){
             $data = $res['data'];
-			foreach($data as $v){
-				$commission = $v['commission'];
-			}
         }else{
             $data = '';
-			$commission='';
         }
         $this->assign('data',$data);
-        $this->assign('commission',$commission);
+        $this->assign('commission',$commission['data']);
         $this->assign('row',$row);
 		$this->assign('type',$type);
         return $this->fetch();
@@ -320,11 +317,7 @@ class User extends WeixinBase
                 $data['attach'] = "chonzhi";
                 $data['money'] = 0.01; // ;
                 $data['out_order'] = $id.'-'.time().rand(100, 999);
-<<<<<<< HEAD
                 $data['notify_url'] = "http://fsm.yuncentry.com/weixinpaynotify.php";
-=======
-                $data['notify_url'] = "http://yshop.wiwibao.com/weixinpaynotify.php";
->>>>>>> b9676564884339418c1c4d7cf13b5584a49f6377
                 $weixinpay = new WeixinPay;
                 $jsApiParameters = $weixinpay->createPay($data, $key);
                 zlog($jsApiParameters);
