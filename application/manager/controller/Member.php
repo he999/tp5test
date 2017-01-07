@@ -21,7 +21,7 @@ class Member extends Manager
         $url=[];
         $where['role']=array("eq","customer");
         $where['status']=array("eq","1");
-        $where['member_type']=array("gt","0");
+        //$where['member_type']=array("gt","0");
         if($_GET){
             if(!empty($input_data['nickname'])){
                 $url['nickname']=$input_data['nickname'];
@@ -39,6 +39,10 @@ class Member extends Manager
             }
         }
         $result=users::memberLst(15,$where,$url);
+        $nickname = !empty($input_data['nickname'])?$input_data['nickname']:'';
+        $member_type = !empty($input_data['member_type'])?$input_data['member_type']:'';
+        $this->assign('nickname',$nickname);
+        $this->assign('member_type',$member_type);
         $this->assign('lst',$result['data']);
         $this->assign('lst2',$result['data2']);
         return  $this->fetch();        

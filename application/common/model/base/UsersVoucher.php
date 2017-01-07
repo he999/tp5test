@@ -278,6 +278,7 @@ class UsersVoucher extends Model
         }
 
         $info = UsersWeixin::getOneinfo($id)['data'];
+        $inbb = UsersWeixin::getOneinfo($uid)['data'];
         if ($info['attention'] != 1) {
             return;
         }
@@ -288,8 +289,8 @@ class UsersVoucher extends Model
             'url' => urlencode('http://fsm.yuncentry.com/index.php/wap'),
             'data' =>[
                 'first' => ['value' => urlencode('分享提醒'), 'color' => '#000'],
-                'keyword1' => ['value' => $info['uid'], 'color' => '#666666'],
-                'keyword2' => ['value' => $info['nickname'], 'color' => '#666666'],
+                'keyword1' => ['value' => $inbb['uid'], 'color' => '#666666'],
+                'keyword2' => ['value' => $inbb['nickname'], 'color' => '#666666'],
                 'keyword3' => ['value' => date('Y-m-d H:i'), 'color' => '#666666'],
                 'remark' => ['value' => urlencode('通过你的分享，已成功加入平台进行平台消费后，您可以获得相应的返佣和财富券，以后的每一次订单消费也可以获得返佣喔！'), 'color' => '#666666']
             ]

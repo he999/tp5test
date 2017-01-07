@@ -35,9 +35,6 @@ class Notify
                 if ( $attach == 'dindan' ) 
                 {
                     $order_id = $arr[0];
-                    $data['order_status'] = 1;
-                    $data['is_pay'] = 1;
-                    $data['pay_time'] = time();
                     $res = Orders::getOne($order_id);
                     if ($res['error_code'] == 0) {
                         if ($res['data']['pay_time'] == 0) {
@@ -65,12 +62,12 @@ class Notify
             $abc = $rebate;
         }else{
             $abc = 0;
-        }
-                            $data['order_status'] = 1;
+        }                   
+                            $data['order_status'] = 2;
                             $data['is_pay'] = 1;
                             $data['pay_time'] = time();
-                            $datas['voucher_cash'] = $voucher;
-                            $datas['rebate_cash'] = $abc;
+                            $data['voucher_cash'] = $voucher;
+                            $data['rebate_cash'] = $abc;
                             Orders::edit($order_id,$data);
                             UsersRebate::PaymentCommission($uid,$order_id,$res['data']['order_amount']);
                             echo 'SUCCESS';

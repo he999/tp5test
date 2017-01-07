@@ -204,7 +204,7 @@ class Orders extends WeixinBase
     { 
         $input = Request::instance()->param();
         $order_id = $input['order_id'];
-        $res = OrdersModel::edit($order_id,['order_status' => 3]);
+        $res = OrdersModel::edit($order_id,['order_status' => 4]);
         if ($res['error_code'] == 0) {
             $arr['error_code'] = 0;
             $arr['error_msg'] = '';
