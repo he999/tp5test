@@ -35,13 +35,9 @@ class Notify
                 if ( $attach == 'dindan' ) 
                 {
                     $order_id = $arr[0];
-                    
                     $res = Orders::getOne($order_id);
                     if ($res['error_code'] == 0) {
-zlog('==dindan==');
-zlog($res);
                         if ($res['data']['pay_time'] == 0) {
-zlog('===pay===');
                             $uid = $res['data']['uid'];
         $vouchera = UsersVoucher::voucherKey($res['data']['order_amount'],['type'=>'buy']);//可用券
         $voucherc = UsersVoucher::countVoucher($uid);//现有券
@@ -52,7 +48,6 @@ zlog('===pay===');
         }else{
             $voucher = $a;
         }
-zlog('=='.$voucher.'==');
         if ($res['data']['is_rebate'] == 1) {
             $rebate = UsersRebate::countRebate($uid)['balance_rebate'];//佣金
             $pays = [
@@ -63,7 +58,6 @@ zlog('=='.$voucher.'==');
                 'order_id' => $order_id,
                 'uid' => $uid
             ];
-zlog($pays);
             UsersRebate::expenseRebateAdd($pays);
             $abc = $rebate;
         }else{
@@ -72,17 +66,10 @@ zlog($pays);
                             $data['order_status'] = 2;
                             $data['is_pay'] = 1;
                             $data['pay_time'] = time();
-                            $data['order_status'] = 1;
-                            $data['is_pay'] = 1;
-                            $data['pay_time'] = time();
-                            $datas['voucher_cash'] = $voucher;
-                            $datas['rebate_cash'] = $abc;
-zlog($data);
-zlog($order_id);
-                            $av = Orders::edit($order_id,$data);
-zlog($av);
-                            $dd = UsersRebate::PaymentCommission($uid,$order_id,$res['data']['order_amount']);
-zlog($dd);
+                            $data['voucher_cash'] = $voucher;
+                            $data['rebate_cash'] = $abc;
+                            Orders::edit($order_id,$data);
+                            UsersRebate::PaymentCommission($uid,$order_id,$res['data']['order_amount']);
                             echo 'SUCCESS';
                         }
                     }
