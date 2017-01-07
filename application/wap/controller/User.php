@@ -340,8 +340,8 @@ class User extends WeixinBase
     public function cash()
     {   
         $max =  Coms::getValue('least_money_limit')['data']; //最少提现
-        $money = UsersMoney::countBalance(session('uid'));
-        $this->assign('money',$money['balance']);
+        $money = UsersRebate::countRebate(session('uid'));
+        $this->assign('money',$money['balance_rebate']);
         $this->assign('max',$max);
         return $this->fetch();
     }
