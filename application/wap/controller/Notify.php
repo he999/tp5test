@@ -35,7 +35,7 @@ class Notify
                 if ( $attach == 'dindan' ) 
                 {
                     $order_id = $arr[0];
-                    $data['order_status'] = 1;
+                    $data['order_status'] = 2;
                     $data['is_pay'] = 1;
                     $data['pay_time'] = time();
                     $res = Orders::getOne($order_id);
