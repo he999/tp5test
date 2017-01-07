@@ -157,11 +157,11 @@
                                       </tr>
                                       <tr class="tr1">
                                              <td class="td1" style="color:red">总佣金:</td>
-                                             <td class="td2"><input type="text" style="height:28px;width:24%;float:left;margin-top:10px" value="0.00" name="sum_brokerage"  class="form-control"/>元</td>
+                                             <td class="td2"><input type="text" style="height:28px;width:24%;float:left;margin-top:10px" value="0.00" name="sum_brokerage" onkeyup="if(!/^[1-9]d*|0$/.test(this.value)){this.value = ''}"  class="form-control"/>元</td>
                                       </tr>
                                       <tr class="tr1">
                                              <td class="td1" style="color:red">总财富券金额:</td>
-                                             <td class="td2"><input type="text" style="height:28px;width:24%;float:left;margin-top:10px" value="0.00" name="sum_voucher"  class="form-control"/>元</td>
+                                             <td class="td2"><input type="text" style="height:28px;width:24%;float:left;margin-top:10px" value="0.00" name="sum_voucher" onkeyup="if(!/^[1-9]d*|0$/.test(this.value)){this.value = ''}" class="form-control"/>元</td>
                                       </tr>
                                       <tr class="tr1">
                                              <td class="td1" style="color:red">上传商品主图:</td>
