@@ -8,6 +8,7 @@ use app\common\model\base\UsersWeixin;
 use app\common\model\base\Coms;
 use app\common\model\base\UserLogs;
 use app\common\model\base\Users;
+use think\Request;
 
 /*
 * 手机端微信基类
@@ -22,6 +23,7 @@ class WeixinBase extends Controller
 	{
 		$this->appid = Coms::getValue('appid')['data'];
 		$this->appsecret = Coms::getValue('appsecret')['data'];
+		$this->con();
 		$this->weiwinInit();
 
 	}
@@ -73,6 +75,13 @@ class WeixinBase extends Controller
 			}
 		}
 		
+	}
+	
+	private function con()
+	{
+		$request = Request::instance();
+		$con=$request->controller();
+		$this->assign('con',$con);
 	}
 }
 

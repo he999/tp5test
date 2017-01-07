@@ -4,23 +4,23 @@
 	<div class="vf_nav">
 		<ul>
 			<li> <a onclick="change()" href="/index.php/wap/index/index">
-			    <i id="test" class="vf_1"></i>
-			    <span >首页</span></a>
+			    <i id="test" class="{if condition="isset($con) and ($con eq 'Index')"}vf_c{else/}vf_1{/if}" ></i>
+			    <span id="span4" class="span1" style="color:{if condition="isset($con) and ($con eq 'Index')"}red{/if};">首页</span></a>
 			</li>
 			<li> <a onclick="change1()" style='width: 50px;' href="/index.php/wap/categorys/catelist">
-			    <i id="test1" class="vf_9"></i>
-			    <span>全部分类</span></a>
+			    <i id="test1" class="{if condition="isset($con) and ($con eq 'Categorys')"}vf_c2{else/}vf_9{/if}"></i>
+			    <span id="span3" class="span1" style="color:{if condition="isset($con) and ($con eq 'Categorys')"}red{/if};">全部分类</span></a>
 			</li>
 			<li>
-			<a href="/index.php/wap/cart/index">
+			<a onclick="change2()" href="/index.php/wap/cart/index">
 			   <em  id="cart_quantity" style="right:9px;"></em>
-			   <i class="vf_4"></i>
-			   <span>购物车</span>
+			   <i id="test2" class="{if condition="isset($con) and ($con eq 'Cart')"}vf_c3{else/}vf_4{/if}"></i>
+			   <span id="span2" class="span1" style="color:{if condition="isset($con) and ($con eq 'Cart')"}red{/if};">购物车</span>
 			   </a>
 			</li>
-			<li><a href="/index.php/wap/user/userInfo">
-			    <i class="vf_5"></i>
-			    <span>我的</span></a>
+			<li><a onclick="change3()" href="/index.php/wap/user/userInfo">
+			    <i  id="test3" class="{if condition="isset($con) and ($con eq 'User')"}vf_c4{else/}vf_5{/if}"></i>
+			    <span id="span1" class="span1" style="color:{if condition="isset($con) and ($con eq 'User')"}red{/if};">我的</span></a>
 			</li>
 		</ul>
 	</div>
@@ -28,15 +28,19 @@
 <script>
 function change(){
 	$("#test").attr("class","vf_c");
+	$("#span4").attr("class","span2");
 }
 function change1(){
 	$("#test1").attr("class","vf_c2");
+	$("#span3").attr("class","span2");
 }
 function change2(){
-	$("#test1").attr("class","vf_c3");
+	$("#test2").attr("class","vf_c3");
+	$("#span2").attr("class","span2");
 }
 function change3(){
 	$("#test3").attr("class","vf_c4");
+	$("#span1").attr("class","span2");
 }
 </script>
 </footer>
