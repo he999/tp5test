@@ -81,6 +81,7 @@ class WeixinBase extends Controller
 	{
 		$request = Request::instance();
 		$con=$request->controller();
+		dump($con);
 		$this->assign('con',$con);
 	}
 }
