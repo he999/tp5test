@@ -239,7 +239,6 @@ class Managerset extends Manager
 			}else{
 				$content = '';
 			}
-			dump($row['data']);
 			$this->assign('content',$content);
 			$this->assign('list',$row['data']);
 			return  $this->fetch();
