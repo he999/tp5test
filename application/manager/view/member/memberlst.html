@@ -61,6 +61,7 @@
 							{switch name="vo.member_type"}
 								{case value="1"}<th>普通</th>{/case}
 								{case value="2"}<th>代理</th>{/case}
+								{case value="0"}<th>游客</th>{/case}
 							{/switch}
 							<th>{$vo.create_time|date="Y-m-d H:i",###}</th>             
 							<th ><a href="/index.php/manager/Member/membermanagement/id/{$vo.uid}">编辑</a>

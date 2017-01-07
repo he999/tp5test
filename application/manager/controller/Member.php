@@ -21,7 +21,7 @@ class Member extends Manager
         $url=[];
         $where['role']=array("eq","customer");
         $where['status']=array("eq","1");
-        $where['member_type']=array("gt","0");
+        //$where['member_type']=array("gt","0");
         if($_GET){
             if(!empty($input_data['nickname'])){
                 $url['nickname']=$input_data['nickname'];
