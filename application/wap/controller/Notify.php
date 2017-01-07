@@ -39,6 +39,7 @@ class Notify
                     $res = Orders::getOne($order_id);
                     if ($res['error_code'] == 0) {
 zlog('==dindan==');
+zlog($res);
                         if ($res['data']['pay_time'] == 0) {
 zlog('===pay===');
                             $uid = $res['data']['uid'];
