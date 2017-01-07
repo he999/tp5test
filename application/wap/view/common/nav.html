@@ -3,12 +3,12 @@
 <div class="v_nav">
 	<div class="vf_nav">
 		<ul>
-			<li> <a href="/index.php/wap/index/index">
-			    <i class="vf_1"></i>
-			    <span>首页</span></a>
+			<li> <a onclick="change()" href="/index.php/wap/index/index">
+			    <i id="test" class="vf_1"></i>
+			    <span >首页</span></a>
 			</li>
-			<li> <a style='width: 50px;' href="/index.php/wap/categorys/catelist">
-			    <i class="vf_9"></i>
+			<li> <a onclick="change1()" style='width: 50px;' href="/index.php/wap/categorys/catelist">
+			    <i id="test1" class="vf_9"></i>
 			    <span>全部分类</span></a>
 			</li>
 			<li>
@@ -25,5 +25,19 @@
 		</ul>
 	</div>
 </div>
+<script>
+function change(){
+	$("#test").attr("class","vf_c");
+}
+function change1(){
+	$("#test1").attr("class","vf_c2");
+}
+function change2(){
+	$("#test1").attr("class","vf_c3");
+}
+function change3(){
+	$("#test3").attr("class","vf_c4");
+}
+</script>
 </footer>
 
