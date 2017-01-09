@@ -33,6 +33,9 @@ class Member extends Manager
 				if($input_data['member_type']=='代'||$input_data['member_type']=='理'||$input_data['member_type']=='代理'){
 					$input['member_type']='2';
 				}
+                if($input_data['member_type']=='游'||$input_data['member_type']=='客'||$input_data['member_type']=='游客'){
+                    $input['member_type']='0';
+                }
                 $url['member_type']=$input['member_type'];
                 $where['member_type']=array("like",'%'.$input['member_type'].'%');
             }
