@@ -171,7 +171,7 @@ class Goods extends Model
             return $result;
     }
    
-       /**
+    /**
      * getListOne 根据条件得到一个商品
      * @xiao
      * @DateTime 2016-09-28T22:41:15+0800

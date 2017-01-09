@@ -110,7 +110,7 @@ class Users extends Model
         $res = Db::name('users_customers')->where(['uid' => $uid])->find();
         if ($res) {
             $result['error_code'] = 0;
-            $result['error_msg'] = "";
+            $result['error_msg'] = "查询成功";
             $result['data'] = $res;
         }else{
             $result['error_code'] = 1;
@@ -128,7 +128,7 @@ class Users extends Model
      */
     static public function info($uid)
     {   
-        $res = Db::name('users_customers')->alias('a')->join('users_address c','a.uid = c.uid','left')
+        $res = Db::name('users_customers')->alias('a')->join('users_address c','a.uid = c.uid','left')->where(['a.uid' => $uid])
         ->field(['a.uid,a.commission,a.nickname,a.balance,a.voucher,a.sex,a.moblie,a.email,a.member_type,a.face','c.consignee,c.address,c.zipcode,c.province,c.city,c.district'])
         ->find($uid);
         // $res2=Db::name('users_money')->where(['uid'=>$uid])->select();

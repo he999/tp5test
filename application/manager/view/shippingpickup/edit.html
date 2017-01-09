@@ -84,6 +84,23 @@
 	</div>
 </body>
 <script>
+$("input[name='number']").blur(function(){
+
+            var number = $("input[name='number']").val(); 
+            $.ajax({
+                type: "post",
+                url: "/index.php/manager/Shippingpickup/verifyAjax",
+                data: {number:number},
+                success: function (data) {
+                    if(data == "1"){
+                       alert('门店编码已经存在');
+                      $("input[name='number']").val("");
+                      $("input[name='number']").focus();
+                    }
+                }
+            });
+ 
+    });
 $('#add').click(function(){
         var number = $("input[name='number']").val();
         var name = $("input[name='name']").val();

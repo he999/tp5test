@@ -467,19 +467,41 @@ class Shipping extends Model
     static public function addShippingPickup($data)
     {   
 	    $row = DB::name('shipping_pickup')->insertGetId($data);
-		$res = DB::name('shipping_pickup')->field('number')->select();
 		if ($row)
         {
            $result['error_code'] = 0;
            $result['error_msg'] = "";
            $result['pickup_id'] = $row;
-           $result['number'] = $res;
         }
         else 
         {
            $result['error_code'] = 1;
            $result['error_msg'] = "添加失败";
         } 
+        return $result;
+    }
+	
+	/**
+     * ShippingPickupOne 根据条件得到一个门店信息
+     * @xiao
+     * @DateTime 2016-09-28T22:41:15+0800
+     * @param    int                   
+     * @return   array                 [error_code, error_msg, data=> [] ]
+     */
+    static public function ShippingPickupOne($where)
+    {
+     
+        if($data = Db::name('shipping_pickup')->where($where)->find())
+        {
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['data'] = $data;
+        }
+        else
+        {
+            $result['error_code'] = 1;
+            $result['error_msg'] = '查找失败';
+        }
         return $result;
     }
 
