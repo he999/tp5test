@@ -21,7 +21,7 @@ class Users extends Model
     * Description:   得到登陆信息
     * @param: string $username
     * @param：string $password     
-    * Return:        fix 用户信息,包括access token,失败返回false
+    * Return: array [error_code, error_msg, data=>[] ]
     *************************************************/
     static public function login($username, $password)
     {
@@ -73,8 +73,7 @@ class Users extends Model
             $result['error_code'] = 1;
             $result['error_msg'] = "添加失败";
         }
-    return $result;
-        
+        return $result;
     }
 
     /**
@@ -131,16 +130,10 @@ class Users extends Model
         $res = Db::name('users_customers')->alias('a')->join('users_address c','a.uid = c.uid','left')->where(['a.uid' => $uid])
         ->field(['a.uid,a.commission,a.nickname,a.balance,a.voucher,a.sex,a.moblie,a.email,a.member_type,a.face','c.consignee,c.address,c.zipcode,c.province,c.city,c.district'])
         ->find($uid);
-        // $res2=Db::name('users_money')->where(['uid'=>$uid])->select();
-        // $commission=0;
-        // foreach ($res2 as $k => $v) {
-        //      $commission+=$v['income']-$v['expense'];
-        // }
         if ($res) {
             $result['error_code'] = 0;
             $result['error_msg'] = "";
             $result['data'] = $res;
-            //$result['commission'] = $commission;
         }else{
             $result['error_code'] = 1;
             $result['error_msg'] = "查询失败";
