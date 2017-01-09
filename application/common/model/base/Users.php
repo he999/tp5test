@@ -989,10 +989,12 @@ class Users extends Model
      */
     static public function shareList($ids)
     { 
-        $where['uid'] = ['in',$ids];
+        $where['c.uid'] = ['in',$ids];
         $res = Db::name('users_customers')
+        ->alias('c')
+        ->join('users u','c.uid = u.uid','left')
         ->where($where)
-        ->field('uid,nickname,commission,face')
+        ->field('c.uid,c.nickname,c.points,c.face,u.create_time')
         ->select();
         if ($res) {
             $result['error_code'] = 0;

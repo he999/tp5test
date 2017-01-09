@@ -18,13 +18,13 @@
 <script type="text/javascript" src="/static/waps/js/modernizr.js"></script>
 <script type="text/javascript" src="/static/waps/js/layer.js" ></script>
 <style type="text/css">
-.ranking{width: 100%; height:100px; margin-bottom:10px;}
-.ranking p {line-height:25px; font-size:20px; color:#808080; overflow:hidden;}
-.top{margin-left: 20%;}
+.ranking{width: 98%; height:80px; margin-bottom:10px; padding-left:2%;}
+.ranking p {line-height:25px; font-size:16px; color:#808080; overflow:hidden;}
+
 </style>
 </head>
-<body style="background: rgb(235, 236, 237);position:relative;"> 
-
+<body style="background:#fff;position:relative;"> 
+<p style="width:100%;height:45px;"></p>
 <header>
 <div class="tab_nav">
   <div class="header">
@@ -33,17 +33,17 @@
   </div>
 </div>
 </header>
-
+<div style="height:10px; width:100%; margin-bottom:10px; background:#F2F5F7;"></div>
 {volist name='data' id='d'}
 <div class="ranking">
     <div>
-      <img src="{$d.face}" style="width:100px;height:100px;float:left; ">
+      <img src="{$d.face}" style="width:80px;height:80px;float:left;margin-right:10px; ">
     </div>
-    <p>&nbsp&nbsp&nbsp&nbsp{$d.nickname}</p>
-    <p style="margin-top:7px">&nbsp&nbsp&nbsp&nbsp{$date}</p>
-   <!--  <p>佣金：<font style="color:red;">{$d.commission}</font></p> -->
+    <p>{$d.nickname}</p>
+    <p><?php echo date('y-m-d h:i',$d['create_time']);?></p>
+    <p>积分：<font style="color:red;">{$d.points}</font></p>
 </div>
-<HR SIZE=5>
+<HR SIZE=2>
 {/volist}
 </body>
 
