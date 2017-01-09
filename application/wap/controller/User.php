@@ -684,12 +684,10 @@ class User extends WeixinBase
     public function userInfo()
     {   
         $uid = session('uid');
-        dump($uid);
         $res = Users::myInfo($uid);
         $qq = Coms::getValue('service_QQ')['data'];
         if ($res['error_code'] == 0) {
             $data = $res['data'];
-            dump($data);
         }else{
             $data['face'] = '';
             $data['member_type'] = '';
