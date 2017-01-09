@@ -739,12 +739,11 @@ class Users extends Model
      */
     static public function withdrawallCheck($id)
     {
-        $res = Db::name('withdrawals')->find($id);  
-        $res2=Db::name('users_customers')->find($res['uid']);  
-        if ($res &&  $res2 && $res2['balance']>$res['money']) {
+        $res = Db::name('withdrawals')->find($id);    
+        if ($res ) {
             $result['error_code'] = 0;
             $result['error_msg'] = "";
-            $result['data'] =$res ;
+            $result['data'] =$res;
         }else{
             $result['error_code'] = 1;
             $result['error_msg'] = "查询失败";
