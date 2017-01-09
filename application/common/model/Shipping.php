@@ -467,11 +467,13 @@ class Shipping extends Model
     static public function addShippingPickup($data)
     {   
 	    $row = DB::name('shipping_pickup')->insertGetId($data);
+		$res = DB::name('shipping_pickup')->field('number')->select();
 		if ($row)
         {
            $result['error_code'] = 0;
            $result['error_msg'] = "";
            $result['pickup_id'] = $row;
+           $result['number'] = $res;
         }
         else 
         {
