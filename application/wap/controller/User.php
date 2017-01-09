@@ -11,7 +11,7 @@ use app\common\model\Regions;
 use app\common\model\UsersParent;
 use app\common\model\base\UsersMoney;
 use app\common\model\weixin\DiyMenu;
-use app\common\model\base\UsersPoints;
+use app\common\model\base\Withdrawals;
 use app\common\model\base\UsersRebate;
 use app\common\model\base\UsersVoucher;
 use app\common\model\Orders;
@@ -358,7 +358,7 @@ class User extends WeixinBase
     public function ajaxCashAdd(){
         $input = Request::instance()->param();
         $uid = session('uid');
-        $row = UsersPoints::info($uid,['transit_time'=> '']);
+        $row = Withdrawals::info($uid,['transit_time'=> '']);
         if($row['error_code'] == ''){
             $arr['error_code'] = 2;
             $arr['error_msg'] = '你有提现在申请中，不能再提现';
@@ -369,7 +369,7 @@ class User extends WeixinBase
             'time' => time(),
             'money' => $input['money']
         ];
-        $res = UsersPoints::addOn($data);
+        $res = Withdrawals::addOn($data);
         if ($res['error_code'] == 0) {
             $arr['error_code'] = 0;
             $arr['error_msg'] = '';
