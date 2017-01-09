@@ -35,9 +35,7 @@ class Systemset extends Manager
 				'appsecret'  => 'require|max:100',
 				'mchid'  => 'require|max:100',
 				'apikey'  => 'require|max:100',
-				  
 		   ];
-
 		   $msg = [
 				'appid.max'      =>  'appid最长为100位',
 				'appid.require'  =>  'appid必须填写',
@@ -47,18 +45,14 @@ class Systemset extends Manager
 				'mchid.require'  =>  'mchid必须填写',
 				'apikey.max'      =>  'apikey最长为100位',
 				'apikey.require'  =>  'apikey必须填写',
-				 
 		   ];
-
 		   $validate = new Validate($rule, $msg);
 		   $result   = $validate->check($input_data);
 		   if (!$result)
 		   {
 			  $this->jsAlert($validate->getError());die;
 		   } 
-
 		   /******************* 添加数据 ********************/
-			
 			$file = request()->file('image');
 			$arr = (array)$file;
 			if (!empty($arr)) 
@@ -90,11 +84,12 @@ class Systemset extends Manager
 	    }
 		$this->assign('info',Coms::getInfos());
 		return  $this->fetch();
-	}  
-		 /*************************************************  
-		*ClassName:     menu
-		*Description:   自定义菜单
-		*************************************************/
+	} 
+
+	/*************************************************  
+	*ClassName:     menu
+	*Description:   自定义菜单
+	*************************************************/
 	public function menu()
 	{  
 	    $input_data = Request::instance()->param();
@@ -114,8 +109,7 @@ class Systemset extends Manager
 	    $list = DiyMenu::menulist(array('com_id' => '1'));
 	    $tree = DiyMenu::buildTree($list);        
 	    $this->assign('list', $tree);     
-	    return $this->fetch(); 
-			
+	    return $this->fetch();	
     }
      /*************************************************  
     *FunctionName:     menu_del
@@ -150,7 +144,6 @@ class Systemset extends Manager
         {   
             $this->jsAlert('生成自定义菜单失败！','/index.php/manager/systemset/menu');               
         }
-       
     }   
      /*************************************************  
     *ClassName:     menuAdd
@@ -180,7 +173,6 @@ class Systemset extends Manager
             {
                 $this->jsAlert($validate->getError());die;
             } 
-          
             /******************* 添加数据 ********************/
             if (isset($input_data['parent_id']))
             {                                       
@@ -198,7 +190,6 @@ class Systemset extends Manager
                 'com_id' => 1,
                 'keyword' => $input_data['keyword'],                                   
             ];
-
             $result=DiyMenu::add($data);
             if (isset($result['code']))
             {            
@@ -269,7 +260,6 @@ class Systemset extends Manager
                 'com_id' => 1,
                 'keyword' => $input_data['keyword'],                                   
             ];
-
             $result=DiyMenu::edit($input_data['id'],$data);
 			if (isset($result['code']))
 			{            
@@ -301,7 +291,7 @@ class Systemset extends Manager
 		return $this->fetch(); 
     }
 
-     /*************************************************  
+    /*************************************************  
     *ClassName:     articleadd
     *Description:   文章添加
     *************************************************/
@@ -317,7 +307,6 @@ class Systemset extends Manager
             'description'  => 'require|max:500',
             'content'  => 'require', 
         ];
-
         $msg = [
             'title.max'      =>  '文章标题最长为100位',
             'title.require'  =>  '文章标题必须填写',
@@ -327,7 +316,6 @@ class Systemset extends Manager
             'description.require'  =>  '图文消息描述必须填写',
             'content.require'  =>  '文章编辑必须填写',
         ];
-
         $validate = new Validate($rule, $msg);
         $result   = $validate->check($input_data);
         if (!$result)
@@ -429,7 +417,6 @@ class Systemset extends Manager
             'description'  => 'require|max:500',
             'content'  => 'require', 
         ];
-
         $msg = [
             'title.max'      =>  '文章标题最长为100位',
             'title.require'  =>  '文章标题必须填写',
@@ -439,7 +426,6 @@ class Systemset extends Manager
             'description.require'  =>  '图文消息描述必须填写',
             'content.require'  =>  '文章编辑必须填写',
         ];
-
         $validate = new Validate($rule, $msg);
         $result   = $validate->check($input_data);
         if (!$result)
@@ -500,7 +486,8 @@ class Systemset extends Manager
         $this->assign('list',WeixinKeywords::getArticlesOne(Request::instance()->param('artid'))); 
         return  $this->fetch();
     } 
-     /*************************************************  
+
+    /*************************************************  
     *ClassName:     recover
     *Description:   回复设置
     *************************************************/
@@ -539,10 +526,9 @@ class Systemset extends Manager
 
         $this->assign('attention_reply',Coms::getValue('attention_reply')['data']);
         return  $this->fetch();
-        
     }
 
-     /*************************************************  
+    /*************************************************  
     *ClassName:     keyWordList
     *Description:   关键字列表
     *************************************************/
@@ -551,8 +537,9 @@ class Systemset extends Manager
         $keyword_list = WeixinKeywords::getAntisList(3);
         $this->assign('list',$keyword_list);       
         return $this->fetch();
-    }  
-     /*************************************************  
+    }
+
+    /*************************************************  
     *ClassName:     keyWordAdd
     *Description:   添加文本信息
     *************************************************/
@@ -622,6 +609,7 @@ class Systemset extends Manager
         return $this->fetch(); 
       
     }
+    
     /*************************************************  
     *ClassName:     keyWordUpd
     *Description:   关键词编辑
@@ -741,7 +729,6 @@ class Systemset extends Manager
     */
     public function jsAlert($info, $url="")
     {
-        
         $this->assign('info', $info);
         $this->assign('url', $url);
         echo $this->fetch(APP_PATH.request()->module().'/view/common/alert.html');

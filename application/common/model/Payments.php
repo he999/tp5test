@@ -37,8 +37,6 @@ class Payments extends Model
             }
         }
         return $result;
-        
-
     }
 
     /**

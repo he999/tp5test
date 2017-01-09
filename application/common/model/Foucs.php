@@ -42,7 +42,7 @@ class Foucs extends Model
      * @karl
      * @DateTime  2016-07-31T07:30:13+0800
      * @param     array                $data     主图信息
-     * @return    boolean                        成功返回true，不成功返回false
+     * @return    [error_code, error_msg, data=>[]]
      */
     static public function edit($data)
     {

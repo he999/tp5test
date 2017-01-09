@@ -18,13 +18,10 @@ class Article extends Controller
      *************************************************/
     public function index()
     { 
-       $artid = Request::instance()->param('artid');
-       if($artid){ 
-       $this->assign('list',WeixinKeywords::getArticlesOne($artid)); 
-       } 
-        return $this->fetch();
+      $artid = Request::instance()->param('artid');
+      if($artid){ 
+        $this->assign('list',WeixinKeywords::getArticlesOne($artid)); 
+      } 
+      return $this->fetch();
     }
-
-     
-
 }

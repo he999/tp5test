@@ -47,26 +47,20 @@ class OrdersActions extends Model
      */
     static public function getList($order_id)
     {
-        if ($order_id)
+        $where = array('order_id' => $order_id);
+        if($data = Db::name('orders_actions')->where($where)->select())
         {
-            $where = array('order_id' => $order_id);
-            if($data = Db::name('orders_actions')->where($where)->select())
-            {
-                $result['error_code'] = 0;
-                $result['error_msg'] = '';
-                $result['data'] = $data;
-            }
-            else
-            {
-                $result['error_code'] = 1;
-                $result['error_msg'] = '没有得到订单操作列表';
-            }
-            
+            $result['error_code'] = 0;
+            $result['error_msg'] = '';
+            $result['data'] = $data;
         }
-            return $result;
-
+        else
+        {
+            $result['error_code'] = 1;
+            $result['error_msg'] = '没有得到订单操作列表';
+        }
+        return $result;
     }
-
 
 }
 

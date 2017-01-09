@@ -45,7 +45,6 @@ class OrdersGoods extends Model
                 }
             }
         }
-       
         return $result;
 
     }
