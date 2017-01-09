@@ -84,7 +84,7 @@
 .bain1{ border-right:1px solid #eeeeee; margin-left:-1px;}
 
 /*我的订单user_order_list.lbi*/
-.order{ width:100%; overflow:hidden; background:#ccc;}
+.order{ width:100%; overflow:hidden; background:#f0f0f0;}
 .order_list{ width:100%; overflow:hidden; background:#FFF; margin-bottom:10px; border-bottom:1px solid #eeeeee;border-top:1px solid #eeeeee;}
 .order_list h2{ width:95%; margin:auto; height:40px; border-bottom:1px solid #eeeeee;font-size:14px; line-height:40px; color:#666; font-weight:normal}
 .order_list h2 img{ display:inline-block; width:20px; height:20px; margin-top:-5px}

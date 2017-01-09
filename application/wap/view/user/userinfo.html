@@ -33,18 +33,18 @@
 <div class="com_top">
 <center style="padding-top:20px; position:relative;">
 	<a class="wei" href="/index.php/wap/user/distribution"></a>
-	<img src="{$data.face}">
-	<span style="line-height:20px;">会员ID：{$data.uid}</span>
-	<span style="line-height:20px;">昵称：{$data.nickname}</span>
-	{if condition="$data['member_type'] eq 2"} 
+	<img src="{$data.face??''}">
+	<span style="line-height:20px;">会员ID：{$data.uid??''}</span>
+	<span style="line-height:20px;">昵称：{$data.nickname??''}</span>
+	{if condition=" isset($data['member_type']) and $data['member_type'] eq 2"} 
 	<img src="/static/images/dai.png" style="width:25px;height:25px;margin-top:-19px;margin-left:28%">
 	{/if}
 </center>
 </div>
 <div class="uer_topnav">
-<span class="topl">余额:<font style="color:red;">￥{$data.balance}</font></span>
-<span class="top2">返佣:<font style="color:red;">￥{$data.commission}</font></span>
-<span class="topr">财富劵:<font style="color:red;">￥{$data.voucher}</font></span>
+<span class="topl">余额:<font style="color:red;">￥{$data.balance??''}</font></span>
+<span class="top2">返佣:<font style="color:red;">￥{$data.commission??''}</font></span>
+<span class="topr">财富劵:<font style="color:red;">￥{$data.voucher??''}</font></span>
 </div>
 <div class="Wallet">
 	<a href="/index.php/wap/orders/orderalllist" ><em class="Icon Icon2"></em>
@@ -72,7 +72,7 @@
 		<dl class="b"><dt>加入平台</dt><dd></dd></dl>
 	</a>
 	<a href="http://wpa.qq.com/msgrd?v=3&uin={$qq}&site=qq&menu=yes"><em class="Icon Icon8"></em>
-		<dl ><dt>在线客服</dt><dd></dd></dl>
+		<dl class="b"><dt>在线客服</dt><dd></dd></dl>
 	</a>
 </div>
 <!-- tencent://message/?uin={/qq/}&Site=&Menu=yes -->
