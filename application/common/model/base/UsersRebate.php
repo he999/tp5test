@@ -166,24 +166,36 @@ class UsersRebate extends Model
         $where['goods_id'] = ['in',$ids];
         $goods = Goods::getWhereList($where);
 
-        $info = Users::myInfo($uid)['data'];
-        $rebate = Coms::getRebateInfos(['id' => $info['member_type'] ])['data'];
+        $rebate1 = Coms::getRebateInfos(['id' => 1 ])['data'];
+        $rebate2 = Coms::getRebateInfos(['id' => 2 ])['data'];
 
         //佣金比例
         $reb = (int)Coms::getValue('purchase_return_commission')['data']/100;
-        $reb1 = (int)$rebate[0]['rebate_rate_lv1']/100;
-        $reb2 = (int)$rebate[0]['rebate_rate_lv2']/100;
-        $reb3 = (int)$rebate[0]['rebate_rate_lv3']/100;
+        $reb1 = (int)$rebate1[0]['rebate_rate_lv1']/100;
+        $reb2 = (int)$rebate1[0]['rebate_rate_lv2']/100;
+        $reb3 = (int)$rebate1[0]['rebate_rate_lv3']/100;
         //券比例
-        $vou1 = (int)$rebate[0]['voucher_rate_lv1']/100;
-        $vou2 = (int)$rebate[0]['voucher_rate_lv2']/100;
-        $vou3 = (int)$rebate[0]['voucher_rate_lv3']/100;
+        $vou1 = (int)$rebate1[0]['voucher_rate_lv1']/100;
+        $vou2 = (int)$rebate1[0]['voucher_rate_lv2']/100;
+        $vou3 = (int)$rebate1[0]['voucher_rate_lv3']/100;
+
+        $reb21 = (int)$rebate2[0]['rebate_rate_lv1']/100;
+        $reb22 = (int)$rebate2[0]['rebate_rate_lv2']/100;
+        $reb23 = (int)$rebate2[0]['rebate_rate_lv3']/100;
+        //券比例
+        $vou21 = (int)$rebate2[0]['voucher_rate_lv1']/100;
+        $vou22 = (int)$rebate2[0]['voucher_rate_lv2']/100;
+        $vou23 = (int)$rebate2[0]['voucher_rate_lv3']/100;
 
         //对应 金额
         $rebsum = 0;
         $rebsum1 = 0; $vousum1 = 0;
         $rebsum2 = 0; $vousum2 = 0;
         $rebsum3 = 0; $vousum3 = 0;
+
+        $rebsum21 = 0; $vousum21 = 0;
+        $rebsum22 = 0; $vousum22 = 0;
+        $rebsum23 = 0; $vousum23 = 0;
 
         foreach ($goods['data'] as $key => $value) {
             $rebsum += (int)$value['sum_brokerage']*$reb;
@@ -193,6 +205,13 @@ class UsersRebate extends Model
             $vousum1 += (int)$value['sum_voucher']*$vou1;
             $vousum2 += (int)$value['sum_voucher']*$vou2;
             $vousum3 += (int)$value['sum_voucher']*$vou3;
+
+            $rebsum21 += (int)$value['sum_brokerage']*$reb21;
+            $rebsum22 += (int)$value['sum_brokerage']*$reb22;
+            $rebsum23 += (int)$value['sum_brokerage']*$reb23;
+            $vousum21 += (int)$value['sum_voucher']*$vou21;
+            $vousum22 += (int)$value['sum_voucher']*$vou22;
+            $vousum23 += (int)$value['sum_voucher']*$vou23;
         }
         //支付 佣金 券
         $add = [
@@ -207,7 +226,9 @@ class UsersRebate extends Model
 
         $pid1 = UsersParent::getParent($uid);
         if ($pid1['error_code'] == 0) {
-            $add1 = [
+            $info = Users::myInfo($pid1['pid'])['data'];
+            if ($info['member_type'] == 1) {
+                $add1 = [
                 'des' => '佣金',
                 'type' => 'commission',
                 'income' => $rebsum1,
@@ -224,9 +245,31 @@ class UsersRebate extends Model
                 'time'=>time()
             ];
             UsersVoucher::incomeVoucherAdd($cher1);
+            }else{
+                    $add1 = [
+                'des' => '佣金',
+                'type' => 'commission',
+                'income' => $rebsum21,
+                'time' => time(),
+                'order_id' => $order_id,
+                'uid' => $pid1['pid']
+            ];
+            self::incomeRebateAdd($add1);
+            $cher1 = ['uid' => $pid1['pid'],
+                'des' => '返佣券',
+                'type' => 'buy',
+                'income'=>$vousum21,
+                'order_id'=>$order_id,
+                'time'=>time()
+            ];
+            UsersVoucher::incomeVoucherAdd($cher1);
+            }
+            
             $pid2 = UsersParent::getParent($pid1['pid']);
             if ($pid2['error_code'] == 0) {
-                $add2 = [
+                $info = Users::myInfo($pid2['pid'])['data'];
+                if ($info['member_type'] == 1) {
+                    $add2 = [
                     'des' => '佣金',
                     'type' => 'commission',
                     'income' => $rebsum2,
@@ -243,8 +286,30 @@ class UsersRebate extends Model
                     'time'=>time()
                 ];
                 UsersVoucher::incomeVoucherAdd($cher2);
+                }else{
+                    $add2 = [
+                    'des' => '佣金',
+                    'type' => 'commission',
+                    'income' => $rebsum22,
+                    'time' => time(),
+                    'order_id' => $order_id,
+                    'uid' => $pid2['pid']
+                ];
+                self::incomeRebateAdd($add2);
+                $cher2 = ['uid' => $pid2['pid'],
+                    'des' => '返佣券',
+                    'type' => 'buy',
+                    'income'=>$vousum22,
+                    'order_id'=>$order_id,
+                    'time'=>time()
+                ];
+                UsersVoucher::incomeVoucherAdd($cher2);
+                }
+                
                 $pid3 = UsersParent::getParent($pid2['pid']);
                 if ($pid3['error_code'] == 0) {
+                    $info = Users::myInfo($pid3['pid'])['data'];
+                if ($info['member_type'] == 1) {
                     $add3 = [
                         'des' => '佣金',
                         'type' => 'commission',
@@ -262,6 +327,26 @@ class UsersRebate extends Model
                         'time'=>time()
                     ];
                     UsersVoucher::incomeVoucherAdd($cher3);
+                }else{
+                    $add3 = [
+                        'des' => '佣金',
+                        'type' => 'commission',
+                        'income' => $rebsum23,
+                        'time' => time(),
+                        'order_id' => $order_id,
+                        'uid' => $pid3['pid']
+                    ];
+                    self::incomeRebateAdd($add3);
+                    $cher3 = ['uid' => $pid3['pid'],
+                        'des' => '返佣券',
+                        'type' => 'buy',
+                        'income'=>$vousum23,
+                        'order_id'=>$order_id,
+                        'time'=>time()
+                    ];
+                    UsersVoucher::incomeVoucherAdd($cher3);
+                }
+                    
                 }
             }
         }

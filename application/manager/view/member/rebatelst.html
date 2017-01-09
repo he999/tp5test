@@ -48,7 +48,7 @@
 				        <tr> 
 						    <th>{$vo.nickname}</th>
 						    {switch name="vo.type"}
-								{case value="commission"}<th>{$vo.income}元</th><th>下级返佣</th>{/case}
+								{case value="commission"}<th>{$vo.income}元</th><th>{$vo.des}</th>{/case}
 								{case value="cash"}<th>{$vo.expense}元</th><th>提现</th>{/case}
 								{case value="buy"}<th>{$vo.income}元</th><th>购买</th>{/case}
 								{default/}<th>  </th><th> </th>
