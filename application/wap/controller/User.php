@@ -425,7 +425,7 @@ class User extends WeixinBase
                     $where['type'] = 'recharge';
                     $type = 2;
                 }elseif($input['type'] == 'buy'){
-                    $where['type'] = 'buy';
+                    $where= '';
                     $type = 1;
                 }
             }
@@ -689,13 +689,7 @@ class User extends WeixinBase
         if ($res['error_code'] == 0) {
             $data = $res['data'];
         }else{
-            $data['face'] = '';
-            $data['member_type'] = '';
-            $data['uid'] = '';
-            $data['nickname'] = '';
-            $data['balance'] = '';
-            $data['commission'] = '';
-            $data['voucher'] = '';
+            $data = '';
         }
         $this->assign('qq',$qq);
         $this->assign('data',$data);
