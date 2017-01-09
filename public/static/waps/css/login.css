@@ -23,7 +23,7 @@
 .codeTxt input{border: 1px solid #DFDFDF; height:35px; line-height:35px; width:95%; padding-left: 5px; -webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; border-radius: 0; -webkit-rtl-ordering: logical; -webkit-user-select: text; cursor: auto; background-color: white; font-size:14px; line-height:30px;}
 .codePhoto{width:50%; height:40px; float:left}
 .codePhoto img{ border:1px solid #DFDFDF; width:90%; float:left; margin-left:10px; height:35px; margin-top:2px;}
-.btn_big1{ display:block; margin:auto; background:#FF2233; font-size:16px; line-height:40px; 
+.btn_big1{ display:block; margin:auto; background:#ef2c9b; font-size:16px; line-height:40px; 
  border:0px; color:#FFF; width:100%; margin:auto;margin-top:20px; margin-bottom:10px;border-radius:5px;}
  /*注册*/
 .log_reg_box {width: 100%;}

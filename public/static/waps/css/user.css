@@ -286,7 +286,7 @@
 .name1 ul li.on label { background-position: 0 -27px; }
 
 
-.btn_big1{ display:block; margin:auto; background:#FF3300; font-size:14px; line-height:40px; 
+.btn_big1{ display:block; margin:auto; background:#ef2c9b; font-size:14px; line-height:40px; 
  border:0px; color:#FFF; width:95%; margin:auto;margin-top:10px; margin-bottom:10px;border-radius:3px; font-family:"微软雅黑"}
 
 .title{ font-size:16px; color:#333; line-height:40px; margin-left:10px;}
@@ -548,7 +548,7 @@ height:40px;text-align:center;border-left:1px solid #c7c7cc;line-height:20px;}
 text-align:center;display:block;border-left:1px solid #f22e00;height:28px;
 line-height:28px;color:#f22e00;-webkit-transition:.18s;-o-transition:.18s;transition:.18s}
 .il_nav>a:first-child{border-left:none}
-.il_nav .active{color:#fff;background:#f22e00}
+.il_nav .active{color:#fff;background:#ef2c9b}
 .il_list>li{line-height:24px;display:flex;height:54px;margin-left:8px;padding-right:4px;
 border-bottom:1px solid #c7c7cc;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;
 -ms-flex-align:center;align-items:center}
