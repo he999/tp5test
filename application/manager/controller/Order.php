@@ -44,7 +44,7 @@ class Order extends Manager
             $gai['order_id'] = $input['id'];
             $gai['time'] = time();
             orders::addOpe($gai);
-            if ($order == 4) {
+            if ($order == 5) {
                 $hao = orders::edit($input['id'],['is_dels' => 1]);
                 $num=1;
             }else{
