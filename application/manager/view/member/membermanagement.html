@@ -53,7 +53,7 @@
 						<tr>
 							<th width="200px" style="text-align: right;padding-right:10px;">真实姓名：</th>
 							<th   align="left">  
-							   <input type="text"name="consignee"  class="form-control" id="good"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left"  value="{$data['consignee']}"><span id='name' style="float:left;"></span>
+							   <input type="text" name="consignee"  class="form-control" id="good"   style="width: 300px;resize: none;margin: 10px 0px;width: 300px; float:left"  value="{$data['consignee']}"><span id='name' style="float:left;"></span>
 							</th>
 					    </tr>
 						<tr>
@@ -82,7 +82,7 @@
 								<span style="float:left;padding-top:10px;">{$data['voucher']}元</span>
 								<label>
 									<span class="span" style="margin-left:22px;float:left;color:red;padding-top:10px;">管理员修改个人财富劵金额</span>
-									<input type="text" style="margin-left:22px;width:150px;float:left;"class="form-control in"  name="commission" id="commission">
+									<input type="text" style="margin-left:22px;width:150px;float:left;"class="form-control in"  name="voucher" id="commission">
 									<span  class="span" style="margin-left:22px;float:left;padding-top:10px;">输入正数增加，负数减少</span>
 									<span style="margin-left:22px;float:left;padding-top:10px;"><a style="color:black" href="/index.php/manager/Member/voucherLst/id/{$data['uid']}">[查看明细]</a></span>
 							    </label>
@@ -98,8 +98,8 @@
 					    <tr>
 							<th width="200px" style="text-align: right;padding-right:10px;">是否为代理商：</th>
 							<th   align="left">  
-							    <label><input name="member" type="radio" value="1 or 2" {if condition="$data['member_type'] gt 0"}checked="checked"{/if}/>是 </label>
-							    <label><input name="member" type="radio" value="0" {if condition="$data['member_type'] eq 0"}checked="checked"{/if}/>否 </label>
+							    <label><input name="member" type="radio" value="2" {if condition="$data['member_type'] eq 2"}checked="checked"{/if}/>是 </label>
+							    <label><input name="member" type="radio" value="1 or 0" {if condition="$data['member_type'] lt 2"}checked="checked"{/if}/>否 </label>
 							</th>
 					    </tr>
 					    <tr>

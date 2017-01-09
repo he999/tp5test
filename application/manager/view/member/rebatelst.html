@@ -41,7 +41,6 @@
 						    <th width="20%">佣金</th>
 						    <th width="20%">帐变</th>
 						    <th width="20%">时间</th>
-						    <th width="20%">操作</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -55,8 +54,7 @@
 								{default/}<th>  </th><th> </th>
 						    {/switch}
 						    <th>{$vo.time|date="Y-m-d H:i",###}</th>
-						    <th><a onclick="return confirm('你确定要删除吗？')"  href="/index.php/manager/Member/jifenDel/id/{$vo.id}" style="cursor: pointer;">删除</a></th>    
-				        </tr>
+						</tr>
 				        {/volist}
 					</tbody>
 				</table>
