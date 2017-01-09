@@ -165,6 +165,7 @@ class Users extends Model
 				'email'=>$data['email'],
 				'moblie'=>$data['moblie'],     
 				'sex'=>$data['sex'],             
+				'member_type'=>$data['member'],             
             ]);
         $res2= Db::name('users_address')
         ->where($where)
@@ -198,7 +199,15 @@ class Users extends Model
             }
             Db::name('users_customers')->where($where)->update(['balance'=>$money]);          
             Db::name('users_customers')->where($where)->update(['voucher'=>$voucher]);          
-             
+            // $res7=Db::name('users_money')->where(['uid'=>$uid])->select();
+            // $commission=0;
+            // foreach ($res7 as $k => $v) {
+                 // $commission+=$v['income']-$v['expense'];
+            // }
+            // if($commission<0){
+               // $commission=0;
+            // }
+            // Db::name('users_customers')->where($where)->update(['commission'=> $commission]);   
         }
         // if($data['points']!=''){
                 // $res4=Db::name('users_points')->insert(['uid'=>$uid,'type'=>'管理员修改','points'=>$data['points'],'time'=>time()]);
