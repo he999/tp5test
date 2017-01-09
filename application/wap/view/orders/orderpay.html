@@ -60,8 +60,12 @@
 <p>商品总额&nbsp;:&nbsp;<span class="price">￥{$data.order_amount}元</span></p>
 <p>可使用财富券&nbsp;:&nbsp;<span class="price">￥{$voucher}元</span></p>
 <p>可使用佣金&nbsp;:&nbsp;{if($data.is_rebate) == 1}<span class="price">￥{$rebate}元</span>{else}<span class="price" style="color: #bbb;">不使用</span>{/if}</p>  
-<?php if($data['order_amount']-$voucher-$rebate <= 0){ $ma = 0; }else{ $ma = $data['order_amount']-$voucher-$rebate; } ?>        
-<p>应付款金额&nbsp;:&nbsp;<span class="price1">￥{if($data.is_rebate) == 1}{$ma}{else}{$data.order_amount-$voucher}{/if}元</span></p>        
+<?php 
+if($g['order_amount'] - $voucher <= 0){$mb = 0}else{
+  $mb = $g['order_amount'] - $voucher;
+}
+if($mb - $rebate <= 0){ $ma = 0; }else{ $ma = $mb - $rebate; } ?>
+{if($row.is_rebate) == 1}{$ma}{else}{$mb}{/if}元</span></p>       
 </div>
 		<div class="detail_dowm">
 			<div class="anniu1">
