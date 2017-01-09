@@ -70,7 +70,7 @@ class WeixinBase extends Controller
 			} else {
 				//非微信浏览器处理
 				//die("非微信浏览器");
-				session('uid','81');
+				session('uid','1');
         		session("open_id",'oSMR0t1SaQbjlhNAdSA75h9N1gqg');
 			}
 		}
