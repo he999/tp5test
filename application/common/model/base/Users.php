@@ -993,7 +993,7 @@ class Users extends Model
         ->alias('c')
         ->join('users u','c.uid = u.uid','left')
         ->where($where)
-        ->field('c.uid,c.nickname,c.points,c.face,u.create_time')
+        ->field('c.uid,c.nickname,c.face,u.create_time')
         ->select();
         if ($res) {
             $result['error_code'] = 0;
