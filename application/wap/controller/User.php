@@ -355,7 +355,8 @@ class User extends WeixinBase
      * @param:        void
      * Return:        void
      *************************************************/
-    public function ajaxCashAdd(){
+    public function ajaxCashAdd()
+    {
         $input = Request::instance()->param();
         $uid = session('uid');
         $row = Withdrawals::info($uid,['transit_time'=> '']);
