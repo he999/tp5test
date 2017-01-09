@@ -54,8 +54,11 @@ function butsubmit(){
 	var goodsid = myform.goods_id.value;
 	var grade = myform.grade.value;
 	var content = myform.content.value;
-	var xun = myform.xun.value;
-  alert(xun);
+  if ($("input[type='checkbox']").is(':checked')) {
+    var xun = myform.xun.value;
+  }else{
+    var xun = 0;
+  }
 	$.ajax({
         type :'post',
         url:"/index.php/wap/orders/ajaxcomment",
