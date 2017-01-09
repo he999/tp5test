@@ -139,7 +139,7 @@
                  <li style="">
                  <input type="hidden" id="cao" name='order_status' value="{$order}">
                 <?php for($i=$data['order_status'];$i<=4;$i+=1){ ?>
-                    <input type="button" onclick="chesubmit({$i})" name="operation" value="{$caozuo[$i]}"/>
+                    <input type="button" onclick="chesubmit({$i+1})" name="operation" value="{$caozuo[$i]}"/>
                 <?php } ?>                
                  </li>
             </ul>
