@@ -61,7 +61,6 @@ function butsubmit(){
         data :{order_id:orderid,goods_id:goodsid,grade:grade,content:content,xun:xun},
         dataType:'json',                       
         success: function(data){
-		alert('111');
            if (data.error_code == 0) {
                  mui.toast('操作成功');
                  setTimeout("window.location.href = '/index.php/wap/orders/orderendlist'",800);
