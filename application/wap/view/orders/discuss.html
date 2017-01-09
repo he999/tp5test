@@ -55,6 +55,7 @@ function butsubmit(){
 	var grade = myform.grade.value;
 	var content = myform.content.value;
 	var xun = myform.xun.value;
+  alert(xun);
 	$.ajax({
         type :'post',
         url:"/index.php/wap/orders/ajaxcomment",

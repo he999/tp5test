@@ -29,7 +29,13 @@ class Test extends controller
 
     
     public function test(){
-        dump(UsersVoucher::smsMessage(99));
+        //dump(UsersVoucher::smsMessage(99));
+    }
+
+    // 勿删 清除session
+    public function qiqiqi(){
+        session(null);
+        echo 'ok';
     }
 
     
