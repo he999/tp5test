@@ -719,7 +719,7 @@ class Users extends Model
         $res = Db::name('withdrawals')
         ->where(['id'=>$input['id']])
         ->update(['is_on'=>$input['type'],'transit_time'=>time()]);   
-        if ($res!==false) {
+        if ($res !== false) {
             $result['error_code'] = 0;
             $result['error_msg'] = "";
             $result['data'] =$res ;

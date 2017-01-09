@@ -316,8 +316,9 @@ class Member extends Manager
         zlog('====佣金提现=====');
         zlog($hongbao);
         zlog($data);
-					if($hongbao->pay($data))
-					{   
+					if($ap = $hongbao->pay($data))
+					{  
+        zlog($ap);
 						$result=users::withdrawalEdit($input,$check['data']['money'],$check['data']['uid']);
 						if($result['error_code']==0)
 						{
@@ -332,6 +333,7 @@ class Member extends Manager
 					{
 						js_alert('付款失败','/index.php/manager/Member/withdrawalRequest');   
 					}
+        zlog('====佣金提现end=====');
 				}else{
 					js_alert('付款失败','/index.php/manager/Member/withdrawalRequest');   
 				}
