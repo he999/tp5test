@@ -265,6 +265,9 @@ class User extends WeixinBase
      *************************************************/
     public function join()
     {   
+        $uid = session('uid');
+        $row = Users::myInfo($uid);
+        $this->assign('type',$row['data']['member_type']);
         return $this->fetch();
     }
 	
