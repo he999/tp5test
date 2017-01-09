@@ -52,11 +52,12 @@
           <td>
           <input type="hidden" name="id[]" value='0'>
           <span class="span" >订单金额满</span>
-<input type="text" style="width:100px;" class="form-control in" name="money[]"  value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
+<input type="text" style="width:100px;" class="form-control in" name="money[]"  value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')" onblur="onmoney(this)">
       <span class="span">元</span>
       </td><td>
       <span  class="span">可使用财富券</span>
-<input type="text" style="width:100px;" class="form-control in" name="voucher[]" value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
+<input type="text" style="width:100px;" class="form-control in" name="voucher[]" value="" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')"
+onblur="onvoucher(this)">
       <span class="span">元</span>
       </td>
       <td><a class="ang" >删除</a></td>
@@ -67,11 +68,11 @@
           <td>
           <input type="hidden" name="id[]" value='{$t.id}'>
           <span class="span" >订单金额满</span>
-<input type="text" style="width:100px;" class="form-control in" name="money[]" value="{$t.money}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
+<input type="text" style="width:100px;" class="form-control in" name="money[]" value="{$t.money}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')" onblur="onmoney(this)">
       <span class="span">元</span>
       </td><td>
       <span  class="span">可使用财富券</span>
-<input type="text" style="width:100px;" class="form-control in" name="voucher[]" value="{$t.voucher}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')">
+<input type="text" style="width:100px;" class="form-control in" name="voucher[]" value="{$t.voucher}" onpaste="this.value=this.value.replace(/[^\d-]/g,'')" onkeyup="this.value=this.value.replace(/[^\d-]/g,'')" onblur="onvoucher(this)">
       <span class="span">元</span>
       </td>
       <td><a class="ang" onclick="can_del({$t.id},{$t.id})">删除</a></td>
@@ -100,6 +101,25 @@
 </div>
 </body>
 <script type="text/javascript">
+function onmoney(obj){
+  // alert(.length);
+  for (var i = 0; i < $("input[name='money[]']").length; i++) {
+    // alert($("input[name='money[]']:eq("+[i]+")").val())
+    if ($("input[name='money[]']:eq("+[i]+")").val() == $(obj).val()) {
+      alert('不可以有重复的订单金额条件');
+      $(obj).val('');
+    }
+    
+  }
+}
+function onvoucher(obj){
+
+  if ($(obj).val() > $(obj).parent("td").prev("td").children("input[name='money[]']").val() ) {
+    alert('可使用财富券必须小于订单金额');
+    $(obj).val('0');
+  }
+  
+}
 function can_del(id,did){
   
     if (confirm('是否确删除') ) {
