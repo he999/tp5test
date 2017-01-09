@@ -406,7 +406,7 @@ class Orders extends WeixinBase
         }else{
             $voucher = $a;
         }
-        
+        $rebate = UsersRebate::countRebate(session('uid'))['balance_rebate'];//佣金
         $money = $data['order_amount'] - $voucher;
         $yuemoney = $row['balance'];
         if ($data['is_rebate'] == 1) {

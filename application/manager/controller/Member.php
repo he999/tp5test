@@ -21,7 +21,6 @@ class Member extends Manager
         $url=[];
         $where['role']=array("eq","customer");
         $where['status']=array("eq","1");
-        $where['member_type']=array("gt","0");
         if($_GET){
             if(!empty($input_data['nickname'])){
                 $url['nickname']=$input_data['nickname'];
@@ -29,26 +28,20 @@ class Member extends Manager
             }
 		    if(!empty($input_data['member_type'])){
 				if($input_data['member_type']=='普'||$input_data['member_type']=='通'||$input_data['member_type']=='普通'){
-					$input_data['member_type']='1';
+					$input['member_type']='1';
 				}
 				if($input_data['member_type']=='代'||$input_data['member_type']=='理'||$input_data['member_type']=='代理'){
-					$input_data['member_type']='2';
+					$input['member_type']='2';
 				}
-                $url['member_type']=$input_data['member_type'];
-                $where['member_type']=array("like",'%'.$input_data['member_type'].'%');
+                $url['member_type']=$input['member_type'];
+                $where['member_type']=array("like",'%'.$input['member_type'].'%');
             }
         }
         $result=users::memberLst(15,$where,$url);
         $nickname = !empty($input_data['nickname'])?$input_data['nickname']:'';
-<<<<<<< HEAD
 		$member_type = !empty($input_data['member_type'])?$input_data['member_type']:'';
         $this->assign('nickname',$nickname);
 		$this->assign('member_type',$member_type);
-=======
-        $member_type = !empty($input_data['member_type'])?$input_data['member_type']:'';
-        $this->assign('nickname',$nickname);
-        $this->assign('member_type',$member_type);
->>>>>>> 37f7b5babb7095751f2082715b7d75df56d68a82
         $this->assign('lst',$result['data']);
         $this->assign('lst2',$result['data2']);
         return  $this->fetch();        
