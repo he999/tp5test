@@ -5,7 +5,7 @@ use think\Model;
 use think\Db;
 use app\common\model\base\CommonModel;
 use app\common\model\base\Users;
-use app\common\model\base\UsersParent;
+use app\common\model\UsersParent;
 use app\common\model\base\UsersVoucher;
 use app\common\model\OrdersGoods;
 use app\common\model\Goods;
@@ -182,8 +182,8 @@ class UsersRebate extends Model
         //对应 金额
         $rebsum = 0;
         $rebsum1 = 0; $vousum1 = 0;
-        $rebsum2 = 0; $vousum1 = 0;
-        $rebsum3 = 0; $vousum1 = 0;
+        $rebsum2 = 0; $vousum2 = 0;
+        $rebsum3 = 0; $vousum3 = 0;
 
         foreach ($goods['data'] as $key => $value) {
             $rebsum += (int)$value['sum_brokerage']*$reb;
@@ -203,7 +203,7 @@ class UsersRebate extends Model
             'order_id' => $order_id,
             'uid' => $uid
         ];
-        self::incomeAdd($add);
+        self::incomeRebateAdd($add);
 
         $pid1 = UsersParent::getParent($uid);
         if ($pid1['error_code'] == 0) {
@@ -215,7 +215,7 @@ class UsersRebate extends Model
                 'order_id' => $order_id,
                 'uid' => $pid1['pid']
             ];
-            self::incomeAdd($add1);
+            self::incomeRebateAdd($add1);
             $cher1 = ['uid' => $pid1['pid'],
                 'des' => '返佣券',
                 'type' => 'buy',
@@ -234,7 +234,7 @@ class UsersRebate extends Model
                     'order_id' => $order_id,
                     'uid' => $pid2['pid']
                 ];
-                self::incomeAdd($add2);
+                self::incomeRebateAdd($add2);
                 $cher1 = ['uid' => $pid2['pid'],
                     'des' => '返佣券',
                     'type' => 'buy',
@@ -253,7 +253,7 @@ class UsersRebate extends Model
                         'order_id' => $order_id,
                         'uid' => $pid3['pid']
                     ];
-                    self::incomeAdd($add3);
+                    self::incomeRebateAdd($add3);
                     $cher1 = ['uid' => $pid3['pid'],
                         'des' => '返佣券',
                         'type' => 'buy',
