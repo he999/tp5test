@@ -189,9 +189,9 @@ class UsersRebate extends Model
 
         //对应 金额
         $rebsum = 0;
-        $rebsum21 = 0; $vousum21 = 0;
-        $rebsum22 = 0; $vousum22 = 0;
-        $rebsum23 = 0; $vousum23 = 0;
+        $rebsum1 = 0; $vousum1 = 0;
+        $rebsum2 = 0; $vousum2 = 0;
+        $rebsum3 = 0; $vousum3 = 0;
 
         $rebsum21 = 0; $vousum21 = 0;
         $rebsum22 = 0; $vousum22 = 0;
