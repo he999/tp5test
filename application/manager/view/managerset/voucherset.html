@@ -102,12 +102,12 @@ onblur="onvoucher(this)">
 </body>
 <script type="text/javascript">
 function onmoney(obj){
-  // alert(.length);
+
   for (var i = 0; i < $("input[name='money[]']").length; i++) {
-    // alert($("input[name='money[]']:eq("+[i]+")").val())
     if ($("input[name='money[]']:eq("+[i]+")").val() == $(obj).val()) {
       alert('不可以有重复的订单金额条件');
       $(obj).val('');
+      $(obj).parent("td").next("td").children("input[name='voucher[]']").val('');
     }
     
   }
