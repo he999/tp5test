@@ -47,31 +47,31 @@
 							 </td>
 					    </tr>
 					    <tr>
-							 <td class="td1">名称:</td>
-							 <td class="td2">
-									   <input type="text" style="width:24%; float:left" class="form-control" name="name" />
-							 </td>
-					  </tr>
-					   <tr>
-							 <td class="td1">负责人:</td>
-							 <td class="td2">
-									   <input type="text" style="width:24%; float:left" class="form-control" name="responsible" />
-							 </td>
-					  </tr>
-					   <tr>
-							 <td class="td1">手机号:</td>
-							 <td class="td2">
-									   <input type="text" style="width:24%; float:left" class="form-control" name="phone" />
-							 </td>
-					  </tr>
-					  <tr class="tr1"  height="75px">
-							 <td class="td1">地址:</td>
-							 <td class="td2"><input type="textarea" style="height:50px; width:33%; " name="address" class="form-control"/></td>
-					  </tr>
-					   <tr  class="tr1">
-							 <td class="td1"></td>
-							 <td class="td2"><input type="submit" id="add" value="确认保存"  class="btn btn-default"></td>
-					  </tr>
+							<td class="td1">名称:</td>
+							<td class="td2">
+							   <input type="text" style="width:24%; float:left" class="form-control" name="name" />
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">负责人:</td>
+							<td class="td2">
+							   <input type="text" style="width:24%; float:left" class="form-control" name="responsible" />
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">手机号:</td>
+							<td class="td2">
+								<input type="text" style="width:24%; float:left" class="form-control" name="phone" />
+							</td>
+					    </tr>
+					    <tr class="tr1"  height="75px">
+							<td class="td1">地址:</td>
+							<td class="td2"><input type="textarea" style="height:50px; width:33%; " name="address" class="form-control"/></td>
+					    </tr>
+					    <tr class="tr1">
+							<td class="td1"></td>
+							<td class="td2"><input type="submit" id="add" value="确认保存"  class="btn btn-default"></td>
+					    </tr>
 				  </table>
                 </form>	
 			</div> 
@@ -80,6 +80,23 @@
 	</div>
 </body>
 <script>
+    $("input[name='number']").blur(function(){
+
+            var number = $("input[name='number']").val(); 
+            $.ajax({
+                type: "post",
+                url: "/index.php/manager/Shippingpickup/verifyAjax",
+                data: {number:number},
+                success: function (data) {
+                    if(data == "1"){
+                       alert('门店编码已经存在');
+                      $("input[name='number']").val("");
+                      $("input[name='number']").focus();
+                    }
+                }
+            });
+ 
+    });
     $('#add').click(function(){
         var number = $("input[name='number']").val();
         var name = $("input[name='name']").val();

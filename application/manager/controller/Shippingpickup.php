@@ -1,6 +1,5 @@
 <?php
 namespace app\manager\controller;
-
 use think\Session;
 use think\Controller;
 use think\Response;
@@ -60,8 +59,9 @@ class Shippingpickup extends Manager
 				'phone'=> $input_data['phone'],
 				'address'=> $input_data['address'],
 			];
-			if(Shipping::addShippingPickup($data))
-			{     
+			$res = Shipping::addShippingPickup($data);
+			if($res)
+			{   
 				$this->jsAlert('添加成功','/index.php/manager/Shippingpickup/index'); 
 			}
 			else
@@ -104,7 +104,6 @@ class Shippingpickup extends Manager
 		return $this->fetch();
     }
 	
-	
 	/*************************************************  
     *ClassName:     del
     *Description:   门店删除
@@ -123,5 +122,24 @@ class Shippingpickup extends Manager
            $this->jsAlert('删除失败！','/index.php/manager/Shippingpickup/index');
         } 
     }
-	
+	/**
+     * verifyAjax  是否存在门店编号
+     * @param    array                   $data 输入数据
+     * @return   int                     成功返回ok
+     */
+    public function verifyAjax()
+    {
+        $request = Request::instance()->param();
+        if(isset($request['number'])){
+            $where['number'] = $request['number'];
+        }
+        if(isset($request['number'])){
+			$good_info = Shipping::ShippingPickupOne($where);
+			if($good_info['error_code']==0){
+				return 1;
+			}else{
+				return 2;
+			}
+        }
+    }
 }
