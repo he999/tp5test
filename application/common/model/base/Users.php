@@ -160,41 +160,45 @@ class Users extends Model
         $where['uid'] = $uid;
         $res = Db::name('users_customers')
         ->where($where)
-        ->update(['nickname'=>$data['nickname'],
-                         'email'=>$data['email'],
-                         'moblie'=>$data['moblie'],     
-                         'sex'=>$data['sex'],             
+        ->update([
+				'nickname'=>$data['nickname'],
+				'email'=>$data['email'],
+				'moblie'=>$data['moblie'],     
+				'sex'=>$data['sex'],             
             ]);
         $res2= Db::name('users_address')
         ->where($where)
-        ->update(['zipcode'=>$data['zipcode'],  
-                         'address'=>$data['address'],    
-                         'province'=>$data['province'],   
-                         'city'=>$data['city'],   
-                         'district'=>$data['district'],  
-                         'consignee'=>$data['consignee'],                   
+        ->update([
+				'zipcode'=>$data['zipcode'],  
+				'address'=>$data['address'],    
+				'province'=>$data['province'],   
+				'city'=>$data['city'],   
+				'district'=>$data['district'],  
+				'consignee'=>$data['consignee'],                   
             ]);
-        if($data['commission']!=''){
-             if($data['commission']>0){
+        if($data['commission']!=''||$data['voucher']!=''){
+            if($data['commission']>0){
                 $res3=Db::name('users_money')->insert(['des'=>'佣金','uid'=>$uid,'type'=>'commission','income'=>$data['commission'],'time'=>time()]);               
             }else{
                 $res3=Db::name('users_money')->insert(['des'=>'佣金','uid'=>$uid,'type'=>'commission','expense'=>-$data['commission'],'time'=>time()]);
             }
+			if($data['voucher']>0){
+                $res33=Db::name('users_money_voucher')->insert(['des'=>'佣金','uid'=>$uid,'type'=>'commission','income'=>$data['voucher'],'time'=>time()]);               
+            }else{
+                $res33=Db::name('users_money_voucher')->insert(['des'=>'佣金','uid'=>$uid,'type'=>'buy','expense'=>-$data['voucher'],'time'=>time()]);
+            }
             $res10=Db::name('users_customers')->find($uid);
             $money=$res10['balance']+$data['commission'];
+            $voucher=$res10['voucher']+$data['voucher'];
             if($money<0){
                 $money=0;
             }
+			if($voucher<0){
+                $voucher=0;
+            }
             Db::name('users_customers')->where($where)->update(['balance'=>$money]);          
-            $res7=Db::name('users_money')->where(['uid'=>$uid])->select();
-            $commission=0;
-            foreach ($res7 as $k => $v) {
-                 $commission+=$v['income']-$v['expense'];
-            }
-            if($commission<0){
-               $commission=0;
-            }
-            Db::name('users_customers')->where($where)->update(['commission'=> $commission]);   
+            Db::name('users_customers')->where($where)->update(['voucher'=>$voucher]);          
+             
         }
         // if($data['points']!=''){
                 // $res4=Db::name('users_points')->insert(['uid'=>$uid,'type'=>'管理员修改','points'=>$data['points'],'time'=>time()]);
