@@ -89,10 +89,14 @@
 <p>下单时间&nbsp;:&nbsp;<span class="price" style="color: #bbb;">{$g.create_time|date ="Y-m-d H:i",###}</span></p>
 <p>商品总额&nbsp;:&nbsp;<span class="price">￥{$g.order_amount}元</span></p>
 <p>可使用财富券&nbsp;:&nbsp;<span class="price">￥{$voucher}元</span></p>
-<p>可使用佣金&nbsp;:&nbsp;{if($row.is_rebate) == 1}<span class="price">￥{$rebate}元</span>{else}<span class="price" style="color: #bbb;">不使用</span>{/if}</p>   
+<p>可使用佣金&nbsp;:&nbsp;{if($row.is_rebate) == 1}<span class="price">￥{$rebate}元</span>{else}<span class="price" style="color: #bbb;">不使用</span>{/if}</p>
+<?php 
+if($g['order_amount'] - $voucher <= 0){ $mb = 0;}else{
+  $mb = $g['order_amount'] - $voucher;
+}
+if($mb - $rebate <= 0){ $ma = 0; }else{ $ma = $mb - $rebate; } ?>
 <p>应付款金额&nbsp;:&nbsp;<span class="price1">￥
-<?php if($g['order_amount']-$voucher-$rebate <= 0){ $ma = 0; }else{ $ma = $g['order_amount']-$voucher-$rebate; } ?>
-{if($row.is_rebate) == 1}{$ma}{else}{$g.order_amount-$voucher}{/if}元</span></p>				
+{if($row.is_rebate) == 1}{$ma}{else/}{$mb}{/if}元</span></p>				
 </div> 
 		<div class="detail_dowm">
 			<div class="anniu1">
@@ -103,7 +107,7 @@
                      <a onClick="orderpay({$g.order_id})" class="on_comment" style="background-color: #E24615; color:#fff;width:100%;">去支付</a> 
                     {/if}}
                 {elseif condition="$g.order_status eq 3"}
-                     <a onClick="cancel_order({$g.order_id},2)" class="on_comment" style="background-color: #E24615; color:#fff;width:100%;">确认取货</a> 
+                     <a onClick="orderok({$g.order_id})" class="on_comment" style="background-color: #E24615; color:#fff;width:100%;">确认取货</a> 
                 {/if}   
             </div> 
 		</div>
@@ -127,20 +131,30 @@ function orderyuepay(id){
   location.href="/index.php/wap/orders/orderyuepay/order_id/"+id;
 }
 
-function  orderStatusUp(id,ele){   
- 
+function orderok(id){
+    var content = '是否确认收货';
+    mui.confirm(content, function(e) {
+        if (e.index == 1) {
+           orderStatusUp(id);
+        }
+       
+    })
+}
+
+function  orderStatusUp(id){    
     $.ajax({
         type : "POST",
-        url:"/index.php/wap/orders/ajaxcomment",
-        data :{id:id,type:ele} ,
+        url:"/index.php/wap/orders/ajaxordersover",
+        data :{order_id:id} ,
         dataType:'json',                       
-        success: function(data){
+        success: function(data){    
            if (data.error_code == 0) {
-              mui.toast('操作成功');
-              setTimeout("window.location.href = '/index.php/wap/orders/orderalllist'",800);
+                mui.toast('操作成功');
+                setTimeout("/index.php/wap/orders/orderendlist",800);
+                
            }
            else{
-                 mui.toast('操作失败');
+               mui.toast('操作失败');
                 setTimeout("window.location.reload()",800);
            }
         }

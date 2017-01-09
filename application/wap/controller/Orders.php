@@ -463,6 +463,17 @@ class Orders extends WeixinBase
             $abc = 0;
         }
         if ($res['error_code'] == 0) {
+            if ($voucher > 0) {
+                $voucherdata = [
+                    'des' => '购买',
+                    'type' => 'buy',
+                    'expense' => $voucher,
+                    'time' => time(),
+                    'order_id' => $order_id,
+                    'uid' => $uid
+                ];
+                UsersVoucher::expenseVoucherAdd($voucherdata);
+            }
             $datas['order_status'] = 2;
             $datas['is_pay'] = 1;
             $datas['pay_time'] = time();

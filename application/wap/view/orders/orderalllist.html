@@ -59,15 +59,13 @@
 				    <dd class="pice"> <em> </em> </dd>                  
 		        </dl>
                 {/volist}
-            </a>
-                <div class="anniu" style="width:95%">
-                {if($l.pay_code == 2)}
-                  <span style="cursor:pointer; border:1px solid red; color:red" onclick="orderyuepay({$l.order_id})" >去结算</span>
-                {elseif($l.pay_code == 1)}
-                  <span style="cursor:pointer; border:1px solid red; color:red" onclick="orderpay({$l.order_id})" >去结算</span>
-                {/if}
-                </div>
             
+                <div class="anniu" style="width:95%">
+
+                  <span style="cursor:pointer; border:1px solid red; color:red" >去结算</span>
+              
+                </div>
+            </a>
        </div> 
        {/volist}
     </div>

@@ -235,7 +235,7 @@ class UsersRebate extends Model
                     'uid' => $pid2['pid']
                 ];
                 self::incomeRebateAdd($add2);
-                $cher1 = ['uid' => $pid2['pid'],
+                $cher2 = ['uid' => $pid2['pid'],
                     'des' => '返佣券',
                     'type' => 'buy',
                     'income'=>$vousum2,
@@ -254,7 +254,7 @@ class UsersRebate extends Model
                         'uid' => $pid3['pid']
                     ];
                     self::incomeRebateAdd($add3);
-                    $cher1 = ['uid' => $pid3['pid'],
+                    $cher3 = ['uid' => $pid3['pid'],
                         'des' => '返佣券',
                         'type' => 'buy',
                         'income'=>$vousum3,
