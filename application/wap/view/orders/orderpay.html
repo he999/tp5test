@@ -65,7 +65,7 @@ if($data['order_amount'] - $voucher <= 0){ $mb = 0; }else{
   $mb = $data['order_amount'] - $voucher;
 }
 if($mb - $rebate <= 0){ $ma = 0; }else{ $ma = $mb - $rebate; } ?>
-{if($data.is_rebate) == 1}{$ma}{else}{$mb}{/if}元</span></p>       
+{if($data.is_rebate) == 1}{$ma}{else/}{$mb}{/if}元</span></p>       
 </div>
 		<div class="detail_dowm">
 			<div class="anniu1">
