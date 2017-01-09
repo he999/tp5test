@@ -311,7 +311,7 @@ class Member extends Manager
 					$data['appid'] = $res['appid']['value'];
 					$data['mchid'] = $res['mchid']['value'];
 					$data['money'] =$check['data']['money'];
-					$data['info'] = '书社提现';
+					$data['info'] = '佣金提现';
 					$hongbao = new Hongbao;
 					if($hongbao->pay($data))
 					{   
