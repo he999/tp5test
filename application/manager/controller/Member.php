@@ -313,6 +313,9 @@ class Member extends Manager
 					$data['money'] =$check['data']['money'];
 					$data['info'] = '佣金提现';
 					$hongbao = new Hongbao;
+        zlog('====佣金提现=====');
+        zlog($hongbao);
+        zlog($data);
 					if($hongbao->pay($data))
 					{   
 						$result=users::withdrawalEdit($input,$check['data']['money'],$check['data']['uid']);
