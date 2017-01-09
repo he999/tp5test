@@ -48,6 +48,17 @@ class Notify
         }else{
             $voucher = $a;
         }
+        if ($voucher > 0) {
+            $voucherdata = [
+                'des' => '购买',
+                'type' => 'buy',
+                'expense' => $voucher,
+                'time' => time(),
+                'order_id' => $order_id,
+                'uid' => $uid
+            ];
+            UsersVoucher::expenseVoucherAdd($voucherdata);
+        }
         if ($res['data']['is_rebate'] == 1) {
             $rebate = UsersRebate::countRebate($uid)['balance_rebate'];//佣金
             $pays = [
