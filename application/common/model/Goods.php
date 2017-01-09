@@ -204,7 +204,7 @@ class Goods extends Model
      */
     static public function getWhereList($where)
     {
-        if($data = Db::name('goods')->field("goods_id,sum_brokerage")->where($where)->select())
+        if($data = Db::name('goods')->field("goods_id,sum_brokerage,sum_voucher")->where($where)->select())
         {
             $result['error_code'] = 0;
             $result['error_msg'] = '';

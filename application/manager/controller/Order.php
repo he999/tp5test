@@ -48,7 +48,7 @@ class Order extends Manager
                 $hao = orders::edit($input['id'],['is_dels' => 1]);
                 $num=1;
             }else{
-                $hao = orders::edit($input['id'],['order_status' => $order]);
+                $hao = orders::edit($input['id'],['order_status' => $order+1]);
                 $num=2;
             }
             

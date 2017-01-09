@@ -689,7 +689,13 @@ class User extends WeixinBase
         if ($res['error_code'] == 0) {
             $data = $res['data'];
         }else{
-            $data = '';
+            $data['face'] = '';
+            $data['member_type'] = '';
+            $data['uid'] = '';
+            $data['nickname'] = '';
+            $data['balance'] = '';
+            $data['commission'] = '';
+            $data['voucher'] = '';
         }
         $this->assign('qq',$qq);
         $this->assign('data',$data);

@@ -50,18 +50,21 @@
 <script language="javascript">
 function butsubmit(){
 
-    var orderid = myform.order_id.value;
+  var orderid = myform.order_id.value;
 	var goodsid = myform.goods_id.value;
 	var grade = myform.grade.value;
 	var content = myform.content.value;
-	var xun = myform.xun.value;
+  if ($("input[type='checkbox']").is(':checked')) {
+    var xun = myform.xun.value;
+  }else{
+    var xun = 0;
+  }
 	$.ajax({
         type :'post',
         url:"/index.php/wap/orders/ajaxcomment",
         data :{order_id:orderid,goods_id:goodsid,grade:grade,content:content,xun:xun},
         dataType:'json',                       
         success: function(data){
-		alert('111');
            if (data.error_code == 0) {
                  mui.toast('操作成功');
                  setTimeout("window.location.href = '/index.php/wap/orders/orderendlist'",800);

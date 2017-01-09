@@ -65,6 +65,7 @@ class WeixinBase extends Controller
 					session("open_id", $open_id);
                 	session("uid", $uid);
 				}else{
+					session(null);
 					die("未关注");
 				}
 			} else {

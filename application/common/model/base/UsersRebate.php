@@ -5,6 +5,11 @@ use think\Model;
 use think\Db;
 use app\common\model\base\CommonModel;
 use app\common\model\base\Users;
+use app\common\model\base\UsersParent;
+use app\common\model\base\UsersVoucher;
+use app\common\model\OrdersGoods;
+use app\common\model\Goods;
+
 
 /*************************************************  
 *ClassName:     UsersRebate

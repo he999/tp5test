@@ -84,9 +84,6 @@ class Orders extends WeixinBase
             $arr['error_msg'] == $validate->getError();
             return $arr;
         }
-        if (isset($input['xun'])) {
-            $data['is_hide'] = $input['xun'];
-        }
         $order_id = $input['order_id'];
         $goods_id = $input['goods_id'];
         $uid = session('uid');
@@ -95,6 +92,7 @@ class Orders extends WeixinBase
             'grade' => $input['grade'],
             'goods_id' => $goods_id,
             'content' => $input['content'],
+            'is_hide' => $input['xun'],
             'time' => time(),
         ];
         $res = GoodsComment::add($data);

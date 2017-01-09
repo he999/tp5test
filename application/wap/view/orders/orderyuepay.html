@@ -77,12 +77,14 @@ var key = true;
 function cancelll(){
     if (key) {
       mui.confirm('是否确支付', function(e) {
-      if (e.index == 1) {
-        $('#confi').text('支付中，请稍等');
-         AjaxPay();
-      }
-    });
-      key = false;
+        if (e.index == 1) {
+          key = false;
+          $('#confi').text('支付中，请稍等');
+           AjaxPay();
+        }else{
+          return;
+        }
+      });
     }else{
       return;
     }
